@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...services.map((service) => ({
       url: `${siteConfig.url}/${service.slug}`,
     })),
+    { url: `${siteConfig.url}/contact` },
     { url: `${siteConfig.url}/privacy` },
     { url: `${siteConfig.url}/cookies` },
     { url: `${siteConfig.url}/terms` },
