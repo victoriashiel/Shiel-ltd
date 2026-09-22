@@ -19,10 +19,6 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     if (!open) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
