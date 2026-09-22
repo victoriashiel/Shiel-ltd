@@ -18,8 +18,6 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => setOpen(false), [pathname]);
-
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
       <div className="header-shell">
@@ -45,8 +43,12 @@ export function SiteHeader() {
       </div>
       <div id="mobile-navigation" className={`mobile-nav${open ? " is-open" : ""}`}>
         <nav aria-label="Mobile navigation">
-          {navigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
-          <Link className="button button-dark" href="/contact">Talk to us</Link>
+          {navigation.map((item) => (
+            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+              {item.label}
+            </Link>
+          ))}
+          <Link className="button button-dark" href="/contact" onClick={() => setOpen(false)}>Talk to us</Link>
         </nav>
       </div>
     </header>
