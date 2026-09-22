@@ -29,11 +29,6 @@ export default function ContactPage() {
           </p>
 
           <div className="contact-methods">
-            <a className="contact-method" href={`mailto:${siteConfig.email}`}>
-              <span>Email</span>
-              <strong>{siteConfig.email}</strong>
-              <span aria-hidden="true">↗</span>
-            </a>
             <a
               className="contact-method"
               href={siteConfig.whatsappHref}
