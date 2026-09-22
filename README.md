@@ -1,6 +1,6 @@
 # Shiel Ltd website
 
-Modern accountancy website for Shiel Ltd, built with Next.js 16.3, React 19.3 and Tailwind CSS 4.3.
+Modern accountancy website for Shiel Accountants, built with Next.js 16.3, React 19.3 and Tailwind CSS 4.3.
 
 ## Environment
 
@@ -12,7 +12,7 @@ NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION and NEXT_PUBLIC_BING_SITE_VERIFICATION are 
 
 ## SEO
 
-The application includes route-specific metadata, canonical URLs, sitemap.xml, robots.txt, Open Graph metadata and image generation, Organization/Service/BreadcrumbList JSON-LD, semantic HTML, internal links, a web manifest and app icon.
+The application includes route-specific metadata, canonical URLs, sitemap.xml, robots.txt, Open Graph metadata and image generation, AccountingService/Service/BreadcrumbList JSON-LD, semantic HTML, internal links, a web manifest and app icon.
 
 ## Performance and accessibility
 
@@ -36,3 +36,18 @@ The interface uses native CSS view transitions and scroll-driven animation where
 ## Build quality
 
 GitHub Actions runs linting, TypeScript checks and a production Next.js build on every push and pull request. Actions are pinned to immutable release SHAs. The project targets the current Next.js 16.3 Active LTS line on Node.js 24.
+
+
+## Core site structure
+
+The customer journey is intentionally focused around five commercial pages:
+
+- Home
+- Tax & Compliance
+- Bookkeeping & Payroll
+- Advisory & Growth
+- International Accounting
+
+Privacy, Cookies and Terms remain available as utility pages in the footer. Legacy marketing and service URLs redirect into the focused structure so existing links do not dead-end.
+
+WhatsApp is the primary enquiry route and can be changed through NEXT_PUBLIC_WHATSAPP_DISPLAY and NEXT_PUBLIC_WHATSAPP_URL.
