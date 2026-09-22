@@ -2,6 +2,29 @@ import Link from "next/link";
 import { FinanceCanvas } from "@/components/finance-canvas";
 import { services } from "@/lib/services";
 
+const faqs = [
+  {
+    question: "Can you work with us if we are based outside Europe?",
+    answer: "Yes. Shiel is European based but supports clients internationally. Where a matter needs jurisdiction-specific legal or tax advice, we can coordinate the accounting information with the appropriate local specialist rather than pretending one firm can replace every local adviser.",
+  },
+  {
+    question: "Do we have to move all of our accounting to Shiel?",
+    answer: "No. We can take on a defined piece of work, support an existing finance function, or handle an ongoing set of services. The scope should match what your business actually needs.",
+  },
+  {
+    question: "What do you need before you can quote?",
+    answer: "Usually the entity or individual involved, the countries connected to the work, the services you need, your current records and any upcoming deadlines. If something is unclear, we can establish that during the first conversation.",
+  },
+  {
+    question: "Can you help when more than one jurisdiction is involved?",
+    answer: "Yes. Cross-border work is one of the situations the firm is designed for. We keep the accounting and reporting picture coherent and work alongside local specialists where their jurisdiction-specific input is required.",
+  },
+  {
+    question: "Do you only work with companies?",
+    answer: "No. We work with companies, founders, contractors and individuals where the accounting or tax work fits our scope and experience.",
+  },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -87,6 +110,25 @@ export default function HomePage() {
           <article className="insight-card reveal"><span>VAT</span><h3>When VAT becomes an operational issue, not just a filing.</h3><p>Why sales location, invoices and cash timing need to match the return.</p></article>
         </div>
         <Link href="/insights" className="text-link">View insights <span aria-hidden="true">→</span></Link>
+      </section>
+
+      <section className="section-pad faq-section">
+        <div className="section-heading reveal">
+          <p className="eyebrow">Common questions</p>
+          <h2>What clients usually want to know first.</h2>
+          <p>Enough detail to decide whether it makes sense to speak, without turning the website into a technical manual.</p>
+        </div>
+        <div className="faq-list">
+          {faqs.map((faq) => (
+            <details className="faq-item reveal" key={faq.question}>
+              <summary>
+                <span>{faq.question}</span>
+                <span className="faq-plus" aria-hidden="true">+</span>
+              </summary>
+              <p>{faq.answer}</p>
+            </details>
+          ))}
+        </div>
       </section>
 
       <section className="cta-panel section-pad reveal">
