@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteConfig } from "@/lib/site";
+import { safeJsonLd } from "@/lib/seo";
 import "./globals.css";
+import "./polish.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -12,7 +14,13 @@ export const metadata: Metadata = {
     template: "%s | Shiel",
   },
   description: siteConfig.description,
+  category: "accounting",
   alternates: { canonical: "/" },
+  formatDetection: {
+    telephone: false,
+    address: false,
+    email: false,
+  },
   openGraph: {
     type: "website",
     locale: "en_GB",
@@ -52,13 +60,35 @@ export const viewport: Viewport = {
 
 const organisationSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: siteConfig.legalName,
-  alternateName: siteConfig.name,
-  url: siteConfig.url,
-  email: siteConfig.email,
-  description: siteConfig.description,
-  areaServed: ["Europe", "Worldwide"],
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
+      name: siteConfig.legalName,
+      alternateName: siteConfig.name,
+      url: siteConfig.url,
+      email: siteConfig.email,
+      description: siteConfig.description,
+      areaServed: ["Europe", "Worldwide"],
+      knowsAbout: [
+        "Company accounts",
+        "Tax compliance",
+        "VAT",
+        "Payroll",
+        "Bookkeeping",
+        "Management accounts",
+        "Cross-border accounting",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`,
+      url: siteConfig.url,
+      name: siteConfig.name,
+      publisher: { "@id": `${siteConfig.url}/#organization` },
+      inLanguage: "en-GB",
+    },
+  ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -71,7 +101,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SiteFooter />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organisationSchema) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(organisationSchema) }}
         />
       </body>
     </html>
