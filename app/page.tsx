@@ -34,17 +34,12 @@ export default function HomePage() {
             compliance, bookkeeping, payroll, advisory work and international accounting.
           </p>
           <div className="hero-actions">
-            <a
-              className="button button-whatsapp"
-              href={siteConfig.whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-            >
-              WhatsApp us <span aria-hidden="true">↗</span>
-            </a>
+            <Link className="button button-dark" href="/contact">
+              Contact us <span aria-hidden="true">↗</span>
+            </Link>
             <a className="button button-quiet" href="#services">Explore services <span aria-hidden="true">↓</span></a>
           </div>
-          <p className="hero-note">Available on WhatsApp for queries · {siteConfig.whatsappDisplay}</p>
+          <p className="hero-note">Email {siteConfig.email} or use the contact form.</p>
         </div>
         <FinanceCanvas />
       </section>
@@ -161,18 +156,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="cta-panel section-pad reveal" id="contact">
+      <section className="cta-panel section-pad reveal">
         <p className="eyebrow">Have a query?</p>
-        <h2>Message Shiel Accountants on WhatsApp.</h2>
-        <p>Tell us what you need help with and where you are based. We can take it from there.</p>
-        <a
-          className="button button-whatsapp"
-          href={siteConfig.whatsappHref}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {siteConfig.whatsappDisplay} <span aria-hidden="true">↗</span>
-        </a>
+        <h2>Tell us what you need help with.</h2>
+        <p>Choose the closest enquiry type, give us the essentials and we can take it from there.</p>
+        <Link className="button button-dark" href="/contact">
+          Contact us <span aria-hidden="true">↗</span>
+        </Link>
       </section>
     </>
   );
