@@ -2,39 +2,55 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-import { siteConfig } from "@/lib/site";
+
+type Status = "idle" | "sending" | "sent" | "error";
 
 export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "ready">("idle");
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
 
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setStatus("sending");
+    setError("");
 
-    const form = new FormData(event.currentTarget);
-    const name = String(form.get("name") || "");
-    const email = String(form.get("email") || "");
-    const phone = String(form.get("phone") || "");
-    const business = String(form.get("business") || "");
-    const country = String(form.get("country") || "");
-    const enquiryType = String(form.get("enquiryType") || "");
-    const message = String(form.get("message") || "");
+    const form = event.currentTarget;
+    const data = new FormData(form);
 
-    const subject = encodeURIComponent(`${enquiryType} enquiry from ${name}`);
-    const body = encodeURIComponent(
-      [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `Phone: ${phone || "Not provided"}`,
-        `Business / organisation: ${business || "Not provided"}`,
-        `Country / region: ${country}`,
-        `Enquiry type: ${enquiryType}`,
-        "",
-        message,
-      ].join("\n"),
-    );
+    const payload = {
+      name: String(data.get("name") || ""),
+      email: String(data.get("email") || ""),
+      phone: String(data.get("phone") || ""),
+      business: String(data.get("business") || ""),
+      country: String(data.get("country") || ""),
+      enquiryType: String(data.get("enquiryType") || ""),
+      message: String(data.get("message") || ""),
+      companyWebsite: String(data.get("companyWebsite") || ""),
+    };
 
-    setStatus("ready");
-    window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || "We could not send your enquiry.");
+      }
+
+      form.reset();
+      setStatus("sent");
+    } catch (submitError) {
+      setStatus("error");
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : "We could not send your enquiry. Please try again.",
+      );
+    }
   }
 
   return (
@@ -42,29 +58,29 @@ export function ContactForm() {
       <div className="form-grid two-col">
         <label>
           <span>Name</span>
-          <input name="name" required autoComplete="name" />
+          <input name="name" required autoComplete="name" maxLength={120} />
         </label>
         <label>
           <span>Email</span>
-          <input name="email" type="email" required autoComplete="email" />
+          <input name="email" type="email" required autoComplete="email" maxLength={254} />
         </label>
       </div>
 
       <div className="form-grid two-col">
         <label>
           <span>Phone <em>optional</em></span>
-          <input name="phone" type="tel" autoComplete="tel" inputMode="tel" />
+          <input name="phone" type="tel" autoComplete="tel" inputMode="tel" maxLength={80} />
         </label>
         <label>
           <span>Business / organisation <em>optional</em></span>
-          <input name="business" autoComplete="organization" />
+          <input name="business" autoComplete="organization" maxLength={160} />
         </label>
       </div>
 
       <div className="form-grid two-col">
         <label>
           <span>Country / region</span>
-          <input name="country" autoComplete="country-name" required />
+          <input name="country" autoComplete="country-name" required maxLength={120} />
         </label>
         <label>
           <span>Enquiry type</span>
@@ -86,27 +102,38 @@ export function ContactForm() {
           name="message"
           rows={7}
           required
+          minLength={10}
+          maxLength={5000}
           aria-describedby="message-hint"
         />
         <small className="form-hint" id="message-hint">
-          Give us enough context to understand the issue, but do not include passwords, bank details, tax identification numbers or other sensitive financial information.
+          Give us enough context to understand the issue, but do not include passwords, bank details,
+          tax identification numbers or other sensitive financial information.
         </small>
       </label>
 
+      <div className="form-honeypot" aria-hidden="true">
+        <label>
+          <span>Website</span>
+          <input name="companyWebsite" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+
       <p className="form-privacy">
-        We use the details you provide to respond to your enquiry. See our{" "}
+        We use the details you provide only to respond to your enquiry. See our{" "}
         <Link href="/privacy">privacy policy</Link>.
       </p>
 
       <div className="form-actions">
-        <button className="button button-dark" type="submit">
-          Send enquiry <span aria-hidden="true">↗</span>
+        <button className="button button-dark" type="submit" disabled={status === "sending"}>
+          {status === "sending" ? "Sending…" : "Send enquiry"}{" "}
+          {status !== "sending" && <span aria-hidden="true">↗</span>}
         </button>
-        <p aria-live="polite">
-          {status === "ready"
-            ? "Your email app should open with the enquiry prepared."
-            : "Submitting opens your email app with the message prepared."}
-        </p>
+        <div className="form-status" aria-live="polite">
+          {status === "sent" && <p className="form-success">Thanks. Your enquiry has been sent.</p>}
+          {status === "error" && <p className="form-error">{error}</p>}
+          {status === "idle" && <p>Your enquiry is sent securely from this form.</p>}
+        </div>
       </div>
     </form>
   );
