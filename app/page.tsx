@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { FinanceCanvas } from "@/components/finance-canvas";
 import { services } from "@/lib/services";
-import { siteConfig } from "@/lib/site";
 
 const faqs = [
   {
