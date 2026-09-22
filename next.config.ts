@@ -17,6 +17,21 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+  async redirects() {
+    return [
+      { source: "/services", destination: "/#services", permanent: true },
+      { source: "/about", destination: "/#about", permanent: true },
+      { source: "/insights", destination: "/#services", permanent: true },
+      { source: "/contact", destination: "/#contact", permanent: true },
+      { source: "/services/company-accounts", destination: "/tax-compliance", permanent: true },
+      { source: "/services/tax-compliance", destination: "/tax-compliance", permanent: true },
+      { source: "/services/vat", destination: "/tax-compliance", permanent: true },
+      { source: "/services/payroll", destination: "/bookkeeping-payroll", permanent: true },
+      { source: "/services/bookkeeping-management-accounts", destination: "/bookkeeping-payroll", permanent: true },
+      { source: "/services/international-accounting", destination: "/international-accounting", permanent: true },
+      { source: "/services/advisory-growth", destination: "/advisory-growth", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;
