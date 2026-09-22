@@ -1,0 +1,192 @@
+/* Research-informed finishing layer: purposeful colour, soft material depth,
+   and accessibility fallbacks without adding an animation runtime. */
+
+.hero h1,
+.page-hero h1,
+.section-heading h2,
+.cta-panel h2 {
+  text-wrap: balance;
+}
+
+.contact-form label > span em {
+  margin-left: .35rem;
+  color: var(--muted);
+  font-size: .9em;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.mobile-nav {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.mobile-nav.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.menu-toggle {
+  min-width: 46px;
+  min-height: 46px;
+  border-radius: 999px;
+}
+
+.menu-toggle:hover {
+  background: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.ledger-rows span:nth-child(1) i { background: var(--teal-bright); }
+.ledger-rows span:nth-child(2) i { background: var(--clay); }
+.ledger-rows span:nth-child(3) i { background: var(--sage); }
+
+.faq-section {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  gap: clamp(48px, 8vw, 120px);
+  border-top: 1px solid var(--line);
+}
+
+.faq-list {
+  border-top: 1px solid var(--line);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--line);
+}
+
+.faq-item summary {
+  min-height: 78px;
+  padding: 24px 0;
+  display: grid;
+  grid-template-columns: 1fr 34px;
+  gap: 24px;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  font-size: clamp(1.18rem, 1.8vw, 1.55rem);
+  font-weight: 590;
+  letter-spacing: -.025em;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--teal-bright) 45%, transparent);
+  outline-offset: 5px;
+  border-radius: 6px;
+}
+
+.faq-plus {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  justify-self: end;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--teal);
+  font-size: 20px;
+  font-weight: 400;
+  transition: transform .22s ease, background .22s ease;
+}
+
+.faq-item[open] .faq-plus {
+  transform: rotate(45deg);
+  background: var(--teal-pale);
+}
+
+.faq-item > p {
+  max-width: 720px;
+  margin: -4px 58px 28px 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.68;
+}
+
+@media (min-width: 781px) and (prefers-reduced-motion: no-preference) {
+  .metric-a { animation: shiel-float-a 8s ease-in-out infinite; }
+  .metric-b { animation: shiel-float-b 9s ease-in-out infinite; }
+  .metric-c { animation: shiel-float-c 10s ease-in-out infinite; }
+
+  @keyframes shiel-float-a {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -8px, 0); }
+  }
+
+  @keyframes shiel-float-b {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(7px, -5px, 0); }
+  }
+
+  @keyframes shiel-float-c {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(-5px, 7px, 0); }
+  }
+}
+
+@media (max-width: 780px) {
+  .faq-section {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .faq-item summary {
+    min-height: 72px;
+    grid-template-columns: 1fr 32px;
+    gap: 16px;
+    font-size: 18px;
+  }
+
+  .faq-item > p {
+    margin-right: 46px;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --line: color-mix(in srgb, var(--ink) 34%, transparent);
+    --muted: #465352;
+  }
+
+  .button-quiet,
+  .service-card,
+  .insight-card,
+  .outcome-card,
+  .contact-form,
+  .faq-plus {
+    border-color: color-mix(in srgb, var(--ink) 42%, transparent);
+  }
+
+  .button:focus-visible,
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  .faq-item summary:focus-visible {
+    outline-color: var(--ink);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .site-header.is-scrolled,
+  .ledger-card,
+  .metric-card,
+  .mobile-nav {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .site-header.is-scrolled,
+  .mobile-nav {
+    background: var(--cloud);
+  }
+
+  .ledger-card,
+  .metric-card {
+    background: var(--paper);
+  }
+}
