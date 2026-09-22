@@ -25,3 +25,14 @@ The current copy only uses facts supplied for Shiel: European based, global serv
 ## Contact form
 
 The form currently prepares an email in the visitor's email client. This avoids collecting enquiry data into an unconfigured third-party service. Replace the mailto handoff once a server-side email provider or form endpoint is selected.
+
+
+## Design system
+
+The visual system uses a warm near-white base, deep ink, mineral teal, jade/sage and a restrained clay accent. The palette is informed by 2026 colour direction while keeping the interface appropriate for professional financial services. Colour is concentrated in hierarchy, data visuals and interaction states rather than applied decoratively everywhere.
+
+The interface uses native CSS view transitions and scroll-driven animation where supported, with reduced-motion, reduced-transparency and increased-contrast fallbacks. No client-side animation library is required.
+
+## Build quality
+
+GitHub Actions runs linting, TypeScript checks and a production Next.js build on every push and pull request. Actions are pinned to immutable release SHAs. The project targets the current Next.js 16.3 Active LTS line on Node.js 24.
