@@ -39,7 +39,7 @@ export default function HomePage() {
             </Link>
             <a className="button button-quiet" href="#services">Explore services <span aria-hidden="true">↓</span></a>
           </div>
-          <p className="hero-note">Email {siteConfig.email} or use the contact form.</p>
+          <p className="hero-note">Use the contact form and we’ll come back to you directly.</p>
         </div>
         <FinanceCanvas />
       </section>
