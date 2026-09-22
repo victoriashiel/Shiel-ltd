@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { CaseStudyCarousel } from "@/components/case-study-carousel";
 import { FinanceCanvas } from "@/components/finance-canvas";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { services } from "@/lib/services";
+import { siteConfig } from "@/lib/site";
 
 const faqs = [
   {
@@ -34,9 +36,21 @@ export default function HomePage() {
             compliance, bookkeeping, payroll, advisory work and international accounting.
           </p>
           <div className="hero-actions">
-            <Link className="button button-dark" href="/contact">
-              Contact us <span aria-hidden="true">↗</span>
-            </Link>
+            <div className="contact-cta-pair">
+              <Link className="button button-dark" href="/contact">
+                Contact us <span aria-hidden="true">↗</span>
+              </Link>
+              <a
+                className="whatsapp-cta-icon"
+                href={siteConfig.whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Contact Shiel Accountants on WhatsApp at ${siteConfig.whatsappDisplay}`}
+                title="WhatsApp"
+              >
+                <WhatsAppIcon size={22} />
+              </a>
+            </div>
             <a className="button button-quiet" href="#services">Explore services <span aria-hidden="true">↓</span></a>
           </div>
           <p className="hero-note">Use the contact form and we’ll come back to you directly.</p>
@@ -126,9 +140,21 @@ export default function HomePage() {
         <p className="eyebrow">Have a query?</p>
         <h2>Tell us what you need help with.</h2>
         <p>Choose the closest enquiry type, give us the essentials and we can take it from there.</p>
-        <Link className="button button-dark" href="/contact">
-          Contact us <span aria-hidden="true">↗</span>
-        </Link>
+        <div className="contact-cta-pair">
+          <Link className="button button-dark" href="/contact">
+            Contact us <span aria-hidden="true">↗</span>
+          </Link>
+          <a
+            className="whatsapp-cta-icon"
+            href={siteConfig.whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Contact Shiel Accountants on WhatsApp at ${siteConfig.whatsappDisplay}`}
+            title="WhatsApp"
+          >
+            <WhatsAppIcon size={22} />
+          </a>
+        </div>
       </section>
     </>
   );
