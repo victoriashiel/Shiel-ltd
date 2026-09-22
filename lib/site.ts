@@ -1,15 +1,18 @@
 export const siteConfig = {
-  name: "Shiel",
+  name: "Shiel Accountants",
+  shortName: "Shiel",
   legalName: "Shiel Ltd",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://shiel.ltd",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@shiel.ltd",
+  whatsappDisplay: "+1 (332) 556-072",
+  whatsappHref: "https://wa.me/1332556072",
   description:
-    "European-based accountancy for businesses and individuals operating across borders. Clear accounting, tax, payroll and compliance support backed by 10+ years of experience.",
+    "European-based accountants supporting businesses and individuals internationally with tax, compliance, bookkeeping, payroll, advisory and cross-border accounting.",
 };
 
 export const navigation = [
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "About" },
-  { href: "/insights", label: "Insights" },
-  { href: "/contact", label: "Contact" },
+  { href: "/tax-compliance", label: "Tax & compliance" },
+  { href: "/bookkeeping-payroll", label: "Bookkeeping & payroll" },
+  { href: "/advisory-growth", label: "Advisory & growth" },
+  { href: "/international-accounting", label: "International" },
 ];
