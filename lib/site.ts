@@ -3,7 +3,7 @@ export const siteConfig = {
   shortName: "Shiel",
   legalName: "Shiel Ltd",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://shiel.ltd",
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@shiel.ltd",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "victoria@shiel.ltd",
   whatsappDisplay: process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY || "+1 (332) 355-6072",
   whatsappHref: process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/13323556072",
   description:
