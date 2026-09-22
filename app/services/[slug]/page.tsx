@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { serviceBySlug, services } from "@/lib/services";
 import { siteConfig } from "@/lib/site";
+import { safeJsonLd } from "@/lib/seo";
 
 export function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
@@ -31,8 +32,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       {
         "@type": "Service",
         name: service.title,
+        serviceType: service.title,
+        url: `${siteConfig.url}/services/${service.slug}`,
         description: service.summary,
-        provider: { "@type": "Organization", name: siteConfig.legalName, url: siteConfig.url },
+        provider: { "@type": "Organization", "@id": `${siteConfig.url}/#organization`, name: siteConfig.legalName, url: siteConfig.url },
         areaServed: ["Europe", "Worldwide"],
       },
       {
@@ -48,7 +51,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
       <section className="page-hero section-pad service-hero">
         <Link href="/services" className="back-link">← All services</Link>
         <p className="eyebrow">{service.eyebrow}</p>
