@@ -1,3 +1,47 @@
+.wordmark {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.wordmark-main {
+  display: inline-flex;
+  align-items: baseline;
+  line-height: .9;
+}
+
+.wordmark-sub {
+  font-size: 8px;
+  line-height: 1;
+  letter-spacing: .22em;
+  font-weight: 750;
+  color: var(--muted);
+}
+
+.site-footer .wordmark-sub {
+  color: rgba(255,255,255,.48);
+}
+
+.button-whatsapp {
+  background: var(--teal);
+  color: white;
+  box-shadow: 0 9px 24px rgba(15,95,92,.18);
+}
+
+.button-whatsapp:hover {
+  background: var(--ink);
+  box-shadow: 0 13px 30px rgba(11,23,24,.18);
+}
+
+.button-whatsapp::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #87d6b6;
+  box-shadow: 0 0 0 5px rgba(135,214,182,.12);
+}
+
 /* Research-informed finishing layer: purposeful colour, soft material depth,
    and accessibility fallbacks without adding an animation runtime. */
 
