@@ -360,3 +360,38 @@
     font-size: 14px;
   }
 }
+
+
+.form-honeypot {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}
+
+.contact-form button:disabled {
+  cursor: wait;
+  opacity: .7;
+  transform: none;
+}
+
+.form-status {
+  min-height: 1.4em;
+}
+
+.form-status p {
+  margin: 0;
+}
+
+.form-success {
+  color: var(--teal) !important;
+  font-weight: 650;
+}
+
+.form-error {
+  color: #9b3f35 !important;
+  font-weight: 650;
+}
