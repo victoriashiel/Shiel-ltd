@@ -665,3 +665,55 @@
     scroll-behavior: auto;
   }
 }
+
+
+/* Contact CTAs keep the form as the primary route and surface WhatsApp beside it. */
+.contact-cta-pair,
+.header-contact-actions,
+.mobile-contact-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.whatsapp-cta-icon {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(37, 211, 102, .22);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+.whatsapp-cta-icon:hover {
+  transform: translateY(-2px);
+  background: #1fbd5a;
+  box-shadow: 0 12px 28px rgba(37, 211, 102, .28);
+}
+
+.whatsapp-cta-icon:focus-visible {
+  outline: 3px solid color-mix(in srgb, #25d366 42%, transparent);
+  outline-offset: 4px;
+}
+
+.mobile-contact-actions {
+  width: 100%;
+}
+
+.mobile-contact-actions .button {
+  flex: 1;
+}
+
+@media (max-width: 780px) {
+  .header-contact-actions {
+    display: none;
+  }
+
+  .contact-cta-pair {
+    max-width: 100%;
+  }
+}
