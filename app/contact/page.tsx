@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Contact | Shiel Accountants",
     description:
-      "Get in touch with Shiel Accountants by email, WhatsApp or through the enquiry form.",
+      "Get in touch with Shiel Accountants through the enquiry form or WhatsApp.",
     url: "/contact",
   },
 };
