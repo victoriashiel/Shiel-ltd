@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/logo";
-import { navigation } from "@/lib/site";
+import { navigation, siteConfig } from "@/lib/site";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -43,7 +43,7 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <Link className="button button-dark header-cta" href="/contact">Talk to us</Link>
+        <a className="button button-whatsapp header-cta" href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">WhatsApp us</a>
         <button
           className="menu-toggle"
           type="button"
@@ -66,7 +66,7 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <Link className="button button-dark" href="/contact" onClick={() => setOpen(false)}>Talk to us</Link>
+          <a className="button button-whatsapp" href={siteConfig.whatsappHref} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>WhatsApp us</a>
         </nav>
       </div>
     </header>
