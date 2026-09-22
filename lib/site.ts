@@ -4,8 +4,8 @@ export const siteConfig = {
   legalName: "Shiel Ltd",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://shiel.ltd",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@shiel.ltd",
-  whatsappDisplay: process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY || "+1 (332) 556-072",
-  whatsappHref: process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/1332556072",
+  whatsappDisplay: process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY || "+1 (332) 355-6072",
+  whatsappHref: process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/13323556072",
   description:
     "European-based accountants supporting businesses and individuals internationally with tax, compliance, bookkeeping, payroll, advisory and cross-border accounting.",
 };
