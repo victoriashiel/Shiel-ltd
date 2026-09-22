@@ -46,8 +46,8 @@ export function ContactForm() {
         <label><span>What can we help with?</span>
           <select name="service" defaultValue="" required>
             <option value="" disabled>Select a service</option>
-            <option>Company accounts</option><option>Tax & compliance</option><option>VAT</option>
-            <option>Payroll</option><option>Bookkeeping & management accounts</option><option>International accounting</option><option>Something else</option>
+            <option>Tax & compliance</option><option>Bookkeeping & payroll</option>
+            <option>Advisory & growth</option><option>International accounting</option><option>Something else</option>
           </select>
         </label>
       </div>
