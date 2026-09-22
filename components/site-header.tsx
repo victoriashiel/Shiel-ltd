@@ -18,13 +18,31 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  const isCurrent = (href: string) =>
+    pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
       <div className="header-shell">
         <Logo />
         <nav className="desktop-nav" aria-label="Primary navigation">
           {navigation.map((item) => (
-            <Link key={item.href} href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
+            <Link key={item.href} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
               {item.label}
             </Link>
           ))}
@@ -41,7 +59,11 @@ export function SiteHeader() {
           <span /><span />
         </button>
       </div>
-      <div id="mobile-navigation" className={`mobile-nav${open ? " is-open" : ""}`}>
+      <div
+        id="mobile-navigation"
+        className={`mobile-nav${open ? " is-open" : ""}`}
+        aria-hidden={!open}
+      >
         <nav aria-label="Mobile navigation">
           {navigation.map((item) => (
             <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
