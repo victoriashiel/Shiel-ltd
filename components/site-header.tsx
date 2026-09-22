@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/logo";
-import { navigation } from "@/lib/site";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
+import { navigation, siteConfig } from "@/lib/site";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -43,7 +44,19 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <Link className="button button-dark header-cta" href="/contact">Contact us</Link>
+        <div className="header-contact-actions">
+          <Link className="button button-dark header-cta" href="/contact">Contact us</Link>
+          <a
+            className="whatsapp-cta-icon"
+            href={siteConfig.whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Contact Shiel Accountants on WhatsApp at ${siteConfig.whatsappDisplay}`}
+            title="WhatsApp"
+          >
+            <WhatsAppIcon size={22} />
+          </a>
+        </div>
         <button
           className="menu-toggle"
           type="button"
@@ -66,7 +79,20 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <Link className="button button-dark" href="/contact" onClick={() => setOpen(false)}>Contact us</Link>
+          <div className="mobile-contact-actions">
+            <Link className="button button-dark" href="/contact" onClick={() => setOpen(false)}>Contact us</Link>
+            <a
+              className="whatsapp-cta-icon"
+              href={siteConfig.whatsappHref}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Contact Shiel Accountants on WhatsApp at ${siteConfig.whatsappDisplay}`}
+              title="WhatsApp"
+              onClick={() => setOpen(false)}
+            >
+              <WhatsAppIcon size={22} />
+            </a>
+          </div>
         </nav>
       </div>
     </header>
