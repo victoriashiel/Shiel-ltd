@@ -3,9 +3,9 @@ export function FinanceCanvas() {
     <div className="finance-canvas" aria-hidden="true">
       <div className="canvas-orbit orbit-one" />
       <div className="canvas-orbit orbit-two" />
-      <div className="metric-card metric-a"><span>Cash flow</span><i /></div>
-      <div className="metric-card metric-b"><span>Tax</span><i /></div>
-      <div className="metric-card metric-c"><span>Payroll</span><i /></div>
+      <div className="metric-card metric-a"><span>Tax</span><i /></div>
+      <div className="metric-card metric-b"><span>Payroll</span><i /></div>
+      <div className="metric-card metric-c"><span>Advisory</span><i /></div>
       <div className="ledger-card">
         <div className="ledger-top"><span>Financial picture</span><span className="live-pill">Clear</span></div>
         <svg className="ledger-chart" viewBox="0 0 520 230" role="presentation">
@@ -24,7 +24,7 @@ export function FinanceCanvas() {
           <circle cx="355" cy="91" r="5" className="chart-point" />
         </svg>
         <div className="ledger-rows">
-          <span><i />Accounts</span><span><i />Compliance</span><span><i />Reporting</span>
+          <span><i />Compliance</span><span><i />Bookkeeping</span><span><i />International</span>
         </div>
       </div>
     </div>
