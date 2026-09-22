@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { navigation, siteConfig } from "@/lib/site";
 
 export function SiteFooter() {
@@ -9,15 +10,23 @@ export function SiteFooter() {
         <div className="footer-lead">
           <Logo />
           <p>European-based accountants supporting businesses and individuals internationally.</p>
-          <a
-            href={siteConfig.whatsappHref}
-            className="text-link"
-            target="_blank"
-            rel="noreferrer"
-          >
-            WhatsApp {siteConfig.whatsappDisplay} <span aria-hidden="true">↗</span>
-          </a>
+          <div className="footer-contact-row">
+            <a href={`mailto:${siteConfig.email}`} className="text-link">
+              {siteConfig.email}
+            </a>
+            <a
+              href={siteConfig.whatsappHref}
+              className="footer-icon-link"
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`WhatsApp Shiel Accountants on ${siteConfig.whatsappDisplay}`}
+              title="WhatsApp"
+            >
+              <WhatsAppIcon size={22} />
+            </a>
+          </div>
         </div>
+
         <div className="footer-columns">
           <div>
             <p className="footer-label">Services</p>
@@ -28,8 +37,7 @@ export function SiteFooter() {
           <div>
             <p className="footer-label">Shiel Accountants</p>
             <Link href="/#about">About</Link>
-            <Link href="/#contact">Contact</Link>
-            <a href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">WhatsApp</a>
+            <Link href="/contact">Contact us</Link>
           </div>
           <div>
             <p className="footer-label">Legal</p>
@@ -39,6 +47,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
+
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.</p>
         <p>European based · Working internationally</p>
