@@ -24,6 +24,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; background: var(--cloud); }
+#main-content { overflow-x: clip; }
 body { margin: 0; background: var(--cloud); color: var(--ink); font-family: var(--font-sans); font-size: 16px; line-height: 1.5; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
 ::selection { background: var(--teal); color: white; }
 a { color: inherit; text-decoration: none; }
