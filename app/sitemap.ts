@@ -3,14 +3,13 @@ import { services } from "@/lib/services";
 import { siteConfig } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/services", "/about", "/insights", "/contact", "/privacy", "/cookies", "/terms"];
-
   return [
-    ...staticRoutes.map((path) => ({
-      url: `${siteConfig.url}${path}`,
-    })),
+    { url: siteConfig.url },
     ...services.map((service) => ({
-      url: `${siteConfig.url}/services/${service.slug}`,
+      url: `${siteConfig.url}/${service.slug}`,
     })),
+    { url: `${siteConfig.url}/privacy` },
+    { url: `${siteConfig.url}/cookies` },
+    { url: `${siteConfig.url}/terms` },
   ];
 }
