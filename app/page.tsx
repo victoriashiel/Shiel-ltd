@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CaseStudyCarousel } from "@/components/case-study-carousel";
 import { FinanceCanvas } from "@/components/finance-canvas";
 import { services } from "@/lib/services";
 
@@ -47,7 +48,7 @@ export default function HomePage() {
         <div><strong>10+</strong><span>years of experience</span></div>
         <div><strong>Europe</strong><span>our operating base</span></div>
         <div><strong>Global</strong><span>international client support</span></div>
-        <div><strong>Direct</strong><span>WhatsApp access for queries</span></div>
+        <div><strong>Practical</strong><span>problem-solving support</span></div>
       </section>
 
       <section className="section-pad service-section" id="services">
@@ -79,63 +80,29 @@ export default function HomePage() {
         </div>
       </section>
 
+      <CaseStudyCarousel />
+
       <section className="dark-panel section-pad" id="about">
         <div className="dark-copy reveal">
-          <p className="eyebrow">More than a decade across different regions</p>
-          <h2>Experience matters more when the setup is not standard.</h2>
+          <p className="eyebrow">What sets us apart</p>
+          <h2>We look beyond the obvious treatment.</h2>
           <p>
-            Shiel Accountants works with businesses, founders, contractors and individuals whose finances can
-            span companies, countries and different stages of growth. The aim is to keep the core accounting
-            clear while knowing when a local specialist needs to be part of the picture.
+            Compliance is only part of the job. We look closely at the rules, reliefs, elections, timing and
+            structure around the numbers to see whether there is a better legitimate outcome.
           </p>
         </div>
         <div className="dark-cards">
           <article className="persona-card reveal">
-            <span>For established businesses</span>
-            <h3>Keep finance, payroll and compliance moving without losing sight of performance.</h3>
+            <span>Question the default</span>
+            <h3>If there is another valid treatment worth considering, we want to find it.</h3>
           </article>
           <article className="persona-card reveal">
-            <span>For mobile clients</span>
-            <h3>Keep the records coherent when work, income or companies cross borders.</h3>
+            <span>See the whole picture</span>
+            <h3>Tax, payroll, structure and cross-border issues are not always separate problems.</h3>
           </article>
         </div>
       </section>
 
-      <section className="section-pad split-section">
-        <div className="section-heading reveal">
-          <p className="eyebrow">How we work</p>
-          <h2>Start with the situation, then define the work.</h2>
-        </div>
-        <div className="process-list">
-          <article className="process-row reveal">
-            <span>01</span><h3>Send us the outline.</h3>
-            <p>A WhatsApp message with where you are based, what needs attention and any immediate deadline is enough to start.</p>
-          </article>
-          <article className="process-row reveal">
-            <span>02</span><h3>We establish the scope.</h3>
-            <p>We look at the records, entities and jurisdictions involved, then set out what we can handle and what we need from you.</p>
-          </article>
-          <article className="process-row reveal">
-            <span>03</span><h3>The work gets organised.</h3>
-            <p>Recurring tasks, filings and reporting are given a practical rhythm so the next deadline is not a restart from zero.</p>
-          </article>
-        </div>
-      </section>
-
-      <section className="section-pad international-section">
-        <div className="world-grid" aria-hidden="true"><span /><span /><span /><span /><span /></div>
-        <div className="international-copy reveal">
-          <p className="eyebrow">European base · International accounting</p>
-          <h2>One accounting picture, even when more than one country is involved.</h2>
-          <p>
-            We can coordinate the records and reporting across borders and work with jurisdiction-specific
-            advisers where their local input is needed.
-          </p>
-          <Link className="button button-light" href="/international-accounting">
-            International accounting <span aria-hidden="true">↗</span>
-          </Link>
-        </div>
-      </section>
 
       <section className="section-pad faq-section">
         <div className="section-heading reveal">
