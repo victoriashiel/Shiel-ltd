@@ -69,6 +69,15 @@ const organisationSchema = {
       alternateName: siteConfig.shortName,
       url: siteConfig.url,
       email: siteConfig.email,
+      logo: `${siteConfig.url}/icon.svg`,
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer service",
+        email: siteConfig.email,
+        telephone: "+13323556072",
+        areaServed: ["Europe", "Worldwide"],
+        availableLanguage: ["English"],
+      },
       description: siteConfig.description,
       areaServed: ["Europe", "Worldwide"],
       knowsAbout: [
