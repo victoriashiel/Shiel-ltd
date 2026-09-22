@@ -8,7 +8,7 @@ export default function Image() {
   return new ImageResponse(
     <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "#f6f5f0", color: "#0b1718", padding: 72, fontFamily: "Arial, sans-serif" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ fontSize: 38, fontWeight: 760, letterSpacing: "-1px" }}>SHIEL<span style={{ color: "#0f5f5c" }}>.</span></div>
+        <div style={{ display: "flex", fontSize: 38, fontWeight: 760, letterSpacing: "-1px" }}>SHIEL<span style={{ color: "#0f5f5c" }}>.</span></div>
         <div style={{ fontSize: 22, color: "#52605e" }}>European based · Internationally focused</div>
       </div>
       <div style={{ display: "flex", flexDirection: "column", maxWidth: 960 }}>
