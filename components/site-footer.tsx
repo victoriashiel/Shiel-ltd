@@ -27,8 +27,8 @@ export function SiteFooter() {
           </div>
           <div>
             <p className="footer-label">Shiel Accountants</p>
-            <a href="/#about">About</a>
-            <a href="/#contact">Contact</a>
+            <Link href="/#about">About</Link>
+            <Link href="/#contact">Contact</Link>
             <a href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">WhatsApp</a>
           </div>
           <div>
