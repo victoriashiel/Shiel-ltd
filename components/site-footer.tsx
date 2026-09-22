@@ -11,9 +11,6 @@ export function SiteFooter() {
           <Logo />
           <p>European-based accountants supporting businesses and individuals internationally.</p>
           <div className="footer-contact-row">
-            <a href={`mailto:${siteConfig.email}`} className="text-link">
-              {siteConfig.email}
-            </a>
             <a
               href={siteConfig.whatsappHref}
               className="footer-icon-link"
