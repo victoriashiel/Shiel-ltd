@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Shiel Accountancy",
+    name: "Shiel Accountants",
     short_name: "Shiel",
-    description: "European-based accountancy for businesses and individuals operating across borders.",
+    description: "European-based accountants supporting clients internationally across tax, bookkeeping, payroll, advisory and cross-border accounting.",
     start_url: "/",
     display: "standalone",
     background_color: "#f6f5f0",
