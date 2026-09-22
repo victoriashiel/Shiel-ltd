@@ -1,65 +1,151 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
-const caseStudies = [
+type CaseStudy = {
+  id: string;
+  label: string;
+  body: ReactNode;
+  tagline?: string;
+};
+
+const caseStudies: CaseStudy[] = [
   {
-    src: "/case-studies/payroll-recovery-17200.webp",
-    alt: "Shiel Accountants case study: historic payroll issues corrected and €17,200 recovered for the client.",
+    id: "payroll",
+    label: "Historic payroll issues corrected and €17,200 recovered for the client.",
+    body: (
+      <>
+        <p className="cs-lead">We corrected historic payroll issues and</p>
+        <p className="cs-figure">€17,200</p>
+        <p className="cs-accent cs-accent-lg">recovered</p>
+        <p className="cs-lead">for the client.</p>
+      </>
+    ),
   },
   {
-    src: "/case-studies/deadline-four-days.webp",
-    alt: "Shiel Accountants case study: incomplete accounts taken over four days before the deadline and made filing-ready without an extension.",
+    id: "deadline",
+    label: "Incomplete accounts taken over four days before the deadline and made filing-ready without an extension.",
+    body: (
+      <>
+        <p className="cs-lead">We took over a set of incomplete accounts</p>
+        <p className="cs-figure cs-figure-caps">4 DAYS</p>
+        <p className="cs-lead">before the deadline and got the company</p>
+        <p className="cs-caps cs-caps-accent">FILING-READY</p>
+        <p className="cs-caps">
+          WITHOUT AN EXTENSION<span className="cs-dot">.</span>
+        </p>
+      </>
+    ),
   },
   {
-    src: "/case-studies/overpaid-tax-11750.webp",
-    alt: "Shiel Accountants case study: one review uncovered €11,750 of overpaid tax that the client could reclaim.",
+    id: "overpaid",
+    label: "One review uncovered €11,750 of overpaid tax that the client could reclaim.",
+    body: (
+      <>
+        <p className="cs-lead">One review uncovered</p>
+        <p className="cs-figure">€11,750</p>
+        <p className="cs-of">
+          of <strong className="cs-accent">overpaid tax</strong>
+        </p>
+        <p className="cs-small">
+          that the client had not realised they could <strong className="cs-accent">reclaim</strong>.
+        </p>
+      </>
+    ),
   },
   {
-    src: "/case-studies/tax-bill-8000-to-zero.webp",
-    alt: "Shiel Accountants case study: a business expecting an €8,000 tax bill had a final liability of €0 after the treatment and available reliefs were reviewed.",
+    id: "zero",
+    label: "A business expecting an €8,000 tax bill had a final liability of €0 after the treatment and reliefs were reviewed.",
+    body: (
+      <>
+        <p className="cs-kicker">FROM</p>
+        <p className="cs-figure cs-figure-muted">€8,000</p>
+        <p className="cs-kicker cs-kicker-to">TO</p>
+        <p className="cs-figure cs-figure-xl">€0</p>
+        <p className="cs-small">
+          A business was expecting an €8,000 tax bill. After reviewing the treatment and available reliefs, the
+          final liability was <strong className="cs-accent">€0</strong>.
+        </p>
+      </>
+    ),
+    tagline: "Clearer numbers. Brighter tomorrows.",
   },
 ];
+
+function CaseStudyCard({ study }: { study: CaseStudy }) {
+  return (
+    <article className={`cs-card cs-card-${study.id}`}>
+      <span className="sr-only">{study.label}</span>
+      <div aria-hidden="true" className="cs-inner">
+        <div className="cs-brand">
+          <span className="cs-wordmark">
+            SHIEL<span className="cs-dot">.</span>
+          </span>
+          <span className="cs-sub">ACCOUNTANTS</span>
+        </div>
+        <div className="cs-body">{study.body}</div>
+        <div className="cs-foot">
+          <span className="cs-url">SHIEL.LTD</span>
+          {study.tagline ? <span className="cs-tagline">{study.tagline}</span> : null}
+        </div>
+        <span className="cs-badge">
+          S<span className="cs-dot">.</span>
+        </span>
+      </div>
+    </article>
+  );
+}
 
 export function CaseStudyCarousel() {
   const trackRef = useRef<HTMLUListElement>(null);
   const [active, setActive] = useState(0);
+  const [atEnd, setAtEnd] = useState(false);
+
+  const getSlides = () =>
+    Array.from(trackRef.current?.querySelectorAll<HTMLElement>("[data-case-slide]") ?? []);
+
+  const update = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const slides = getSlides();
+    const end = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+    let nearest = 0;
+    let best = Infinity;
+    slides.forEach((slide, i) => {
+      const distance = Math.abs(slide.offsetLeft - track.scrollLeft - slides[0].offsetLeft);
+      if (distance < best) {
+        best = distance;
+        nearest = i;
+      }
+    });
+    setAtEnd(end);
+    setActive(nearest);
+  }, []);
 
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-
-    const slides = Array.from(track.querySelectorAll<HTMLElement>("[data-case-slide]"));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (!visible) return;
-        const index = Number((visible.target as HTMLElement).dataset.caseSlide);
-        if (Number.isFinite(index)) setActive(index);
-      },
-      { root: track, threshold: [0.55, 0.7, 0.85] },
-    );
-
-    slides.forEach((slide) => observer.observe(slide));
-    return () => observer.disconnect();
-  }, []);
+    update();
+    track.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      track.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [update]);
 
   function goTo(index: number) {
     const track = trackRef.current;
-    if (!track) return;
-
-    const slides = Array.from(track.querySelectorAll<HTMLElement>("[data-case-slide]"));
+    const slides = getSlides();
     const next = Math.max(0, Math.min(index, slides.length - 1));
     const target = slides[next];
-    if (!target) return;
+    if (!track || !target) return;
+    setActive(next);
+    setAtEnd(next === slides.length - 1);
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     track.scrollTo({
-      left: target.offsetLeft - track.offsetLeft,
+      left: target.offsetLeft - slides[0].offsetLeft,
       behavior: reducedMotion ? "auto" : "smooth",
     });
   }
@@ -90,7 +176,7 @@ export function CaseStudyCarousel() {
           <button
             type="button"
             onClick={() => goTo(active + 1)}
-            disabled={active === caseStudies.length - 1}
+            disabled={atEnd}
             aria-label="Next case study"
           >
             <span aria-hidden="true">→</span>
@@ -109,19 +195,12 @@ export function CaseStudyCarousel() {
             <li
               className="case-study-slide"
               data-case-slide={index}
-              key={study.src}
+              key={study.id}
               role="group"
               aria-roledescription="slide"
               aria-label={`Case study ${index + 1} of ${caseStudies.length}`}
             >
-              <Image
-                src={study.src}
-                alt={study.alt}
-                width={360}
-                height={450}
-                sizes="(max-width: 780px) 82vw, (max-width: 1200px) 42vw, 420px"
-                className="case-study-image"
-              />
+              <CaseStudyCard study={study} />
             </li>
           ))}
         </ul>
