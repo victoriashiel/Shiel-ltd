@@ -7,8 +7,9 @@ Modern accountancy website for Shiel Accountants, built with Next.js 16.3, React
 Copy .env.example to .env.local and update values where needed.
 
 NEXT_PUBLIC_SITE_URL is the canonical production URL.
-NEXT_PUBLIC_CONTACT_EMAIL is the enquiry address. The current fallback is hello@shiel.ltd and should be confirmed before launch.
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION and NEXT_PUBLIC_BING_SITE_VERIFICATION are optional webmaster verification tokens.
+
+Contact-form delivery is intentionally server-only. Configure CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL, CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_EMAIL_API_TOKEN in the deployment environment. Never expose these values through NEXT_PUBLIC_ variables.
 
 ## SEO
 
@@ -24,7 +25,18 @@ The current copy only uses facts supplied for Shiel: European based, global serv
 
 ## Contact form
 
-The form currently prepares an email in the visitor's email client. This avoids collecting enquiry data into an unconfigured third-party service. Replace the mailto handoff once a server-side email provider or form endpoint is selected.
+The browser submits enquiries to /api/contact. The route validates and limits form fields, uses a honeypot for basic bot filtering, and sends the enquiry server-side through Cloudflare Email Service.
+
+The recipient address is never rendered into HTML, structured data or client-side JavaScript. It is supplied at runtime through CONTACT_TO_EMAIL.
+
+Cloudflare Email Service requirements:
+- onboard shiel.ltd under Email Service > Email Sending
+- create an API token with Email Sending: Edit permission
+- set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_EMAIL_API_TOKEN as server-side deployment secrets
+- set CONTACT_TO_EMAIL to the private recipient mailbox
+- set CONTACT_FROM_EMAIL to a sender on the onboarded shiel.ltd domain
+
+The API sets Reply-To to the visitor's supplied email address so replies can be sent directly from the received enquiry.
 
 
 ## Design system
@@ -50,4 +62,4 @@ The customer journey is intentionally focused around five commercial pages:
 
 Privacy, Cookies and Terms remain available as utility pages in the footer. Legacy marketing and service URLs redirect into the focused structure so existing links do not dead-end.
 
-WhatsApp is the primary enquiry route and can be changed through NEXT_PUBLIC_WHATSAPP_DISPLAY and NEXT_PUBLIC_WHATSAPP_URL.
+The contact form is the primary enquiry route. WhatsApp remains available as a secondary contact method and can be changed through NEXT_PUBLIC_WHATSAPP_DISPLAY and NEXT_PUBLIC_WHATSAPP_URL.
