@@ -17,39 +17,23 @@ export const metadata: Metadata = {
   },
 };
 
-const monthlyOffers = segments.flatMap((segment) =>
-  segment.plans.map((plan) => ({
-    "@type": "Offer",
-    name: plan.name,
-    category: segment.label,
-    price: plan.price,
-    priceCurrency: "EUR",
-    url: `${siteConfig.url}/packages`,
-    offeredBy: { "@id": `${siteConfig.url}/#organization` },
-    description: plan.strap,
-  })),
-);
-
-const setupOffers = segments.flatMap((segment) => {
-  const offers = [];
-
-  if (segment.setupOffer) {
-    const price = Number(segment.setupOffer.priceLabel.match(/€([0-9]+)/)?.[1] ?? 0);
-    offers.push({
+const packageOffers = [
+  ...segments.flatMap((segment) =>
+    segment.plans.map((plan) => ({
       "@type": "Offer",
-      name: segment.setupOffer.name,
-      category: `${segment.label} setup`,
-      price,
+      name: plan.name,
+      category: plan.billing === "one-off" ? `${segment.label} setup` : segment.label,
+      price: plan.price,
       priceCurrency: "EUR",
       url: `${siteConfig.url}/packages`,
       offeredBy: { "@id": `${siteConfig.url}/#organization` },
-      description: segment.setupOffer.strap,
-    });
-  }
-
-  if (segment.advisoryOffer) {
+      description: plan.strap,
+    })),
+  ),
+  ...segments.flatMap((segment) => {
+    if (!segment.advisoryOffer) return [];
     const price = Number(segment.advisoryOffer.priceLabel.match(/€([0-9]+)/)?.[1] ?? 0);
-    offers.push({
+    return [{
       "@type": "Offer",
       name: segment.advisoryOffer.name,
       category: `${segment.label} advisory`,
@@ -58,13 +42,9 @@ const setupOffers = segments.flatMap((segment) => {
       url: `${siteConfig.url}/packages`,
       offeredBy: { "@id": `${siteConfig.url}/#organization` },
       description: segment.advisoryOffer.strap,
-    });
-  }
-
-  return offers;
-});
-
-const packageOffers = [...monthlyOffers, ...setupOffers];
+    }];
+  }),
+];
 
 const packagesSchema = {
   "@context": "https://schema.org",
