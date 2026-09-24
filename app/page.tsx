@@ -5,14 +5,12 @@ import { FinanceCanvas } from "@/components/finance-canvas";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { services } from "@/lib/services";
 import { siteConfig } from "@/lib/site";
+import { getRegionAlternates, regionList } from "@/lib/regions";
 
 export const metadata: Metadata = {
   alternates: {
     canonical: "/",
-    languages: {
-      "en-IE": "/ireland",
-      "x-default": "/",
-    },
+    languages: getRegionAlternates(),
   },
 };
 
@@ -74,6 +72,21 @@ export default function HomePage() {
         <div><strong>Europe</strong><span>our operating base</span></div>
         <div><strong>Global</strong><span>international client support</span></div>
         <div><strong>Practical</strong><span>problem-solving support</span></div>
+      </section>
+
+      <section className="section-pad where-we-work">
+        <div className="where-we-work-heading reveal">
+          <p className="eyebrow">Where we work</p>
+          <h2>Local accounting where you need it. Cross-border coordination when you do not fit neatly in one place.</h2>
+        </div>
+        <div className="where-we-work-grid">
+          {regionList.map((region) => (
+            <Link key={region.slug} href={region.path}>
+              <strong>{region.name}</strong>
+              <span>Services & local packages →</span>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className="section-pad service-section" id="services">
