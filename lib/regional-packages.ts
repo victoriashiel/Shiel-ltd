@@ -18,7 +18,7 @@ export type RegionalPackageSet = {
 };
 
 export const regionalPackages: Record<RegionSlug, RegionalPackageSet> = {
-  ireland: {
+  ie: {
     currency: "EUR",
     startingFrom: 79,
     note: "Irish prices exclude VAT where applicable. Full Irish package detail is available on the packages page.",
@@ -89,7 +89,7 @@ export const regionalPackages: Record<RegionSlug, RegionalPackageSet> = {
       },
     ],
   },
-  uae: {
+  ae: {
     currency: "AED",
     note: "UAE prices exclude VAT where applicable and assume records are provided digitally. Audit, transfer-pricing documentation and specialist free-zone opinions are separately scoped.",
     packages: [
@@ -124,7 +124,7 @@ export const regionalPackages: Record<RegionSlug, RegionalPackageSet> = {
       },
     ],
   },
-  gibraltar: {
+  gi: {
     currency: "GIP",
     note: "Gibraltar prices are shown in Gibraltar pounds. Statutory registry fees, audit work and licensed corporate-service work are separately scoped where required.",
     packages: [
@@ -159,7 +159,7 @@ export const regionalPackages: Record<RegionSlug, RegionalPackageSet> = {
       },
     ],
   },
-  spain: {
+  es: {
     currency: "EUR",
     note: "Spain prices exclude VAT where applicable. Payroll, SII, complex international reporting and filings outside the standard package are separately scoped.",
     packages: [
