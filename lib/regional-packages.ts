@@ -12,6 +12,7 @@ export type RegionalPackage = {
 
 export type RegionalPackageSet = {
   currency: "EUR" | "GBP" | "AED" | "GIP";
+  startingFrom?: number;
   note: string;
   packages: RegionalPackage[];
 };
@@ -19,6 +20,7 @@ export type RegionalPackageSet = {
 export const regionalPackages: Record<RegionSlug, RegionalPackageSet> = {
   ireland: {
     currency: "EUR",
+    startingFrom: 79,
     note: "Irish prices exclude VAT where applicable. Full Irish package detail is available on the packages page.",
     packages: [
       {
