@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FocusServicePage } from "@/components/focus-service-page";
+import { InternationalScenariosGrid } from "@/components/international-scenarios";
 import { regionalServices, type RegionalServiceSlug } from "@/lib/regional-services";
 import { regions, type RegionSlug } from "@/lib/regions";
 import { safeJsonLd } from "@/lib/seo";
@@ -95,7 +96,11 @@ export function RegionalServicePage({
   };
 
   const localContext = (
-    <section className={`section-pad ${styles.localContext}`}>
+    <>
+      {service === "international-accounting" && (
+        <InternationalScenariosGrid basePath={`${market.path}/international-accounting`} />
+      )}
+      <section className={`section-pad ${styles.localContext}`}>
       <div>
         <p className="eyebrow">{market.name} context</p>
         <h2>Built around the local reporting environment.</h2>
@@ -108,7 +113,8 @@ export function RegionalServicePage({
           <span key={item}>{item}</span>
         ))}
       </div>
-    </section>
+      </section>
+    </>
   );
 
   return (
