@@ -8,9 +8,11 @@ type Status = "idle" | "sending" | "sent" | "error";
 export function ContactForm({
   initialEnquiryType = "",
   initialMessage = "",
+  initialCountry = "",
 }: {
   initialEnquiryType?: string;
   initialMessage?: string;
+  initialCountry?: string;
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
@@ -86,7 +88,7 @@ export function ContactForm({
       <div className="form-grid two-col">
         <label>
           <span>Country / region</span>
-          <input name="country" autoComplete="country-name" required maxLength={120} />
+          <input name="country" autoComplete="country-name" defaultValue={initialCountry} required maxLength={120} />
         </label>
         <label>
           <span>Enquiry type</span>
