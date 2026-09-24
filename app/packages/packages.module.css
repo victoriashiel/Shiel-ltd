@@ -187,6 +187,25 @@
 
 
 
+
+.offerPair,
+.offerSingle {
+  margin-top: 24px;
+}
+
+.offerPair {
+  display: grid;
+  grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+  gap: 14px;
+}
+
+.offerSingle > .setupOffer,
+.offerPair > .setupOffer,
+.offerPair > .advisoryOffer {
+  margin-top: 0;
+  height: 100%;
+}
+
 .advisoryOffer {
   margin-top: 24px;
   padding: 18px 20px;
@@ -1277,5 +1296,12 @@
   .advisoryOffer > a {
     grid-column: 1 / -1;
     width: max-content;
+  }
+}
+
+
+@media (max-width: 980px) {
+  .offerPair {
+    grid-template-columns: 1fr;
   }
 }
