@@ -25,11 +25,15 @@ export function FocusServicePage({
   beforeCta,
   serviceOverride,
   contactHref = "/contact",
+  backHref = "/#services",
+  includeSchema = true,
 }: {
   slug: string;
   beforeCta?: ReactNode;
   serviceOverride?: Service;
   contactHref?: string;
+  backHref?: string;
+  includeSchema?: boolean;
 }) {
   const service = serviceOverride ?? serviceBySlug[slug];
 
@@ -68,10 +72,12 @@ export function FocusServicePage({
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
+      {includeSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
+      )}
 
       <section className="page-hero section-pad service-hero">
-        <Link href="/#services" className="back-link">← Services</Link>
+        <Link href={backHref} className="back-link">← Services</Link>
         <p className="eyebrow">{service.eyebrow}</p>
         <h1>{service.title}</h1>
         <p>{service.summary}</p>
@@ -111,14 +117,19 @@ export function FocusServicePage({
         <p className="eyebrow">Ask about {service.title.toLowerCase()}</p>
         <h2>Send us the situation on WhatsApp.</h2>
         <p>A short message is enough to start. Tell us where you are based, what you need help with and any deadline already in view.</p>
-        <a
-          className="button button-whatsapp"
-          href={siteConfig.whatsappHref}
-          target="_blank"
-          rel="noreferrer"
-        >
-          WhatsApp {siteConfig.whatsappDisplay} <span aria-hidden="true">↗</span>
-        </a>
+        <div className="contact-cta-pair">
+          <Link className="button button-dark" href={contactHref}>
+            Contact us <span aria-hidden="true">↗</span>
+          </Link>
+          <a
+            className="button button-whatsapp"
+            href={siteConfig.whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+          >
+            WhatsApp {siteConfig.whatsappDisplay} <span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </section>
     </>
   );
