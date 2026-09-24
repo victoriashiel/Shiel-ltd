@@ -25,6 +25,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       };
     }),
     { url: `${siteConfig.url}/packages` },
+    ...Object.keys(regionContent).map((slug) => {
+      const region = regions[slug as RegionSlug];
+      return {
+        url: `${siteConfig.url}${region.path}/packages`,
+        alternates: {
+          languages: Object.fromEntries(
+            Object.entries(getRegionAlternates()).map(([locale, path]) => [
+              locale,
+              locale === "x-default"
+                ? `${siteConfig.url}/packages`
+                : `${siteConfig.url}${path}/packages`,
+            ]),
+          ),
+        },
+      };
+    }),
     { url: `${siteConfig.url}/contact` },
     { url: `${siteConfig.url}/privacy` },
     { url: `${siteConfig.url}/cookies` },
