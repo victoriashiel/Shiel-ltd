@@ -54,7 +54,7 @@ export default async function RegionalPackagesRoute({
   const slug = region as RegionSlug;
   const config = regions[slug];
 
-  const offers = region === "ireland"
+  const offers = region === "ie"
     ? segments.flatMap((segment) =>
         segment.plans.map((plan) => ({
           "@type": "Offer",
@@ -62,7 +62,7 @@ export default async function RegionalPackagesRoute({
           category: segment.label,
           price: plan.price,
           priceCurrency: "EUR",
-          url: `${siteConfig.url}/ireland/packages`,
+          url: `${siteConfig.url}/ie/packages`,
           description: plan.strap,
         })),
       )
@@ -103,8 +103,8 @@ export default async function RegionalPackagesRoute({
 
   return (
     <>
-      {region === "ireland"
-        ? <PackagesClient region="ireland" />
+      {region === "ie"
+        ? <PackagesClient region="ie" />
         : <RegionalPackagesPage slug={slug} />}
       <script
         type="application/ld+json"
