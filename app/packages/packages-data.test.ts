@@ -30,7 +30,7 @@ function fit(
 }
 
 test("starting-out offers route to the correct setup service", () => {
-  assert.equal(fit({ startingOut: true }).name, "Company Launch");
+  assert.equal(fit({ startingOut: true }).name, "Dormant & Pre-trade");
   assert.equal(fit({ segment: "sole-trader", startingOut: true }).name, "Sole Trader Start-Up");
   assert.equal(fit({ segment: "contractor", startingOut: true }).name, "Contractor Launch");
   assert.equal(fit({ segment: "ecommerce", startingOut: true }).name, "E-commerce Finance Setup");
@@ -51,7 +51,7 @@ test("e-commerce thresholds account for platforms, accounting volume and sales",
 });
 
 test("limited company thresholds route dormant, growth, scale and bespoke correctly", () => {
-  assert.equal(fit({ dormant: true, transactions: 10, turnover: 10_000 }).name, "Dormant & Holding");
+  assert.equal(fit({ dormant: true, transactions: 10, turnover: 10_000 }).name, "Dormant & Pre-trade");
   assert.equal(fit({ transactions: 31 }).name, "LTD Growth");
   assert.equal(fit({ complex: true }).name, "LTD Scale");
   assert.equal(fit({ transactions: 121 }).name, "Bespoke");
