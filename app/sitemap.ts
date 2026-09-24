@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { services } from "@/lib/services";
 import { siteConfig } from "@/lib/site";
 import { regionContent } from "@/lib/region-content";
+import { internationalScenarioList } from "@/lib/international-scenarios";
 import { getRegionAlternates, regions, type RegionSlug } from "@/lib/regions";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -9,6 +10,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: siteConfig.url },
     ...services.map((service) => ({
       url: `${siteConfig.url}/${service.slug}`,
+    })),
+    ...internationalScenarioList.map((scenario) => ({
+      url: `${siteConfig.url}/international-accounting/${scenario.slug}`,
     })),
     ...Object.keys(regionContent).map((slug) => {
       const region = regions[slug as RegionSlug];
