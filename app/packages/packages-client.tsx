@@ -5,7 +5,7 @@ import { type KeyboardEvent, useEffect, useMemo, useRef, useState } from "react"
 import styles from "./packages.module.css";
 import { addOnGroups, commonCompany, recommendation, segments, type Segment } from "./packages-data";
 
-export function PackagesClient({ region = "ireland" }: { region?: "ireland" }) {
+export function PackagesClient({ region = "ie" }: { region?: "ie" }) {
   const [segment, setSegment] = useState<Segment>("company");
   const [expanded, setExpanded] = useState<string | null>(null);
   const [compareOpen, setCompareOpen] = useState(false);
