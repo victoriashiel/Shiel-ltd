@@ -11,11 +11,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/packages",
     languages: {
-      "en-IE": "/ireland/packages",
+      "en-IE": "/ie/packages",
       "en-GB": "/uk/packages",
-      "en-AE": "/uae/packages",
-      "en-GI": "/gibraltar/packages",
-      "en-ES": "/spain/packages",
+      "en-AE": "/ae/packages",
+      "en-GI": "/gi/packages",
+      "en-ES": "/es/packages",
       "x-default": "/packages",
     },
   },
