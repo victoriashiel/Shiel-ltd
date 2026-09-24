@@ -4,7 +4,11 @@ import { siteConfig } from "@/lib/site";
 import { safeJsonLd } from "@/lib/seo";
 import styles from "@/app/international-accounting/international.module.css";
 
-export function InternationalScenariosGrid() {
+export function InternationalScenariosGrid({
+  basePath = "/international-accounting",
+}: {
+  basePath?: string;
+}) {
   return (
     <section className={`section-pad ${styles.gridSection}`}>
       <div className={styles.heading}>
@@ -16,7 +20,7 @@ export function InternationalScenariosGrid() {
       </div>
       <div className={styles.grid}>
         {internationalScenarioList.map((scenario) => (
-          <Link key={scenario.slug} href={`/international-accounting/${scenario.slug}`} className={styles.card}>
+          <Link key={scenario.slug} href={`${basePath}/${scenario.slug}`} className={styles.card}>
             <span>{scenario.eyebrow}</span>
             <h3>{scenario.title}</h3>
             <p>{scenario.summary}</p>
@@ -28,8 +32,18 @@ export function InternationalScenariosGrid() {
   );
 }
 
-export function InternationalScenarioPage({ slug }: { slug: InternationalScenarioSlug }) {
+export function InternationalScenarioPage({
+  slug,
+  regionPath,
+  regionName,
+}: {
+  slug: InternationalScenarioSlug;
+  regionPath?: string;
+  regionName?: string;
+}) {
   const scenario = internationalScenarios[slug];
+  const basePath = regionPath ? `${regionPath}/international-accounting` : "/international-accounting";
+  const contactPath = regionPath ? `${regionPath}/contact` : "/contact";
 
   const schema = {
     "@context": "https://schema.org",
@@ -38,7 +52,7 @@ export function InternationalScenarioPage({ slug }: { slug: InternationalScenari
         "@type": "Service",
         name: scenario.title,
         description: scenario.summary,
-        url: `${siteConfig.url}/international-accounting/${scenario.slug}`,
+        url: `${siteConfig.url}${basePath}/${scenario.slug}`,
         provider: { "@id": `${siteConfig.url}/#organization` },
         areaServed: scenario.relatedRegions,
       },
@@ -56,7 +70,7 @@ export function InternationalScenarioPage({ slug }: { slug: InternationalScenari
             "@type": "ListItem",
             position: 3,
             name: scenario.eyebrow,
-            item: `${siteConfig.url}/international-accounting/${scenario.slug}`,
+            item: `${siteConfig.url}${basePath}/${scenario.slug}`,
           },
         ],
       },
@@ -68,7 +82,7 @@ export function InternationalScenarioPage({ slug }: { slug: InternationalScenari
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
 
       <section className={`section-pad ${styles.detailHero}`}>
-        <Link href="/international-accounting" className={styles.backLink}>← International accounting</Link>
+        <Link href={basePath} className={styles.backLink}>← {regionName ? `${regionName} international accounting` : "International accounting"}</Link>
         <p className="eyebrow">{scenario.eyebrow}</p>
         <h1>{scenario.title}</h1>
         <p>{scenario.summary}</p>
@@ -120,7 +134,7 @@ export function InternationalScenarioPage({ slug }: { slug: InternationalScenari
         </p>
         <Link
           className="button button-dark"
-          href={{ pathname: "/contact", query: { enquiry: "International accounting" } }}
+          href={{ pathname: contactPath, query: { enquiry: "International accounting" } }}
         >
           Discuss the situation <span aria-hidden="true">↗</span>
         </Link>
