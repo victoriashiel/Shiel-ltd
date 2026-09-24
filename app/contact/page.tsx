@@ -6,7 +6,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact Shiel Accountants about tax and compliance, bookkeeping and payroll, advisory and growth, or international accounting.",
+    "Contact Shiel Accountants about tax and compliance, bookkeeping and payroll, advisory and growth, international accounting, or monthly accounting packages.",
   alternates: { canonical: "/contact" },
   openGraph: {
     title: "Contact | Shiel Accountants",
@@ -16,7 +16,31 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+type ContactSearchParams = Promise<{
+  enquiry?: string | string[];
+  package?: string | string[];
+}>;
+
+function first(value?: string | string[]) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: ContactSearchParams;
+}) {
+  const params = await searchParams;
+  const enquiry = first(params.enquiry);
+  const packageName = first(params.package);
+
+  const initialEnquiryType =
+    enquiry === "Packages & pricing" || packageName ? "Packages & pricing" : "";
+
+  const initialMessage = packageName
+    ? `I'm interested in the ${packageName} package. Please confirm whether it is the right fit for my business.`
+    : "";
+
   return (
     <>
       <section className="contact-layout section-pad">
@@ -53,7 +77,10 @@ export default function ContactPage() {
 
         <div>
           <p className="form-kicker">Enquiry form</p>
-          <ContactForm />
+          <ContactForm
+            initialEnquiryType={initialEnquiryType}
+            initialMessage={initialMessage}
+          />
         </div>
       </section>
     </>
