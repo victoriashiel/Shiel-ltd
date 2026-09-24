@@ -26,8 +26,11 @@ export function stripRegionPrefix(pathname: string) {
   return stripped || "/";
 }
 
-export function isMirroredRegionalPath(pathname: string): pathname is RegionalPageSuffix {
-  return regionalPageSuffixes.includes(pathname as RegionalPageSuffix);
+export function isMirroredRegionalPath(pathname: string) {
+  return (
+    regionalPageSuffixes.includes(pathname as RegionalPageSuffix) ||
+    pathname.startsWith("/international-accounting/")
+  );
 }
 
 export function regionalPathFor(
