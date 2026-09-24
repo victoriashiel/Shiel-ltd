@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { RegionSuggestionBanner } from "@/components/region-suggestion-banner";
 import { siteConfig } from "@/lib/site";
 import { safeJsonLd } from "@/lib/seo";
 import "./globals.css";
@@ -97,6 +98,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en-GB">
       <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
+        <RegionSuggestionBanner />
         <SiteHeader />
         <main id="main-content">{children}</main>
         <SiteFooter />
