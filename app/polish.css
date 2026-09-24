@@ -926,3 +926,22 @@
     border-right: 0;
   }
 }
+
+
+.region-selector-compact {
+  gap: 8px;
+}
+
+.region-selector-label {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 760;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.site-header .region-selector-compact {
+  padding-left: 10px;
+  border-left: 1px solid var(--line);
+}
