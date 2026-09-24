@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/logo";
+import { RegionSelector } from "@/components/region-selector";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { navigation, siteConfig } from "@/lib/site";
 
@@ -45,6 +46,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="header-contact-actions">
+          <RegionSelector compact />
           <Link className="button button-dark header-cta" href="/contact">Contact us</Link>
           <a
             className="whatsapp-cta-icon"
@@ -79,6 +81,9 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          <div className="mobile-region-selector">
+            <RegionSelector />
+          </div>
           <div className="mobile-contact-actions">
             <Link className="button button-dark" href="/contact" onClick={() => setOpen(false)}>Contact us</Link>
             <a
