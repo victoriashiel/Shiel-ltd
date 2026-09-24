@@ -251,7 +251,7 @@ export function recommendation({
       return {
         segment,
         name: "Contractor Launch",
-        priceLabel: "€249 + CRO fee · one-off",
+        priceLabel: "€395 + CRO fee · one-off",
         reason: "This covers the company, director payroll and bookkeeping setup needed before the first invoice.",
       };
     }
@@ -268,13 +268,13 @@ export function recommendation({
     return {
       segment,
       name: "Company Launch",
-      priceLabel: "€299 + CRO fee · one-off",
+      priceLabel: "€495 + CRO fee · one-off",
       reason: "This covers company formation plus the core Revenue, RBO, payroll and bookkeeping setup.",
     };
   }
 
   if (segment === "ecommerce") {
-    if (turnover > 1_000_000) {
+    if (transactions > 200 || turnover > 1_000_000) {
       return {
         segment: "ecommerce",
         name: "Bespoke",
@@ -283,23 +283,25 @@ export function recommendation({
       };
     }
 
-    if (turnover > 500_000) {
+    if (transactions > 100 || turnover > 500_000) {
       return {
         segment: "ecommerce",
         name: "E-commerce Scale",
         priceLabel: "€449 / month",
-        reason: "Your sales volume is above Multi-channel and fits the higher-volume Scale tier.",
+        reason: "Your accounting volume or sales level is above Multi-channel and fits the higher-volume Scale tier.",
       };
     }
 
-    if (platforms === "multi" || turnover > 150_000) {
+    if (platforms === "multi" || transactions > 50 || turnover > 150_000) {
       return {
         segment: "ecommerce",
         name: "E-commerce Multi-channel",
         priceLabel: "€279 / month",
         reason: platforms === "multi"
           ? "You sell across more than one platform."
-          : "Your sales are above the Launch plan limit of €150k.",
+          : transactions > 50
+            ? "Your accounting transaction volume is above the Launch plan limit."
+            : "Your sales are above the Launch plan limit of €150k.",
       };
     }
 
@@ -307,7 +309,7 @@ export function recommendation({
       segment: "ecommerce",
       name: "E-commerce Launch",
       priceLabel: "€179 / month",
-      reason: "This fits one-platform selling with annual sales up to €150k.",
+      reason: "This fits one-platform selling with up to 50 accounting transactions a month and annual sales up to €150k.",
     };
   }
 
