@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { serviceBySlug } from "@/lib/services";
 import { siteConfig } from "@/lib/site";
@@ -19,7 +20,13 @@ export function serviceMetadata(slug: string): Metadata {
   };
 }
 
-export function FocusServicePage({ slug }: { slug: string }) {
+export function FocusServicePage({
+  slug,
+  beforeCta,
+}: {
+  slug: string;
+  beforeCta?: ReactNode;
+}) {
   const service = serviceBySlug[slug];
 
   const schema = {
@@ -93,6 +100,8 @@ export function FocusServicePage({ slug }: { slug: string }) {
           ))}
         </div>
       </section>
+
+      {beforeCta}
 
       <section className="cta-panel section-pad reveal">
         <p className="eyebrow">Ask about {service.title.toLowerCase()}</p>
