@@ -186,6 +186,7 @@ export function PackagesClient() {
         <div className={styles.planGrid} data-count={current.plans.length} role="tabpanel" id="package-panel" aria-labelledby={`package-tab-${segment}`} aria-live="polite">
           {current.plans.map((plan) => {
             const isExpanded = expanded === plan.name;
+            const tipId = `transaction-tip-${plan.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
             return (
               <article className={`${styles.planCard} ${plan.popular ? styles.popular : ""}`} key={plan.name}>
                 <div className={styles.cardTop}>
@@ -224,9 +225,14 @@ export function PackagesClient() {
                 <div className={styles.limits}>
                   <div className={styles.limitLabel}>
                     <span>Plan limits</span>
-                    <button className={styles.infoTip} type="button" aria-label="What counts as a transaction?">
+                    <button
+                      className={styles.infoTip}
+                      type="button"
+                      aria-label="What counts as a transaction?"
+                      aria-describedby={tipId}
+                    >
                       i
-                      <span role="tooltip">
+                      <span id={tipId} role="tooltip">
                         A transaction is an individual income or expense entry processed in the books. Internal transfers and corrections are not normally counted as separate trading transactions. Small occasional overages do not force an immediate plan change.
                       </span>
                     </button>
