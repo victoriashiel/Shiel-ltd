@@ -4,6 +4,7 @@ import Link from "next/link";
 import { serviceBySlug, type Service } from "@/lib/services";
 import { siteConfig } from "@/lib/site";
 import { safeJsonLd } from "@/lib/seo";
+import { regions } from "@/lib/regions";
 
 export function serviceMetadata(slug: string): Metadata {
   const service = serviceBySlug[slug];
@@ -11,7 +12,17 @@ export function serviceMetadata(slug: string): Metadata {
   return {
     title: service.title,
     description: service.summary,
-    alternates: { canonical: `/${service.slug}` },
+    alternates: {
+      canonical: `/${service.slug}`,
+      languages: {
+        "en-IE": `${regions.ie.path}/${service.slug}`,
+        "en-GB": `${regions.uk.path}/${service.slug}`,
+        "en-AE": `${regions.ae.path}/${service.slug}`,
+        "en-GI": `${regions.gi.path}/${service.slug}`,
+        "en-ES": `${regions.es.path}/${service.slug}`,
+        "x-default": `/${service.slug}`,
+      },
+    },
     openGraph: {
       title: `${service.title} | ${siteConfig.name}`,
       description: service.summary,
