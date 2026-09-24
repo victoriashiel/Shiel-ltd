@@ -571,7 +571,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .planCard,
-  .segmentTabs button,
+  .segmentTabs button {
+    transition: none;
+  }
 }
 
 
