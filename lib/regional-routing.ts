@@ -47,7 +47,15 @@ export function regionalPathFor(
 }
 
 export function regionalizeHref(href: string, activeRegion: RegionSlug | null) {
-  if (!activeRegion || !isMirroredRegionalPath(href)) return href;
+  if (!activeRegion) return href;
+
+  const hashIndex = href.indexOf("#");
+  const path = hashIndex >= 0 ? href.slice(0, hashIndex) || "/" : href;
+  const hash = hashIndex >= 0 ? href.slice(hashIndex) : "";
+
+  if (!isMirroredRegionalPath(path)) return href;
+
   const base = regions[activeRegion].path;
-  return href === "/" ? base : `${base}${href}`;
+  const regionalPath = path === "/" ? base : `${base}${path}`;
+  return `${regionalPath}${hash}`;
 }
