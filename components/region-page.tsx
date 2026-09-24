@@ -132,6 +132,15 @@ export function RegionPage({ slug }: { slug: RegionSlug }) {
                 {item.features.map((feature) => <li key={feature}><span aria-hidden="true">✓</span>{feature}</li>)}
               </ul>
               {item.limit && <small>{item.limit}</small>}
+              <Link
+                className={`button button-quiet ${styles.packageCta}`}
+                href={{
+                  pathname: "/contact",
+                  query: { region: slug, enquiry: "Packages & pricing", package: item.name },
+                }}
+              >
+                Ask about this package <span aria-hidden="true">↗</span>
+              </Link>
             </article>
           ))}
         </div>
