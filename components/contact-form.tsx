@@ -5,7 +5,13 @@ import { FormEvent, useState } from "react";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-export function ContactForm() {
+export function ContactForm({
+  initialEnquiryType = "",
+  initialMessage = "",
+}: {
+  initialEnquiryType?: string;
+  initialMessage?: string;
+}) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
 
@@ -84,12 +90,13 @@ export function ContactForm() {
         </label>
         <label>
           <span>Enquiry type</span>
-          <select name="enquiryType" defaultValue="" required>
+          <select name="enquiryType" defaultValue={initialEnquiryType} required>
             <option value="" disabled>Select the closest match</option>
             <option>Tax & compliance</option>
             <option>Bookkeeping & payroll</option>
             <option>Advisory & growth</option>
             <option>International accounting</option>
+            <option>Packages & pricing</option>
             <option>Existing client query</option>
             <option>Other</option>
           </select>
@@ -101,6 +108,7 @@ export function ContactForm() {
         <textarea
           name="message"
           rows={7}
+          defaultValue={initialMessage}
           required
           minLength={10}
           maxLength={5000}
