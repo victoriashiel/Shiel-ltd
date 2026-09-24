@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { regionList, type RegionSlug } from "@/lib/regions";
+import { regionalPathFor } from "@/lib/regional-routing";
 
 function currentRegion(pathname: string): RegionSlug | "global" {
   const first = pathname.split("/").filter(Boolean)[0];
@@ -20,14 +21,9 @@ export function RegionSelector({ compact = false }: { compact?: boolean }) {
         value={value}
         aria-label="Choose region"
         onChange={(event) => {
-          const next = event.target.value;
-          const onPackages = pathname === "/packages" || pathname.endsWith("/packages");
+          const next = event.target.value as RegionSlug | "global";
           localStorage.setItem("shiel-region-choice", next);
-          router.push(
-            next === "global"
-              ? (onPackages ? "/packages" : "/")
-              : `/${next}${onPackages ? "/packages" : ""}`,
-          );
+          router.push(regionalPathFor(pathname, next));
         }}
       >
         <option value="global">Global</option>
