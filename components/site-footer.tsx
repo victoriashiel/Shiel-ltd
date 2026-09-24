@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
+import { RegionSelector } from "@/components/region-selector";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { navigation, siteConfig } from "@/lib/site";
 
@@ -35,6 +36,9 @@ export function SiteFooter() {
             <p className="footer-label">Shiel Accountants</p>
             <Link href="/#about">About</Link>
             <Link href="/contact">Contact us</Link>
+            <div className="footer-region-select">
+              <RegionSelector />
+            </div>
           </div>
           <div>
             <p className="footer-label">Legal</p>
