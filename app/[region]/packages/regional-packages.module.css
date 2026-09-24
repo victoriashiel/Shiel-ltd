@@ -1,0 +1,270 @@
+.hero {
+  padding-top: 112px;
+  padding-bottom: 72px;
+}
+
+.backLink {
+  display: inline-flex;
+  margin-bottom: 34px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.hero h1 {
+  max-width: 980px;
+}
+
+.hero > p:last-child {
+  max-width: 760px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.pricingSection {
+  padding-top: 48px;
+}
+
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.card {
+  position: relative;
+  min-height: 610px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: color-mix(in srgb, var(--paper) 84%, transparent);
+  display: flex;
+  flex-direction: column;
+}
+
+.popular {
+  border-color: color-mix(in srgb, var(--teal) 36%, var(--line));
+  background: color-mix(in srgb, var(--teal-pale) 18%, var(--paper));
+}
+
+.badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: var(--teal-pale);
+  color: var(--teal);
+  font-size: 9px;
+  font-weight: 760;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.cardTop h2 {
+  max-width: 80%;
+  font-size: clamp(1.45rem, 2vw, 1.95rem);
+}
+
+.cardTop > p {
+  min-height: 72px;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.price {
+  min-height: 92px;
+  margin-top: 26px;
+}
+
+.price strong {
+  display: block;
+  font-size: clamp(2rem, 2.7vw, 3rem);
+  line-height: 1;
+  letter-spacing: -.05em;
+}
+
+.price span {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.card ul {
+  list-style: none;
+  margin: 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.card li {
+  display: grid;
+  grid-template-columns: 17px 1fr;
+  gap: 9px;
+  padding: 8px 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.card li span {
+  color: var(--teal);
+  font-weight: 760;
+}
+
+.limit {
+  margin-top: auto;
+  padding-top: 22px;
+}
+
+.limit > span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 760;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.limit p {
+  margin: 6px 0 0;
+  color: var(--ink-soft);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.cardButton {
+  width: 100%;
+  margin-top: 18px;
+}
+
+.scopeNote {
+  margin-top: 42px;
+  padding: 26px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 48px;
+}
+
+.scopeNote h2 {
+  font-size: clamp(1.9rem, 3vw, 3rem);
+}
+
+.scopeNote > p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.localContext {
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: clamp(50px, 8vw, 120px);
+}
+
+.localContext > div:first-child > p:last-child {
+  max-width: 650px;
+  margin: 22px 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.localList {
+  border-top: 1px solid var(--line);
+}
+
+.localList div {
+  min-height: 78px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 18px;
+  align-items: center;
+}
+
+.localList span {
+  color: var(--teal);
+  font-size: 10px;
+  font-weight: 720;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.localList strong {
+  font-size: 15px;
+}
+
+.bespoke {
+  border-top: 1px solid var(--line);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bespoke h2 {
+  max-width: 900px;
+}
+
+.bespoke > p:not(.eyebrow) {
+  max-width: 720px;
+  margin: 24px 0 28px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+@media (max-width: 1120px) {
+  .pricingGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card {
+    min-height: 560px;
+  }
+}
+
+@media (max-width: 780px) {
+  .hero {
+    padding-top: 82px;
+    padding-bottom: 56px;
+  }
+
+  .pricingGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 0;
+  }
+
+  .cardTop > p {
+    min-height: 0;
+  }
+
+  .scopeNote,
+  .localContext {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .localList div {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
