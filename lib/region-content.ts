@@ -23,8 +23,8 @@ export type RegionPageContent = {
 };
 
 export const regionContent: Record<RegionSlug, RegionPageContent> = {
-  ireland: {
-    slug: "ireland",
+  ie: {
+    slug: "ie",
     eyebrow: "Ireland",
     title: "Accounting for businesses, contractors and founders in Ireland.",
     intro:
@@ -171,8 +171,8 @@ export const regionContent: Record<RegionSlug, RegionPageContent> = {
       },
     ],
   },
-  uae: {
-    slug: "uae",
+  ae: {
+    slug: "ae",
     eyebrow: "UAE",
     title: "UAE accounting built around Corporate Tax, VAT and usable monthly books.",
     intro:
@@ -245,8 +245,8 @@ export const regionContent: Record<RegionSlug, RegionPageContent> = {
       },
     ],
   },
-  gibraltar: {
-    slug: "gibraltar",
+  gi: {
+    slug: "gi",
     eyebrow: "Gibraltar",
     title: "Gibraltar accounting for local companies, owners and cross-border businesses.",
     intro:
@@ -319,8 +319,8 @@ export const regionContent: Record<RegionSlug, RegionPageContent> = {
       },
     ],
   },
-  spain: {
-    slug: "spain",
+  es: {
+    slug: "es",
     eyebrow: "Spain",
     title: "Accounting and tax support for autónomos, Spanish companies and international owners.",
     intro:
