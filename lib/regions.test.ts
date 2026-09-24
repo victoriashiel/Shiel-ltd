@@ -17,19 +17,19 @@ test("every supported region has content and package pricing", () => {
 });
 
 test("regional currencies match the local pricing currency", () => {
-  assert.equal(regionalPackages.ireland.currency, "EUR");
+  assert.equal(regionalPackages.ie.currency, "EUR");
   assert.equal(regionalPackages.uk.currency, "GBP");
-  assert.equal(regionalPackages.uae.currency, "AED");
-  assert.equal(regionalPackages.gibraltar.currency, "GIP");
-  assert.equal(regionalPackages.spain.currency, "EUR");
+  assert.equal(regionalPackages.ae.currency, "AED");
+  assert.equal(regionalPackages.gi.currency, "GIP");
+  assert.equal(regionalPackages.es.currency, "EUR");
 });
 
 test("country codes resolve to the intended region", () => {
-  assert.equal(regionByCountryCode.IE.slug, "ireland");
+  assert.equal(regionByCountryCode.IE.slug, "ie");
   assert.equal(regionByCountryCode.GB.slug, "uk");
-  assert.equal(regionByCountryCode.AE.slug, "uae");
-  assert.equal(regionByCountryCode.GI.slug, "gibraltar");
-  assert.equal(regionByCountryCode.ES.slug, "spain");
+  assert.equal(regionByCountryCode.AE.slug, "ae");
+  assert.equal(regionByCountryCode.GI.slug, "gi");
+  assert.equal(regionByCountryCode.ES.slug, "es");
 });
 
 test("every regional package route has a stable local path", () => {
