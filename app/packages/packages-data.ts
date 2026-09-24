@@ -214,6 +214,7 @@ export type FinderResult = {
 
 export function recommendation({
   segment,
+  startingOut,
   dormant,
   transactions,
   turnover,
@@ -223,6 +224,7 @@ export function recommendation({
   complex,
 }: {
   segment: Segment;
+  startingOut: boolean;
   dormant: boolean;
   transactions: number;
   turnover: number;
@@ -231,13 +233,58 @@ export function recommendation({
   platforms: "one" | "multi";
   complex: boolean;
 }): FinderResult {
+  if (startingOut) {
+    if (segment === "sole-trader") {
+      return {
+        segment,
+        name: "Sole Trader Start-Up",
+        priceLabel: "€149 · one-off",
+        reason: "This gets the Revenue and bookkeeping setup in place before regular trading begins.",
+      };
+    }
+
+    if (segment === "contractor") {
+      return {
+        segment,
+        name: "Contractor Launch",
+        priceLabel: "€249 + CRO fee · one-off",
+        reason: "This covers the company, director payroll and bookkeeping setup needed before the first invoice.",
+      };
+    }
+
+    if (segment === "ecommerce") {
+      return {
+        segment,
+        name: "E-commerce Finance Setup",
+        priceLabel: "€199 · one-off",
+        reason: "This sets up platform feeds, the bookkeeping structure and VAT/OSS readiness before ongoing bookkeeping.",
+      };
+    }
+
+    return {
+      segment,
+      name: "Company Launch",
+      priceLabel: "€299 + CRO fee · one-off",
+      reason: "This covers company formation plus the core Revenue, RBO, payroll and bookkeeping setup.",
+    };
+  }
+
   if (segment === "ecommerce") {
-    if (turnover > 500_000) {
+    if (turnover > 1_000_000) {
       return {
         segment: "ecommerce",
         name: "Bespoke",
         priceLabel: "From €499 / month",
-        reason: "Your sales volume is above the published Multi-channel limit, so the work needs to be scoped.",
+        reason: "Your sales volume is above the published E-commerce Scale limit, so the work needs to be scoped.",
+      };
+    }
+
+    if (turnover > 500_000) {
+      return {
+        segment: "ecommerce",
+        name: "E-commerce Scale",
+        priceLabel: "€449 / month",
+        reason: "Your sales volume is above Multi-channel and fits the higher-volume Scale tier.",
       };
     }
 
@@ -261,12 +308,21 @@ export function recommendation({
   }
 
   if (segment === "sole-trader") {
-    if (transactions > 80 || turnover > 250_000 || staff > 2) {
+    if (transactions > 150 || turnover > 500_000 || staff > 5) {
       return {
         segment: "sole-trader",
         name: "Bespoke",
         priceLabel: "From €499 / month",
-        reason: "At least one part of your activity is above the published Sole Trader Plus limits.",
+        reason: "At least one part of your activity is above the published Sole Trader Scale limits.",
+      };
+    }
+
+    if (transactions > 80 || turnover > 250_000 || staff > 2) {
+      return {
+        segment: "sole-trader",
+        name: "Sole Trader Scale",
+        priceLabel: "€249 / month",
+        reason: "Your activity is above Plus and fits the higher-volume Scale tier.",
       };
     }
 
@@ -300,9 +356,9 @@ export function recommendation({
     if (dormant && transactions <= 10 && turnover <= 10_000 && staff === 0 && directors <= 1 && !complex) {
       return {
         segment: "company",
-        name: "Dormant & Pre-trade",
+        name: "Dormant & Holding",
         priceLabel: "€79 / month",
-        reason: "This matches the dormant/pre-trade limits: minimal activity, no payroll and one director.",
+        reason: "This matches the dormant/holding limits: minimal activity, no payroll and one director.",
       };
     }
 
