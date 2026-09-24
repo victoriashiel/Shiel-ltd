@@ -21,8 +21,13 @@ export function RegionSelector({ compact = false }: { compact?: boolean }) {
         aria-label="Choose region"
         onChange={(event) => {
           const next = event.target.value;
+          const onPackages = pathname === "/packages" || pathname.endsWith("/packages");
           localStorage.setItem("shiel-region-choice", next);
-          router.push(next === "global" ? "/" : `/${next}`);
+          router.push(
+            next === "global"
+              ? (onPackages ? "/packages" : "/")
+              : `/${next}${onPackages ? "/packages" : ""}`,
+          );
         }}
       >
         <option value="global">Global</option>
