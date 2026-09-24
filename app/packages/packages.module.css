@@ -122,11 +122,22 @@
 }
 
 .segmentTabs {
+  position: sticky;
+  top: 82px;
+  z-index: 20;
+  width: max-content;
+  max-width: 100%;
   margin-top: 62px;
+  padding: 5px;
   display: flex;
-  gap: 8px;
+  gap: 4px;
   overflow-x: auto;
-  padding-bottom: 5px;
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cloud) 88%, transparent);
+  box-shadow: 0 10px 30px rgba(11,23,24,.05);
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
   scrollbar-width: none;
 }
 
@@ -135,28 +146,23 @@
 }
 
 .segmentTabs button {
-  min-height: 47px;
-  padding: 0 18px;
+  min-height: 44px;
+  padding: 0 17px;
   flex: 0 0 auto;
-  border: 1px solid var(--line);
+  border: 0;
   border-radius: 999px;
   background: transparent;
   color: var(--ink-soft);
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 640;
-  transition: transform .18s ease, background .18s ease, border-color .18s ease;
-}
-
-.segmentTabs button:hover {
-  transform: translateY(-1px);
-  border-color: color-mix(in srgb, var(--teal) 34%, var(--line));
+  font-size: 13px;
+  font-weight: 650;
+  transition: transform .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
 }
 
 .segmentTabs .activeTab {
-  background: var(--teal-pale);
-  border-color: color-mix(in srgb, var(--teal) 18%, var(--line));
-  color: var(--teal);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 5px 16px rgba(11,23,24,.08);
 }
 
 .segmentIntro {
@@ -205,24 +211,28 @@
   padding: 26px;
   border: 1px solid var(--line);
   border-radius: 28px;
-  background: color-mix(in srgb, var(--paper) 79%, transparent);
+  background: color-mix(in srgb, var(--paper) 84%, transparent);
   display: flex;
   flex-direction: column;
-  transition: transform .24s cubic-bezier(.2,.8,.2,1), box-shadow .24s ease, border-color .2s ease;
-}
-
-.planCard:hover {
-  transform: translateY(-5px);
-  border-color: color-mix(in srgb, var(--teal) 28%, transparent);
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 1px 0 rgba(255,255,255,.72) inset;
+  transition: transform .24s cubic-bezier(.2,.8,.2,1), box-shadow .24s ease, border-color .2s ease, background .2s ease;
 }
 
 .planCard.popular {
-  background:
-    linear-gradient(var(--paper), var(--paper)) padding-box,
-    linear-gradient(145deg, var(--teal-bright), color-mix(in srgb, var(--teal) 45%, var(--line))) border-box;
-  border: 1px solid transparent;
-  box-shadow: 0 22px 60px rgba(15,95,92,.09);
+  border-color: color-mix(in srgb, var(--teal) 34%, var(--line));
+  background: color-mix(in srgb, var(--teal-pale) 18%, var(--paper));
+  box-shadow: 0 16px 44px rgba(15,95,92,.07), 0 1px 0 rgba(255,255,255,.82) inset;
+}
+
+.planCard.popular::before {
+  content: "";
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  top: -1px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--teal-bright);
 }
 
 .popularBadge {
@@ -279,6 +289,7 @@
 }
 
 .featureList {
+  min-height: 190px;
   list-style: none;
   padding: 22px 0 0;
   margin: 0;
@@ -573,11 +584,37 @@
   }
 
   .segmentTabs {
+    top: 72px;
+    width: 100%;
     margin-top: 42px;
+    border-radius: 18px;
+  }
+
+  .segmentTabs button {
+    min-height: 42px;
+    padding: 0 14px;
   }
 
   .planGrid[data-count="4"],
-  .planGrid[data-count="2"],
+  .planGrid[data-count="2"] {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(82vw, 1fr);
+    grid-template-columns: none;
+    max-width: none;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: none;
+    padding: 4px 12vw 14px 0;
+    margin-right: calc((100vw - var(--page)) / -2);
+  }
+
+  .planGrid[data-count="4"]::-webkit-scrollbar,
+  .planGrid[data-count="2"]::-webkit-scrollbar {
+    display: none;
+  }
+
   .planGrid[data-count="1"] {
     grid-template-columns: 1fr;
     max-width: none;
@@ -585,9 +622,11 @@
 
   .planCard {
     min-height: 0;
+    scroll-snap-align: start;
   }
 
-  .cardTop p {
+  .cardTop p,
+  .featureList {
     min-height: 0;
   }
 
@@ -1015,5 +1054,39 @@
   .addOnAccordion summary span:last-child,
   .finderDialog {
     transition: none;
+  }
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+  .segmentTabs button:hover {
+    transform: translateY(-1px);
+    color: var(--ink);
+  }
+
+  .planCard:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--teal) 24%, var(--line));
+    background: var(--paper);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .planCard.popular:hover {
+    border-color: color-mix(in srgb, var(--teal) 44%, var(--line));
+    background: color-mix(in srgb, var(--teal-pale) 22%, var(--paper));
+  }
+}
+
+@media (min-width: 781px) and (max-width: 1120px) {
+  .planGrid[data-count="2"] {
+    max-width: none;
+  }
+
+  .planCard {
+    min-height: 560px;
+  }
+
+  .featureList {
+    min-height: 165px;
   }
 }
