@@ -332,7 +332,7 @@ export function PackagesClient() {
       >
         <div className={styles.finderModal}>
           <button className={styles.modalClose} type="button" aria-label="Close package finder" onClick={closeFinder}>×</button>
-            <p className="eyebrow">Package finder</p>
+            <p className={`eyebrow ${styles.finderEyebrow}`}>Package finder</p>
             <h2 id="finder-title" tabIndex={-1} data-finder-initial>Find the closest fit.</h2>
             <p className={styles.finderIntro}>This is a guide to the published packages, not an accounting assessment. We confirm the scope before onboarding.</p>
 
