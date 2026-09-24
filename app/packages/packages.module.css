@@ -666,3 +666,394 @@
     transition: none;
   }
 }
+
+
+/* Packages v2: interactive monthly-only pricing */
+.finderButton {
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.66);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.finderButton:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--teal) 34%, var(--line));
+  background: white;
+}
+
+.expandButton {
+  width: 100%;
+  margin-top: 12px;
+  padding: 15px 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.expandButton span {
+  color: var(--teal);
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.expandedDetails {
+  padding: 0 0 16px;
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.includedBlock {
+  margin-top: 18px;
+  padding: clamp(28px, 4vw, 44px);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(33,160,154,.09), transparent 30%),
+    color-mix(in srgb, var(--paper) 86%, white);
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.includedBlock h3 {
+  margin-top: 12px;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  max-width: 520px;
+}
+
+.includedGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px 22px;
+}
+
+.includedGrid span {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.compareWrap {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--paper) 88%, white);
+}
+
+.compareButton {
+  width: 100%;
+  min-height: 72px;
+  padding: 0 24px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.compareButton span:last-child {
+  color: var(--teal);
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.comparisonScroller {
+  overflow-x: auto;
+  border-top: 1px solid var(--line);
+}
+
+.comparisonTable {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.comparisonTable th,
+.comparisonTable td {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.comparisonTable thead th {
+  background: color-mix(in srgb, var(--teal-pale) 48%, transparent);
+  color: var(--ink);
+  font-size: 11px;
+  letter-spacing: .02em;
+}
+
+.comparisonTable tbody th {
+  color: var(--muted);
+  font-weight: 620;
+}
+
+.comparisonTable tbody td {
+  color: var(--ink-soft);
+}
+
+.addOnAccordion {
+  align-self: start;
+  border-top: 1px solid var(--line);
+}
+
+.addOnAccordion details {
+  border-bottom: 1px solid var(--line);
+}
+
+.addOnAccordion summary {
+  min-height: 74px;
+  padding: 0 2px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 620;
+}
+
+.addOnAccordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.addOnAccordion summary span:last-child {
+  color: var(--teal);
+  font-size: 24px;
+  font-weight: 400;
+  transition: transform .2s ease;
+}
+
+.addOnAccordion details[open] summary span:last-child {
+  transform: rotate(45deg);
+}
+
+.addOnAccordion details > div {
+  padding: 0 0 18px;
+}
+
+.addOnAccordion p {
+  margin: 0;
+  min-height: 48px;
+  padding: 11px 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: center;
+}
+
+.addOnAccordion p span {
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.addOnAccordion p strong {
+  color: var(--ink);
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 660;
+}
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  padding: 24px;
+  background: rgba(7,18,19,.58);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: grid;
+  place-items: center;
+}
+
+.finderModal {
+  position: relative;
+  width: min(760px, 100%);
+  max-height: min(88vh, 860px);
+  overflow-y: auto;
+  padding: clamp(28px, 5vw, 48px);
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 32px;
+  background: rgba(248,249,247,.96);
+  box-shadow: 0 40px 120px rgba(8,20,21,.28);
+}
+
+.finderModal h2 {
+  margin-top: 8px;
+  font-size: clamp(2.5rem, 6vw, 4.8rem);
+}
+
+.finderIntro {
+  max-width: 620px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.modalClose {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.finderField {
+  margin-top: 30px;
+}
+
+.finderField > span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 680;
+}
+
+.finderOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.finderOptions button {
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: white;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 620;
+  transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.finderOptions button:hover {
+  transform: translateY(-1px);
+}
+
+.finderOptions .selectedOption {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+.finderResult {
+  margin-top: 34px;
+  padding: 24px;
+  border-radius: 24px;
+  background: var(--ink);
+  color: white;
+}
+
+.finderResult > span {
+  color: #91d7cf;
+  font-size: 10px;
+  font-weight: 760;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.finderResult > strong {
+  display: block;
+  margin-top: 10px;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  letter-spacing: -.035em;
+}
+
+.finderResult > p {
+  margin: 6px 0 0;
+  color: rgba(255,255,255,.68);
+}
+
+.finderResult > div {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 780px) {
+  .finderButton {
+    width: 100%;
+  }
+
+  .includedBlock {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .includedGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .modalBackdrop {
+    padding: 10px;
+    align-items: end;
+  }
+
+  .finderModal {
+    width: 100%;
+    max-height: 92vh;
+    border-radius: 26px 26px 18px 18px;
+    padding: 28px 20px 22px;
+  }
+
+  .finderResult > div {
+    flex-direction: column;
+  }
+
+  .finderResult .button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .finderButton,
+  .expandButton,
+  .finderOptions button,
+  .addOnAccordion summary span:last-child {
+    transition: none;
+  }
+}
