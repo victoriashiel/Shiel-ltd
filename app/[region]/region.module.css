@@ -88,6 +88,134 @@
   font-weight: 760;
 }
 
+
+.packagesSection {
+  border-top: 1px solid var(--line);
+}
+
+.sectionIntro {
+  max-width: 720px;
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.packageGrid {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.packageCard {
+  position: relative;
+  min-height: 520px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  display: flex;
+  flex-direction: column;
+}
+
+.packagePopular {
+  border-color: color-mix(in srgb, var(--teal) 35%, var(--line));
+  background: color-mix(in srgb, var(--teal-pale) 18%, var(--paper));
+}
+
+.popularLabel {
+  width: max-content;
+  margin-bottom: 16px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: var(--teal-pale);
+  color: var(--teal);
+  font-size: 9px;
+  font-weight: 760;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.packageCard h3 {
+  font-size: clamp(1.45rem, 2vw, 1.95rem);
+}
+
+.packageCard > p {
+  min-height: 68px;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.52;
+}
+
+.packagePrice {
+  margin-top: 26px;
+  min-height: 82px;
+}
+
+.packagePrice strong {
+  display: block;
+  font-size: clamp(2rem, 2.6vw, 3rem);
+  line-height: 1;
+  letter-spacing: -.045em;
+}
+
+.packagePrice span {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.packageCard ul {
+  list-style: none;
+  margin: 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.packageCard li {
+  display: grid;
+  grid-template-columns: 17px 1fr;
+  gap: 9px;
+  padding: 7px 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.packageCard li span {
+  color: var(--teal);
+  font-weight: 760;
+}
+
+.packageCard > small {
+  margin-top: auto;
+  padding-top: 20px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.packageFooter {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+  align-items: center;
+}
+
+.packageFooter p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
 .complianceList {
   margin-top: 48px;
   border-top: 1px solid var(--line);
@@ -197,6 +325,12 @@
   line-height: 1.58;
 }
 
+@media (max-width: 1100px) {
+  .packageGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 900px) {
   .serviceGrid,
   .faqSection {
@@ -218,8 +352,26 @@
     padding-bottom: 72px;
   }
 
-  .serviceGrid {
+  .serviceGrid,
+  .packageGrid {
     margin-top: 36px;
+  }
+
+  .packageGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .packageCard {
+    min-height: 0;
+  }
+
+  .packageCard > p {
+    min-height: 0;
+  }
+
+  .packageFooter {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .serviceCard {
