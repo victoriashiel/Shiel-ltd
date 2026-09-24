@@ -198,6 +198,11 @@
   line-height: 1.5;
 }
 
+.packageCta {
+  width: 100%;
+  margin-top: 18px;
+}
+
 .packageFooter {
   margin-top: 24px;
   padding-top: 20px;
