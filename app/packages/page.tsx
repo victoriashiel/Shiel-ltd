@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
 };
 
-const packageOffers = segments.flatMap((segment) =>
+const monthlyOffers = segments.flatMap((segment) =>
   segment.plans.map((plan) => ({
     "@type": "Offer",
     name: plan.name,
@@ -29,6 +29,42 @@ const packageOffers = segments.flatMap((segment) =>
     description: plan.strap,
   })),
 );
+
+const setupOffers = segments.flatMap((segment) => {
+  const offers = [];
+
+  if (segment.setupOffer) {
+    const price = Number(segment.setupOffer.priceLabel.match(/€([0-9]+)/)?.[1] ?? 0);
+    offers.push({
+      "@type": "Offer",
+      name: segment.setupOffer.name,
+      category: `${segment.label} setup`,
+      price,
+      priceCurrency: "EUR",
+      url: `${siteConfig.url}/packages`,
+      offeredBy: { "@id": `${siteConfig.url}/#organization` },
+      description: segment.setupOffer.strap,
+    });
+  }
+
+  if (segment.advisoryOffer) {
+    const price = Number(segment.advisoryOffer.priceLabel.match(/€([0-9]+)/)?.[1] ?? 0);
+    offers.push({
+      "@type": "Offer",
+      name: segment.advisoryOffer.name,
+      category: `${segment.label} advisory`,
+      price,
+      priceCurrency: "EUR",
+      url: `${siteConfig.url}/packages`,
+      offeredBy: { "@id": `${siteConfig.url}/#organization` },
+      description: segment.advisoryOffer.strap,
+    });
+  }
+
+  return offers;
+});
+
+const packageOffers = [...monthlyOffers, ...setupOffers];
 
 const packagesSchema = {
   "@context": "https://schema.org",
