@@ -1,9 +1,20 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { CaseStudyCarousel } from "@/components/case-study-carousel";
 import { FinanceCanvas } from "@/components/finance-canvas";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { services } from "@/lib/services";
 import { siteConfig } from "@/lib/site";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-IE": "/ireland",
+      "x-default": "/",
+    },
+  },
+};
 
 const faqs = [
   {
