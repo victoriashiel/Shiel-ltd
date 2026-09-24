@@ -33,25 +33,25 @@ export const segments: PackageSegment[] = [
       "Company accounts, Corporation Tax, CRO filing, VAT, bookkeeping and director tax support in one monthly fee.",
     setupOffer: {
       name: "Company Launch",
-      priceLabel: "€299 + CRO fee · one-off",
+      priceLabel: "€495 + CRO fee · one-off",
       strap: "For people setting up a limited company and wanting the accounting side built properly from day one.",
-      includes: ["Company formation", "Revenue, RBO and payroll setup", "Bookkeeping system setup"],
+      includes: ["Company formation + constitution", "Revenue, RBO, VAT/PAYE setup where needed", "Bookkeeping system + compliance calendar"],
     },
     plans: [
       {
         name: "Dormant & Holding",
-        strap: "For dormant companies and holding structures with little or no trading activity.",
+        strap: "For dormant companies and simple holding structures with little or no activity.",
         price: 79,
-        features: ["Abridged or dormant accounts", "Nil CT1 and B1 filing", "RBO and CRO compliance", "1 director Form 11"],
-        details: ["Named accountant", "Cloud bookkeeping software", "Bank feeds where relevant", "Deadline calendar and reminders"],
-        limits: "Up to 10 transactions / month · sales up to €10k · no payroll",
+        features: ["Dormant or abridged accounts", "CT1 and B1 filing", "RBO and CRO compliance", "1 director Form 11"],
+        details: ["Named accountant", "Compliance calendar and reminders", "Basic record review", "Bank feed where relevant"],
+        limits: "No active trade · up to 10 accounting entries / month · no payroll or VAT filing",
       },
       {
         name: "LTD Starter",
         strap: "For new and small trading companies.",
         price: 179,
         features: ["Monthly bookkeeping", "Payroll for up to 2 employees", "CT1, B1, VAT3 and RTD", "1 director Form 11"],
-        details: ["Annual accountant review", "Named accountant", "Cloud bookkeeping software", "Bank feeds", "RBO maintenance"],
+        details: ["Annual accountant review", "Named accountant", "Cloud bookkeeping software", "Bank feeds", "RBO maintenance", "ERR reporting where applicable"],
         limits: "Up to 30 transactions / month · sales up to €150k · 2 directors",
       },
       {
@@ -60,7 +60,7 @@ export const segments: PackageSegment[] = [
         price: 279,
         popular: true,
         features: ["Everything in Starter", "Payroll for up to 6 employees", "Quarterly management accounts", "VIES returns"],
-        details: ["Quarterly review call", "Form 11 for 2 directors", "Named accountant", "Cloud bookkeeping software", "Bank feeds", "RBO maintenance"],
+        details: ["Quarterly review call", "Form 11 for 2 directors", "Named accountant", "Cloud bookkeeping software", "Bank feeds", "RBO maintenance", "ERR reporting where applicable"],
         limits: "Up to 60 transactions / month · sales up to €400k · 3 directors",
       },
       {
@@ -68,7 +68,7 @@ export const segments: PackageSegment[] = [
         strap: "For established SMEs and more complex structures.",
         price: 449,
         features: ["Everything in Growth", "Payroll for up to 15 staff", "Monthly management accounts", "Cash, RCT and group structures"],
-        details: ["Weekly payroll runs where needed", "Monthly review call", "Form 11 for 3 directors", "Priority turnaround", "Named accountant"],
+        details: ["Weekly payroll runs where needed", "Monthly review call", "Form 11 for 3 directors", "Priority turnaround", "Named accountant", "ERR reporting where applicable"],
         limits: "Up to 120 transactions / month · sales up to €1m · 4 directors",
       },
     ],
@@ -82,16 +82,16 @@ export const segments: PackageSegment[] = [
       name: "Sole Trader Start-Up",
       priceLabel: "€149 · one-off",
       strap: "For people starting self-employment and wanting the tax and bookkeeping setup handled before regular trading begins.",
-      includes: ["Revenue registration", "Bookkeeping setup", "VAT, PAYE or RCT setup where needed"],
+      includes: ["Income Tax registration", "ROS + bookkeeping setup", "VAT, PAYE or RCT setup where needed"],
     },
     plans: [
       {
         name: "Sole Trader Essentials",
         strap: "For freelancers and newer self-employed clients.",
         price: 99,
-        features: ["Bookkeeping and receipt capture", "Form 11 and preliminary tax calculation", "VAT returns if registered", "Named accountant"],
-        details: ["Deadline reminders", "Cloud bookkeeping", "Support with routine Revenue queries"],
-        limits: "Up to 30 transactions / month · turnover up to €80k",
+        features: ["Monthly bookkeeping", "Annual accounts / profit & loss", "Form 11 + preliminary tax", "Named accountant"],
+        details: ["Receipt capture and bank feed", "VAT returns if registered", "Deadline reminders", "Routine Revenue queries"],
+        limits: "Up to 20 accounting transactions / month · turnover up to €80k",
       },
       {
         name: "Sole Trader Plus",
@@ -99,16 +99,16 @@ export const segments: PackageSegment[] = [
         price: 159,
         popular: true,
         features: ["Everything in Essentials", "Payroll for up to 2 employees", "Quarterly management summary", "Card, Stripe and SumUp feeds"],
-        details: ["Named accountant", "Cloud bookkeeping", "Deadline reminders"],
-        limits: "Up to 80 transactions / month · turnover up to €250k",
+        details: ["VAT filing where registered", "Cloud bookkeeping", "Named accountant", "Deadline reminders"],
+        limits: "Up to 60 accounting transactions / month · turnover up to €200k",
       },
       {
         name: "Sole Trader Scale",
         strap: "For established self-employed businesses with higher activity.",
-        price: 249,
-        features: ["Everything in Plus", "Payroll for up to 5 employees", "Monthly management summary", "Multiple income streams"],
-        details: ["VAT support", "Payment platform feeds", "Annual tax-planning review", "Named accountant"],
-        limits: "Up to 150 transactions / month · turnover up to €500k",
+        price: 299,
+        features: ["Everything in Plus", "Payroll for up to 5 employees", "Monthly management accounts", "Multiple income streams"],
+        details: ["VAT filing", "Payment platform feeds", "Annual tax-planning review", "Priority turnaround", "Named accountant"],
+        limits: "Up to 150 accounting transactions / month · turnover up to €500k",
       },
     ],
   },
@@ -119,9 +119,9 @@ export const segments: PackageSegment[] = [
       "A specialist company package for contractors who want payroll, tax, expenses and compliance handled without a full SME plan.",
     setupOffer: {
       name: "Contractor Launch",
-      priceLabel: "€249 + CRO fee · one-off",
+      priceLabel: "€395 + CRO fee · one-off",
       strap: "For new contractors setting up a personal limited company before the first invoice is raised.",
-      includes: ["Company formation", "Director payroll and Revenue setup", "Expenses and bookkeeping setup"],
+      includes: ["Personal limited company formation", "Director payroll + Revenue setup", "Expenses, ERR and bookkeeping setup"],
     },
     plans: [
       {
@@ -129,7 +129,7 @@ export const segments: PackageSegment[] = [
         strap: "For single-director companies with one client and a monthly invoice.",
         price: 119,
         features: ["CT1, B1 and VAT compliance", "Director payroll", "Director Form 11", "Expense and subsistence guidance"],
-        details: ["Mileage and reimbursement guidance", "Company pension contribution support", "Cross-border VAT guidance where relevant", "Named accountant", "Cloud bookkeeping"],
+        details: ["Mileage and reimbursement guidance", "ERR reporting where applicable", "Company pension contribution support", "Cross-border VAT guidance where relevant", "Named accountant", "Cloud bookkeeping"],
         limits: "Up to 15 transactions / month · sales up to €150k",
       },
     ],
@@ -141,9 +141,9 @@ export const segments: PackageSegment[] = [
       "Built for online sellers that need platform reconciliation and EU VAT handled alongside the year-end accounts.",
     setupOffer: {
       name: "E-commerce Finance Setup",
-      priceLabel: "€199 · one-off",
+      priceLabel: "€249 · one-off",
       strap: "For stores that need clean finance foundations before ongoing bookkeeping starts.",
-      includes: ["Platform and payment feeds", "Chart of accounts and opening setup", "VAT and OSS readiness review"],
+      includes: ["Platform + payment feeds", "Chart of accounts + opening balances", "VAT / OSS readiness review"],
     },
     plans: [
       {
@@ -152,7 +152,7 @@ export const segments: PackageSegment[] = [
         price: 179,
         features: ["1 sales platform", "Stripe or PayPal feeds", "VAT returns including OSS", "Annual accounts"],
         details: ["Named accountant", "Cloud bookkeeping", "Bank feeds", "Deadline reminders"],
-        limits: "Sales up to €150k",
+        limits: "Up to 50 accounting transactions / month · sales up to €150k",
       },
       {
         name: "E-commerce Multi-channel",
@@ -160,7 +160,7 @@ export const segments: PackageSegment[] = [
         price: 279,
         features: ["Multi-platform reconciliation", "OSS and IOSS", "Stock and COGS accounting", "Monthly margin report"],
         details: ["Named accountant", "Cloud bookkeeping", "Bank feeds", "Deadline reminders"],
-        limits: "Sales up to €500k",
+        limits: "Up to 100 accounting transactions / month · sales up to €500k",
       },
       {
         name: "E-commerce Scale",
@@ -168,7 +168,7 @@ export const segments: PackageSegment[] = [
         price: 449,
         features: ["Everything in Multi-channel", "Multi-currency reconciliation", "Monthly management accounts", "Channel and margin reporting"],
         details: ["Stock and COGS accounting", "OSS and IOSS", "Priority turnaround", "Named accountant"],
-        limits: "Sales up to €1m · higher-volume platform activity",
+        limits: "Up to 200 accounting transactions / month · sales up to €1m",
       },
     ],
   },
@@ -187,6 +187,10 @@ export const commonCompany = [
 ];
 
 export const addOnGroups = [
+  {
+    title: "Volume & bookkeeping",
+    items: [["10 extra accounting transactions", "€15 / month"], ["Additional sales platform or feed", "From €25 / month"], ["Additional bank / payment feed", "From €15 / month"]],
+  },
   {
     title: "Payroll & people",
     items: [["Extra employee on payroll", "€20 / month"], ["Additional director Form 11", "€175 / year"]],
@@ -317,16 +321,16 @@ export function recommendation({
       };
     }
 
-    if (transactions > 80 || turnover > 250_000 || staff > 2) {
+    if (transactions > 60 || turnover > 200_000 || staff > 2) {
       return {
         segment: "sole-trader",
         name: "Sole Trader Scale",
-        priceLabel: "€249 / month",
+        priceLabel: "€299 / month",
         reason: "Your activity is above Plus and fits the higher-volume Scale tier.",
       };
     }
 
-    if (transactions > 30 || turnover > 80_000 || staff > 0) {
+    if (transactions > 20 || turnover > 80_000 || staff > 0) {
       return {
         segment: "sole-trader",
         name: "Sole Trader Plus",
@@ -339,7 +343,7 @@ export function recommendation({
       segment: "sole-trader",
       name: "Sole Trader Essentials",
       priceLabel: "€99 / month",
-      reason: "This fits up to 30 monthly transactions and turnover up to €80k with no payroll.",
+      reason: "This fits up to 20 monthly accounting transactions and turnover up to €80k with no payroll.",
     };
   }
 
