@@ -240,7 +240,7 @@
 
 .planGrid[data-count="2"] {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  width: min(100%, 940px);
+  width: min(100%, 560px);
   margin-inline: auto;
 }
 
@@ -516,6 +516,8 @@
 }
 
 .closing {
+  padding-top: 96px;
+  padding-bottom: 88px;
   text-align: center;
   border-top: 1px solid var(--line);
   display: flex;
@@ -590,18 +592,6 @@
     grid-template-columns: 1fr;
   }
 
-  .trustBar {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .trustBar span:nth-child(2) {
-    border-right: 0;
-  }
-
-  .trustBar span:nth-child(-n+2) {
-    border-bottom: 1px solid var(--line);
-  }
-
   .controlsHeader {
     align-items: flex-start;
     flex-direction: column;
@@ -667,6 +657,11 @@
     gap: 44px;
   }
 
+  .closing {
+    padding-top: 72px;
+    padding-bottom: 68px;
+  }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -677,7 +672,7 @@
 }
 
 
-/* Packages v2: interactive monthly-only pricing */
+/* Packages: interactive pricing and setup offers */
 .finderButton {
   min-height: 46px;
   padding: 0 18px;
