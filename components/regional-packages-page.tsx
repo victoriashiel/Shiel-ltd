@@ -50,7 +50,7 @@ export function RegionalPackagesPage({ slug }: { slug: RegionSlug }) {
               <Link
                 className={`button ${item.popular ? "button-dark" : "button-quiet"} ${styles.cardButton}`}
                 href={{
-                  pathname: "/contact",
+                  pathname: `${region.path}/contact`,
                   query: { region: slug, enquiry: "Packages & pricing", package: item.name },
                 }}
               >
@@ -96,7 +96,7 @@ export function RegionalPackagesPage({ slug }: { slug: RegionSlug }) {
         <div className={styles.actions}>
           <Link
             className="button button-dark"
-            href={{ pathname: "/contact", query: { region: slug, enquiry: "Packages & pricing", package: "Bespoke" } }}
+            href={{ pathname: `${region.path}/contact`, query: { region: slug, enquiry: "Packages & pricing", package: "Bespoke" } }}
           >
             Get a tailored quote <span aria-hidden="true">↗</span>
           </Link>
