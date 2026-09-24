@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { RegionSelector } from "@/components/region-selector";
 import { RegionAwareLink } from "@/components/region-aware-link";
 import { RegionAwareLogo } from "@/components/region-aware-logo";
@@ -42,9 +43,9 @@ export function SiteFooter() {
           </div>
           <div>
             <p className="footer-label">Legal</p>
-            <a href="/privacy">Privacy</a>
-            <a href="/cookies">Cookies</a>
-            <a href="/terms">Terms</a>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/cookies">Cookies</Link>
+            <Link href="/terms">Terms</Link>
           </div>
         </div>
       </div>
