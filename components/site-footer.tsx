@@ -35,7 +35,7 @@ export function SiteFooter() {
           </div>
           <div>
             <p className="footer-label">Shiel Accountants</p>
-            <RegionAwareLink href="/">About</RegionAwareLink>
+            <RegionAwareLink href="/#about">About</RegionAwareLink>
             <RegionAwareLink href="/contact">Contact us</RegionAwareLink>
             <div className="footer-region-select">
               <RegionSelector />
