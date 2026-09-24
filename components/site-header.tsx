@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { RegionSelector } from "@/components/region-selector";
 import { RegionAwareLink } from "@/components/region-aware-link";
@@ -10,7 +8,6 @@ import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { navigation, siteConfig } from "@/lib/site";
 
 export function SiteHeader() {
-  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -31,9 +28,6 @@ export function SiteHeader() {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open]);
-
-  const isCurrent = (href: string) =>
-    pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
