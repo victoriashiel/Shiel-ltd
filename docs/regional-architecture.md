@@ -2,115 +2,162 @@
 
 ## Goal
 
-Keep `shiel.ltd` as the global/default site while providing indexable, self-contained regional pages for:
+Run one global Shiel site and five complete regional site experiences from the same Next.js codebase.
 
-- Ireland — `/ireland`
+A visitor who enters a regional site should stay inside that regional namespace while navigating equivalent pages.
+
+Regional namespaces:
+
+- Ireland — `/ie`
 - United Kingdom — `/uk`
-- UAE — `/uae`
-- Gibraltar — `/gibraltar`
-- Spain — `/spain`
+- UAE — `/ae`
+- Gibraltar — `/gi`
+- Spain — `/es`
 
-The regional pages must be discoverable without geolocation, use self-referencing canonicals, and expose reciprocal `hreflang` annotations. The global page remains the `x-default`.
+Global remains the neutral/default experience at `/`.
+
+## Route model
+
+Global:
+
+- `/`
+- `/tax-compliance`
+- `/bookkeeping-payroll`
+- `/advisory-growth`
+- `/international-accounting`
+- `/packages`
+- `/contact`
+
+Each region mirrors the same primary journey:
+
+- `/{region}`
+- `/{region}/tax-compliance`
+- `/{region}/bookkeeping-payroll`
+- `/{region}/advisory-growth`
+- `/{region}/international-accounting`
+- `/{region}/packages`
+- `/{region}/contact`
+
+The visible experience is therefore a complete regional website. The implementation is not five duplicated codebases: shared components render region-specific content and configuration.
+
+## Navigation rules
+
+1. Logo returns to the active regional homepage.
+2. Primary navigation stays within the active regional namespace.
+3. Packages and Contact remain regional.
+4. Region switching preserves the equivalent page whenever that page exists.
+5. If no equivalent mirrored route exists, switching region falls back to the target regional homepage.
+6. Global legal pages remain global unless a jurisdiction-specific legal page is required later.
+
+Examples:
+
+- `/uk/bookkeeping-payroll` → switch to Ireland → `/ie/bookkeeping-payroll`
+- `/ae/packages` → switch to Spain → `/es/packages`
+- `/gi/contact` → switch to Global → `/contact`
+
+## URL migration
+
+The earlier long-form regional roots are permanent redirects:
+
+- `/ireland/:path*` → `/ie/:path*`
+- `/uae/:path*` → `/ae/:path*`
+- `/gibraltar/:path*` → `/gi/:path*`
+- `/spain/:path*` → `/es/:path*`
+
+UK remains `/uk`.
 
 ## SEO rules
 
-1. Never automatically redirect users to a regional URL based on IP.
-2. Regional pages use distinct URLs and locally relevant content.
+1. Never force an automatic IP redirect.
+2. Every regional page has its own crawlable URL.
 3. Each regional page uses a self-referencing canonical.
-4. Equivalent regional pages link to each other with `hreflang`.
-5. `x-default` points to the global version.
-6. Geolocation is used only to suggest a region, never to hide or replace crawlable content.
-7. All regional URLs are included in the sitemap.
+4. Equivalent pages expose reciprocal `hreflang`.
+5. The global equivalent is `x-default`.
+6. The sitemap contains global and mirrored regional pages.
+7. Regional content uses local terminology, filing scope and currency rather than translated labels over identical content.
+8. Geolocation is used only to suggest a region.
 
-Initial English locale mapping:
+Examples for Tax & compliance:
 
-- Ireland: `en-IE`
-- UK: `en-GB`
-- UAE: `en-AE`
-- Gibraltar: `en-GI`
-- Spain: `en-ES`
+- `/tax-compliance` — x-default
+- `/ie/tax-compliance` — en-IE
+- `/uk/tax-compliance` — en-GB
+- `/ae/tax-compliance` — en-AE
+- `/gi/tax-compliance` — en-GI
+- `/es/tax-compliance` — en-ES
 
-If a Spanish-language Spain page is added later, it should receive a separate `es-ES` URL rather than changing the English page in place.
+If a Spanish-language version is added later, it should receive a separate `es-ES` content route rather than changing the English Spain page in place.
 
 ## Cloudflare strategy
 
-This repository is a full-stack Next.js application: it contains route handlers and does not use `output: "export"`. Do not add a Cloudflare Pages `functions/_middleware.js` layer unless the deployment is explicitly converted to a static Pages architecture.
+This is a full-stack Next.js application, not a static export.
 
-For regional suggestions:
+Do not add a Pages `functions/_middleware.js` layer unless the production deployment is explicitly converted to a static Pages architecture.
 
-1. Enable Cloudflare IP geolocation / visitor-location headers.
-2. Read `CF-IPCountry` in a small server route.
-3. Return only a country/region code and mark the response private/no-store.
-4. A client-side region prompt uses that response to suggest the relevant regional URL.
-5. Store the visitor's explicit region choice locally so the prompt does not repeat.
-6. Never vary the main HTML response or cache key by country.
+Regional suggestion flow:
 
-This keeps the global and regional HTML deterministic for search engines and avoids country-specific HTML leaking through shared caches.
+1. Cloudflare supplies `CF-IPCountry`.
+2. `/api/region` maps the country to a supported region.
+3. The response is private/no-store.
+4. A client-side prompt offers the equivalent regional page.
+5. Explicit user choice is stored locally.
+6. The primary HTML response does not vary by country.
 
-## Deployment architecture
-
-Cloudflare's current recommended deployment path for full-stack Next.js is Workers. For new migrations, Cloudflare currently recommends vinext; existing OpenNext deployments can remain on OpenNext until compatibility is verified.
-
-The repository currently contains no `wrangler.jsonc`, `wrangler.toml`, vinext config, OpenNext config, or Pages Functions directory. The exact Cloudflare dashboard deployment adapter therefore cannot be established from repository source alone.
-
-Do not migrate the production deployment merely to implement regionalisation. First establish the current Cloudflare project type and build command. Regional URL architecture and SEO can be implemented independently.
+This avoids cache contamination and preserves crawlable deterministic URLs.
 
 ## Data model
 
-`lib/regions.ts` is the single source of truth for:
+Single sources of truth:
 
-- regional slug
-- display name
-- ISO country code
-- locale/hreflang value
-- default local currency
-- canonical regional path
+- `lib/regions.ts` — region paths, locales, country codes and currencies
+- `lib/regional-routing.ts` — page-preserving switching rules
+- `lib/region-content.ts` — local compliance and FAQ content
+- `lib/regional-services.ts` — mirrored service-page content
+- `lib/regional-packages.ts` — local packages and currency
+- `docs/regional-pricing-benchmarks.md` — pricing rationale and review triggers
 
-Regional page content will live in a separate typed content model so headers, sitemap entries, contact forms, and metadata do not duplicate strings.
+## Delivery passes
 
-## Planned passes
+### Pass A — regional namespace
+- short regional paths
+- permanent redirects from temporary long paths
+- route-preservation helpers
+- reciprocal metadata foundation
 
-### Pass 1 — architecture
-- typed region registry
-- deployment audit
-- SEO/geolocation decision
+### Pass B — regional shell
+- region-aware logo
+- region-aware header/footer
+- mirrored service routes
+- mirrored contact routes
+- page-preserving region switching
 
-### Pass 2 — regional page system
-- dynamic region route/template
-- region-specific metadata
-- hreflang and canonical helpers
-- sitemap support
-- regional structured data
+### Pass C — regional homepages
+- full homepage experience per market
+- local service messaging
+- local FAQs
+- local package routes
+- shared visual system
 
-### Pass 3 — Ireland reference implementation
-- locally relevant service copy
-- Irish packages
-- Revenue/CRO terminology
-- FAQs and conversion path
+### Pass D — content localisation
+- research each jurisdiction
+- local service scope
+- local filings and terminology
+- local package economics
+- local case studies as evidence becomes available
 
-### Pass 4 — region selection
-- region selector
-- Cloudflare country suggestion endpoint
-- non-forced suggestion banner
-- remembered visitor choice
-- contact-form region preselection
-
-### Pass 5 — UK, UAE, Gibraltar, Spain
-- researched local obligations and terminology
-- region-specific packages/services where appropriate
-- regional FAQs and CTAs
-
-### Pass 6 — cross-border landing pages
+### Pass E — international scenarios
 - non-resident directors
 - overseas owners
-- Gibraltar/Spain
-- UK/Ireland to UAE
+- Gibraltar / Spain
+- UK or Ireland to UAE
 - international contractors
-- multi-country VAT/OSS
+- multi-country VAT / OSS
 
-### Pass 7 — validation
-- CI checks for region URLs and hreflang reciprocity
-- structured-data validation
+### Pass F — validation
+- route tests
+- hreflang reciprocity tests
 - sitemap review
+- structured-data validation
+- Cloudflare geolocation QA
 - Search Console submission
-- live desktop/mobile QA
+- desktop/mobile visual QA
