@@ -2,6 +2,7 @@ import Link from "next/link";
 import { RegionSelector } from "@/components/region-selector";
 import { RegionAwareLink } from "@/components/region-aware-link";
 import { RegionAwareLogo } from "@/components/region-aware-logo";
+import { RegionalFooterContext } from "@/components/regional-footer-context";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { navigation, siteConfig } from "@/lib/site";
 
@@ -52,7 +53,7 @@ export function SiteFooter() {
 
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.</p>
-        <p>European based · Working internationally</p>
+        <RegionalFooterContext />
       </div>
     </footer>
   );
