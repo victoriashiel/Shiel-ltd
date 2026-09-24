@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Logo } from "@/components/logo";
 import { RegionSelector } from "@/components/region-selector";
-import { RegionAwarePackagesLink } from "@/components/region-aware-packages-link";
+import { RegionAwareLink } from "@/components/region-aware-link";
+import { RegionAwareLogo } from "@/components/region-aware-logo";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { navigation, siteConfig } from "@/lib/site";
 
@@ -38,18 +38,17 @@ export function SiteHeader() {
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
       <div className="header-shell">
-        <Logo />
+        <RegionAwareLogo />
         <nav className="desktop-nav" aria-label="Primary navigation">
-          {navigation.filter((item) => item.label !== "Packages").map((item) => (
-            <Link key={item.href} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+          {navigation.map((item) => (
+            <RegionAwareLink key={item.href} href={item.href}>
               {item.label}
-            </Link>
+            </RegionAwareLink>
           ))}
-          <RegionAwarePackagesLink />
         </nav>
         <div className="header-contact-actions">
           <RegionSelector compact />
-          <Link className="button button-dark header-cta" href="/contact">Contact us</Link>
+          <RegionAwareLink className="button button-dark header-cta" href="/contact">Contact us</RegionAwareLink>
           <a
             className="whatsapp-cta-icon"
             href={siteConfig.whatsappHref}
@@ -78,17 +77,16 @@ export function SiteHeader() {
         aria-hidden={!open}
       >
         <nav aria-label="Mobile navigation">
-          {navigation.filter((item) => item.label !== "Packages").map((item) => (
-            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+          {navigation.map((item) => (
+            <RegionAwareLink key={item.href} href={item.href} onClick={() => setOpen(false)}>
               {item.label}
-            </Link>
+            </RegionAwareLink>
           ))}
-          <RegionAwarePackagesLink onNavigate={() => setOpen(false)} />
           <div className="mobile-region-selector">
             <RegionSelector />
           </div>
           <div className="mobile-contact-actions">
-            <Link className="button button-dark" href="/contact" onClick={() => setOpen(false)}>Contact us</Link>
+            <RegionAwareLink className="button button-dark" href="/contact" onClick={() => setOpen(false)}>Contact us</RegionAwareLink>
             <a
               className="whatsapp-cta-icon"
               href={siteConfig.whatsappHref}
