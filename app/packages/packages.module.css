@@ -409,7 +409,7 @@
 
 .infoTip > span {
   position: absolute;
-  left: 50%;
+  left: 0;
   bottom: calc(100% + 10px);
   z-index: 40;
   width: min(300px, 72vw);
@@ -419,7 +419,7 @@
   color: white;
   opacity: 0;
   visibility: hidden;
-  transform: translate(-50%, 4px);
+  transform: translateY(4px);
   pointer-events: none;
   box-shadow: 0 14px 34px rgba(11,23,24,.16);
   font-size: 11px;
@@ -436,7 +436,7 @@
 .infoTip:focus > span {
   opacity: 1;
   visibility: visible;
-  transform: translate(-50%, 0);
+  transform: translateY(0);
 }
 
 .limits p {
