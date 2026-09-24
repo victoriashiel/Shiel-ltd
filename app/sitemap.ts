@@ -4,6 +4,7 @@ import { siteConfig } from "@/lib/site";
 import { regionContent } from "@/lib/region-content";
 import { internationalScenarioList } from "@/lib/international-scenarios";
 import { getRegionAlternates, regions, type RegionSlug } from "@/lib/regions";
+import { regionalServiceSlugs } from "@/lib/regional-services";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -23,6 +24,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
             Object.entries(getRegionAlternates()).map(([locale, path]) => [
               locale,
               path === "/" ? siteConfig.url : `${siteConfig.url}${path}`,
+            ]),
+          ),
+        },
+      };
+    }),
+    ...Object.keys(regionContent).flatMap((slug) => {
+      const region = regions[slug as RegionSlug];
+      return regionalServiceSlugs.map((service) => ({
+        url: `${siteConfig.url}${region.path}/${service}`,
+        alternates: {
+          languages: Object.fromEntries(
+            Object.entries(getRegionAlternates()).map(([locale, path]) => [
+              locale,
+              locale === "x-default"
+                ? `${siteConfig.url}/${service}`
+                : `${siteConfig.url}${path}/${service}`,
+            ]),
+          ),
+        },
+      }));
+    }),
+    ...Object.keys(regionContent).map((slug) => {
+      const region = regions[slug as RegionSlug];
+      return {
+        url: `${siteConfig.url}${region.path}/contact`,
+        alternates: {
+          languages: Object.fromEntries(
+            Object.entries(getRegionAlternates()).map(([locale, path]) => [
+              locale,
+              locale === "x-default"
+                ? `${siteConfig.url}/contact`
+                : `${siteConfig.url}${path}/contact`,
             ]),
           ),
         },
