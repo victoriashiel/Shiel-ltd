@@ -206,7 +206,12 @@ export function PackagesClient() {
                   <p>{plan.limits}</p>
                 </div>
 
-                <Link className={`button ${plan.popular ? "button-dark" : "button-quiet"} ${styles.cardButton}`} href="/contact">
+                <Link
+                  className={`button ${plan.popular ? "button-dark" : "button-quiet"} ${styles.cardButton}`}
+                  href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: plan.name } }}
+                  data-cta="package-select"
+                  data-package={plan.name}
+                >
                   Choose {plan.name} <span aria-hidden="true">↗</span>
                 </Link>
               </article>
@@ -261,7 +266,13 @@ export function PackagesClient() {
           <p>
             For higher volumes or more complex structures, we scope the work first and give you a fixed quote before anything starts.
           </p>
-          <Link className="button button-light" href="/contact">Get a tailored quote <span aria-hidden="true">↗</span></Link>
+          <Link
+            className="button button-light"
+            href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: "Bespoke" } }}
+            data-cta="package-bespoke"
+          >
+            Get a tailored quote <span aria-hidden="true">↗</span>
+          </Link>
         </div>
       </section>
 
@@ -462,7 +473,14 @@ export function PackagesClient() {
               <small>{fit.reason}</small>
               <div>
                 <button type="button" className="button button-quiet" onClick={() => { setSegment(fit.segment); setFinderOpen(false); document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" }); }}>View package</button>
-                <Link className="button button-dark" href="/contact">Speak to us <span aria-hidden="true">↗</span></Link>
+                <Link
+                  className="button button-dark"
+                  href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: fit.name } }}
+                  data-cta="package-finder-contact"
+                  data-package={fit.name}
+                >
+                  Speak to us <span aria-hidden="true">↗</span>
+                </Link>
               </div>
             </div>
         </div>
