@@ -221,6 +221,13 @@
   line-height: 1.55;
 }
 
+.packageFooterActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
 .complianceList {
   margin-top: 48px;
   border-top: 1px solid var(--line);
@@ -377,6 +384,10 @@
   .packageFooter {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .packageFooterActions {
+    justify-content: flex-start;
   }
 
   .serviceCard {
