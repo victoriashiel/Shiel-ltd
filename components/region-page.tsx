@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { regionContent } from "@/lib/region-content";
+import { formatRegionalPrice, regionalPackages } from "@/lib/regional-packages";
 import { isRegionSlug, regions, type RegionSlug } from "@/lib/regions";
 import { safeJsonLd } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
@@ -36,6 +37,7 @@ export function regionMetadata(slug: string): Metadata {
 export function RegionPage({ slug }: { slug: RegionSlug }) {
   const region = regions[slug];
   const content = regionContent[slug];
+  const packageSet = regionalPackages[slug];
   if (!content) notFound();
 
   const schema = {
@@ -86,11 +88,9 @@ export function RegionPage({ slug }: { slug: RegionSlug }) {
           <Link className="button button-dark" href={{ pathname: "/contact", query: { region: slug } }}>
             Talk to us <span aria-hidden="true">↗</span>
           </Link>
-          {slug === "ireland" && (
-            <Link className="button button-quiet" href="/packages">
-              View Irish packages <span aria-hidden="true">↗</span>
-            </Link>
-          )}
+          <a className="button button-quiet" href="#regional-packages">
+            View local packages <span aria-hidden="true">↓</span>
+          </a>
         </div>
         <small>{content.reviewed}</small>
       </section>
@@ -110,6 +110,39 @@ export function RegionPage({ slug }: { slug: RegionSlug }) {
               </ul>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className={`section-pad ${styles.packagesSection}`} id="regional-packages">
+        <div className={styles.sectionHeading}>
+          <p className="eyebrow">{region.name} packages</p>
+          <h2>Local scope. Local currency. Clear monthly pricing.</h2>
+          <p className={styles.sectionIntro}>
+            These packages are built around the recurring filing and bookkeeping workload in {region.name}, rather than converting another country&apos;s prices.
+          </p>
+        </div>
+        <div className={styles.packageGrid}>
+          {packageSet.packages.map((item) => (
+            <article className={`${styles.packageCard} ${item.popular ? styles.packagePopular : ""}`} key={item.name}>
+              {item.popular && <span className={styles.popularLabel}>Popular</span>}
+              <h3>{item.name}</h3>
+              <p>{item.strap}</p>
+              <div className={styles.packagePrice}>
+                <strong>{formatRegionalPrice(packageSet.currency, item.price)}</strong>
+                <span>{item.billing === "one-off" ? "one-off" : "/ month"}</span>
+              </div>
+              <ul>
+                {item.features.map((feature) => <li key={feature}><span aria-hidden="true">✓</span>{feature}</li>)}
+              </ul>
+              {item.limit && <small>{item.limit}</small>}
+            </article>
+          ))}
+        </div>
+        <div className={styles.packageFooter}>
+          <p>{packageSet.note}</p>
+          <Link className="button button-dark" href={{ pathname: "/contact", query: { region: slug, enquiry: "Packages & pricing" } }}>
+            Ask about {region.name} packages <span aria-hidden="true">↗</span>
+          </Link>
         </div>
       </section>
 
