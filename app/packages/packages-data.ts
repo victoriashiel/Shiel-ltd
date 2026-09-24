@@ -201,7 +201,7 @@ export const addOnGroups = [
   },
   {
     title: "Company changes",
-    items: [["Company formation + first-year bundle", "€199 + CRO fee"], ["Strike-off (voluntary)", "€325"], ["Non-resident director support", "Quote"], ["Registered office / company secretary", "Quote"]],
+    items: [["Business name registration", "€75 + CRO fee"], ["Strike-off (voluntary)", "€325"], ["Non-resident director support", "Quote"], ["Registered office / company secretary", "Quote"]],
   },
 ];
 
