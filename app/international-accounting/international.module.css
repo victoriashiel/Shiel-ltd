@@ -1,0 +1,260 @@
+.gridSection {
+  border-top: 1px solid var(--line);
+}
+
+.heading {
+  max-width: 850px;
+}
+
+.heading > p:last-child {
+  max-width: 700px;
+  margin: 22px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.grid {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.card {
+  min-height: 330px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: color-mix(in srgb, var(--paper) 84%, transparent);
+  display: flex;
+  flex-direction: column;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--teal) 30%, var(--line));
+  background: var(--paper);
+}
+
+.card > span {
+  color: var(--teal);
+  font-size: 10px;
+  font-weight: 740;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.card h3 {
+  margin-top: 14px;
+  font-size: clamp(1.45rem, 2vw, 1.9rem);
+}
+
+.card p {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.58;
+}
+
+.card strong {
+  margin-top: auto;
+  padding-top: 28px;
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.detailHero {
+  padding-top: 112px;
+  padding-bottom: 78px;
+}
+
+.backLink {
+  display: inline-flex;
+  margin-bottom: 34px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.detailHero h1 {
+  max-width: 980px;
+}
+
+.detailHero > p:last-child {
+  max-width: 780px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.detailSplit {
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: clamp(50px, 8vw, 120px);
+}
+
+.detailSplit > div:first-child > p:last-child {
+  max-width: 620px;
+  margin: 22px 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.handlePanel {
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+}
+
+.panelLabel {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 720;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.handlePanel ul {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+}
+
+.handlePanel li {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 10px;
+  padding: 11px 0;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.handlePanel li span {
+  color: var(--teal);
+  font-weight: 760;
+}
+
+.questionsSection {
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: clamp(50px, 8vw, 120px);
+}
+
+.questionList {
+  border-top: 1px solid var(--line);
+}
+
+.questionList div {
+  min-height: 84px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.questionList span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.questionList p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.regionsStrip {
+  padding-top: 42px;
+  padding-bottom: 42px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: center;
+}
+
+.regionsStrip > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 720;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.regionsStrip > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.regionsStrip span {
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+.detailCta {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detailCta h2 {
+  max-width: 900px;
+}
+
+.detailCta > p:not(.eyebrow) {
+  max-width: 700px;
+  margin: 24px 0 28px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detailSplit,
+  .questionsSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 780px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 280px;
+  }
+
+  .detailHero {
+    padding-top: 82px;
+    padding-bottom: 62px;
+  }
+
+  .regionsStrip {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .regionsStrip > div {
+    justify-content: flex-start;
+  }
+}
