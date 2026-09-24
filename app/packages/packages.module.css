@@ -196,12 +196,14 @@
 }
 
 .planGrid[data-count="2"] {
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  max-width: 980px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 1080px);
+  margin-inline: auto;
 }
 
 .planGrid[data-count="1"] {
-  grid-template-columns: minmax(0, 480px);
+  grid-template-columns: minmax(0, 560px);
+  justify-content: center;
 }
 
 .planCard {
@@ -1012,7 +1014,7 @@
 
 @media (min-width: 781px) and (max-width: 1120px) {
   .planGrid[data-count="2"] {
-    max-width: none;
+    width: 100%;
   }
 
   .planCard {
