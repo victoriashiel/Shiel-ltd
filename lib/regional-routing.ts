@@ -1,4 +1,4 @@
-import { isRegionSlug, regions, type RegionSlug } from "@/lib/regions";
+import { isRegionSlug, regions, type RegionSlug } from "./regions.ts";
 
 export const regionalPageSuffixes = [
   "/",
