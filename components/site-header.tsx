@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/logo";
 import { RegionSelector } from "@/components/region-selector";
+import { RegionAwarePackagesLink } from "@/components/region-aware-packages-link";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { navigation, siteConfig } from "@/lib/site";
 
@@ -39,11 +40,12 @@ export function SiteHeader() {
       <div className="header-shell">
         <Logo />
         <nav className="desktop-nav" aria-label="Primary navigation">
-          {navigation.map((item) => (
+          {navigation.filter((item) => item.label !== "Packages").map((item) => (
             <Link key={item.href} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
               {item.label}
             </Link>
           ))}
+          <RegionAwarePackagesLink />
         </nav>
         <div className="header-contact-actions">
           <RegionSelector compact />
@@ -76,11 +78,12 @@ export function SiteHeader() {
         aria-hidden={!open}
       >
         <nav aria-label="Mobile navigation">
-          {navigation.map((item) => (
+          {navigation.filter((item) => item.label !== "Packages").map((item) => (
             <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
               {item.label}
             </Link>
           ))}
+          <RegionAwarePackagesLink onNavigate={() => setOpen(false)} />
           <div className="mobile-region-selector">
             <RegionSelector />
           </div>
