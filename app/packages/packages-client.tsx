@@ -39,7 +39,12 @@ export function PackagesClient() {
     setFinderSegment(next);
     setFinderStartingOut(false);
     setFinderDormant(false);
-    setTransactions(next === "contractor" ? 15 : 30);
+    setTransactions(
+      next === "contractor" ? 15 :
+      next === "sole-trader" ? 20 :
+      next === "ecommerce" ? 50 :
+      30,
+    );
     setTurnover(next === "sole-trader" ? 80_000 : 150_000);
     setStaff(0);
     setDirectors(1);
