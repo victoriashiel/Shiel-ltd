@@ -164,46 +164,50 @@ export function PackagesClient() {
           {segment === "company" && <span>Every company plan also includes the core compliance work shown below.</span>}
         </div>
 
-        {current.advisoryOffer && (
-          <aside className={styles.advisoryOffer} aria-label={current.advisoryOffer.name}>
-            <div>
-              <span>Not sure which structure?</span>
-              <h3>{current.advisoryOffer.name}</h3>
-              <p>{current.advisoryOffer.strap}</p>
-            </div>
-            <strong>{current.advisoryOffer.priceLabel}</strong>
-            <Link
-              className="button button-dark"
-              href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: current.advisoryOffer.name } }}
-              data-cta="contractor-structure-review"
-            >
-              Compare my options <span aria-hidden="true">↗</span>
-            </Link>
-          </aside>
-        )}
+        {(current.advisoryOffer || current.setupOffer) && (
+          <div className={current.advisoryOffer && current.setupOffer ? styles.offerPair : styles.offerSingle}>
+            {current.advisoryOffer && (
+              <aside className={styles.advisoryOffer} aria-label={current.advisoryOffer.name}>
+                <div>
+                  <span>Not sure which structure?</span>
+                  <h3>{current.advisoryOffer.name}</h3>
+                  <p>{current.advisoryOffer.strap}</p>
+                </div>
+                <strong>{current.advisoryOffer.priceLabel}</strong>
+                <Link
+                  className="button button-dark"
+                  href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: current.advisoryOffer.name } }}
+                  data-cta="contractor-structure-review"
+                >
+                  Compare my options <span aria-hidden="true">↗</span>
+                </Link>
+              </aside>
+            )}
 
-        {current.setupOffer && (
-          <aside className={styles.setupOffer} aria-label={`${current.setupOffer.name} setup offer`}>
-            <div className={styles.setupOfferLead}>
-              <span>Starting out?</span>
-              <h3>{current.setupOffer.name}</h3>
-              <p>{current.setupOffer.strap}</p>
-            </div>
-            <div className={styles.setupOfferIncludes}>
-              {current.setupOffer.includes.map((item) => <span key={item}>✓ {item}</span>)}
-            </div>
-            <div className={styles.setupOfferAction}>
-              <strong>{current.setupOffer.priceLabel}</strong>
-              <Link
-                className="button button-quiet"
-                href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: current.setupOffer.name } }}
-                data-cta="setup-offer"
-                data-package={current.setupOffer.name}
-              >
-                Start here <span aria-hidden="true">↗</span>
-              </Link>
-            </div>
-          </aside>
+            {current.setupOffer && (
+              <aside className={styles.setupOffer} aria-label={`${current.setupOffer.name} setup offer`}>
+                <div className={styles.setupOfferLead}>
+                  <span>Starting out?</span>
+                  <h3>{current.setupOffer.name}</h3>
+                  <p>{current.setupOffer.strap}</p>
+                </div>
+                <div className={styles.setupOfferIncludes}>
+                  {current.setupOffer.includes.map((item) => <span key={item}>✓ {item}</span>)}
+                </div>
+                <div className={styles.setupOfferAction}>
+                  <strong>{current.setupOffer.priceLabel}</strong>
+                  <Link
+                    className="button button-quiet"
+                    href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: current.setupOffer.name } }}
+                    data-cta="setup-offer"
+                    data-package={current.setupOffer.name}
+                  >
+                    Start here <span aria-hidden="true">↗</span>
+                  </Link>
+                </div>
+              </aside>
+            )}
+          </div>
         )}
 
         <div className={styles.planGrid} data-count={current.plans.length} role="tabpanel" id="package-panel" aria-labelledby={`package-tab-${segment}`} aria-live="polite">
