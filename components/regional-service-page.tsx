@@ -121,6 +121,8 @@ export function RegionalServicePage({
         slug={service}
         serviceOverride={serviceOverride}
         contactHref={`${market.path}/contact`}
+        backHref={`${market.path}#services`}
+        includeSchema={false}
         beforeCta={localContext}
       />
     </>
