@@ -233,7 +233,7 @@ export function PackagesClient() {
                     >
                       i
                       <span id={tipId} role="tooltip">
-                        A transaction is an individual income or expense entry processed in the books. Internal transfers and corrections are not normally counted as separate trading transactions. Small occasional overages do not force an immediate plan change.
+                        An accounting transaction is a bank item, settlement, purchase invoice or expense entry processed in the books. For e-commerce, customer orders are not counted one by one. Small occasional overages do not force an immediate plan change.
                       </span>
                     </button>
                   </div>
@@ -404,11 +404,18 @@ export function PackagesClient() {
               </div>
             )}
 
-            {!finderStartingOut && finderSegment !== "ecommerce" && (
+            {!finderStartingOut && (
               <div className={styles.finderField}>
-                <span>Monthly transactions</span>
+                <span>Monthly accounting transactions</span>
                 <div className={styles.finderOptions}>
-                  {finderSegment === "contractor" ? (
+                  {finderSegment === "ecommerce" ? (
+                    <>
+                      <button type="button" className={transactions === 50 ? styles.selectedOption : ""} onClick={() => setTransactions(50)}>Up to 50</button>
+                      <button type="button" className={transactions === 100 ? styles.selectedOption : ""} onClick={() => setTransactions(100)}>51–100</button>
+                      <button type="button" className={transactions === 200 ? styles.selectedOption : ""} onClick={() => setTransactions(200)}>101–200</button>
+                      <button type="button" className={transactions === 201 ? styles.selectedOption : ""} onClick={() => setTransactions(201)}>200+</button>
+                    </>
+                  ) : finderSegment === "contractor" ? (
                     <>
                       <button type="button" className={transactions === 15 ? styles.selectedOption : ""} onClick={() => setTransactions(15)}>Up to 15</button>
                       <button type="button" className={transactions === 30 ? styles.selectedOption : ""} onClick={() => setTransactions(30)}>16–30</button>
@@ -418,9 +425,9 @@ export function PackagesClient() {
                     </>
                   ) : finderSegment === "sole-trader" ? (
                     <>
-                      <button type="button" className={transactions === 30 ? styles.selectedOption : ""} onClick={() => setTransactions(30)}>Up to 30</button>
-                      <button type="button" className={transactions === 80 ? styles.selectedOption : ""} onClick={() => setTransactions(80)}>31–80</button>
-                      <button type="button" className={transactions === 150 ? styles.selectedOption : ""} onClick={() => setTransactions(150)}>81–150</button>
+                      <button type="button" className={transactions === 20 ? styles.selectedOption : ""} onClick={() => setTransactions(20)}>Up to 20</button>
+                      <button type="button" className={transactions === 60 ? styles.selectedOption : ""} onClick={() => setTransactions(60)}>21–60</button>
+                      <button type="button" className={transactions === 150 ? styles.selectedOption : ""} onClick={() => setTransactions(150)}>61–150</button>
                       <button type="button" className={transactions === 151 ? styles.selectedOption : ""} onClick={() => setTransactions(151)}>150+</button>
                     </>
                   ) : (
@@ -443,8 +450,8 @@ export function PackagesClient() {
                 {finderSegment === "sole-trader" ? (
                   <>
                     <button type="button" className={turnover === 80_000 ? styles.selectedOption : ""} onClick={() => setTurnover(80_000)}>Up to €80k</button>
-                    <button type="button" className={turnover === 250_000 ? styles.selectedOption : ""} onClick={() => setTurnover(250_000)}>€80k–€250k</button>
-                    <button type="button" className={turnover === 500_000 ? styles.selectedOption : ""} onClick={() => setTurnover(500_000)}>€250k–€500k</button>
+                    <button type="button" className={turnover === 200_000 ? styles.selectedOption : ""} onClick={() => setTurnover(200_000)}>€80k–€200k</button>
+                    <button type="button" className={turnover === 500_000 ? styles.selectedOption : ""} onClick={() => setTurnover(500_000)}>€200k–€500k</button>
                     <button type="button" className={turnover === 500_001 ? styles.selectedOption : ""} onClick={() => setTurnover(500_001)}>€500k+</button>
                   </>
                 ) : finderSegment === "ecommerce" ? (
