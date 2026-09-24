@@ -156,14 +156,153 @@ const addOnGroups = [
   },
 ];
 
-function recommendation(segment: Segment, transactions: string, staff: string) {
-  if (segment === "contractor") return { name: "Contractor", price: 119 };
-  if (segment === "ecommerce") return transactions === "high" ? { name: "E-commerce Multi-channel", price: 279 } : { name: "E-commerce Launch", price: 179 };
-  if (segment === "sole-trader") return transactions === "high" || staff === "yes" ? { name: "Sole Trader Plus", price: 159 } : { name: "Sole Trader Essentials", price: 99 };
-  if (transactions === "very-low") return { name: "Dormant & Pre-trade", price: 79 };
-  if (transactions === "high" || staff === "large") return { name: "LTD Scale", price: 449 };
-  if (transactions === "medium" || staff === "yes") return { name: "LTD Growth", price: 279 };
-  return { name: "LTD Starter", price: 179 };
+type FinderResult = {
+  segment: Segment;
+  name: string;
+  priceLabel: string;
+  reason: string;
+};
+
+function recommendation({
+  segment,
+  dormant,
+  transactions,
+  turnover,
+  staff,
+  directors,
+  platforms,
+  complex,
+}: {
+  segment: Segment;
+  dormant: boolean;
+  transactions: number;
+  turnover: number;
+  staff: number;
+  directors: number;
+  platforms: "one" | "multi";
+  complex: boolean;
+}): FinderResult {
+  if (segment === "ecommerce") {
+    if (turnover > 500_000) {
+      return {
+        segment: "ecommerce",
+        name: "Bespoke",
+        priceLabel: "From €499 / month",
+        reason: "Your sales volume is above the published Multi-channel limit, so the work needs to be scoped.",
+      };
+    }
+
+    if (platforms === "multi" || turnover > 150_000) {
+      return {
+        segment: "ecommerce",
+        name: "E-commerce Multi-channel",
+        priceLabel: "€279 / month",
+        reason: platforms === "multi"
+          ? "You sell across more than one platform."
+          : "Your sales are above the Launch plan limit of €150k.",
+      };
+    }
+
+    return {
+      segment: "ecommerce",
+      name: "E-commerce Launch",
+      priceLabel: "€179 / month",
+      reason: "This fits one-platform selling with annual sales up to €150k.",
+    };
+  }
+
+  if (segment === "sole-trader") {
+    if (transactions > 80 || turnover > 250_000 || staff > 2) {
+      return {
+        segment: "sole-trader",
+        name: "Bespoke",
+        priceLabel: "From €499 / month",
+        reason: "At least one part of your activity is above the published Sole Trader Plus limits.",
+      };
+    }
+
+    if (transactions > 30 || turnover > 80_000 || staff > 0) {
+      return {
+        segment: "sole-trader",
+        name: "Sole Trader Plus",
+        priceLabel: "€159 / month",
+        reason: "Your transaction level, turnover or payroll needs move you beyond Essentials.",
+      };
+    }
+
+    return {
+      segment: "sole-trader",
+      name: "Sole Trader Essentials",
+      priceLabel: "€99 / month",
+      reason: "This fits up to 30 monthly transactions and turnover up to €80k with no payroll.",
+    };
+  }
+
+  const companyResult = (): FinderResult => {
+    if (transactions > 120 || turnover > 1_000_000 || staff > 15 || directors > 4) {
+      return {
+        segment: "company",
+        name: "Bespoke",
+        priceLabel: "From €499 / month",
+        reason: "At least one part of your company is above the published Scale limits.",
+      };
+    }
+
+    if (dormant && transactions <= 10 && turnover <= 10_000 && staff === 0 && directors <= 1 && !complex) {
+      return {
+        segment: "company",
+        name: "Dormant & Pre-trade",
+        priceLabel: "€79 / month",
+        reason: "This matches the dormant/pre-trade limits: minimal activity, no payroll and one director.",
+      };
+    }
+
+    if (complex || transactions > 60 || turnover > 400_000 || staff > 6 || directors > 3) {
+      return {
+        segment: "company",
+        name: "LTD Scale",
+        priceLabel: "€449 / month",
+        reason: complex
+          ? "Cash, RCT or group structures are included from Scale."
+          : "Your activity requires the published Scale limits.",
+      };
+    }
+
+    if (transactions > 30 || turnover > 150_000 || staff > 2 || directors > 2) {
+      return {
+        segment: "company",
+        name: "LTD Growth",
+        priceLabel: "€279 / month",
+        reason: "Your activity is above Starter but remains within the Growth limits.",
+      };
+    }
+
+    return {
+      segment: "company",
+      name: "LTD Starter",
+      priceLabel: "€179 / month",
+      reason: "This fits up to 30 monthly transactions, €150k sales, 2 employees and 2 directors.",
+    };
+  };
+
+  if (segment === "contractor") {
+    if (transactions <= 15 && turnover <= 150_000 && directors === 1 && staff === 0 && !complex) {
+      return {
+        segment: "contractor",
+        name: "Contractor",
+        priceLabel: "€119 / month",
+        reason: "This matches the contractor plan limits for a single-director company with a simple monthly activity pattern.",
+      };
+    }
+
+    const fallback = companyResult();
+    return {
+      ...fallback,
+      reason: `The €119 Contractor plan no longer fits these limits. The closest company package is ${fallback.name}.`,
+    };
+  }
+
+  return companyResult();
 }
 
 export function PackagesClient() {
@@ -174,11 +313,36 @@ export function PackagesClient() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const finderTriggerRef = useRef<HTMLElement | null>(null);
   const [finderSegment, setFinderSegment] = useState<Segment>("company");
-  const [transactions, setTransactions] = useState("low");
-  const [staff, setStaff] = useState("no");
+  const [finderDormant, setFinderDormant] = useState(false);
+  const [transactions, setTransactions] = useState(30);
+  const [turnover, setTurnover] = useState(150_000);
+  const [staff, setStaff] = useState(0);
+  const [directors, setDirectors] = useState(1);
+  const [platforms, setPlatforms] = useState<"one" | "multi">("one");
+  const [complex, setComplex] = useState(false);
 
   const current = useMemo(() => segments.find((item) => item.id === segment) ?? segments[0], [segment]);
-  const fit = recommendation(finderSegment, transactions, staff);
+  const fit = recommendation({
+    segment: finderSegment,
+    dormant: finderDormant,
+    transactions,
+    turnover,
+    staff,
+    directors,
+    platforms,
+    complex,
+  });
+
+  const chooseFinderSegment = (next: Segment) => {
+    setFinderSegment(next);
+    setFinderDormant(false);
+    setTransactions(next === "contractor" ? 15 : 30);
+    setTurnover(next === "sole-trader" ? 80_000 : 150_000);
+    setStaff(0);
+    setDirectors(1);
+    setPlatforms("one");
+    setComplex(false);
+  };
 
   const openFinder = () => {
     finderTriggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
@@ -447,28 +611,128 @@ export function PackagesClient() {
               <span>How do you trade?</span>
               <div className={styles.finderOptions}>
                 {segments.map((item) => (
-                  <button key={item.id} type="button" className={finderSegment === item.id ? styles.selectedOption : ""} onClick={() => setFinderSegment(item.id)}>{item.label}</button>
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={finderSegment === item.id ? styles.selectedOption : ""}
+                    onClick={() => chooseFinderSegment(item.id)}
+                  >
+                    {item.label}
+                  </button>
                 ))}
               </div>
             </div>
 
+            {finderSegment === "company" && (
+              <div className={styles.finderField}>
+                <span>Is the company dormant or pre-trade?</span>
+                <div className={styles.finderOptions}>
+                  <button type="button" className={!finderDormant ? styles.selectedOption : ""} onClick={() => setFinderDormant(false)}>Trading</button>
+                  <button type="button" className={finderDormant ? styles.selectedOption : ""} onClick={() => setFinderDormant(true)}>Dormant / pre-trade</button>
+                </div>
+              </div>
+            )}
+
+            {finderSegment !== "ecommerce" && (
+              <div className={styles.finderField}>
+                <span>Monthly transactions</span>
+                <div className={styles.finderOptions}>
+                  {finderSegment === "contractor" ? (
+                    <>
+                      <button type="button" className={transactions === 15 ? styles.selectedOption : ""} onClick={() => setTransactions(15)}>Up to 15</button>
+                      <button type="button" className={transactions === 30 ? styles.selectedOption : ""} onClick={() => setTransactions(30)}>16–30</button>
+                      <button type="button" className={transactions === 60 ? styles.selectedOption : ""} onClick={() => setTransactions(60)}>31–60</button>
+                      <button type="button" className={transactions === 120 ? styles.selectedOption : ""} onClick={() => setTransactions(120)}>61–120</button>
+                      <button type="button" className={transactions === 121 ? styles.selectedOption : ""} onClick={() => setTransactions(121)}>120+</button>
+                    </>
+                  ) : finderSegment === "sole-trader" ? (
+                    <>
+                      <button type="button" className={transactions === 30 ? styles.selectedOption : ""} onClick={() => setTransactions(30)}>Up to 30</button>
+                      <button type="button" className={transactions === 80 ? styles.selectedOption : ""} onClick={() => setTransactions(80)}>31–80</button>
+                      <button type="button" className={transactions === 81 ? styles.selectedOption : ""} onClick={() => setTransactions(81)}>80+</button>
+                    </>
+                  ) : (
+                    <>
+                      <button type="button" className={transactions === 10 ? styles.selectedOption : ""} onClick={() => setTransactions(10)}>Up to 10</button>
+                      <button type="button" className={transactions === 30 ? styles.selectedOption : ""} onClick={() => setTransactions(30)}>11–30</button>
+                      <button type="button" className={transactions === 60 ? styles.selectedOption : ""} onClick={() => setTransactions(60)}>31–60</button>
+                      <button type="button" className={transactions === 120 ? styles.selectedOption : ""} onClick={() => setTransactions(120)}>61–120</button>
+                      <button type="button" className={transactions === 121 ? styles.selectedOption : ""} onClick={() => setTransactions(121)}>120+</button>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+
             <div className={styles.finderField}>
-              <span>Roughly how much monthly activity?</span>
+              <span>{finderSegment === "sole-trader" ? "Annual turnover" : "Annual sales"}</span>
               <div className={styles.finderOptions}>
-                <button type="button" className={transactions === "very-low" ? styles.selectedOption : ""} onClick={() => setTransactions("very-low")}>Very little / dormant</button>
-                <button type="button" className={transactions === "low" ? styles.selectedOption : ""} onClick={() => setTransactions("low")}>Low</button>
-                <button type="button" className={transactions === "medium" ? styles.selectedOption : ""} onClick={() => setTransactions("medium")}>Moderate</button>
-                <button type="button" className={transactions === "high" ? styles.selectedOption : ""} onClick={() => setTransactions("high")}>High</button>
+                {finderSegment === "sole-trader" ? (
+                  <>
+                    <button type="button" className={turnover === 80_000 ? styles.selectedOption : ""} onClick={() => setTurnover(80_000)}>Up to €80k</button>
+                    <button type="button" className={turnover === 250_000 ? styles.selectedOption : ""} onClick={() => setTurnover(250_000)}>€80k–€250k</button>
+                    <button type="button" className={turnover === 250_001 ? styles.selectedOption : ""} onClick={() => setTurnover(250_001)}>€250k+</button>
+                  </>
+                ) : finderSegment === "ecommerce" ? (
+                  <>
+                    <button type="button" className={turnover === 150_000 ? styles.selectedOption : ""} onClick={() => setTurnover(150_000)}>Up to €150k</button>
+                    <button type="button" className={turnover === 500_000 ? styles.selectedOption : ""} onClick={() => setTurnover(500_000)}>€150k–€500k</button>
+                    <button type="button" className={turnover === 500_001 ? styles.selectedOption : ""} onClick={() => setTurnover(500_001)}>€500k+</button>
+                  </>
+                ) : (
+                  <>
+                    {finderSegment === "company" && <button type="button" className={turnover === 10_000 ? styles.selectedOption : ""} onClick={() => setTurnover(10_000)}>Up to €10k</button>}
+                    <button type="button" className={turnover === 150_000 ? styles.selectedOption : ""} onClick={() => setTurnover(150_000)}>Up to €150k</button>
+                    <button type="button" className={turnover === 400_000 ? styles.selectedOption : ""} onClick={() => setTurnover(400_000)}>€150k–€400k</button>
+                    <button type="button" className={turnover === 1_000_000 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_000)}>€400k–€1m</button>
+                    <button type="button" className={turnover === 1_000_001 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_001)}>€1m+</button>
+                  </>
+                )}
               </div>
             </div>
 
-            {(finderSegment === "company" || finderSegment === "sole-trader") && (
+            {finderSegment === "ecommerce" && (
               <div className={styles.finderField}>
-                <span>Do you have staff?</span>
+                <span>How many sales platforms do you use?</span>
                 <div className={styles.finderOptions}>
-                  <button type="button" className={staff === "no" ? styles.selectedOption : ""} onClick={() => setStaff("no")}>No</button>
-                  <button type="button" className={staff === "yes" ? styles.selectedOption : ""} onClick={() => setStaff("yes")}>Small team</button>
-                  {finderSegment === "company" && <button type="button" className={staff === "large" ? styles.selectedOption : ""} onClick={() => setStaff("large")}>Larger team</button>}
+                  <button type="button" className={platforms === "one" ? styles.selectedOption : ""} onClick={() => setPlatforms("one")}>One platform</button>
+                  <button type="button" className={platforms === "multi" ? styles.selectedOption : ""} onClick={() => setPlatforms("multi")}>Multiple platforms</button>
+                </div>
+              </div>
+            )}
+
+            {(finderSegment === "company" || finderSegment === "sole-trader" || finderSegment === "contractor") && (
+              <div className={styles.finderField}>
+                <span>Employees on payroll</span>
+                <div className={styles.finderOptions}>
+                  <button type="button" className={staff === 0 ? styles.selectedOption : ""} onClick={() => setStaff(0)}>None</button>
+                  <button type="button" className={staff === 2 ? styles.selectedOption : ""} onClick={() => setStaff(2)}>1–2</button>
+                  {finderSegment === "company" && <button type="button" className={staff === 6 ? styles.selectedOption : ""} onClick={() => setStaff(6)}>3–6</button>}
+                  {finderSegment === "company" && <button type="button" className={staff === 15 ? styles.selectedOption : ""} onClick={() => setStaff(15)}>7–15</button>}
+                  <button type="button" className={staff === 16 ? styles.selectedOption : ""} onClick={() => setStaff(16)}>{finderSegment === "sole-trader" ? "3+" : "15+"}</button>
+                </div>
+              </div>
+            )}
+
+            {(finderSegment === "company" || finderSegment === "contractor") && (
+              <div className={styles.finderField}>
+                <span>Directors</span>
+                <div className={styles.finderOptions}>
+                  {[1, 2, 3, 4, 5].map((count) => (
+                    <button key={count} type="button" className={directors === count ? styles.selectedOption : ""} onClick={() => setDirectors(count)}>
+                      {count === 5 ? "5+" : count}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {(finderSegment === "company" || finderSegment === "contractor") && (
+              <div className={styles.finderField}>
+                <span>Cash business, RCT or group / corporate shareholders?</span>
+                <div className={styles.finderOptions}>
+                  <button type="button" className={!complex ? styles.selectedOption : ""} onClick={() => setComplex(false)}>No</button>
+                  <button type="button" className={complex ? styles.selectedOption : ""} onClick={() => setComplex(true)}>Yes</button>
                 </div>
               </div>
             )}
@@ -476,9 +740,10 @@ export function PackagesClient() {
             <div className={styles.finderResult}>
               <span>Your likely fit</span>
               <strong>{fit.name}</strong>
-              <p>€{fit.price} / month</p>
+              <p>{fit.priceLabel}</p>
+              <small>{fit.reason}</small>
               <div>
-                <button type="button" className="button button-quiet" onClick={() => { setSegment(finderSegment); setFinderOpen(false); document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" }); }}>View package</button>
+                <button type="button" className="button button-quiet" onClick={() => { setSegment(fit.segment); setFinderOpen(false); document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" }); }}>View package</button>
                 <Link className="button button-dark" href="/contact">Speak to us <span aria-hidden="true">↗</span></Link>
               </div>
             </div>
