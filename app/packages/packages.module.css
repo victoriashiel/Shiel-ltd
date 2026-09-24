@@ -188,144 +188,40 @@
 
 
 
-.offerPair,
-.offerSingle {
-  margin-top: 24px;
-}
-
-.offerPair {
-  display: grid;
-  grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
-  gap: 14px;
-}
-
-.offerSingle > .setupOffer,
-.offerPair > .setupOffer,
-.offerPair > .advisoryOffer {
-  margin-top: 0;
-  height: 100%;
-}
-
-.offerPair > .setupOffer,
-.offerPair > .advisoryOffer {
-  grid-template-columns: 1fr;
-  align-content: start;
-}
-
-.offerPair .setupOfferIncludes {
-  grid-template-columns: 1fr;
-}
-
-.offerPair .setupOfferAction {
-  min-width: 0;
-  justify-items: start;
-}
-
-.offerPair .advisoryOffer > strong {
-  white-space: normal;
-}
-
-.advisoryOffer {
-  margin-top: 24px;
-  padding: 18px 20px;
-  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-  border-radius: 22px;
-  background: var(--ink);
-  color: white;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
-  gap: 22px;
-  align-items: center;
-}
-
-.advisoryOffer > div > span {
-  display: inline-block;
-  margin-bottom: 6px;
-  color: #91d7cf;
-  font-size: 10px;
-  font-weight: 760;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
-.advisoryOffer h3 {
-  font-size: clamp(1.25rem, 1.8vw, 1.65rem);
-}
-
-.advisoryOffer p {
-  max-width: 680px;
-  margin: 7px 0 0;
-  color: rgba(255,255,255,.62);
+.advisoryNote {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 10px;
+  align-items: baseline;
+  color: var(--muted);
   font-size: 12px;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
-.advisoryOffer > strong {
-  color: rgba(255,255,255,.78);
-  font-size: 12px;
-  font-weight: 650;
-  white-space: nowrap;
-}
-
-.setupOffer {
-  margin-top: 24px;
-  padding: 18px 20px;
-  border: 1px solid color-mix(in srgb, var(--teal) 18%, var(--line));
-  border-radius: 22px;
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--teal-pale) 34%, var(--paper)), color-mix(in srgb, var(--paper) 88%, transparent));
-  display: grid;
-  grid-template-columns: 1.1fr 1.2fr auto;
-  gap: 24px;
-  align-items: center;
-}
-
-.setupOfferLead > span {
-  display: inline-block;
-  margin-bottom: 7px;
+.advisoryNote > span {
   color: var(--teal);
   font-size: 10px;
   font-weight: 760;
-  letter-spacing: .1em;
+  letter-spacing: .09em;
   text-transform: uppercase;
 }
 
-.setupOfferLead h3 {
-  font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+.advisoryNote p {
+  margin: 0;
 }
 
-.setupOfferLead p {
-  max-width: 520px;
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.setupOfferIncludes {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px 14px;
-}
-
-.setupOfferIncludes span {
-  color: var(--ink-soft);
-  font-size: 11px;
-  line-height: 1.4;
-}
-
-.setupOfferAction {
-  min-width: 170px;
-  display: grid;
-  gap: 10px;
-  justify-items: end;
-}
-
-.setupOfferAction strong {
+.advisoryNote a {
   color: var(--ink);
-  font-size: 13px;
   font-weight: 680;
-  white-space: nowrap;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.advisoryNote a:hover {
+  color: var(--teal);
 }
 
 .planGrid {
@@ -344,7 +240,7 @@
 
 .planGrid[data-count="2"] {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  width: min(100%, 1080px);
+  width: min(100%, 940px);
   margin-inline: auto;
 }
 
@@ -1307,20 +1203,11 @@
 }
 
 
-@media (min-width: 781px) and (max-width: 1120px) {
-  .advisoryOffer {
-    grid-template-columns: 1fr auto;
-  }
-
-  .advisoryOffer > a {
+.advisoryOffer > a {
     grid-column: 1 / -1;
     width: max-content;
   }
 }
 
 
-@media (max-width: 980px) {
-  .offerPair {
-    grid-template-columns: 1fr;
-  }
 }
