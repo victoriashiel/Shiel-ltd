@@ -15,6 +15,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...internationalScenarioList.map((scenario) => ({
       url: `${siteConfig.url}/international-accounting/${scenario.slug}`,
     })),
+    ...Object.keys(regionContent).flatMap((slug) => {
+      const region = regions[slug as RegionSlug];
+      return internationalScenarioList.map((scenario) => ({
+        url: `${siteConfig.url}${region.path}/international-accounting/${scenario.slug}`,
+        alternates: {
+          languages: Object.fromEntries(
+            Object.entries(getRegionAlternates()).map(([locale, path]) => [
+              locale,
+              locale === "x-default"
+                ? `${siteConfig.url}/international-accounting/${scenario.slug}`
+                : `${siteConfig.url}${path}/international-accounting/${scenario.slug}`,
+            ]),
+          ),
+        },
+      }));
+    }),
     ...Object.keys(regionContent).map((slug) => {
       const region = regions[slug as RegionSlug];
       return {
