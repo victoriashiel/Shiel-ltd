@@ -48,13 +48,18 @@ export function RegionSuggestionBanner() {
 
   if (!suggestion) return null;
 
+  const suggestionPath =
+    pathname === "/packages" || pathname.endsWith("/packages")
+      ? `${suggestion.path}/packages`
+      : suggestion.path;
+
   return (
     <div className="region-suggestion" role="status">
       <div className="region-suggestion-inner">
         <p>
           Visiting from <strong>{suggestion.name}</strong>?
           <Link
-            href={suggestion.path}
+            href={suggestionPath}
             onClick={() => localStorage.setItem("shiel-region-choice", suggestion.region)}
           >
             View local services <span aria-hidden="true">→</span>
