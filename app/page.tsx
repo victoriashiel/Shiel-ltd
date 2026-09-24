@@ -92,6 +92,9 @@ export default function HomePage() {
             </Link>
           ))}
         </div>
+        <Link className="text-link" href="/packages">
+          View monthly packages <span aria-hidden="true">↗</span>
+        </Link>
       </section>
 
       <CaseStudyCarousel />
