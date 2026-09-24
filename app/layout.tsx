@@ -71,7 +71,14 @@ const organisationSchema = {
       url: siteConfig.url,
       logo: `${siteConfig.url}/icon.svg`,
       description: siteConfig.description,
-      areaServed: ["Europe", "Worldwide"],
+      areaServed: [
+        { "@type": "Country", name: "Ireland" },
+        { "@type": "Country", name: "United Kingdom" },
+        { "@type": "Country", name: "United Arab Emirates" },
+        { "@type": "Country", name: "Gibraltar" },
+        { "@type": "Country", name: "Spain" },
+        "Worldwide",
+      ],
       knowsAbout: [
         "Tax compliance",
         "Company accounts",
