@@ -164,6 +164,24 @@ export function PackagesClient() {
           {segment === "company" && <span>Every company plan also includes the core compliance work shown below.</span>}
         </div>
 
+        {current.advisoryOffer && (
+          <aside className={styles.advisoryOffer} aria-label={current.advisoryOffer.name}>
+            <div>
+              <span>Not sure which structure?</span>
+              <h3>{current.advisoryOffer.name}</h3>
+              <p>{current.advisoryOffer.strap}</p>
+            </div>
+            <strong>{current.advisoryOffer.priceLabel}</strong>
+            <Link
+              className="button button-dark"
+              href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: current.advisoryOffer.name } }}
+              data-cta="contractor-structure-review"
+            >
+              Compare my options <span aria-hidden="true">↗</span>
+            </Link>
+          </aside>
+        )}
+
         {current.setupOffer && (
           <aside className={styles.setupOffer} aria-label={`${current.setupOffer.name} setup offer`}>
             <div className={styles.setupOfferLead}>
