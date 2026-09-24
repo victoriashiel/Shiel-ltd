@@ -13,6 +13,7 @@ export function PackagesClient() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const finderTriggerRef = useRef<HTMLElement | null>(null);
   const [finderSegment, setFinderSegment] = useState<Segment>("company");
+  const [finderStartingOut, setFinderStartingOut] = useState(false);
   const [finderDormant, setFinderDormant] = useState(false);
   const [transactions, setTransactions] = useState(30);
   const [turnover, setTurnover] = useState(150_000);
@@ -24,6 +25,7 @@ export function PackagesClient() {
   const current = useMemo(() => segments.find((item) => item.id === segment) ?? segments[0], [segment]);
   const fit = recommendation({
     segment: finderSegment,
+    startingOut: finderStartingOut,
     dormant: finderDormant,
     transactions,
     turnover,
@@ -35,6 +37,7 @@ export function PackagesClient() {
 
   const chooseFinderSegment = (next: Segment) => {
     setFinderSegment(next);
+    setFinderStartingOut(false);
     setFinderDormant(false);
     setTransactions(next === "contractor" ? 15 : 30);
     setTurnover(next === "sole-trader" ? 80_000 : 150_000);
@@ -377,17 +380,25 @@ export function PackagesClient() {
               </div>
             </div>
 
-            {finderSegment === "company" && (
+            <div className={styles.finderField}>
+              <span>Where are you in the journey?</span>
+              <div className={styles.finderOptions}>
+                <button type="button" className={!finderStartingOut ? styles.selectedOption : ""} onClick={() => setFinderStartingOut(false)}>Already trading</button>
+                <button type="button" className={finderStartingOut ? styles.selectedOption : ""} onClick={() => setFinderStartingOut(true)}>Starting out</button>
+              </div>
+            </div>
+
+            {!finderStartingOut && finderSegment === "company" && (
               <div className={styles.finderField}>
-                <span>Is the company dormant or pre-trade?</span>
+                <span>Is the company dormant?</span>
                 <div className={styles.finderOptions}>
                   <button type="button" className={!finderDormant ? styles.selectedOption : ""} onClick={() => setFinderDormant(false)}>Trading</button>
-                  <button type="button" className={finderDormant ? styles.selectedOption : ""} onClick={() => setFinderDormant(true)}>Dormant / pre-trade</button>
+                  <button type="button" className={finderDormant ? styles.selectedOption : ""} onClick={() => setFinderDormant(true)}>Dormant / holding</button>
                 </div>
               </div>
             )}
 
-            {finderSegment !== "ecommerce" && (
+            {!finderStartingOut && finderSegment !== "ecommerce" && (
               <div className={styles.finderField}>
                 <span>Monthly transactions</span>
                 <div className={styles.finderOptions}>
@@ -418,6 +429,7 @@ export function PackagesClient() {
               </div>
             )}
 
+            {!finderStartingOut && (
             <div className={styles.finderField}>
               <span>{finderSegment === "sole-trader" ? "Annual turnover" : "Annual sales"}</span>
               <div className={styles.finderOptions}>
@@ -445,7 +457,10 @@ export function PackagesClient() {
               </div>
             </div>
 
-            {finderSegment === "ecommerce" && (
+            </div>
+            )}
+
+            {!finderStartingOut && finderSegment === "ecommerce" && (
               <div className={styles.finderField}>
                 <span>How many sales platforms do you use?</span>
                 <div className={styles.finderOptions}>
@@ -455,7 +470,7 @@ export function PackagesClient() {
               </div>
             )}
 
-            {(finderSegment === "company" || finderSegment === "sole-trader" || finderSegment === "contractor") && (
+            {!finderStartingOut && (finderSegment === "company" || finderSegment === "sole-trader" || finderSegment === "contractor") && (
               <div className={styles.finderField}>
                 <span>Employees on payroll</span>
                 <div className={styles.finderOptions}>
@@ -468,7 +483,7 @@ export function PackagesClient() {
               </div>
             )}
 
-            {(finderSegment === "company" || finderSegment === "contractor") && (
+            {!finderStartingOut && (finderSegment === "company" || finderSegment === "contractor") && (
               <div className={styles.finderField}>
                 <span>Directors</span>
                 <div className={styles.finderOptions}>
@@ -481,7 +496,7 @@ export function PackagesClient() {
               </div>
             )}
 
-            {(finderSegment === "company" || finderSegment === "contractor") && (
+            {!finderStartingOut && (finderSegment === "company" || finderSegment === "contractor") && (
               <div className={styles.finderField}>
                 <span>Cash business, RCT or group / corporate shareholders?</span>
                 <div className={styles.finderOptions}>
