@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./packages.module.css";
 
 type Segment = "company" | "sole-trader" | "contractor" | "ecommerce";
@@ -171,12 +171,44 @@ export function PackagesClient() {
   const [expanded, setExpanded] = useState<string | null>(null);
   const [compareOpen, setCompareOpen] = useState(false);
   const [finderOpen, setFinderOpen] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const finderTriggerRef = useRef<HTMLElement | null>(null);
   const [finderSegment, setFinderSegment] = useState<Segment>("company");
   const [transactions, setTransactions] = useState("low");
   const [staff, setStaff] = useState("no");
 
   const current = useMemo(() => segments.find((item) => item.id === segment) ?? segments[0], [segment]);
   const fit = recommendation(finderSegment, transactions, staff);
+
+  const openFinder = () => {
+    finderTriggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setFinderOpen(true);
+  };
+
+  const closeFinder = () => {
+    setFinderOpen(false);
+  };
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (finderOpen && !dialog.open) {
+      dialog.showModal();
+      requestAnimationFrame(() => {
+        dialog.querySelector<HTMLElement>("[data-finder-initial]")?.focus();
+      });
+    }
+
+    if (!finderOpen && dialog.open) {
+      dialog.close();
+    }
+  }, [finderOpen]);
+
+  const handleDialogClose = () => {
+    setFinderOpen(false);
+    finderTriggerRef.current?.focus();
+  };
 
   return (
     <>
@@ -190,7 +222,7 @@ export function PackagesClient() {
           </p>
           <div className={styles.heroActions}>
             <a className="button button-dark" href="#plans">See packages <span aria-hidden="true">↓</span></a>
-            <button className="button button-quiet" type="button" onClick={() => setFinderOpen(true)}>
+            <button className="button button-quiet" type="button" onClick={openFinder}>
               Find my package <span aria-hidden="true">↗</span>
             </button>
           </div>
@@ -221,7 +253,7 @@ export function PackagesClient() {
             <p className="eyebrow">Choose your setup</p>
             <h2>Start with how you trade.</h2>
           </div>
-          <button className={styles.finderButton} type="button" onClick={() => setFinderOpen(true)}>
+          <button className={styles.finderButton} type="button" onClick={openFinder}>
             Not sure? Find my package <span aria-hidden="true">→</span>
           </button>
         </div>
@@ -232,7 +264,10 @@ export function PackagesClient() {
               key={item.id}
               type="button"
               role="tab"
+              id={`package-tab-${item.id}`}
+              aria-controls="package-panel"
               aria-selected={segment === item.id}
+              tabIndex={segment === item.id ? 0 : -1}
               className={segment === item.id ? styles.activeTab : ""}
               onClick={() => { setSegment(item.id); setExpanded(null); }}
             >
@@ -246,7 +281,7 @@ export function PackagesClient() {
           {segment === "company" && <span>Every company plan also includes the core compliance work shown below.</span>}
         </div>
 
-        <div className={styles.planGrid} data-count={current.plans.length} role="tabpanel" aria-live="polite">
+        <div className={styles.planGrid} data-count={current.plans.length} role="tabpanel" id="package-panel" aria-labelledby={`package-tab-${segment}`} aria-live="polite">
           {current.plans.map((plan) => {
             const isExpanded = expanded === plan.name;
             return (
@@ -385,16 +420,27 @@ export function PackagesClient() {
         <p className="eyebrow">Need a steer?</p>
         <h2>You do not need to work out the right package yourself.</h2>
         <p>Tell us how the business operates and we will point you to the closest fit before you commit.</p>
-        <button className="button button-dark" type="button" onClick={() => setFinderOpen(true)}>Find my package <span aria-hidden="true">↗</span></button>
+        <button className="button button-dark" type="button" onClick={openFinder}>Find my package <span aria-hidden="true">↗</span></button>
         <small>Prices shown exclude VAT where applicable. Package suitability and scope are confirmed before onboarding.</small>
       </section>
 
-      {finderOpen && (
-        <div className={styles.modalBackdrop} role="presentation" onMouseDown={(e) => { if (e.currentTarget === e.target) setFinderOpen(false); }}>
-          <div className={styles.finderModal} role="dialog" aria-modal="true" aria-labelledby="finder-title">
-            <button className={styles.modalClose} type="button" aria-label="Close package finder" onClick={() => setFinderOpen(false)}>×</button>
+      <dialog
+        ref={dialogRef}
+        className={styles.finderDialog}
+        aria-labelledby="finder-title"
+        onCancel={(event) => {
+          event.preventDefault();
+          closeFinder();
+        }}
+        onClose={handleDialogClose}
+        onMouseDown={(event) => {
+          if (event.currentTarget === event.target) closeFinder();
+        }}
+      >
+        <div className={styles.finderModal}>
+          <button className={styles.modalClose} type="button" aria-label="Close package finder" onClick={closeFinder}>×</button>
             <p className="eyebrow">Package finder</p>
-            <h2 id="finder-title">Find the closest fit.</h2>
+            <h2 id="finder-title" tabIndex={-1} data-finder-initial>Find the closest fit.</h2>
             <p className={styles.finderIntro}>This is a guide to the published packages, not an accounting assessment. We confirm the scope before onboarding.</p>
 
             <div className={styles.finderField}>
@@ -436,9 +482,8 @@ export function PackagesClient() {
                 <Link className="button button-dark" href="/contact">Speak to us <span aria-hidden="true">↗</span></Link>
               </div>
             </div>
-          </div>
         </div>
-      )}
+      </dialog>
     </>
   );
 }
