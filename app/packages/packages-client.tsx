@@ -414,7 +414,8 @@ export function PackagesClient() {
                     <>
                       <button type="button" className={transactions === 30 ? styles.selectedOption : ""} onClick={() => setTransactions(30)}>Up to 30</button>
                       <button type="button" className={transactions === 80 ? styles.selectedOption : ""} onClick={() => setTransactions(80)}>31–80</button>
-                      <button type="button" className={transactions === 81 ? styles.selectedOption : ""} onClick={() => setTransactions(81)}>80+</button>
+                      <button type="button" className={transactions === 150 ? styles.selectedOption : ""} onClick={() => setTransactions(150)}>81–150</button>
+                      <button type="button" className={transactions === 151 ? styles.selectedOption : ""} onClick={() => setTransactions(151)}>150+</button>
                     </>
                   ) : (
                     <>
@@ -437,13 +438,15 @@ export function PackagesClient() {
                   <>
                     <button type="button" className={turnover === 80_000 ? styles.selectedOption : ""} onClick={() => setTurnover(80_000)}>Up to €80k</button>
                     <button type="button" className={turnover === 250_000 ? styles.selectedOption : ""} onClick={() => setTurnover(250_000)}>€80k–€250k</button>
-                    <button type="button" className={turnover === 250_001 ? styles.selectedOption : ""} onClick={() => setTurnover(250_001)}>€250k+</button>
+                    <button type="button" className={turnover === 500_000 ? styles.selectedOption : ""} onClick={() => setTurnover(500_000)}>€250k–€500k</button>
+                    <button type="button" className={turnover === 500_001 ? styles.selectedOption : ""} onClick={() => setTurnover(500_001)}>€500k+</button>
                   </>
                 ) : finderSegment === "ecommerce" ? (
                   <>
                     <button type="button" className={turnover === 150_000 ? styles.selectedOption : ""} onClick={() => setTurnover(150_000)}>Up to €150k</button>
                     <button type="button" className={turnover === 500_000 ? styles.selectedOption : ""} onClick={() => setTurnover(500_000)}>€150k–€500k</button>
-                    <button type="button" className={turnover === 500_001 ? styles.selectedOption : ""} onClick={() => setTurnover(500_001)}>€500k+</button>
+                    <button type="button" className={turnover === 1_000_000 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_000)}>€500k–€1m</button>
+                    <button type="button" className={turnover === 1_000_001 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_001)}>€1m+</button>
                   </>
                 ) : (
                   <>
@@ -455,8 +458,6 @@ export function PackagesClient() {
                   </>
                 )}
               </div>
-            </div>
-
             </div>
             )}
 
@@ -512,7 +513,7 @@ export function PackagesClient() {
               <p>{fit.priceLabel}</p>
               <small>{fit.reason}</small>
               <div>
-                <button type="button" className="button button-quiet" onClick={() => { setSegment(fit.segment); setFinderOpen(false); document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" }); }}>View package</button>
+                <button type="button" className="button button-quiet" onClick={() => { setSegment(fit.segment); setFinderOpen(false); document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" }); }}>{finderStartingOut ? "View setup offer" : "View package"}</button>
                 <Link
                   className="button button-dark"
                   href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: fit.name } }}
