@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { regionContent } from "@/lib/region-content";
 import { formatRegionalPrice, regionalPackages } from "@/lib/regional-packages";
-import { isRegionSlug, regions, type RegionSlug } from "@/lib/regions";
+import { getRegionAlternates, isRegionSlug, regions, type RegionSlug } from "@/lib/regions";
 import { safeJsonLd } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 import styles from "@/app/[region]/region.module.css";
@@ -20,10 +20,7 @@ export function regionMetadata(slug: string): Metadata {
     description: content.intro,
     alternates: {
       canonical: region.path,
-      languages: {
-        [region.locale]: region.path,
-        "x-default": "/",
-      },
+      languages: getRegionAlternates(),
     },
     openGraph: {
       title: `${region.name} Accounting | ${siteConfig.name}`,
