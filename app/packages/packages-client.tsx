@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { type KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./packages.module.css";
 
 type Segment = "company" | "sole-trader" | "contractor" | "ecommerce";
@@ -374,6 +374,23 @@ export function PackagesClient() {
     finderTriggerRef.current?.focus();
   };
 
+  const handleSegmentKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    const last = segments.length - 1;
+    let nextIndex = index;
+
+    if (event.key === "ArrowRight") nextIndex = index === last ? 0 : index + 1;
+    else if (event.key === "ArrowLeft") nextIndex = index === 0 ? last : index - 1;
+    else if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = last;
+    else return;
+
+    event.preventDefault();
+    const nextSegment = segments[nextIndex];
+    setSegment(nextSegment.id);
+    setExpanded(null);
+    document.getElementById(`package-tab-${nextSegment.id}`)?.focus();
+  };
+
   return (
     <>
       <section className={`section-pad ${styles.hero}`}>
@@ -423,7 +440,7 @@ export function PackagesClient() {
         </div>
 
         <div className={styles.segmentTabs} role="tablist" aria-label="Business type">
-          {segments.map((item) => (
+          {segments.map((item, index) => (
             <button
               key={item.id}
               type="button"
@@ -434,6 +451,7 @@ export function PackagesClient() {
               tabIndex={segment === item.id ? 0 : -1}
               className={segment === item.id ? styles.activeTab : ""}
               onClick={() => { setSegment(item.id); setExpanded(null); }}
+              onKeyDown={(event) => handleSegmentKeyDown(event, index)}
             >
               {item.label}
             </button>
@@ -709,7 +727,7 @@ export function PackagesClient() {
                   <button type="button" className={staff === 2 ? styles.selectedOption : ""} onClick={() => setStaff(2)}>1–2</button>
                   {finderSegment === "company" && <button type="button" className={staff === 6 ? styles.selectedOption : ""} onClick={() => setStaff(6)}>3–6</button>}
                   {finderSegment === "company" && <button type="button" className={staff === 15 ? styles.selectedOption : ""} onClick={() => setStaff(15)}>7–15</button>}
-                  <button type="button" className={staff === 16 ? styles.selectedOption : ""} onClick={() => setStaff(16)}>{finderSegment === "sole-trader" ? "3+" : "15+"}</button>
+                  <button type="button" className={staff === 16 ? styles.selectedOption : ""} onClick={() => setStaff(16)}>{finderSegment === "company" ? "15+" : "3+"}</button>
                 </div>
               </div>
             )}
