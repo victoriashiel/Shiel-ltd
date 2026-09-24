@@ -156,6 +156,30 @@ export function PackagesClient() {
           {segment === "company" && <span>Every company plan also includes the core compliance work shown below.</span>}
         </div>
 
+        {current.setupOffer && (
+          <aside className={styles.setupOffer} aria-label={`${current.setupOffer.name} setup offer`}>
+            <div className={styles.setupOfferLead}>
+              <span>Starting out?</span>
+              <h3>{current.setupOffer.name}</h3>
+              <p>{current.setupOffer.strap}</p>
+            </div>
+            <div className={styles.setupOfferIncludes}>
+              {current.setupOffer.includes.map((item) => <span key={item}>✓ {item}</span>)}
+            </div>
+            <div className={styles.setupOfferAction}>
+              <strong>{current.setupOffer.priceLabel}</strong>
+              <Link
+                className="button button-quiet"
+                href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: current.setupOffer.name } }}
+                data-cta="setup-offer"
+                data-package={current.setupOffer.name}
+              >
+                Start here <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
+          </aside>
+        )}
+
         <div className={styles.planGrid} data-count={current.plans.length} role="tabpanel" id="package-panel" aria-labelledby={`package-tab-${segment}`} aria-live="polite">
           {current.plans.map((plan) => {
             const isExpanded = expanded === plan.name;
@@ -195,7 +219,15 @@ export function PackagesClient() {
                 )}
 
                 <div className={styles.limits}>
-                  <span>Plan limits</span>
+                  <div className={styles.limitLabel}>
+                    <span>Plan limits</span>
+                    <button className={styles.infoTip} type="button" aria-label="What counts as a transaction?">
+                      i
+                      <span role="tooltip">
+                        A transaction is an individual income or expense entry processed in the books. Internal transfers and corrections are not normally counted as separate trading transactions. Small occasional overages do not force an immediate plan change.
+                      </span>
+                    </button>
+                  </div>
                   <p>{plan.limits}</p>
                 </div>
 
@@ -233,7 +265,7 @@ export function PackagesClient() {
                 <div className={styles.comparisonScroller}>
                   <table className={styles.comparisonTable}>
                     <thead>
-                      <tr><th>Plan</th><th>Dormant</th><th>Starter</th><th>Growth</th><th>Scale</th></tr>
+                      <tr><th>Plan</th><th>Dormant & Holding</th><th>Starter</th><th>Growth</th><th>Scale</th></tr>
                     </thead>
                     <tbody>
                       <tr><th>Monthly fee</th><td>€79</td><td>€179</td><td>€279</td><td>€449</td></tr>
