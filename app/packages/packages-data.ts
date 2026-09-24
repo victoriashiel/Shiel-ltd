@@ -190,14 +190,13 @@ export const segments: PackageSegment[] = [
 
 export const commonCompany = [
   "Dedicated accountant",
-  "Cloud bookkeeping software",
-  "Bank feeds",
   "Annual financial statements",
   "Corporation Tax return (CT1)",
   "CRO Annual Return (B1)",
-  "VAT3 and RTD returns",
   "RBO maintenance",
   "Director Form 11",
+  "VAT3 and RTD where registered",
+  "Cloud bookkeeping / bank feeds where relevant",
 ];
 
 export const addOnGroups = [
@@ -219,7 +218,7 @@ export const addOnGroups = [
   },
   {
     title: "Company changes",
-    items: [["Business name registration", "€75 + CRO fee"], ["Strike-off (voluntary)", "€325"], ["Non-resident director support", "Quote"], ["Registered office / company secretary", "Quote"]],
+    items: [["Company formation + initial registrations", "€495 + CRO fee"], ["Business name registration", "€75 + CRO fee"], ["Strike-off (voluntary)", "€325"], ["Non-resident director support", "Quote"], ["Registered office / company secretary", "Quote"]],
   },
 ];
 
