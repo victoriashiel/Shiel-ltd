@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { regionList, type RegionSlug } from "@/lib/regions";
+import { regionalPathFor } from "@/lib/regional-routing";
 
 type SuggestedRegion = {
   countryCode: string;
@@ -48,10 +49,7 @@ export function RegionSuggestionBanner() {
 
   if (!suggestion) return null;
 
-  const suggestionPath =
-    pathname === "/packages" || pathname.endsWith("/packages")
-      ? `${suggestion.path}/packages`
-      : suggestion.path;
+  const suggestionPath = regionalPathFor(pathname, suggestion.region);
 
   return (
     <div className="region-suggestion" role="status">
