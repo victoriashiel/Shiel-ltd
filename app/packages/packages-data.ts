@@ -8,13 +8,9 @@ export type Plan = {
   details: string[];
   limits: string;
   popular?: boolean;
-};
-
-export type SetupOffer = {
-  name: string;
-  priceLabel: string;
-  strap: string;
-  includes: string[];
+  billing?: "monthly" | "one-off";
+  priceNote?: string;
+  limitsLabel?: string;
 };
 
 export type AdvisoryOffer = {
@@ -27,7 +23,6 @@ export type PackageSegment = {
   id: Segment;
   label: string;
   intro: string;
-  setupOffer?: SetupOffer;
   advisoryOffer?: AdvisoryOffer;
   plans: Plan[];
 };
@@ -38,20 +33,14 @@ export const segments: PackageSegment[] = [
     label: "Limited company",
     intro:
       "Company accounts, Corporation Tax, CRO filing, VAT, bookkeeping and director tax support in one monthly fee.",
-    setupOffer: {
-      name: "Company Launch",
-      priceLabel: "€495 + CRO fee · one-off",
-      strap: "For people setting up a limited company and wanting the accounting side built properly from day one.",
-      includes: ["Company formation + constitution", "Revenue, RBO, VAT/PAYE setup where needed", "Bookkeeping system + compliance calendar"],
-    },
     plans: [
       {
-        name: "Dormant & Holding",
-        strap: "For dormant companies and simple holding structures with little or no activity.",
+        name: "Dormant & Pre-trade",
+        strap: "For newly formed, pre-trading or dormant companies.",
         price: 79,
         features: ["Dormant or abridged accounts", "CT1 and B1 filing", "RBO and CRO compliance", "1 director Form 11"],
         details: ["Named accountant", "Compliance calendar and reminders", "Basic record review", "Bank feed where relevant"],
-        limits: "No active trade · up to 10 accounting entries / month · no payroll or VAT filing",
+        limits: "Up to 10 accounting entries / month · sales up to €10k · no payroll",
       },
       {
         name: "LTD Starter",
@@ -85,13 +74,17 @@ export const segments: PackageSegment[] = [
     label: "Sole trader",
     intro:
       "Straightforward bookkeeping and Form 11 support, with VAT and payroll included where the plan calls for it.",
-    setupOffer: {
-      name: "Sole Trader Start-Up",
-      priceLabel: "€149 · one-off",
-      strap: "For people starting self-employment and wanting the tax and bookkeeping setup handled before regular trading begins.",
-      includes: ["Income Tax registration", "ROS + bookkeeping setup", "VAT, PAYE or RCT setup where needed"],
-    },
     plans: [
+      {
+        name: "Sole Trader Start-Up",
+        strap: "For people registering as self-employed and getting the finance side set up properly.",
+        price: 149,
+        billing: "one-off",
+        features: ["Income Tax registration", "ROS setup", "Bookkeeping setup", "VAT, PAYE or RCT setup where needed"],
+        details: ["Initial expense guidance", "Record-keeping setup", "Key filing dates explained", "Business name registration guidance where relevant"],
+        limitsLabel: "Setup scope",
+        limits: "One-off registration and finance setup · ongoing bookkeeping not included",
+      },
       {
         name: "Sole Trader Essentials",
         strap: "For freelancers and newer self-employed clients.",
@@ -124,18 +117,23 @@ export const segments: PackageSegment[] = [
     label: "Contractor",
     intro:
       "A specialist company package for contractors who want payroll, tax, expenses and compliance handled without a full SME plan.",
-    setupOffer: {
-      name: "Contractor Launch",
-      priceLabel: "€395 + CRO fee · one-off",
-      strap: "For new contractors setting up a personal limited company before the first invoice is raised.",
-      includes: ["Personal limited company formation", "Director payroll + Revenue setup", "Expenses, ERR and bookkeeping setup"],
-    },
     advisoryOffer: {
       name: "Contractor Structure Review",
       priceLabel: "€95 · credited if you set up with Shiel",
       strap: "Compare PAYE umbrella, director umbrella and a personal limited company before choosing how to contract.",
     },
     plans: [
+      {
+        name: "Contractor Launch",
+        strap: "For new contractors setting up a personal limited company before the first invoice.",
+        price: 395,
+        billing: "one-off",
+        priceNote: "+ CRO fee",
+        features: ["Personal limited company formation", "Director payroll setup", "Revenue registrations", "Expenses, ERR and bookkeeping setup"],
+        details: ["Initial contractor expense guidance", "Compliance calendar", "Opening bookkeeping structure", "First-year filing roadmap"],
+        limitsLabel: "Setup scope",
+        limits: "One-off company and finance setup · ongoing monthly accounting not included",
+      },
       {
         name: "Contractor",
         strap: "For single-director companies with one client and a monthly invoice.",
@@ -151,13 +149,17 @@ export const segments: PackageSegment[] = [
     label: "E-commerce",
     intro:
       "Built for online sellers that need platform reconciliation and EU VAT handled alongside the year-end accounts.",
-    setupOffer: {
-      name: "E-commerce Finance Setup",
-      priceLabel: "€249 · one-off",
-      strap: "For stores that need clean finance foundations before ongoing bookkeeping starts.",
-      includes: ["Platform + payment feeds", "Chart of accounts + opening balances", "VAT / OSS readiness review"],
-    },
     plans: [
+      {
+        name: "E-commerce Finance Setup",
+        strap: "For stores that need the finance side set up properly before ongoing bookkeeping starts.",
+        price: 249,
+        billing: "one-off",
+        features: ["Platform + payment feeds", "Chart of accounts", "Opening balances", "VAT / OSS readiness review"],
+        details: ["Payment processor mapping", "Bookkeeping workflow setup", "Stock / COGS setup where relevant", "Handover into an ongoing plan if needed"],
+        limitsLabel: "Setup scope",
+        limits: "One-off finance setup · ongoing bookkeeping and VAT filing not included",
+      },
       {
         name: "E-commerce Launch",
         strap: "For one-platform sellers getting the finance side organised.",
@@ -279,9 +281,9 @@ export function recommendation({
 
     return {
       segment,
-      name: "Company Launch",
-      priceLabel: "€495 + CRO fee · one-off",
-      reason: "This covers company formation plus the core Revenue, RBO, payroll and bookkeeping setup.",
+      name: "Dormant & Pre-trade",
+      priceLabel: "€79 / month",
+      reason: "This is the entry company plan for newly formed, pre-trading or dormant companies.",
     };
   }
 
@@ -374,9 +376,9 @@ export function recommendation({
     if (dormant && transactions <= 10 && turnover <= 10_000 && staff === 0 && directors <= 1 && !complex) {
       return {
         segment: "company",
-        name: "Dormant & Holding",
+        name: "Dormant & Pre-trade",
         priceLabel: "€79 / month",
-        reason: "This matches the dormant/holding limits: minimal activity, no payroll and one director.",
+        reason: "This matches the dormant/pre-trade limits: minimal activity, no payroll and one director.",
       };
     }
 
