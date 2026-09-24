@@ -5,7 +5,6 @@ import {
   internationalScenarioList,
   isInternationalScenarioSlug,
 } from "@/lib/international-scenarios";
-import { siteConfig } from "@/lib/site";
 
 export function generateStaticParams() {
   return internationalScenarioList.map((scenario) => ({ scenario: scenario.slug }));
