@@ -32,6 +32,13 @@ test("country codes resolve to the intended region", () => {
   assert.equal(regionByCountryCode.ES.slug, "spain");
 });
 
+test("every regional package route has a stable local path", () => {
+  for (const slug of regionSlugs) {
+    const region = regions[slug];
+    assert.equal(`${region.path}/packages`, `/${slug}/packages`);
+  }
+});
+
 test("hreflang alternates are reciprocal and keep the global page as x-default", () => {
   const alternates = getRegionAlternates();
   assert.equal(alternates["x-default"], "/");
