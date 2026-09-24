@@ -55,6 +55,10 @@ test("region switching preserves mirrored page context", () => {
   assert.equal(regionalPathFor("/uk/tax-compliance", "ie"), "/ie/tax-compliance");
   assert.equal(regionalPathFor("/ae/packages", "es"), "/es/packages");
   assert.equal(regionalPathFor("/gi/contact", "global"), "/contact");
+  assert.equal(
+    regionalPathFor("/uk/international-accounting/non-resident-directors", "ie"),
+    "/ie/international-accounting/non-resident-directors",
+  );
   assert.equal(regionalPathFor("/privacy", "ie"), "/ie");
 });
 
