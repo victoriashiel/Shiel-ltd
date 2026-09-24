@@ -29,6 +29,7 @@ export const metadata: Metadata = {
 
 function startingPrice(slug: keyof typeof regionalPackages) {
   const set = regionalPackages[slug];
+  if (set.startingFrom) return set.startingFrom;
   const monthly = set.packages.filter((item) => item.billing !== "one-off");
   return monthly.length ? Math.min(...monthly.map((item) => item.price)) : null;
 }
