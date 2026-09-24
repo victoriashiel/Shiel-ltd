@@ -17,11 +17,18 @@ export type SetupOffer = {
   includes: string[];
 };
 
+export type AdvisoryOffer = {
+  name: string;
+  priceLabel: string;
+  strap: string;
+};
+
 export type PackageSegment = {
   id: Segment;
   label: string;
   intro: string;
   setupOffer?: SetupOffer;
+  advisoryOffer?: AdvisoryOffer;
   plans: Plan[];
 };
 
@@ -123,13 +130,18 @@ export const segments: PackageSegment[] = [
       strap: "For new contractors setting up a personal limited company before the first invoice is raised.",
       includes: ["Personal limited company formation", "Director payroll + Revenue setup", "Expenses, ERR and bookkeeping setup"],
     },
+    advisoryOffer: {
+      name: "Contractor Structure Review",
+      priceLabel: "€95 · credited if you set up with Shiel",
+      strap: "Compare PAYE umbrella, director umbrella and a personal limited company before choosing how to contract.",
+    },
     plans: [
       {
         name: "Contractor",
         strap: "For single-director companies with one client and a monthly invoice.",
         price: 119,
         features: ["CT1, B1 and VAT compliance", "Director payroll", "Director Form 11", "Expense and subsistence guidance"],
-        details: ["Mileage and reimbursement guidance", "ERR reporting where applicable", "Company pension contribution support", "Cross-border VAT guidance where relevant", "Named accountant", "Cloud bookkeeping"],
+        details: ["Mileage and reimbursement guidance", "ERR reporting where applicable", "Company pension contribution support", "Cross-border VAT guidance where relevant", "Free accountant handover", "Named accountant", "Cloud bookkeeping"],
         limits: "Up to 15 transactions / month · sales up to €150k",
       },
     ],
@@ -151,7 +163,7 @@ export const segments: PackageSegment[] = [
         strap: "For one-platform sellers getting the finance side organised.",
         price: 179,
         features: ["1 sales platform", "Stripe or PayPal feeds", "VAT returns including OSS", "Annual accounts"],
-        details: ["Named accountant", "Cloud bookkeeping", "Bank feeds", "Deadline reminders"],
+        details: ["Named accountant", "Cloud bookkeeping", "Bank feeds", "Deadline reminders", "Annual accounts + CT1/Form 11 as applicable", "Third-party app subscriptions excluded"],
         limits: "Up to 50 accounting transactions / month · sales up to €150k",
       },
       {
@@ -159,7 +171,7 @@ export const segments: PackageSegment[] = [
         strap: "For sellers operating across several platforms or marketplaces.",
         price: 279,
         features: ["Multi-platform reconciliation", "OSS and IOSS", "Stock and COGS accounting", "Monthly margin report"],
-        details: ["Named accountant", "Cloud bookkeeping", "Bank feeds", "Deadline reminders"],
+        details: ["Named accountant", "Cloud bookkeeping", "Bank feeds", "Deadline reminders", "Annual accounts + CT1/Form 11 as applicable", "Additional country VAT registrations quoted separately", "Third-party app subscriptions excluded"],
         limits: "Up to 100 accounting transactions / month · sales up to €500k",
       },
       {
@@ -167,7 +179,7 @@ export const segments: PackageSegment[] = [
         strap: "For higher-volume stores that need finance reporting as well as bookkeeping.",
         price: 449,
         features: ["Everything in Multi-channel", "Multi-currency reconciliation", "Monthly management accounts", "Channel and margin reporting"],
-        details: ["Stock and COGS accounting", "OSS and IOSS", "Priority turnaround", "Named accountant"],
+        details: ["Stock and COGS accounting", "OSS and IOSS", "Priority turnaround", "Annual accounts + CT1/Form 11 as applicable", "Additional country VAT registrations quoted separately", "Third-party app subscriptions excluded", "Named accountant"],
         limits: "Up to 200 accounting transactions / month · sales up to €1m",
       },
     ],
