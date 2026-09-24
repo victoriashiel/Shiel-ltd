@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { serviceBySlug } from "@/lib/services";
+import { serviceBySlug, type Service } from "@/lib/services";
 import { siteConfig } from "@/lib/site";
 import { safeJsonLd } from "@/lib/seo";
 
@@ -23,11 +23,15 @@ export function serviceMetadata(slug: string): Metadata {
 export function FocusServicePage({
   slug,
   beforeCta,
+  serviceOverride,
+  contactHref = "/contact",
 }: {
   slug: string;
   beforeCta?: ReactNode;
+  serviceOverride?: Service;
+  contactHref?: string;
 }) {
-  const service = serviceBySlug[slug];
+  const service = serviceOverride ?? serviceBySlug[slug];
 
   const schema = {
     "@context": "https://schema.org",
