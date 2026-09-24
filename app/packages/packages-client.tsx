@@ -6,6 +6,7 @@ import styles from "./packages.module.css";
 import { addOnGroups, commonCompany, recommendation, segments, type Segment } from "./packages-data";
 
 export function PackagesClient({ region = "ie" }: { region?: "ie" }) {
+  const contactPath = `/${region}/contact`;
   const [segment, setSegment] = useState<Segment>("company");
   const [expanded, setExpanded] = useState<string | null>(null);
   const [compareOpen, setCompareOpen] = useState(false);
@@ -169,7 +170,7 @@ export function PackagesClient({ region = "ie" }: { region?: "ie" }) {
             <span>Not sure which structure?</span>
             <p>{current.advisoryOffer.strap}</p>
             <Link
-              href={{ pathname: "/contact", query: { region, enquiry: "Packages & pricing", package: current.advisoryOffer.name } }}
+              href={{ pathname: contactPath, query: { region, enquiry: "Packages & pricing", package: current.advisoryOffer.name } }}
               data-cta="contractor-structure-review"
             >
               {current.advisoryOffer.name} · {current.advisoryOffer.priceLabel} <span aria-hidden="true">↗</span>
@@ -241,7 +242,7 @@ export function PackagesClient({ region = "ie" }: { region?: "ie" }) {
 
                 <Link
                   className={`button ${plan.popular ? "button-dark" : "button-quiet"} ${styles.cardButton}`}
-                  href={{ pathname: "/contact", query: { region, enquiry: "Packages & pricing", package: plan.name } }}
+                  href={{ pathname: contactPath, query: { region, enquiry: "Packages & pricing", package: plan.name } }}
                   data-cta="package-select"
                   data-package={plan.name}
                 >
@@ -301,7 +302,7 @@ export function PackagesClient({ region = "ie" }: { region?: "ie" }) {
           </p>
           <Link
             className="button button-light"
-            href={{ pathname: "/contact", query: { region, enquiry: "Packages & pricing", package: "Bespoke" } }}
+            href={{ pathname: contactPath, query: { region, enquiry: "Packages & pricing", package: "Bespoke" } }}
             data-cta="package-bespoke"
           >
             Get a tailored quote <span aria-hidden="true">↗</span>
@@ -528,7 +529,7 @@ export function PackagesClient({ region = "ie" }: { region?: "ie" }) {
                 <button type="button" className="button button-quiet" onClick={() => { setSegment(fit.segment); setFinderOpen(false); document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" }); }}>{finderStartingOut ? "View setup offer" : "View package"}</button>
                 <Link
                   className="button button-dark"
-                  href={{ pathname: "/contact", query: { region, enquiry: "Packages & pricing", package: fit.name } }}
+                  href={{ pathname: contactPath, query: { region, enquiry: "Packages & pricing", package: fit.name } }}
                   data-cta="package-finder-contact"
                   data-package={fit.name}
                 >
