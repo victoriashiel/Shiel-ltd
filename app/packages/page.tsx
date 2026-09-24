@@ -1,87 +1,80 @@
 import type { Metadata } from "next";
-import { PackagesClient } from "./packages-client";
-import { segments } from "./packages-data";
-import { safeJsonLd } from "@/lib/seo";
-import { siteConfig } from "@/lib/site";
+import Link from "next/link";
+import { regionalPackages } from "@/lib/regional-packages";
+import { regionList } from "@/lib/regions";
+import styles from "./packages-global.module.css";
 
 export const metadata: Metadata = {
-  title: "Accounting Packages & Pricing",
+  title: "Accounting Packages by Region",
   description:
-    "Monthly accounting packages and one-off setup offers for Irish limited companies, contractors, sole traders and e-commerce businesses, with bookkeeping, payroll, tax and compliance support.",
+    "Choose your region to see local accounting packages, scope and pricing for Ireland, the UK, UAE, Gibraltar and Spain.",
   alternates: { canonical: "/packages" },
   openGraph: {
-    title: "Accounting Packages & Pricing | Shiel Accountants",
+    title: "Accounting Packages by Region | Shiel Accountants",
     description:
-      "Clear monthly accounting packages and one-off startup offers with published limits, a named accountant and no long-term lock-in.",
+      "Local accounting packages and pricing for Ireland, the UK, UAE, Gibraltar and Spain.",
     url: "/packages",
   },
 };
 
-const packageOffers = [
-  ...segments.flatMap((segment) =>
-    segment.plans.map((plan) => ({
-      "@type": "Offer",
-      name: plan.name,
-      category: plan.billing === "one-off" ? `${segment.label} setup` : segment.label,
-      price: plan.price,
-      priceCurrency: "EUR",
-      url: `${siteConfig.url}/packages`,
-      offeredBy: { "@id": `${siteConfig.url}/#organization` },
-      description: plan.strap,
-    })),
-  ),
-  ...segments.flatMap((segment) => {
-    if (!segment.advisoryOffer) return [];
-    const price = Number(segment.advisoryOffer.priceLabel.match(/€([0-9]+)/)?.[1] ?? 0);
-    return [{
-      "@type": "Offer",
-      name: segment.advisoryOffer.name,
-      category: `${segment.label} advisory`,
-      price,
-      priceCurrency: "EUR",
-      url: `${siteConfig.url}/packages`,
-      offeredBy: { "@id": `${siteConfig.url}/#organization` },
-      description: segment.advisoryOffer.strap,
-    }];
-  }),
-];
+function startingPrice(slug: keyof typeof regionalPackages) {
+  const set = regionalPackages[slug];
+  const monthly = set.packages.filter((item) => item.billing !== "one-off");
+  return monthly.length ? Math.min(...monthly.map((item) => item.price)) : null;
+}
 
-const packagesSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": `${siteConfig.url}/packages#webpage`,
-      url: `${siteConfig.url}/packages`,
-      name: "Accounting Packages & Pricing | Shiel Accountants",
-      description:
-        "Monthly accounting packages and one-off setup offers for limited companies, contractors, sole traders and e-commerce businesses.",
-      isPartOf: { "@id": `${siteConfig.url}/#website` },
-      about: { "@id": `${siteConfig.url}/#organization` },
-      inLanguage: "en-GB",
-    },
-    {
-      "@type": "ItemList",
-      "@id": `${siteConfig.url}/packages#packages`,
-      name: "Shiel Accountants accounting packages",
-      numberOfItems: packageOffers.length,
-      itemListElement: packageOffers.map((offer, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        item: offer,
-      })),
-    },
-  ],
-};
+function formatCurrency(code: string, value: number) {
+  if (code === "AED") return `AED ${value.toLocaleString("en-GB")}`;
+  if (code === "GBP") return `£${value.toLocaleString("en-GB")}`;
+  if (code === "GIP") return `£${value.toLocaleString("en-GB")} GIP`;
+  return `€${value.toLocaleString("en-GB")}`;
+}
 
 export default function PackagesPage() {
   return (
     <>
-      <PackagesClient />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: safeJsonLd(packagesSchema) }}
-      />
+      <section className={`section-pad ${styles.hero}`}>
+        <p className="eyebrow">Packages</p>
+        <h1>Choose the market you operate in.</h1>
+        <p>
+          Package scope, filing work and pricing differ by jurisdiction. Select the region that applies
+          to the business to see the relevant accounting packages in local currency.
+        </p>
+      </section>
+
+      <section className={`section-pad ${styles.regionGridSection}`}>
+        <div className={styles.regionGrid}>
+          {regionList.map((region) => {
+            const set = regionalPackages[region.slug];
+            const from = startingPrice(region.slug);
+
+            return (
+              <Link className={styles.regionCard} key={region.slug} href={`${region.path}/packages`}>
+                <div>
+                  <span>{region.name}</span>
+                  <h2>{set.currency}</h2>
+                  <p>{set.note}</p>
+                </div>
+                <div className={styles.regionCardFooter}>
+                  <strong>{from ? `From ${formatCurrency(set.currency, from)} / month` : "View packages"}</strong>
+                  <span>See local packages →</span>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className={`section-pad ${styles.crossBorder}`}>
+        <p className="eyebrow">More than one country?</p>
+        <h2>We can scope the accounting around the actual structure.</h2>
+        <p>
+          If the company, owner, staff or tax obligations span more than one jurisdiction, use the international route rather than forcing the business into one local package.
+        </p>
+        <Link className="button button-dark" href="/international-accounting">
+          International accounting <span aria-hidden="true">↗</span>
+        </Link>
+      </section>
     </>
   );
 }
