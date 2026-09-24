@@ -1,4 +1,4 @@
-export const regionSlugs = ["ireland", "uk", "uae", "gibraltar", "spain"] as const;
+export const regionSlugs = ["ie", "uk", "ae", "gi", "es"] as const;
 
 export type RegionSlug = (typeof regionSlugs)[number];
 
@@ -12,13 +12,13 @@ export type RegionConfig = {
 };
 
 export const regions: Record<RegionSlug, RegionConfig> = {
-  ireland: {
-    slug: "ireland",
+  ie: {
+    slug: "ie",
     name: "Ireland",
     countryCode: "IE",
     locale: "en-IE",
     defaultCurrency: "EUR",
-    path: "/ireland",
+    path: "/ie",
   },
   uk: {
     slug: "uk",
@@ -28,29 +28,29 @@ export const regions: Record<RegionSlug, RegionConfig> = {
     defaultCurrency: "GBP",
     path: "/uk",
   },
-  uae: {
-    slug: "uae",
+  ae: {
+    slug: "ae",
     name: "UAE",
     countryCode: "AE",
     locale: "en-AE",
     defaultCurrency: "AED",
-    path: "/uae",
+    path: "/ae",
   },
-  gibraltar: {
-    slug: "gibraltar",
+  gi: {
+    slug: "gi",
     name: "Gibraltar",
     countryCode: "GI",
     locale: "en-GI",
     defaultCurrency: "GIP",
-    path: "/gibraltar",
+    path: "/gi",
   },
-  spain: {
-    slug: "spain",
+  es: {
+    slug: "es",
     name: "Spain",
     countryCode: "ES",
     locale: "en-ES",
     defaultCurrency: "EUR",
-    path: "/spain",
+    path: "/es",
   },
 };
 
@@ -60,17 +60,24 @@ export const regionByCountryCode = Object.fromEntries(
   regionList.map((region) => [region.countryCode, region]),
 ) as Record<RegionConfig["countryCode"], RegionConfig>;
 
+export const legacyRegionPaths = {
+  "/ireland": "/ie",
+  "/uae": "/ae",
+  "/gibraltar": "/gi",
+  "/spain": "/es",
+} as const;
+
 export function isRegionSlug(value: string): value is RegionSlug {
   return regionSlugs.includes(value as RegionSlug);
 }
 
 export function getRegionAlternates() {
   return {
-    "en-IE": regions.ireland.path,
+    "en-IE": regions.ie.path,
     "en-GB": regions.uk.path,
-    "en-AE": regions.uae.path,
-    "en-GI": regions.gibraltar.path,
-    "en-ES": regions.spain.path,
+    "en-AE": regions.ae.path,
+    "en-GI": regions.gi.path,
+    "en-ES": regions.es.path,
     "x-default": "/",
   } as const;
 }
