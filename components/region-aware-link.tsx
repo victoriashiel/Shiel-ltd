@@ -20,9 +20,18 @@ export function RegionAwareLink({
   const pathname = usePathname();
   const region = getActiveRegion(pathname);
   const regionalHref = regionalizeHref(href, region);
+  const isCurrent =
+    pathname === regionalHref ||
+    (regionalHref !== "/" && pathname.startsWith(`${regionalHref}/`));
 
   return (
-    <Link href={regionalHref} className={className} onClick={onClick} {...props}>
+    <Link
+      href={regionalHref}
+      className={className}
+      onClick={onClick}
+      aria-current={isCurrent ? "page" : undefined}
+      {...props}
+    >
       {children}
     </Link>
   );
