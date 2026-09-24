@@ -1,0 +1,127 @@
+.hero {
+  padding-top: 116px;
+  padding-bottom: 72px;
+}
+
+.hero h1 {
+  max-width: 980px;
+}
+
+.hero > p:last-child {
+  max-width: 760px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.regionGridSection {
+  padding-top: 40px;
+}
+
+.regionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.regionCard {
+  min-height: 320px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: color-mix(in srgb, var(--paper) 84%, transparent);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.regionCard:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--teal) 30%, var(--line));
+  background: var(--paper);
+}
+
+.regionCard > div:first-child > span {
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 720;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.regionCard h2 {
+  margin-top: 10px;
+  font-size: clamp(2.6rem, 5vw, 5rem);
+}
+
+.regionCard p {
+  max-width: 560px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.regionCardFooter {
+  margin-top: 36px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+}
+
+.regionCardFooter strong {
+  font-size: 14px;
+}
+
+.regionCardFooter span {
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.crossBorder {
+  border-top: 1px solid var(--line);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.crossBorder h2 {
+  max-width: 900px;
+}
+
+.crossBorder > p:not(.eyebrow) {
+  max-width: 700px;
+  margin: 24px 0 28px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+@media (max-width: 780px) {
+  .hero {
+    padding-top: 82px;
+    padding-bottom: 56px;
+  }
+
+  .regionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .regionCard {
+    min-height: 260px;
+    padding: 22px;
+  }
+
+  .regionCardFooter {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
