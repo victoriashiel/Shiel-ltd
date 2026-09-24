@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { regionContent } from "./region-content.ts";
 import { regionalPackages } from "./regional-packages.ts";
 import { getRegionAlternates, regionByCountryCode, regionSlugs, regions } from "./regions.ts";
+import { regionalPathFor, regionalizeHref } from "./regional-routing.ts";
 
 test("every supported region has content and package pricing", () => {
   for (const slug of regionSlugs) {
@@ -47,4 +48,19 @@ test("hreflang alternates are reciprocal and keep the global page as x-default",
     const region = regions[slug];
     assert.equal(alternates[region.locale], region.path);
   }
+});
+
+
+test("region switching preserves mirrored page context", () => {
+  assert.equal(regionalPathFor("/uk/tax-compliance", "ie"), "/ie/tax-compliance");
+  assert.equal(regionalPathFor("/ae/packages", "es"), "/es/packages");
+  assert.equal(regionalPathFor("/gi/contact", "global"), "/contact");
+  assert.equal(regionalPathFor("/privacy", "ie"), "/ie");
+});
+
+test("regional links preserve anchors and use the active regional namespace", () => {
+  assert.equal(regionalizeHref("/tax-compliance", "uk"), "/uk/tax-compliance");
+  assert.equal(regionalizeHref("/packages", "ae"), "/ae/packages");
+  assert.equal(regionalizeHref("/#about", "gi"), "/gi#about");
+  assert.equal(regionalizeHref("/privacy", "es"), "/privacy");
 });
