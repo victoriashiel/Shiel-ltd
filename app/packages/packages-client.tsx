@@ -164,49 +164,16 @@ export function PackagesClient() {
           {segment === "company" && <span>Every company plan also includes the core compliance work shown below.</span>}
         </div>
 
-        {(current.advisoryOffer || current.setupOffer) && (
-          <div className={current.advisoryOffer && current.setupOffer ? styles.offerPair : styles.offerSingle}>
-            {current.advisoryOffer && (
-              <aside className={styles.advisoryOffer} aria-label={current.advisoryOffer.name}>
-                <div>
-                  <span>Not sure which structure?</span>
-                  <h3>{current.advisoryOffer.name}</h3>
-                  <p>{current.advisoryOffer.strap}</p>
-                </div>
-                <strong>{current.advisoryOffer.priceLabel}</strong>
-                <Link
-                  className="button button-dark"
-                  href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: current.advisoryOffer.name } }}
-                  data-cta="contractor-structure-review"
-                >
-                  Compare my options <span aria-hidden="true">↗</span>
-                </Link>
-              </aside>
-            )}
-
-            {current.setupOffer && (
-              <aside className={styles.setupOffer} aria-label={`${current.setupOffer.name} setup offer`}>
-                <div className={styles.setupOfferLead}>
-                  <span>Starting out?</span>
-                  <h3>{current.setupOffer.name}</h3>
-                  <p>{current.setupOffer.strap}</p>
-                </div>
-                <div className={styles.setupOfferIncludes}>
-                  {current.setupOffer.includes.map((item) => <span key={item}>✓ {item}</span>)}
-                </div>
-                <div className={styles.setupOfferAction}>
-                  <strong>{current.setupOffer.priceLabel}</strong>
-                  <Link
-                    className="button button-quiet"
-                    href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: current.setupOffer.name } }}
-                    data-cta="setup-offer"
-                    data-package={current.setupOffer.name}
-                  >
-                    Start here <span aria-hidden="true">↗</span>
-                  </Link>
-                </div>
-              </aside>
-            )}
+        {current.advisoryOffer && (
+          <div className={styles.advisoryNote}>
+            <span>Not sure which structure?</span>
+            <p>{current.advisoryOffer.strap}</p>
+            <Link
+              href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: current.advisoryOffer.name } }}
+              data-cta="contractor-structure-review"
+            >
+              {current.advisoryOffer.name} · {current.advisoryOffer.priceLabel} <span aria-hidden="true">↗</span>
+            </Link>
           </div>
         )}
 
@@ -224,7 +191,10 @@ export function PackagesClient() {
                   </div>
                   <div className={styles.price}>
                     <strong>€{plan.price}</strong>
-                    <span>/ month</span>
+                    <span>
+                      {plan.billing === "one-off" ? "one-off" : "/ month"}
+                      {plan.priceNote ? ` · ${plan.priceNote}` : ""}
+                    </span>
                   </div>
                 </div>
 
@@ -251,7 +221,7 @@ export function PackagesClient() {
 
                 <div className={styles.limits}>
                   <div className={styles.limitLabel}>
-                    <span>Plan limits</span>
+                    <span>{plan.limitsLabel ?? "Plan limits"}</span>
                     <button
                       className={styles.infoTip}
                       type="button"
@@ -273,7 +243,7 @@ export function PackagesClient() {
                   data-cta="package-select"
                   data-package={plan.name}
                 >
-                  Choose this plan <span aria-hidden="true">↗</span>
+                  {plan.billing === "one-off" ? "Start here" : "Choose this plan"} <span aria-hidden="true">↗</span>
                 </Link>
               </article>
             );
@@ -301,7 +271,7 @@ export function PackagesClient() {
                 <div className={styles.comparisonScroller}>
                   <table className={styles.comparisonTable}>
                     <thead>
-                      <tr><th>Plan</th><th>Dormant & Holding</th><th>Starter</th><th>Growth</th><th>Scale</th></tr>
+                      <tr><th>Plan</th><th>Dormant & Pre-trade</th><th>Starter</th><th>Growth</th><th>Scale</th></tr>
                     </thead>
                     <tbody>
                       <tr><th>Monthly fee</th><td>€79</td><td>€179</td><td>€279</td><td>€449</td></tr>
