@@ -146,7 +146,7 @@ export function RegionPage({ slug }: { slug: RegionSlug }) {
       <section className={`section-pad ${styles.complianceSection}`}>
         <div className={styles.sectionHeading}>
           <p className="eyebrow">Local compliance</p>
-          <h2>The Irish filings behind the work.</h2>
+          <h2>The local filings behind the work.</h2>
         </div>
         <div className={styles.complianceList}>
           {content.compliance.map((item, index) => (
