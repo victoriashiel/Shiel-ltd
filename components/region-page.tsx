@@ -85,9 +85,9 @@ export function RegionPage({ slug }: { slug: RegionSlug }) {
           <Link className="button button-dark" href={{ pathname: "/contact", query: { region: slug } }}>
             Talk to us <span aria-hidden="true">↗</span>
           </Link>
-          <a className="button button-quiet" href="#regional-packages">
-            View local packages <span aria-hidden="true">↓</span>
-          </a>
+          <Link className="button button-quiet" href={`${region.path}/packages`}>
+            View local packages <span aria-hidden="true">↗</span>
+          </Link>
         </div>
         <small>{content.reviewed}</small>
       </section>
@@ -146,9 +146,14 @@ export function RegionPage({ slug }: { slug: RegionSlug }) {
         </div>
         <div className={styles.packageFooter}>
           <p>{packageSet.note}</p>
-          <Link className="button button-dark" href={{ pathname: "/contact", query: { region: slug, enquiry: "Packages & pricing" } }}>
-            Ask about {region.name} packages <span aria-hidden="true">↗</span>
-          </Link>
+          <div className={styles.packageFooterActions}>
+            <Link className="button button-quiet" href={`${region.path}/packages`}>
+              View full packages
+            </Link>
+            <Link className="button button-dark" href={{ pathname: "/contact", query: { region: slug, enquiry: "Packages & pricing" } }}>
+              Ask about {region.name} packages <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
         </div>
       </section>
 
