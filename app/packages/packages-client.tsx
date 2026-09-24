@@ -121,13 +121,6 @@ export function PackagesClient() {
         </div>
       </section>
 
-      <section className={styles.trustBar} aria-label="Package service standards">
-        <span>Named accountant</span>
-        <span>Cloud bookkeeping</span>
-        <span>Bank feeds</span>
-        <span>Deadline reminders</span>
-      </section>
-
       <section className={`section-pad ${styles.plansSection}`} id="plans">
         <div className={styles.controlsHeader}>
           <div>
