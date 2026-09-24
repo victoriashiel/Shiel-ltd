@@ -281,13 +281,6 @@
   font-size: 12px;
 }
 
-.price small {
-  display: block;
-  margin-top: 8px;
-  color: var(--teal);
-  font-size: 10px;
-}
-
 .featureList {
   min-height: 190px;
   list-style: none;
@@ -422,73 +415,6 @@
   margin: 24px 0 0;
   color: var(--muted);
   line-height: 1.6;
-}
-
-.addOnsDetails {
-  align-self: start;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.addOnsDetails summary {
-  min-height: 84px;
-  display: grid;
-  grid-template-columns: 1fr 38px;
-  gap: 20px;
-  align-items: center;
-  cursor: pointer;
-  list-style: none;
-  font-size: 20px;
-  font-weight: 620;
-}
-
-.addOnsDetails summary::-webkit-details-marker {
-  display: none;
-}
-
-.plus {
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  justify-self: end;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  color: var(--teal);
-  transition: transform .2s ease, background .2s ease;
-}
-
-.addOnsDetails[open] .plus {
-  transform: rotate(45deg);
-  background: var(--teal-pale);
-}
-
-.addOnGrid {
-  padding-bottom: 24px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 26px;
-}
-
-.addOnRow {
-  min-height: 58px;
-  padding: 14px 0;
-  border-top: 1px solid var(--line);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 20px;
-  align-items: center;
-}
-
-.addOnRow span {
-  color: var(--ink-soft);
-  font-size: 13px;
-}
-
-.addOnRow strong {
-  white-space: nowrap;
-  font-size: 13px;
-  font-weight: 660;
 }
 
 .closing {
@@ -641,17 +567,11 @@
     gap: 44px;
   }
 
-  .addOnGrid {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .planCard,
   .segmentTabs button,
-  .plus {
-    transition: none;
-  }
 }
 
 
@@ -1002,7 +922,18 @@
 
 .finderResult > p {
   margin: 6px 0 0;
-  color: rgba(255,255,255,.68);
+  color: rgba(255,255,255,.78);
+  font-size: 15px;
+  font-weight: 620;
+}
+
+.finderResult > small {
+  display: block;
+  max-width: 580px;
+  margin-top: 12px;
+  color: rgba(255,255,255,.58);
+  font-size: 12px;
+  line-height: 1.55;
 }
 
 .finderResult > div {
