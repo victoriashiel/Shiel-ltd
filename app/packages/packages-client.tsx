@@ -212,7 +212,7 @@ export function PackagesClient() {
                   data-cta="package-select"
                   data-package={plan.name}
                 >
-                  Choose {plan.name} <span aria-hidden="true">↗</span>
+                  Choose this plan <span aria-hidden="true">↗</span>
                 </Link>
               </article>
             );
