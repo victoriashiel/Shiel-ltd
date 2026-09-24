@@ -610,7 +610,6 @@
 @media (prefers-reduced-motion: reduce) {
   .planCard,
   .segmentTabs button,
-  .billingToggle button,
   .plus {
     transition: none;
   }
