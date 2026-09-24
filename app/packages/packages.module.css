@@ -1072,30 +1072,6 @@
     width: 100%;
   }
 
-  .advisoryOffer {
-    grid-template-columns: 1fr;
-    gap: 14px;
-    padding: 18px;
-  }
-
-  .advisoryOffer > strong {
-    white-space: normal;
-  }
-
-  .setupOffer {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 18px;
-  }
-
-  .setupOfferIncludes {
-    grid-template-columns: 1fr;
-  }
-
-  .setupOfferAction {
-    justify-items: start;
-  }
-
   .includedBlock {
     grid-template-columns: 1fr;
     gap: 24px;
