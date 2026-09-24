@@ -5,6 +5,7 @@ const allowedEnquiryTypes = new Set([
   "Bookkeeping & payroll",
   "Advisory & growth",
   "International accounting",
+  "Packages & pricing",
   "Existing client query",
   "Other",
 ]);
