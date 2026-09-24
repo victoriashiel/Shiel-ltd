@@ -192,8 +192,8 @@ export function PackagesClient() {
                   <div className={styles.price}>
                     <strong>€{plan.price}</strong>
                     <span>
+                      {plan.priceNote ? `${plan.priceNote} · ` : ""}
                       {plan.billing === "one-off" ? "one-off" : "/ month"}
-                      {plan.priceNote ? ` · ${plan.priceNote}` : ""}
                     </span>
                   </div>
                 </div>
@@ -222,17 +222,19 @@ export function PackagesClient() {
                 <div className={styles.limits}>
                   <div className={styles.limitLabel}>
                     <span>{plan.limitsLabel ?? "Plan limits"}</span>
-                    <button
-                      className={styles.infoTip}
-                      type="button"
-                      aria-label="What counts as a transaction?"
-                      aria-describedby={tipId}
-                    >
-                      i
-                      <span id={tipId} role="tooltip">
-                        An accounting transaction is a bank item, settlement, purchase invoice or expense entry processed in the books. For e-commerce, customer orders are not counted one by one. Small occasional overages do not force an immediate plan change.
-                      </span>
-                    </button>
+                    {!plan.limitsLabel && (
+                      <button
+                        className={styles.infoTip}
+                        type="button"
+                        aria-label="What counts as a transaction?"
+                        aria-describedby={tipId}
+                      >
+                        i
+                        <span id={tipId} role="tooltip">
+                          An accounting transaction is a bank item, settlement, purchase invoice or expense entry processed in the books. For e-commerce, customer orders are not counted one by one. Small occasional overages do not force an immediate plan change.
+                        </span>
+                      </button>
+                    )}
                   </div>
                   <p>{plan.limits}</p>
                 </div>
