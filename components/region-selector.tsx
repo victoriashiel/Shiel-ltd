@@ -14,14 +14,10 @@ export function RegionSelector({ compact = false }: { compact?: boolean }) {
   const router = useRouter();
   const value = currentRegion(pathname);
 
-  const active = value === "global"
-    ? { name: "Global" }
-    : regionList.find((region) => region.slug === value) ?? { name: "Global" };
-
   return (
     <label className={compact ? "region-selector region-selector-compact" : "region-selector"}>
       <span className={compact ? "region-selector-label" : "sr-only"}>
-        {compact ? active.name : "Choose region"}
+        {compact ? "Region" : "Choose region"}
       </span>
       <select
         value={value}
