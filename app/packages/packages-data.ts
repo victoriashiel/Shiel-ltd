@@ -10,16 +10,37 @@ export type Plan = {
   popular?: boolean;
 };
 
-export const segments: { id: Segment; label: string; intro: string; plans: Plan[] }[] = [
+export type SetupOffer = {
+  name: string;
+  priceLabel: string;
+  strap: string;
+  includes: string[];
+};
+
+export type PackageSegment = {
+  id: Segment;
+  label: string;
+  intro: string;
+  setupOffer?: SetupOffer;
+  plans: Plan[];
+};
+
+export const segments: PackageSegment[] = [
   {
     id: "company",
     label: "Limited company",
     intro:
       "Company accounts, Corporation Tax, CRO filing, VAT, bookkeeping and director tax support in one monthly fee.",
+    setupOffer: {
+      name: "Company Launch",
+      priceLabel: "€299 + CRO fee · one-off",
+      strap: "For people setting up a limited company and wanting the accounting side built properly from day one.",
+      includes: ["Company formation", "Revenue, RBO and payroll setup", "Bookkeeping system setup"],
+    },
     plans: [
       {
-        name: "Dormant & Pre-trade",
-        strap: "For newly formed, holding or dormant companies.",
+        name: "Dormant & Holding",
+        strap: "For dormant companies and holding structures with little or no trading activity.",
         price: 79,
         features: ["Abridged or dormant accounts", "Nil CT1 and B1 filing", "RBO and CRO compliance", "1 director Form 11"],
         details: ["Named accountant", "Cloud bookkeeping software", "Bank feeds where relevant", "Deadline calendar and reminders"],
@@ -57,6 +78,12 @@ export const segments: { id: Segment; label: string; intro: string; plans: Plan[
     label: "Sole trader",
     intro:
       "Straightforward bookkeeping and Form 11 support, with VAT and payroll included where the plan calls for it.",
+    setupOffer: {
+      name: "Sole Trader Start-Up",
+      priceLabel: "€149 · one-off",
+      strap: "For people starting self-employment and wanting the tax and bookkeeping setup handled before regular trading begins.",
+      includes: ["Revenue registration", "Bookkeeping setup", "VAT, PAYE or RCT setup where needed"],
+    },
     plans: [
       {
         name: "Sole Trader Essentials",
@@ -75,20 +102,34 @@ export const segments: { id: Segment; label: string; intro: string; plans: Plan[
         details: ["Named accountant", "Cloud bookkeeping", "Deadline reminders"],
         limits: "Up to 80 transactions / month · turnover up to €250k",
       },
+      {
+        name: "Sole Trader Scale",
+        strap: "For established self-employed businesses with higher activity.",
+        price: 249,
+        features: ["Everything in Plus", "Payroll for up to 5 employees", "Monthly management summary", "Multiple income streams"],
+        details: ["VAT support", "Payment platform feeds", "Annual tax-planning review", "Named accountant"],
+        limits: "Up to 150 transactions / month · turnover up to €500k",
+      },
     ],
   },
   {
     id: "contractor",
     label: "Contractor",
     intro:
-      "A lean company package for single-director contractors with one main client and a simple monthly invoicing pattern.",
+      "A specialist company package for contractors who want payroll, tax, expenses and compliance handled without a full SME plan.",
+    setupOffer: {
+      name: "Contractor Launch",
+      priceLabel: "€249 + CRO fee · one-off",
+      strap: "For new contractors setting up a personal limited company before the first invoice is raised.",
+      includes: ["Company formation", "Director payroll and Revenue setup", "Expenses and bookkeeping setup"],
+    },
     plans: [
       {
         name: "Contractor",
         strap: "For single-director companies with one client and a monthly invoice.",
         price: 119,
-        features: ["Full company compliance: CT1, B1 and VAT", "Director payroll", "Director Form 11", "Expense and subsistence guidance"],
-        details: ["Named accountant", "Cloud bookkeeping", "Bank feeds", "Deadline calendar and reminders"],
+        features: ["CT1, B1 and VAT compliance", "Director payroll", "Director Form 11", "Expense and subsistence guidance"],
+        details: ["Mileage and reimbursement guidance", "Company pension contribution support", "Cross-border VAT guidance where relevant", "Named accountant", "Cloud bookkeeping"],
         limits: "Up to 15 transactions / month · sales up to €150k",
       },
     ],
@@ -98,6 +139,12 @@ export const segments: { id: Segment; label: string; intro: string; plans: Plan[
     label: "E-commerce",
     intro:
       "Built for online sellers that need platform reconciliation and EU VAT handled alongside the year-end accounts.",
+    setupOffer: {
+      name: "E-commerce Finance Setup",
+      priceLabel: "€199 · one-off",
+      strap: "For stores that need clean finance foundations before ongoing bookkeeping starts.",
+      includes: ["Platform and payment feeds", "Chart of accounts and opening setup", "VAT and OSS readiness review"],
+    },
     plans: [
       {
         name: "E-commerce Launch",
@@ -114,6 +161,14 @@ export const segments: { id: Segment; label: string; intro: string; plans: Plan[
         features: ["Multi-platform reconciliation", "OSS and IOSS", "Stock and COGS accounting", "Monthly margin report"],
         details: ["Named accountant", "Cloud bookkeeping", "Bank feeds", "Deadline reminders"],
         limits: "Sales up to €500k",
+      },
+      {
+        name: "E-commerce Scale",
+        strap: "For higher-volume stores that need finance reporting as well as bookkeeping.",
+        price: 449,
+        features: ["Everything in Multi-channel", "Multi-currency reconciliation", "Monthly management accounts", "Channel and margin reporting"],
+        details: ["Stock and COGS accounting", "OSS and IOSS", "Priority turnaround", "Named accountant"],
+        limits: "Sales up to €1m · higher-volume platform activity",
       },
     ],
   },
