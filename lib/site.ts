@@ -14,4 +14,5 @@ export const navigation = [
   { href: "/bookkeeping-payroll", label: "Bookkeeping & payroll" },
   { href: "/advisory-growth", label: "Advisory & growth" },
   { href: "/international-accounting", label: "International" },
+  { href: "/packages", label: "Packages" },
 ];
