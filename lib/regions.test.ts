@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { regionContent } from "./region-content.ts";
 import { regionalPackages } from "./regional-packages.ts";
+import { regionalServices, regionalServiceSlugs } from "./regional-services.ts";
 import { getRegionAlternates, regionByCountryCode, regionSlugs, regions } from "./regions.ts";
 import { regionalPathFor, regionalizeHref } from "./regional-routing.ts";
 
@@ -13,6 +14,17 @@ test("every supported region has content and package pricing", () => {
     for (const plan of regionalPackages[slug].packages) {
       assert.ok(plan.price > 0, `invalid price for ${slug}: ${plan.name}`);
       assert.ok(plan.features.length >= 4, `expected four core features for ${slug}: ${plan.name}`);
+    }
+  }
+});
+
+test("every regional site has all primary service-page content", () => {
+  for (const slug of regionSlugs) {
+    for (const service of regionalServiceSlugs) {
+      const content = regionalServices[slug][service];
+      assert.ok(content, `missing ${service} content for ${slug}`);
+      assert.ok(content.included.length >= 4, `insufficient scope for ${slug}/${service}`);
+      assert.ok(content.localContext.length >= 4, `insufficient local context for ${slug}/${service}`);
     }
   }
 });
