@@ -1178,31 +1178,3 @@
   }
 }
 
-
-@media (min-width: 781px) and (max-width: 1120px) {
-  .setupOffer {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .setupOfferAction {
-    grid-column: 1 / -1;
-    grid-template-columns: auto auto;
-    justify-content: space-between;
-    justify-items: stretch;
-    align-items: center;
-  }
-
-  .setupOfferIncludes {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-.advisoryOffer > a {
-    grid-column: 1 / -1;
-    width: max-content;
-  }
-}
-
-
-}
