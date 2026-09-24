@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { services } from "@/lib/services";
 import { siteConfig } from "@/lib/site";
 import { regionContent } from "@/lib/region-content";
-import { regions, type RegionSlug } from "@/lib/regions";
+import { getRegionAlternates, regions, type RegionSlug } from "@/lib/regions";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -15,10 +15,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       return {
         url: `${siteConfig.url}${region.path}`,
         alternates: {
-          languages: {
-            [region.locale]: `${siteConfig.url}${region.path}`,
-            "x-default": siteConfig.url,
-          },
+          languages: Object.fromEntries(
+            Object.entries(getRegionAlternates()).map(([locale, path]) => [
+              locale,
+              path === "/" ? siteConfig.url : `${siteConfig.url}${path}`,
+            ]),
+          ),
         },
       };
     }),
