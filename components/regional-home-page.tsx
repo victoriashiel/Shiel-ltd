@@ -4,6 +4,7 @@ import { FinanceCanvas } from "@/components/finance-canvas";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { regionContent } from "@/lib/region-content";
 import { regionalServices, regionalServiceSlugs } from "@/lib/regional-services";
+import { formatRegionalPrice, regionalPackages } from "@/lib/regional-packages";
 import { regions, type RegionSlug } from "@/lib/regions";
 import { siteConfig } from "@/lib/site";
 
@@ -66,6 +67,8 @@ export function RegionalHomePage({ region }: { region: RegionSlug }) {
   const market = regions[region];
   const copy = homeCopy[region];
   const faq = regionContent[region].faqs;
+  const packageSet = regionalPackages[region];
+  const packagePreview = packageSet.packages.filter((item) => item.billing !== "one-off").slice(0, 3);
 
   return (
     <>
@@ -137,7 +140,29 @@ export function RegionalHomePage({ region }: { region: RegionSlug }) {
         </Link>
       </section>
 
-      <CaseStudyCarousel />
+      <section className="section-pad regional-package-preview">
+        <div className="section-heading reveal">
+          <p className="eyebrow">{market.name} packages</p>
+          <h2>Pricing built around the local workload.</h2>
+          <p>
+            Packages use {packageSet.currency} pricing and the filing scope that applies in {market.name}.
+          </p>
+        </div>
+        <div className="regional-package-preview-grid">
+          {packagePreview.map((item) => (
+            <article key={item.name} className="regional-package-preview-card reveal">
+              <span>{item.name}</span>
+              <strong>{formatRegionalPrice(packageSet.currency, item.price)}</strong>
+              <p>{item.strap}</p>
+            </article>
+          ))}
+        </div>
+        <Link className="text-link" href={`${market.path}/packages`}>
+          View all {market.name} packages <span aria-hidden="true">↗</span>
+        </Link>
+      </section>
+
+      {region === "ie" ? <CaseStudyCarousel /> : null}
 
       <section className="dark-panel section-pad" id="about">
         <div className="dark-copy reveal">
