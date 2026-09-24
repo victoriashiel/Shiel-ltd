@@ -18,7 +18,7 @@ export function RegionAwarePackagesLink({
 }) {
   const pathname = usePathname();
   const region = pathnameRegion(pathname);
-  const href = region ? `/${region}#regional-packages` : "/packages";
+  const href = region ? `/${region}/packages` : "/packages";
 
   return (
     <Link className={className} href={href} onClick={onNavigate}>
