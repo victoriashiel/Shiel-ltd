@@ -63,8 +63,8 @@ export function InternationalScenarioPage({
           {
             "@type": "ListItem",
             position: 2,
-            name: "International accounting",
-            item: `${siteConfig.url}/international-accounting`,
+            name: regionName ? `${regionName} international accounting` : "International accounting",
+            item: `${siteConfig.url}${basePath}`,
           },
           {
             "@type": "ListItem",
