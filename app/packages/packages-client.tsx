@@ -395,10 +395,10 @@ export function PackagesClient() {
 
             {!finderStartingOut && finderSegment === "company" && (
               <div className={styles.finderField}>
-                <span>Is the company dormant?</span>
+                <span>Is the company dormant or not yet trading?</span>
                 <div className={styles.finderOptions}>
                   <button type="button" className={!finderDormant ? styles.selectedOption : ""} onClick={() => setFinderDormant(false)}>Trading</button>
-                  <button type="button" className={finderDormant ? styles.selectedOption : ""} onClick={() => setFinderDormant(true)}>Dormant / holding</button>
+                  <button type="button" className={finderDormant ? styles.selectedOption : ""} onClick={() => setFinderDormant(true)}>Dormant / pre-trade</button>
                 </div>
               </div>
             )}
