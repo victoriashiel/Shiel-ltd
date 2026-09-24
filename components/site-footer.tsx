@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { RegionSelector } from "@/components/region-selector";
+import { RegionAwarePackagesLink } from "@/components/region-aware-packages-link";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { navigation, siteConfig } from "@/lib/site";
 
@@ -28,9 +29,10 @@ export function SiteFooter() {
         <div className="footer-columns">
           <div>
             <p className="footer-label">Services</p>
-            {navigation.map((item) => (
+            {navigation.filter((item) => item.label !== "Packages").map((item) => (
               <Link key={item.href} href={item.href}>{item.label}</Link>
             ))}
+            <RegionAwarePackagesLink />
           </div>
           <div>
             <p className="footer-label">Shiel Accountants</p>
