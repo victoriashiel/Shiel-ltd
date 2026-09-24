@@ -19,9 +19,13 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      { source: "/ireland", destination: "/ie", permanent: true },
       { source: "/ireland/:path*", destination: "/ie/:path*", permanent: true },
+      { source: "/uae", destination: "/ae", permanent: true },
       { source: "/uae/:path*", destination: "/ae/:path*", permanent: true },
+      { source: "/gibraltar", destination: "/gi", permanent: true },
       { source: "/gibraltar/:path*", destination: "/gi/:path*", permanent: true },
+      { source: "/spain", destination: "/es", permanent: true },
       { source: "/spain/:path*", destination: "/es/:path*", permanent: true },
       { source: "/services", destination: "/#services", permanent: true },
       { source: "/about", destination: "/#about", permanent: true },
