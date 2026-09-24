@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { siteConfig } from "@/lib/site";
+import { isRegionSlug, regions } from "@/lib/regions";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
 type ContactSearchParams = Promise<{
   enquiry?: string | string[];
   package?: string | string[];
+  region?: string | string[];
 }>;
 
 function first(value?: string | string[]) {
@@ -33,6 +35,8 @@ export default async function ContactPage({
   const params = await searchParams;
   const enquiry = first(params.enquiry);
   const packageName = first(params.package);
+  const regionSlug = first(params.region);
+  const initialCountry = regionSlug && isRegionSlug(regionSlug) ? regions[regionSlug].name : "";
 
   const initialEnquiryType =
     enquiry === "Packages & pricing" || packageName ? "Packages & pricing" : "";
@@ -80,6 +84,7 @@ export default async function ContactPage({
           <ContactForm
             initialEnquiryType={initialEnquiryType}
             initialMessage={initialMessage}
+            initialCountry={initialCountry}
           />
         </div>
       </section>
