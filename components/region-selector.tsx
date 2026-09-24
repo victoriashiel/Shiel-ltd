@@ -14,9 +14,15 @@ export function RegionSelector({ compact = false }: { compact?: boolean }) {
   const router = useRouter();
   const value = currentRegion(pathname);
 
+  const active = value === "global"
+    ? { name: "Global" }
+    : regionList.find((region) => region.slug === value) ?? { name: "Global" };
+
   return (
     <label className={compact ? "region-selector region-selector-compact" : "region-selector"}>
-      <span className="sr-only">Choose region</span>
+      <span className={compact ? "region-selector-label" : "sr-only"}>
+        {compact ? active.name : "Choose region"}
+      </span>
       <select
         value={value}
         aria-label="Choose region"
