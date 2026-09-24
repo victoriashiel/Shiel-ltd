@@ -1,7 +1,6 @@
-import Link from "next/link";
-import { Logo } from "@/components/logo";
 import { RegionSelector } from "@/components/region-selector";
-import { RegionAwarePackagesLink } from "@/components/region-aware-packages-link";
+import { RegionAwareLink } from "@/components/region-aware-link";
+import { RegionAwareLogo } from "@/components/region-aware-logo";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { navigation, siteConfig } from "@/lib/site";
 
@@ -10,7 +9,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="footer-shell">
         <div className="footer-lead">
-          <Logo />
+          <RegionAwareLogo />
           <p>European-based accountants supporting businesses and individuals internationally.</p>
           <div className="footer-contact-row">
             <a
@@ -29,24 +28,23 @@ export function SiteFooter() {
         <div className="footer-columns">
           <div>
             <p className="footer-label">Services</p>
-            {navigation.filter((item) => item.label !== "Packages").map((item) => (
-              <Link key={item.href} href={item.href}>{item.label}</Link>
+            {navigation.map((item) => (
+              <RegionAwareLink key={item.href} href={item.href}>{item.label}</RegionAwareLink>
             ))}
-            <RegionAwarePackagesLink />
           </div>
           <div>
             <p className="footer-label">Shiel Accountants</p>
-            <Link href="/#about">About</Link>
-            <Link href="/contact">Contact us</Link>
+            <RegionAwareLink href="/">About</RegionAwareLink>
+            <RegionAwareLink href="/contact">Contact us</RegionAwareLink>
             <div className="footer-region-select">
               <RegionSelector />
             </div>
           </div>
           <div>
             <p className="footer-label">Legal</p>
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/cookies">Cookies</Link>
-            <Link href="/terms">Terms</Link>
+            <a href="/privacy">Privacy</a>
+            <a href="/cookies">Cookies</a>
+            <a href="/terms">Terms</a>
           </div>
         </div>
       </div>
