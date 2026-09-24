@@ -8,7 +8,17 @@ export const metadata: Metadata = {
   title: "Accounting Packages by Region",
   description:
     "Choose your region to see local accounting packages, scope and pricing for Ireland, the UK, UAE, Gibraltar and Spain.",
-  alternates: { canonical: "/packages" },
+  alternates: {
+    canonical: "/packages",
+    languages: {
+      "en-IE": "/ireland/packages",
+      "en-GB": "/uk/packages",
+      "en-AE": "/uae/packages",
+      "en-GI": "/gibraltar/packages",
+      "en-ES": "/spain/packages",
+      "x-default": "/packages",
+    },
+  },
   openGraph: {
     title: "Accounting Packages by Region | Shiel Accountants",
     description:
