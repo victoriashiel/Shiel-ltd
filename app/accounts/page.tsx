@@ -146,6 +146,29 @@ export default function AccountsPage() {
         nodes={["Business tax return", "Registry filing", "Director reporting", "Next-year opening balances"]}
       />
 
+      <section className={`section-pad ${styles.editorialSection}`} data-service-reveal>
+        <div className={styles.editorialHeader}>
+          <p className="eyebrow">The year-end close</p>
+          <h2>Five stages. One final set of numbers.</h2>
+          <p>The strongest year-end process keeps each stage visible, so unresolved items are dealt with before they reach the final accounts.</p>
+        </div>
+        <div className={styles.closeJourney} role="img" aria-label="Year-end close from raw records through to connected filings">
+          {[
+            ["01", "Raw records", "Bank, sales, costs and payroll"],
+            ["02", "Reconciled", "Balances checked and explained"],
+            ["03", "Adjusted", "Year-end entries posted"],
+            ["04", "Final accounts", "One agreed set of figures"],
+            ["05", "Connected filings", "Tax and registry work follows"],
+          ].map(([step, title, copy]) => (
+            <div className={styles.journeyStage} key={step}>
+              <span>{step}</span>
+              <strong>{title}</strong>
+              <small>{copy}</small>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <ServiceCountries
         eyebrow="Country-specific requirements"
         title="Same accounting process. Different filing language."
