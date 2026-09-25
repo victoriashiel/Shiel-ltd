@@ -20,6 +20,13 @@ export type CountryPackageConfig = {
     scale: string;
     bespokeNote?: string;
   };
+  companyTurnoverValues: {
+    dormant: number;
+    starter: number;
+    growth: number;
+    scale: number;
+  };
+  priceNote: string;
   terminology: Record<string, string>;
   companyCommon: string[];
 };
@@ -38,6 +45,8 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       growth: "€400k",
       scale: "€1m",
     },
+    companyTurnoverValues: { dormant: 10_000, starter: 150_000, growth: 400_000, scale: 1_000_000 },
+    priceNote: "Prices exclude VAT where applicable.",
     terminology: {
       "Corporation tax return": "Corporation Tax return (CT1)",
       "corporation tax return": "Corporation Tax return (CT1)",
@@ -82,6 +91,8 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       growth: "£350k",
       scale: "£850k",
     },
+    companyTurnoverValues: { dormant: 10_000, starter: 130_000, growth: 350_000, scale: 850_000 },
+    priceNote: "Prices exclude VAT where applicable.",
     terminology: {
       "Dormant or small-company accounts": "Dormant or small-company statutory accounts",
       "Corporation tax return": "Company Tax Return (CT600)",
@@ -131,6 +142,8 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       scale: "£850k",
       bespokeNote: "Audit threshold: £1.75m turnover.",
     },
+    companyTurnoverValues: { dormant: 10_000, starter: 130_000, growth: 350_000, scale: 850_000 },
+    priceNote: "Government filing fees and other third-party charges are excluded unless stated.",
     terminology: {
       "Corporation tax return": "Corporate Tax Return (CT1)",
       "corporation tax return": "Corporate Tax Return (CT1)",
