@@ -484,18 +484,18 @@
 }
 
 @media (min-width: 1101px) and (prefers-reduced-motion: no-preference) {
-  :global([data-service-reveal]) {
+  :global(html[data-service-motion]) :global([data-service-reveal]) {
     opacity: 0;
     transform: translateY(24px);
     transition: opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1);
   }
 
-  :global([data-service-reveal][data-service-visible="true"]) {
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) {
     opacity: 1;
     transform: translateY(0);
   }
 
-  :global([data-service-reveal]) .workflowStep,
+  :global(html[data-service-motion]) :global([data-service-reveal]) .workflowStep,
   :global([data-service-reveal]) .scopeCard,
   :global([data-service-reveal]) .countryCard {
     opacity: 0;
@@ -503,7 +503,7 @@
     transition: opacity .5s ease, transform .5s ease, border-color .24s ease, box-shadow .24s ease;
   }
 
-  :global([data-service-reveal][data-service-visible="true"]) .workflowStep,
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .workflowStep,
   :global([data-service-reveal][data-service-visible="true"]) .scopeCard,
   :global([data-service-reveal][data-service-visible="true"]) .countryCard {
     opacity: 1;
