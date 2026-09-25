@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import styles from "./accounts.module.css";
 import { safeJsonLd } from "@/lib/seo";
-import { ServiceClosing, ServiceCountries, ServiceHub, ServiceProcess, ServiceScope } from "@/components/service-page-sections";
+import { ServiceClosing, ServiceCountries, ServiceHero, ServiceHub, ServiceProcess, ServiceScope } from "@/components/service-page-sections";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -94,40 +93,32 @@ export default function AccountsPage() {
         dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
       />
 
-      <section className={`section-pad ${styles.hero}`}>
-        <div className={styles.heroCopy}>
-          <Link href="/#services" className="back-link">← Services</Link>
-          <p className="eyebrow">Accounts</p>
-          <h1>Year-end accounts without the year-end scramble.</h1>
-          <p>
-            We prepare annual accounts from the underlying records, resolve the loose ends and keep the
-            related tax and registry work connected. The exact filing names vary by country; the job is the
-            same: get the numbers right before anything is submitted.
-          </p>
-          <div className={styles.heroActions}>
-            <Link className="button button-dark" href="/packages">See packages <span aria-hidden="true">↗</span></Link>
-            <a className="text-link" href="#countries">Choose your country <span aria-hidden="true">↓</span></a>
-          </div>
-        </div>
-
-        <div className={styles.closeVisual} aria-label="Illustration showing records becoming filing-ready accounts">
-          <div className={styles.visualTopline}>
+      <ServiceHero
+        eyebrow="Accounts"
+        title="Year-end accounts without the year-end scramble."
+        copy="We prepare annual accounts from the underlying records, resolve the loose ends and keep the related tax and registry work connected. The exact filing names vary by country; the job is the same: get the numbers right before anything is submitted."
+        visual={
+          <>
+            <div className={styles.closeVisual} aria-label="Illustration showing records becoming filing-ready accounts">
+            <div className={styles.visualTopline}>
             <span>Year-end close</span>
             <strong>Filing ready</strong>
-          </div>
-          <div className={styles.visualLedger}>
+            </div>
+            <div className={styles.visualLedger}>
             <div><span>Bank & cash</span><i>Reconciled</i></div>
             <div><span>Sales & costs</span><i>Reviewed</i></div>
             <div><span>Payroll & tax</span><i>Matched</i></div>
             <div><span>Year-end entries</span><i>Posted</i></div>
-          </div>
-          <div className={styles.visualOutput}>
+            </div>
+            <div className={styles.visualOutput}>
             <span>Final output</span>
             <strong>Accounts</strong>
             <small>ready for the connected filings</small>
-          </div>
-        </div>
-      </section>
+            </div>
+            </div>
+          </>
+        }
+      />
 
       <ServiceProcess
         eyebrow="From records to filed accounts"
