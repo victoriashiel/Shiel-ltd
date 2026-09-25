@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import styles from "./tax.module.css";
 import { safeJsonLd } from "@/lib/seo";
-import { ServiceClosing, ServiceCountries, ServiceHub, ServiceProcess, ServiceScope } from "@/components/service-page-sections";
+import { ServiceClosing, ServiceCountries, ServiceHero, ServiceHub, ServiceProcess, ServiceScope } from "@/components/service-page-sections";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -94,58 +93,50 @@ export default function TaxPage() {
         dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
       />
 
-      <section className={`section-pad ${styles.hero}`}>
-        <div className={styles.heroCopy}>
-          <Link href="/#services" className="back-link">← Services</Link>
-          <p className="eyebrow">Tax</p>
-          <h1>Tax work that starts with the numbers, not the deadline.</h1>
-          <p>
-            We handle recurring business and personal tax work alongside the accounting records that support it.
-            The exact return names, filing systems and deadlines vary by country; the underlying process should
-            still be organised, evidence-based and easy to follow.
-          </p>
-          <div className={styles.heroActions}>
-            <Link className="button button-dark" href="/packages">See packages <span aria-hidden="true">↗</span></Link>
-            <a className="text-link" href="#countries">Choose your country <span aria-hidden="true">↓</span></a>
-          </div>
-        </div>
-
-        <div className={styles.taxVisual} aria-label="Illustration showing tax figures flowing from records to return and payment">
-          <div className={styles.visualHeader}>
+      <ServiceHero
+        eyebrow="Tax"
+        title="Tax work that starts with the numbers, not the deadline."
+        copy="We handle recurring business and personal tax work alongside the accounting records that support it. The exact return names, filing systems and deadlines vary by country; the underlying process should still be organised, evidence-based and easy to follow."
+        visual={
+          <>
+            <div className={styles.taxVisual} aria-label="Illustration showing tax figures flowing from records to return and payment">
+            <div className={styles.visualHeader}>
             <span>Tax position</span>
             <strong>Connected</strong>
-          </div>
-
-          <div className={styles.visualFlow}>
+            </div>
+            
+            <div className={styles.visualFlow}>
             <div className={styles.sourceCard}>
-              <span>Source</span>
-              <strong>Accounts & records</strong>
-              <small>sales · costs · payroll · adjustments</small>
+            <span>Source</span>
+            <strong>Accounts & records</strong>
+            <small>sales · costs · payroll · adjustments</small>
             </div>
-
+            
             <div className={styles.flowArrow} aria-hidden="true">↓</div>
-
+            
             <div className={styles.taxSplit}>
-              <div>
-                <span>Business</span>
-                <strong>Tax return</strong>
-              </div>
-              <div>
-                <span>Owner</span>
-                <strong>Personal tax</strong>
-              </div>
+            <div>
+            <span>Business</span>
+            <strong>Tax return</strong>
             </div>
-
+            <div>
+            <span>Owner</span>
+            <strong>Personal tax</strong>
+            </div>
+            </div>
+            
             <div className={styles.flowArrow} aria-hidden="true">↓</div>
-
+            
             <div className={styles.outputCard}>
-              <span>Outcome</span>
-              <strong>Filed + scheduled</strong>
-              <small>return · payment · supporting records</small>
+            <span>Outcome</span>
+            <strong>Filed + scheduled</strong>
+            <small>return · payment · supporting records</small>
             </div>
-          </div>
-        </div>
-      </section>
+            </div>
+            </div>
+          </>
+        }
+      />
 
       <ServiceProcess
         eyebrow="How the work should flow"
