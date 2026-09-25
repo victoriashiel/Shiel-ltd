@@ -28,22 +28,22 @@ const facts = [
   {
     value: "12.5%",
     label: "Trading Corporation Tax",
-    note: "Ireland’s standard Corporation Tax rate for trading income. Non-trading and certain other income can be taxed differently.",
+    note: "Standard rate for trading income; other income can be taxed differently.",
   },
   {
     value: "CT1",
     label: "Company tax return",
-    note: "Irish companies file their Corporation Tax return with Revenue for the relevant accounting period.",
+    note: "The company tax return filed with Revenue for the accounting period.",
   },
   {
     value: "B1",
     label: "CRO Annual Return",
-    note: "Irish companies must deliver an annual return to the CRO whether they are trading or not.",
+    note: "The annual company return filed with the CRO, including for non-trading companies.",
   },
   {
     value: "56 days",
     label: "CRO filing window",
-    note: "The annual return is generally filed within 56 days of the company’s Annual Return Date.",
+    note: "The usual filing window after the company’s Annual Return Date.",
   },
 ] as const;
 
@@ -152,39 +152,53 @@ export default function IrelandPage() {
       <CountryHero
         eyebrow="Ireland"
         title="Irish accounting without the filing-day scramble."
-        copy="We keep Revenue, CRO, bookkeeping, payroll and year-end work connected, so the same set of numbers carries through the year instead of being rebuilt for every deadline."
+        copy="We keep Revenue, CRO, bookkeeping, payroll and year-end work connected, so one set of records carries through the year."
         visual={
-          <div className={styles.irelandVisual} role="img" aria-label="Illustration showing Irish bookkeeping feeding Revenue and CRO filings">
+          <div className={styles.irelandVisual} role="img" aria-label="Illustration showing the Irish accounting year moving from live books into Revenue and CRO filings">
             <div className={styles.visualTop}>
-              <span>Irish company finance</span>
-              <strong>Connected</strong>
+              <span>Irish company year</span>
+              <strong>Revenue + CRO</strong>
             </div>
-            <div className={styles.ledgerCard}>
-              <span>During the year</span>
-              <strong>Books + payroll</strong>
-              <small>current records and reconciliations</small>
+            <div className={styles.yearTrack}>
+              <div className={styles.trackStage}>
+                <span>01</span>
+                <strong>Books stay current</strong>
+                <small>bank · costs · payroll</small>
+              </div>
+              <div className={styles.trackLine} aria-hidden="true" />
+              <div className={styles.trackStage}>
+                <span>02</span>
+                <strong>Year-end closes</strong>
+                <small>accounts · reconciliations</small>
+              </div>
+              <div className={styles.trackLine} aria-hidden="true" />
+              <div className={styles.trackStage}>
+                <span>03</span>
+                <strong>Filings follow</strong>
+                <small>CT1 · B1 · accounts</small>
+              </div>
             </div>
-            <div className={styles.splitLine} aria-hidden="true" />
-            <div className={styles.filingRow}>
-              <div><span>Revenue</span><strong>CT1 + tax</strong><small>company and tax filings</small></div>
-              <div><span>CRO</span><strong>B1 + accounts</strong><small>annual company filing</small></div>
+            <div className={styles.authorityRow}>
+              <div><span>Revenue</span><strong>Tax</strong></div>
+              <div><span>CRO</span><strong>Company filing</strong></div>
             </div>
           </div>
         }
       />
 
-      <CountryFacts title="The Irish company filing picture, at a glance." items={facts} />
+      <CountryFacts title="The Irish filing picture, at a glance." items={facts} variant="ireland" />
 
       <CountryServices
         title="One local accounting relationship across the recurring work."
-        copy="The service pages explain each area in detail; the Irish layer keeps the terminology and filing context specific to Revenue and the CRO."
+        copy="The underlying work stays connected, while the Irish layer keeps the Revenue and CRO terminology specific."
         items={services}
       />
 
       <CountryPricing
-        title="Irish pricing, without leaving the country page."
-        copy="Choose the type of business you run to see the full package breakdown. These are the same prices used on the Packages page, shown here so you can make the decision without another navigation step."
+        title="Irish prices, in one place."
+        copy="Choose the type of business you run, then open the detailed package only if you need the full inclusions and limits."
         plans={prices}
+        variant="ireland"
         note="Prices exclude VAT where applicable. Package limits and inclusions are shown on the detailed pricing pages."
       />
 
