@@ -511,7 +511,7 @@ export function PackagesClient() {
 
             {!finderStartingOut && (finderSegment === "company" || finderSegment === "contractor") && (
               <div className={styles.finderField}>
-                <span>Cash business, RCT or group / corporate shareholders?</span>
+                <span>Cash business, contractor withholding or group / corporate shareholders?</span>
                 <div className={styles.finderOptions}>
                   <button type="button" className={!complex ? styles.selectedOption : ""} onClick={() => setComplex(false)}>No</button>
                   <button type="button" className={complex ? styles.selectedOption : ""} onClick={() => setComplex(true)}>Yes</button>
