@@ -6,7 +6,7 @@ export const siteConfig = {
   whatsappDisplay: process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY || "+1 (332) 355-6072",
   whatsappHref: process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/13323556072",
   description:
-    "European-based accountants supporting businesses and individuals internationally with tax, compliance, bookkeeping, payroll, advisory and cross-border accounting.",
+    "Accountants serving companies in Ireland, the UK and Gibraltar, with selective international support for other jurisdictions on a case-by-case basis.",
 };
 
 export const navigation = [
