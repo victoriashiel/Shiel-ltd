@@ -108,10 +108,16 @@
 
 .scopeGrid {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(12,1fr);
   gap: 12px;
   margin-top: 56px;
 }
+
+.scopeCard { grid-column: span 4; }
+.scopeCard:nth-child(1) { grid-column: span 5; }
+.scopeCard:nth-child(2) { grid-column: span 3; }
+.scopeCard:nth-child(5) { grid-column: span 5; }
+.scopeCard:nth-child(6) { grid-column: span 3; }
 
 .scopeCard {
   min-height: 245px;
@@ -352,6 +358,7 @@
 
   .scopeHeader { grid-template-columns: 1fr; gap: 28px; }
   .scopeGrid { grid-template-columns: repeat(2,1fr); }
+  .scopeCard, .scopeCard:nth-child(1), .scopeCard:nth-child(2), .scopeCard:nth-child(5), .scopeCard:nth-child(6) { grid-column: auto; }
 
   .hubSection { grid-template-columns: 1fr; }
   .hubMap { max-width: 720px; width: 100%; margin-inline: auto; }
