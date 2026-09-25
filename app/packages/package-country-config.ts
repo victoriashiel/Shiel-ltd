@@ -1,5 +1,5 @@
 import type { Segment } from "./packages-data";
-import type { PackageCountry } from "./packages-client";
+export type PackageCountry = "ireland" | "united-kingdom" | "gibraltar";
 
 export type CountryPackageConfig = {
   label: string;
