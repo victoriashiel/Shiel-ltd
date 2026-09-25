@@ -175,7 +175,7 @@ export default function PayrollPage() {
         nodes={["Employee changes", "Employer reporting", "Bookkeeping", "Year-end accounts"]}
       />
 
-      <section className={`section-pad ${styles.controlSection}`}>
+      <section className={`section-pad ${styles.controlSection}`} data-service-reveal>
         <div className={styles.controlHeader}>
           <p className="eyebrow">A better payroll handoff</p>
           <h2>Three moments matter in every pay cycle.</h2>
