@@ -1,3 +1,28 @@
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0,1.04fr) minmax(380px,.96fr);
+  gap: clamp(54px,7vw,110px);
+  align-items: center;
+  padding-top: 96px;
+  padding-bottom: 110px;
+}
+
+.heroCopy > p:not(.eyebrow) {
+  max-width: 760px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.62;
+}
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 34px;
+  flex-wrap: wrap;
+}
+
 .flowSection { padding-top: 40px; }
 
 .sectionIntro { max-width: 840px; }
@@ -320,6 +345,7 @@
 }
 
 @media (max-width: 1100px) {
+  .hero { grid-template-columns: 1fr; }
   .workflow { grid-template-columns: repeat(2,1fr); }
   .workflowStep:nth-child(2) { border-right: 0; }
   .workflowStep:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
@@ -335,6 +361,8 @@
 }
 
 @media (max-width: 720px) {
+  .hero { padding-top: 64px; padding-bottom: 76px; }
+  .heroCopy > p:not(.eyebrow) { font-size: 16px; }
   .workflow { grid-template-columns: 1fr; }
   .workflowStep {
     border-right: 0;
