@@ -107,7 +107,7 @@ export function PackagesClient() {
           <h1>Accounting that fits the business you actually run.</h1>
           <p>
             Clear monthly pricing, published limits and a named accountant from day one.
-            Choose the closest fit, or use the package finder if you are not sure where to start.
+            Packages are designed for companies in Ireland, the UK and Gibraltar. Choose the closest fit, or use the package finder if you are not sure where to start.
           </p>
           <div className={styles.heroActions}>
             <a className="button button-dark" href="#plans">See packages <span aria-hidden="true">↓</span></a>
@@ -280,9 +280,9 @@ export function PackagesClient() {
                       <tr><th>Transactions</th><td>10</td><td>30</td><td>60</td><td>120</td></tr>
                       <tr><th>Sales / turnover</th><td>€10k</td><td>€150k</td><td>€400k</td><td>€1m</td></tr>
                       <tr><th>Payroll</th><td>—</td><td>2 staff</td><td>6 staff</td><td>15 staff</td></tr>
-                      <tr><th>Management accounts</th><td>—</td><td>—</td><td>Quarterly</td><td>Monthly</td></tr>
-                      <tr><th>Director Form 11</th><td>1</td><td>1</td><td>2</td><td>3</td></tr>
-                      <tr><th>RCT / group structures</th><td>—</td><td>—</td><td>—</td><td>Included</td></tr>
+                      <tr><th>Management reports</th><td>—</td><td>—</td><td>Quarterly</td><td>Monthly</td></tr>
+                      <tr><th>Director personal tax return</th><td>1</td><td>1</td><td>2</td><td>3</td></tr>
+                      <tr><th>Complex / group structures</th><td>—</td><td>—</td><td>—</td><td>Included</td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -316,7 +316,7 @@ export function PackagesClient() {
           <p>The published limits keep the monthly fee fair. Small overages are charged separately rather than forcing an immediate package change.</p>
         </div>
         <div className={styles.promiseList}>
-          {["Named accountant on every plan","1 business day response target","Deadline calendar and reminders","Annual tax-planning review","Revenue and CRO filings handled end to end"].map((promise, index) => (
+          {["Named accountant on every plan","1 business day response target","Deadline calendar and reminders","Annual tax-planning review","Tax and registry filings handled end to end"].map((promise, index) => (
             <div key={promise}><span>0{index + 1}</span><strong>{promise}</strong></div>
           ))}
         </div>
