@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Shiel Accountants",
     short_name: "Shiel",
-    description: "European-based accountants supporting clients internationally across tax, bookkeeping, payroll, advisory and cross-border accounting.",
+    description: "Accountants serving companies in Ireland, the UK and Gibraltar, with selective cross-border support for other jurisdictions.",
     start_url: "/",
     display: "standalone",
     background_color: "#f6f5f0",
