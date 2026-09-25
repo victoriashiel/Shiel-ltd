@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/logo";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { siteConfig } from "@/lib/site";
@@ -53,6 +53,9 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [desktopOpen, setDesktopOpen] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState<string | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -62,15 +65,33 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    if (!open) return;
-
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        setDesktopOpen(null);
+        setMobileOpen(null);
+      }
+    };
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        setDesktopOpen(null);
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, []);
+
+  useEffect(() => {
+    setDesktopOpen(null);
+    setMobileOpen(null);
+    setOpen(false);
+  }, [pathname]);
 
   const isCurrent = (href: string) =>
     pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
@@ -79,41 +100,67 @@ export function SiteHeader() {
     items.some((item) => isCurrent(item.href));
 
   return (
-    <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
+    <header ref={headerRef} className={`site-header${scrolled ? " is-scrolled" : ""}`}>
       <div className="header-shell">
         <Logo />
         <nav className="desktop-nav" aria-label="Primary navigation">
-          {headerGroups.slice(0, 3).map((group) => (
-            <details className="nav-dropdown" key={group.label}>
-              <summary className={groupIsCurrent(group.items) ? "is-current" : ""}>
-                {group.label}<span aria-hidden="true">⌄</span>
-              </summary>
-              <div className="nav-dropdown-panel">
-                {group.items.map((item) => (
+          {headerGroups.slice(0, 3).map((group) => {
+            const isOpen = desktopOpen === group.label;
+            return (
+              <div className="nav-dropdown" key={group.label}>
+                <button
+                  type="button"
+                  className={groupIsCurrent(group.items) ? "nav-dropdown-trigger is-current" : "nav-dropdown-trigger"}
+                  aria-expanded={isOpen}
+                  aria-controls={`desktop-nav-${group.label.toLowerCase().replaceAll(" ", "-")}`}
+                  onClick={() => setDesktopOpen(isOpen ? null : group.label)}
+                >
+                  {group.label}<span aria-hidden="true">⌄</span>
+                </button>
+                {isOpen && (
+                  <div
+                    className="nav-dropdown-panel"
+                    id={`desktop-nav-${group.label.toLowerCase().replaceAll(" ", "-")}`}
+                  >
+                    {group.items.map((item) => (
+                      <Link key={item.href} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          <Link
+            href="/case-studies"
+            aria-current={isCurrent("/case-studies") ? "page" : undefined}
+            onClick={() => setDesktopOpen(null)}
+          >
+            Case studies
+          </Link>
+
+          <div className="nav-dropdown">
+            <button
+              type="button"
+              className={groupIsCurrent(headerGroups[3].items) ? "nav-dropdown-trigger is-current" : "nav-dropdown-trigger"}
+              aria-expanded={desktopOpen === "About"}
+              aria-controls="desktop-nav-about"
+              onClick={() => setDesktopOpen(desktopOpen === "About" ? null : "About")}
+            >
+              About<span aria-hidden="true">⌄</span>
+            </button>
+            {desktopOpen === "About" && (
+              <div className="nav-dropdown-panel nav-dropdown-panel-right" id="desktop-nav-about">
+                {headerGroups[3].items.map((item) => (
                   <Link key={item.href} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
                     {item.label}
                   </Link>
                 ))}
               </div>
-            </details>
-          ))}
-
-          <Link href="/case-studies" aria-current={isCurrent("/case-studies") ? "page" : undefined}>
-            Case studies
-          </Link>
-
-          <details className="nav-dropdown">
-            <summary className={groupIsCurrent(headerGroups[3].items) ? "is-current" : ""}>
-              About<span aria-hidden="true">⌄</span>
-            </summary>
-            <div className="nav-dropdown-panel nav-dropdown-panel-right">
-              {headerGroups[3].items.map((item) => (
-                <Link key={item.href} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </details>
+            )}
+          </div>
         </nav>
 
         <div className="header-contact-actions">
@@ -148,31 +195,52 @@ export function SiteHeader() {
         aria-hidden={!open}
       >
         <nav aria-label="Mobile navigation">
-          {headerGroups.slice(0, 3).map((group) => (
-            <details className="mobile-nav-group" key={group.label}>
-              <summary>{group.label}<span aria-hidden="true">+</span></summary>
+          {headerGroups.slice(0, 3).map((group) => {
+            const isOpen = mobileOpen === group.label;
+            return (
+              <div className="mobile-nav-group" key={group.label}>
+                <button
+                  type="button"
+                  className="mobile-nav-group-trigger"
+                  aria-expanded={isOpen}
+                  onClick={() => setMobileOpen(isOpen ? null : group.label)}
+                >
+                  {group.label}<span aria-hidden="true">+</span>
+                </button>
+                {isOpen && (
+                  <div>
+                    {group.items.map((item) => (
+                      <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          <Link href="/case-studies" onClick={() => { setOpen(false); setMobileOpen(null); }}>Case studies</Link>
+
+          <div className="mobile-nav-group">
+            <button
+              type="button"
+              className="mobile-nav-group-trigger"
+              aria-expanded={mobileOpen === "About"}
+              onClick={() => setMobileOpen(mobileOpen === "About" ? null : "About")}
+            >
+              About<span aria-hidden="true">+</span>
+            </button>
+            {mobileOpen === "About" && (
               <div>
-                {group.items.map((item) => (
+                {headerGroups[3].items.map((item) => (
                   <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
                     {item.label}
                   </Link>
                 ))}
               </div>
-            </details>
-          ))}
-
-          <Link href="/case-studies" onClick={() => setOpen(false)}>Case studies</Link>
-
-          <details className="mobile-nav-group">
-            <summary>About<span aria-hidden="true">+</span></summary>
-            <div>
-              {headerGroups[3].items.map((item) => (
-                <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </details>
+            )}
+          </div>
 
           <div className="mobile-contact-actions">
             <Link className="button button-dark" href="/contact" onClick={() => setOpen(false)}>Contact us</Link>
