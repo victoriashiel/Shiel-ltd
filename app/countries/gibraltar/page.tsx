@@ -28,22 +28,22 @@ const facts = [
   {
     value: "15%",
     label: "Standard Corporation Tax",
-    note: "The standard Gibraltar Corporation Tax rate for most companies is 15%. Certain utility and dominant-market businesses are taxed differently.",
+    note: "Standard rate for most companies; certain utility and dominant-market businesses are taxed differently.",
   },
   {
     value: "CT1",
     label: "Corporate Tax Return",
-    note: "Gibraltar companies within scope file a Corporate Tax Return with the Income Tax Office.",
+    note: "The Corporate Tax Return filed with the Income Tax Office where applicable.",
   },
   {
     value: "Annual",
     label: "Companies House return",
-    note: "Companies House Gibraltar provides for annual-return filing as part of the company’s recurring statutory obligations.",
+    note: "Annual-return filing forms part of the recurring Companies House cycle.",
   },
   {
     value: "Annual",
     label: "Accounts filing",
-    note: "Companies House Gibraltar also provides an annual-accounts filing route through its e-Registry.",
+    note: "Annual accounts can also be filed through the Companies House e-Registry.",
   },
 ] as const;
 
@@ -152,39 +152,45 @@ export default function GibraltarPage() {
       <CountryHero
         eyebrow="Gibraltar"
         title="Gibraltar accounting with the local filings kept together."
-        copy="We connect the bookkeeping, payroll, annual accounts, Corporate Tax and Companies House work, so the company’s records carry through the year instead of being rebuilt around each deadline."
+        copy="We connect bookkeeping, PAYE, annual accounts, Corporate Tax and Companies House work so the same records carry through the year."
         visual={
-          <div className={styles.gibraltarVisual} role="img" aria-label="Illustration showing Gibraltar bookkeeping feeding Income Tax Office and Companies House filings">
+          <div className={styles.gibraltarVisual} role="img" aria-label="Illustration showing Gibraltar's 15 percent standard Corporation Tax rate, no domestic VAT framework and local filing routes">
             <div className={styles.visualTop}>
               <span>Gibraltar company finance</span>
-              <strong>Connected</strong>
+              <strong>Local framework</strong>
             </div>
-            <div className={styles.ledgerCard}>
-              <span>During the year</span>
-              <strong>Books + PAYE</strong>
-              <small>current records and reconciliations</small>
+            <div className={styles.ratePanel}>
+              <div>
+                <span>Standard Corporation Tax</span>
+                <strong>15%</strong>
+              </div>
+              <div className={styles.vatMarker}>
+                <span>Domestic VAT</span>
+                <strong>Not UK / Ireland VAT</strong>
+                <small>cross-border treatment depends on the transaction</small>
+              </div>
             </div>
-            <div className={styles.splitLine} aria-hidden="true" />
-            <div className={styles.filingRow}>
-              <div><span>Income Tax Office</span><strong>CT1 + tax</strong><small>company tax filings</small></div>
-              <div><span>Companies House</span><strong>Return + accounts</strong><small>annual company filings</small></div>
+            <div className={styles.gibFilingGrid}>
+              <div><span>Income Tax Office</span><strong>CT1 + tax</strong></div>
+              <div><span>Companies House</span><strong>Return + accounts</strong></div>
             </div>
           </div>
         }
       />
 
-      <CountryFacts title="The Gibraltar company filing picture, at a glance." items={facts} />
+      <CountryFacts title="The Gibraltar filing picture, at a glance." items={facts} variant="gibraltar" />
 
       <CountryServices
         title="The recurring Gibraltar work, handled as one accounting system."
-        copy="The service pages explain each area in detail; the Gibraltar layer keeps the terminology and filing context specific to the Income Tax Office and Companies House."
+        copy="The underlying work stays connected, while the Gibraltar layer keeps the Income Tax Office and Companies House terminology specific."
         items={services}
       />
 
       <CountryPricing
-        title="Gibraltar pricing, without leaving the country page."
-        copy="Choose the type of business you run to see the full package breakdown. These are the same prices used on the Packages page, shown here so the decision can stay within the Gibraltar journey."
+        title="Gibraltar prices, in one place."
+        copy="Choose the type of business you run, then open the detailed package only if you need the full inclusions and limits."
         plans={prices}
+        variant="gibraltar"
         note="Government filing fees and other third-party charges are excluded unless stated. Package limits and inclusions are shown on the detailed pricing pages."
       />
 
