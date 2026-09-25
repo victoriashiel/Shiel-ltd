@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     { url: `${siteConfig.url}/accounts` },
     { url: `${siteConfig.url}/tax` },
+    { url: `${siteConfig.url}/bookkeeping` },
     { url: `${siteConfig.url}/packages` },
     ...["ireland", "united-kingdom", "gibraltar"].flatMap((country) => [
       { url: `${siteConfig.url}/packages/${country}` },
