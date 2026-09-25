@@ -4,7 +4,7 @@
   border: 1px solid var(--line);
   border-radius: 34px;
   background:
-    radial-gradient(circle at 82% 8%, color-mix(in srgb, #c84f4f 8%, transparent), transparent 30%),
+    radial-gradient(circle at 82% 8%, color-mix(in srgb, #c84f4f 9%, transparent), transparent 30%),
     linear-gradient(145deg, color-mix(in srgb, var(--paper) 94%, transparent), color-mix(in srgb, var(--cloud) 84%, transparent));
   box-shadow: var(--shadow-soft);
 }
@@ -23,69 +23,103 @@
 
 .visualTop strong { color: var(--teal); }
 
-.ledgerCard {
-  min-height: 165px;
-  margin-top: 28px;
-  padding: 24px;
-  border-radius: 22px;
-  background: var(--ink);
-  color: white;
+.ratePanel {
   display: grid;
-  align-content: center;
-  gap: 6px;
-}
-
-.ledgerCard span {
-  color: #7bd1c7;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  font-size: 10px;
-}
-
-.ledgerCard strong {
-  font-size: 34px;
-  letter-spacing: -.04em;
-}
-
-.ledgerCard small { color: rgba(255,255,255,.52); }
-
-.splitLine {
-  width: 52%;
-  height: 32px;
-  margin: 0 auto;
-  border-left: 1px solid color-mix(in srgb, var(--teal) 30%, var(--line));
-  border-right: 1px solid color-mix(in srgb, var(--teal) 30%, var(--line));
-  border-top: 1px solid color-mix(in srgb, var(--teal) 30%, var(--line));
-}
-
-.filingRow {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: .8fr 1.2fr;
   gap: 10px;
+  margin-top: 28px;
 }
 
-.filingRow div {
-  min-height: 130px;
-  padding: 18px;
+.ratePanel > div {
+  min-height: 190px;
+  padding: 22px;
+  border-radius: 20px;
   border: 1px solid var(--line);
-  border-radius: 18px;
   background: color-mix(in srgb, var(--paper) 84%, transparent);
   display: flex;
   flex-direction: column;
 }
 
-.filingRow span {
+.ratePanel > div:first-child {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+.ratePanel span {
   color: var(--teal);
   text-transform: uppercase;
   letter-spacing: .09em;
   font-size: 10px;
 }
 
-.filingRow strong { margin-top: auto; font-size: 21px; }
-.filingRow small { margin-top: 7px; color: var(--muted); }
+.ratePanel > div:first-child span { color: #7bd1c7; }
+
+.ratePanel > div:first-child strong {
+  margin-top: auto;
+  font-size: 64px;
+  letter-spacing: -.06em;
+}
+
+.vatMarker strong {
+  margin-top: auto;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.vatMarker small {
+  margin-top: 9px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.gibFilingGrid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.gibFilingGrid div {
+  min-height: 118px;
+  padding: 18px;
+  border: 1px solid color-mix(in srgb, #c84f4f 15%, var(--line));
+  border-radius: 18px;
+  background: color-mix(in srgb, #c84f4f 4%, var(--paper));
+  display: flex;
+  flex-direction: column;
+}
+
+.gibFilingGrid span {
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  font-size: 10px;
+}
+
+.gibFilingGrid strong { margin-top: auto; font-size: 21px; }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ratePanel > div,
+  .gibFilingGrid div {
+    transition: transform .24s ease, border-color .24s ease;
+  }
+
+  .ratePanel > div:hover,
+  .gibFilingGrid div:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, #c84f4f 28%, var(--line));
+  }
+}
 
 @media (max-width: 760px) {
   .gibraltarVisual { min-height: auto; padding: 18px; border-radius: 26px; }
-  .filingRow { grid-template-columns: 1fr; }
-  .splitLine { width: 1px; height: 28px; border: 0; background: color-mix(in srgb, var(--teal) 30%, var(--line)); }
+  .ratePanel,
+  .gibFilingGrid { grid-template-columns: 1fr; }
+  .ratePanel > div:first-child strong { font-size: 52px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ratePanel > div,
+  .gibFilingGrid div { transition: none; }
 }
