@@ -191,6 +191,33 @@ export default function BookkeepingPage() {
       </section>
 
 
+      <section className={`section-pad ${styles.editorialSection}`} data-service-reveal>
+        <div className={styles.editorialHeader}>
+          <p className="eyebrow">A month in motion</p>
+          <h2>Bookkeeping should get cleaner as the month progresses.</h2>
+          <p>Instead of letting unresolved items pile up, the ledger moves through a simple cycle of capture, matching and review.</p>
+        </div>
+        <div className={styles.monthVisual} role="img" aria-label="Monthly bookkeeping moving from incoming records to a reconciled month end">
+          <div className={styles.monthColumn}>
+            <span>Incoming</span>
+            <strong>Transactions</strong>
+            <i /><i /><i /><i />
+          </div>
+          <div className={styles.monthArrow} aria-hidden="true">→</div>
+          <div className={styles.monthColumn}>
+            <span>Matched</span>
+            <strong>Reconciliations</strong>
+            <i /><i /><i />
+          </div>
+          <div className={styles.monthArrow} aria-hidden="true">→</div>
+          <div className={styles.monthColumn}>
+            <span>Reviewed</span>
+            <strong>Month end</strong>
+            <i /><i />
+          </div>
+        </div>
+      </section>
+
       <ServiceCountries
         eyebrow="Country-specific bookkeeping"
         title="The ledger is universal. The reporting around it is not."
