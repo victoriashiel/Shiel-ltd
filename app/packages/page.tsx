@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Accounting Packages & Pricing",
   description:
-    "Monthly accounting packages and one-off setup offers for Irish limited companies, contractors, sole traders and e-commerce businesses, with bookkeeping, payroll, tax and compliance support.",
+    "Monthly accounting packages and one-off setup offers for companies, contractors, sole traders and e-commerce businesses in Ireland, the UK and Gibraltar, with bookkeeping, payroll, tax and compliance support.",
   alternates: { canonical: "/packages" },
   openGraph: {
     title: "Accounting Packages & Pricing | Shiel Accountants",
@@ -55,7 +55,7 @@ const packagesSchema = {
       url: `${siteConfig.url}/packages`,
       name: "Accounting Packages & Pricing | Shiel Accountants",
       description:
-        "Monthly accounting packages and one-off setup offers for limited companies, contractors, sole traders and e-commerce businesses.",
+        "Monthly accounting packages and one-off setup offers for businesses in Ireland, the UK and Gibraltar.",
       isPartOf: { "@id": `${siteConfig.url}/#website` },
       about: { "@id": `${siteConfig.url}/#organization` },
       inLanguage: "en-GB",
