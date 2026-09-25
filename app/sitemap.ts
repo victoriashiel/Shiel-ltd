@@ -14,6 +14,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteConfig.url}/payroll` },
     { url: `${siteConfig.url}/advisory` },
     { url: `${siteConfig.url}/company-formation` },
+    { url: `${siteConfig.url}/who-we-help/limited-companies` },
+    { url: `${siteConfig.url}/who-we-help/sole-traders` },
     { url: `${siteConfig.url}/packages` },
     ...["ireland", "united-kingdom", "gibraltar"].flatMap((country) => [
       { url: `${siteConfig.url}/packages/${country}` },
