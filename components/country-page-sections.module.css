@@ -7,7 +7,7 @@
   padding-bottom: 84px;
 }
 
-.heroCopy > p:not(.eyebrow) {
+.heroCopy > p:not(:global(.eyebrow)) {
   max-width: 720px;
   margin: 26px 0 0;
   color: var(--muted);
@@ -80,7 +80,7 @@
   max-width: 850px;
 }
 
-.serviceLead .eyebrow { color: #7bd1c7; }
+.serviceLead :global(.eyebrow) { color: #7bd1c7; }
 
 .serviceLead > p:last-child {
   max-width: 680px;
@@ -289,7 +289,7 @@
     padding-bottom: 64px;
   }
 
-  .heroCopy > p:not(.eyebrow) {
+  .heroCopy > p:not(:global(.eyebrow)) {
     font-size: 16px;
   }
 
@@ -314,7 +314,7 @@
   }
 
   .closingActions,
-  .closingActions .button {
+  .closingActions :global(.button) {
     width: 100%;
   }
 }
