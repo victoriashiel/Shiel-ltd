@@ -7,11 +7,15 @@ export function AudienceHero({
   title,
   copy,
   visual,
+  primaryLabel = "See packages",
+  primaryHref = "/packages",
 }: {
   eyebrow: string;
   title: string;
   copy: string;
   visual: ReactNode;
+  primaryLabel?: string;
+  primaryHref?: string;
 }) {
   return (
     <section className={`section-pad ${styles.hero}`}>
@@ -21,11 +25,31 @@ export function AudienceHero({
         <h1>{title}</h1>
         <p>{copy}</p>
         <div className={styles.heroActions}>
-          <Link className="button button-dark" href="/packages">See packages <span aria-hidden="true">↗</span></Link>
+          <Link className="button button-dark" href={primaryHref}>{primaryLabel} <span aria-hidden="true">↗</span></Link>
           <a className="text-link" href="#fit">Is this for me? <span aria-hidden="true">↓</span></a>
         </div>
       </div>
       {visual}
+    </section>
+  );
+}
+
+
+export function AudienceProof({
+  items,
+}: {
+  items: readonly (readonly [value: string, label: string])[];
+}) {
+  return (
+    <section className={styles.proofStrip} aria-label="Why clients choose Shiel">
+      <div className={styles.proofTrack}>
+        {items.map(([value, label]) => (
+          <div className={styles.proofItem} key={`${value}-${label}`}>
+            <strong>{value}</strong>
+            <span>{label}</span>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }
