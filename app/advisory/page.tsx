@@ -208,6 +208,36 @@ export default function AdvisoryPage() {
         </div>
       </section>
 
+      <section className={`section-pad ${styles.editorialSection}`} data-service-reveal>
+        <div className={styles.editorialHeader}>
+          <p className="eyebrow">Scenario view</p>
+          <h2>See the trade-off before you make the decision.</h2>
+          <p>A useful model compares the current plan with the proposed move across the measures that actually change.</p>
+        </div>
+        <div className={styles.scenarioCompare} role="img" aria-label="Illustrative comparison between a current plan and a decision scenario">
+          <div className={styles.comparePanel}>
+            <span>Current plan</span>
+            <strong>Baseline</strong>
+            <div className={styles.compareRows}>
+              <p><b>Cash headroom</b><i style={{ width: "72%" }} /></p>
+              <p><b>Margin</b><i style={{ width: "64%" }} /></p>
+              <p><b>Capacity</b><i style={{ width: "54%" }} /></p>
+            </div>
+          </div>
+          <div className={styles.compareArrow} aria-hidden="true">→</div>
+          <div className={`${styles.comparePanel} ${styles.comparePanelActive}`}>
+            <span>Decision scenario</span>
+            <strong>Modelled effect</strong>
+            <div className={styles.compareRows}>
+              <p><b>Cash headroom</b><i style={{ width: "58%" }} /></p>
+              <p><b>Margin</b><i style={{ width: "71%" }} /></p>
+              <p><b>Capacity</b><i style={{ width: "82%" }} /></p>
+            </div>
+          </div>
+        </div>
+        <small className={styles.illustrativeNote}>Illustrative interface only — not client performance data.</small>
+      </section>
+
       <ServiceCountries
         eyebrow="Country context"
         title="Advisory travels well. The accounting framework underneath it is local."
