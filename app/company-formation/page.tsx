@@ -207,6 +207,23 @@ export default function CompanyFormationPage() {
         </div>
       </section>
 
+      <section className={`section-pad ${styles.editorialSection}`} data-service-reveal>
+        <div className={styles.editorialHeader}>
+          <p className="eyebrow">From idea to operating company</p>
+          <h2>Incorporation is the middle of the journey, not the finish line.</h2>
+          <p>The visual below separates the legal formation from the practical setup needed before the business starts trading.</p>
+        </div>
+        <div className={styles.launchPath} role="img" aria-label="Journey from business idea through company formation to an operating finance system">
+          <div className={styles.launchStage}><span>Idea</span><strong>Structure</strong><small>owners · directors · jurisdiction</small></div>
+          <div className={styles.launchLink} aria-hidden="true" />
+          <div className={styles.launchStage}><span>Entity</span><strong>Formation</strong><small>registry filing · company details</small></div>
+          <div className={styles.launchLink} aria-hidden="true" />
+          <div className={styles.launchStage}><span>Setup</span><strong>Registrations</strong><small>tax · payroll · ownership</small></div>
+          <div className={styles.launchLink} aria-hidden="true" />
+          <div className={`${styles.launchStage} ${styles.launchStageActive}`}><span>Operating</span><strong>Ready to trade</strong><small>books · banking · deadlines</small></div>
+        </div>
+      </section>
+
       <ServiceCountries
         eyebrow="Choose where to form"
         title="The formation process is local to the jurisdiction."
