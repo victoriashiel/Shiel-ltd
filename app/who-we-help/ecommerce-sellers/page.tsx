@@ -45,7 +45,7 @@ const answers = [
   {
     question: "Can you help with cross-border tax?",
     answer:
-      "We can coordinate the accounting and relevant indirect-tax work, and flag when a local specialist or overseas registration may be needed.",
+      "Yes. The treatment can depend on where the goods are, where the customer is and whether the sale is direct or through a marketplace. We can coordinate the accounting and flag when an overseas registration or local specialist may be needed.",
   },
   {
     question: "Do you work with growing stores, not just small sellers?",
