@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { type KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./packages.module.css";
 import { addOnGroups, recommendation, segments, type Segment } from "./packages-data";
-import { companyPlanKeys, countryPackageConfig, ecommercePlanKeys, localisePackageCopy, segmentSlugs, soleTraderPlanKeys, type PackageCountry } from "./package-country-config";
+import { companyPlanKeys, contractorPlanKeys, countryPackageConfig, ecommercePlanKeys, localisePackageCopy, segmentSlugs, soleTraderPlanKeys, type PackageCountry } from "./package-country-config";
 
 export function PackagesClient({
   initialCountry = null,
@@ -62,6 +62,16 @@ export function PackagesClient({
         };
       }
 
+      if (current.id === "contractor") {
+        const key = contractorPlanKeys[plan.name];
+        if (!key) return plan;
+        return {
+          ...plan,
+          name: plan.name.replace(/^Contractor /, ""),
+          price: config.contractorPrices[key],
+        };
+      }
+
       if (current.id !== "company") return plan;
       const key = companyPlanKeys[plan.name];
       if (!key) return plan;
@@ -90,9 +100,15 @@ export function PackagesClient({
     companyPrices: selectedCountry?.companyPrices,
     soleTraderPrices: selectedCountry?.soleTraderPrices,
     ecommercePrices: selectedCountry?.ecommercePrices,
+    contractorPrices: selectedCountry?.contractorPrices,
     currencySymbol: selectedCountry?.symbol,
   });
-  const fitDisplayName = fit.segment === "company" ? fit.name.replace(/^LTD /, "") : fit.name;
+  const fitDisplayName =
+    fit.segment === "company" ? fit.name.replace(/^LTD /, "") :
+    fit.segment === "contractor" ? fit.name.replace(/^Contractor /, "") :
+    fit.segment === "sole-trader" ? fit.name.replace(/^Sole Trader /, "") :
+    fit.segment === "ecommerce" ? fit.name.replace(/^E-commerce /, "") :
+    fit.name;
 
   useEffect(() => {
     setCountry(initialCountry);
