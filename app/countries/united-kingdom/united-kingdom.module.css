@@ -4,7 +4,7 @@
   border: 1px solid var(--line);
   border-radius: 34px;
   background:
-    radial-gradient(circle at 82% 8%, color-mix(in srgb, #264b8f 9%, transparent), transparent 30%),
+    radial-gradient(circle at 82% 8%, color-mix(in srgb, #264b8f 10%, transparent), transparent 30%),
     linear-gradient(145deg, color-mix(in srgb, var(--paper) 94%, transparent), color-mix(in srgb, var(--cloud) 84%, transparent));
   box-shadow: var(--shadow-soft);
 }
@@ -23,69 +23,110 @@
 
 .visualTop strong { color: var(--teal); }
 
-.ledgerCard {
-  min-height: 165px;
+.taxBand {
   margin-top: 28px;
-  padding: 24px;
-  border-radius: 22px;
-  background: var(--ink);
-  color: white;
+  padding: 22px;
+  border: 1px solid color-mix(in srgb, #264b8f 18%, var(--line));
+  border-radius: 20px;
+  background: color-mix(in srgb, #264b8f 5%, var(--paper));
+}
+
+.taxBandLabels {
   display: grid;
-  align-content: center;
-  gap: 6px;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 14px;
+  align-items: end;
 }
 
-.ledgerCard span {
-  color: #7bd1c7;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  font-size: 10px;
+.taxBandLabels span {
+  color: var(--muted);
+  font-size: 11px;
 }
 
-.ledgerCard strong {
-  font-size: 34px;
+.taxBandLabels span:last-child { text-align: right; }
+
+.taxBandLabels strong {
+  font-size: 30px;
   letter-spacing: -.04em;
 }
 
-.ledgerCard small { color: rgba(255,255,255,.52); }
-
-.splitLine {
-  width: 52%;
-  height: 32px;
-  margin: 0 auto;
-  border-left: 1px solid color-mix(in srgb, var(--teal) 30%, var(--line));
-  border-right: 1px solid color-mix(in srgb, var(--teal) 30%, var(--line));
-  border-top: 1px solid color-mix(in srgb, var(--teal) 30%, var(--line));
+.taxBandBar {
+  height: 12px;
+  margin-top: 18px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #264b8f 12%, var(--line));
+  overflow: hidden;
 }
 
-.filingRow {
+.taxBandBar i {
+  display: block;
+  width: 76%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, color-mix(in srgb, #264b8f 45%, var(--teal)), var(--teal));
+}
+
+.taxBand > small {
+  display: block;
+  margin-top: 11px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.ukFilingGrid {
   display: grid;
   grid-template-columns: repeat(2,1fr);
   gap: 10px;
+  margin-top: 18px;
 }
 
-.filingRow div {
-  min-height: 130px;
-  padding: 18px;
+.ukFilingGrid div {
+  min-height: 165px;
+  padding: 20px;
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 19px;
   background: color-mix(in srgb, var(--paper) 84%, transparent);
   display: flex;
   flex-direction: column;
 }
 
-.filingRow span {
+.ukFilingGrid div:last-child {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+.ukFilingGrid span {
   color: var(--teal);
   text-transform: uppercase;
   letter-spacing: .09em;
   font-size: 10px;
 }
 
-.filingRow strong { margin-top: auto; font-size: 21px; }
-.filingRow small { margin-top: 7px; color: var(--muted); }
+.ukFilingGrid div:last-child span { color: #7bd1c7; }
+.ukFilingGrid strong { margin-top: auto; font-size: 22px; }
+.ukFilingGrid small { margin-top: 8px; color: var(--muted); line-height: 1.4; }
+.ukFilingGrid div:last-child small { color: rgba(255,255,255,.52); }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ukVisual:hover .taxBandBar i { animation: uk-band .7s ease both; }
+  .ukFilingGrid div { transition: transform .24s ease, border-color .24s ease; }
+  .ukFilingGrid div:hover { transform: translateY(-3px); border-color: color-mix(in srgb, #264b8f 30%, var(--line)); }
+}
+
+@keyframes uk-band {
+  from { transform: scaleX(.4); transform-origin: left center; }
+  to { transform: scaleX(1); transform-origin: left center; }
+}
 
 @media (max-width: 760px) {
   .ukVisual { min-height: auto; padding: 18px; border-radius: 26px; }
-  .filingRow { grid-template-columns: 1fr; }
-  .splitLine { width: 1px; height: 28px; border: 0; background: color-mix(in srgb, var(--teal) 30%, var(--line)); }
+  .taxBandLabels { grid-template-columns: 1fr; }
+  .taxBandLabels span:last-child { text-align: left; }
+  .ukFilingGrid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ukFilingGrid div { transition: none; }
+  .taxBandBar i { animation: none; }
 }
