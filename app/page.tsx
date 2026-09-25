@@ -5,6 +5,16 @@ import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { services } from "@/lib/services";
 import { siteConfig } from "@/lib/site";
 
+const proofPoints = [
+  ["7+", "years’ experience"],
+  ["€49k+", "recovered for clients in the last two years"],
+  ["Free", "accountant switching"],
+  ["Direct", "WhatsApp access to your accountant"],
+  ["1", "named accountant per client"],
+  ["Fixed", "monthly fees, no hourly billing"],
+  ["From €79/mo", "or £49/mo in the UK"],
+] as const;
+
 const faqs = [
   {
     question: "Do you work with clients outside Europe?",
@@ -60,30 +70,14 @@ export default function HomePage() {
       <section className="proof-marquee" aria-label="Shiel Accountants at a glance">
         <div className="proof-marquee-viewport">
           <div className="proof-marquee-track">
-            {[
-              ["7+", "years’ experience"],
-              ["€49k+", "recovered for clients in the last two years"],
-              ["Free", "accountant switching"],
-              ["Direct", "WhatsApp access to your accountant"],
-              ["1", "named accountant per client"],
-              ["Fixed", "monthly fees, no hourly billing"],
-              ["From €79/mo", "or £49/mo in the UK"],
-            ].map(([value, label]) => (
+            {proofPoints.map(([value, label]) => (
               <div className="proof-marquee-item" key={`${value}-a`}>
                 <strong>{value}</strong>
                 <span>{label}</span>
               </div>
             ))}
             <div className="proof-marquee-copy" aria-hidden="true">
-              {[
-                ["7+", "years’ experience"],
-                ["€49k+", "recovered for clients in the last two years"],
-                ["Free", "accountant switching"],
-                ["Direct", "WhatsApp access to your accountant"],
-                ["1", "named accountant per client"],
-                ["Fixed", "monthly fees, no hourly billing"],
-                ["From €79/mo", "or £49/mo in the UK"],
-              ].map(([value, label]) => (
+              {proofPoints.map(([value, label]) => (
                 <div className="proof-marquee-item" key={`${value}-b`}>
                   <strong>{value}</strong>
                   <span>{label}</span>
