@@ -19,6 +19,12 @@ export type CountryPackageConfig = {
     plus: number;
     scale: number;
   };
+  ecommercePrices: {
+    setup: number;
+    launch: number;
+    multiChannel: number;
+    scale: number;
+  };
   companyTurnover: {
     dormant: string;
     starter: string;
@@ -46,6 +52,7 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       "Company accounts, Corporation Tax (CT1), CRO Annual Return (B1), VAT, bookkeeping and director tax support in one monthly fee.",
     companyPrices: { dormant: 79, starter: 179, growth: 279, scale: 449, bespoke: 499 },
     soleTraderPrices: { startup: 149, essentials: 99, plus: 159, scale: 299 },
+    ecommercePrices: { setup: 249, launch: 179, multiChannel: 279, scale: 449 },
     companyTurnover: {
       dormant: "€10k",
       starter: "€150k",
@@ -95,6 +102,7 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       "Statutory accounts, Company Tax Return (CT600), Companies House confirmation statement, VAT, bookkeeping and director Self Assessment support in one monthly fee.",
     companyPrices: { dormant: 49, starter: 149, growth: 239, scale: 389, bespoke: 429 },
     soleTraderPrices: { startup: 99, essentials: 59, plus: 99, scale: 199 },
+    ecommercePrices: { setup: 199, launch: 149, multiChannel: 239, scale: 389 },
     companyTurnover: {
       dormant: "£10k",
       starter: "£130k",
@@ -150,6 +158,7 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       "Annual accounts, Corporate Tax Return (CT1), Companies House Gibraltar Annual Return, bookkeeping, PAYE and company compliance support in one monthly fee.",
     companyPrices: { dormant: 69, starter: 169, growth: 269, scale: 429, bespoke: 479 },
     soleTraderPrices: { startup: 129, essentials: 79, plus: 129, scale: 249 },
+    ecommercePrices: { setup: 229, launch: 169, multiChannel: 269, scale: 429 },
     companyTurnover: {
       dormant: "£10k",
       starter: "£130k",
@@ -200,6 +209,13 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       "Cloud bookkeeping / bank feeds where relevant",
     ],
   },
+};
+
+export const ecommercePlanKeys: Record<string, keyof CountryPackageConfig["ecommercePrices"]> = {
+  "E-commerce Finance Setup": "setup",
+  "E-commerce Launch": "launch",
+  "E-commerce Multi-channel": "multiChannel",
+  "E-commerce Scale": "scale",
 };
 
 export const soleTraderPlanKeys: Record<string, keyof CountryPackageConfig["soleTraderPrices"]> = {
