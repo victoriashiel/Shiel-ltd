@@ -80,6 +80,7 @@ export default function SoleTradersPage() {
         title="Keep the business simple without losing track of the numbers."
         copy="We keep the books, tax position and deadlines clear without adding company-level complexity you do not need."
         primaryLabel="See sole-trader pricing"
+        primaryHref="#pricing"
         visual={
           <div className={styles.soleVisual} role="img" aria-label="Illustration showing money in, business costs, tax set-aside and filing">
             <div className={styles.visualTop}>
@@ -100,7 +101,7 @@ export default function SoleTradersPage() {
 
       <AudienceProof
         items={[
-          ["7+", "years’ experience"],
+          ["From €99/mo", "UK from £59/mo"],
           ["1", "named accountant"],
           ["Direct", "WhatsApp access"],
           ["Fixed", "monthly fees"],
@@ -120,7 +121,7 @@ export default function SoleTradersPage() {
             Sole-trader accounting should not feel like company administration. The goal is to keep the records
             clean enough that tax, cash and deadlines are easy to understand.
           </p>
-          <Link className="text-link" href="/packages">See sole-trader packages <span aria-hidden="true">↗</span></Link>
+          <Link className="text-link" href="#pricing">See sole-trader packages <span aria-hidden="true">↗</span></Link>
         </div>
 
         <div className={styles.simpleFlow} role="img" aria-label="Sole trader accounting flow from records to tax return">
@@ -132,7 +133,7 @@ export default function SoleTradersPage() {
         </div>
       </section>
 
-      <section className={`section-pad ${styles.priceRoute}`}>
+      <section className={`section-pad ${styles.priceRoute}`} id="pricing">
         <div>
           <p className="eyebrow">Pricing</p>
           <h2>Choose the country, then the level of support you need.</h2>
