@@ -4,7 +4,7 @@
   border: 1px solid var(--line);
   border-radius: 34px;
   background:
-    radial-gradient(circle at 82% 8%, color-mix(in srgb, #169b62 9%, transparent), transparent 30%),
+    radial-gradient(circle at 82% 8%, color-mix(in srgb, #169b62 10%, transparent), transparent 30%),
     linear-gradient(145deg, color-mix(in srgb, var(--paper) 94%, transparent), color-mix(in srgb, var(--cloud) 84%, transparent));
   box-shadow: var(--shadow-soft);
 }
@@ -23,69 +23,95 @@
 
 .visualTop strong { color: var(--teal); }
 
-.ledgerCard {
-  min-height: 165px;
-  margin-top: 28px;
-  padding: 24px;
-  border-radius: 22px;
-  background: var(--ink);
-  color: white;
+.yearTrack {
   display: grid;
-  align-content: center;
-  gap: 6px;
+  grid-template-columns: 1fr 38px 1fr 38px 1fr;
+  gap: 8px;
+  align-items: center;
+  margin-top: 30px;
 }
 
-.ledgerCard span {
-  color: #7bd1c7;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  font-size: 10px;
-}
-
-.ledgerCard strong {
-  font-size: 34px;
-  letter-spacing: -.04em;
-}
-
-.ledgerCard small { color: rgba(255,255,255,.52); }
-
-.splitLine {
-  width: 52%;
-  height: 32px;
-  margin: 0 auto;
-  border-left: 1px solid color-mix(in srgb, var(--teal) 30%, var(--line));
-  border-right: 1px solid color-mix(in srgb, var(--teal) 30%, var(--line));
-  border-top: 1px solid color-mix(in srgb, var(--teal) 30%, var(--line));
-}
-
-.filingRow {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 10px;
-}
-
-.filingRow div {
-  min-height: 130px;
-  padding: 18px;
+.trackStage {
+  min-height: 190px;
+  padding: 20px;
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 20px;
   background: color-mix(in srgb, var(--paper) 84%, transparent);
   display: flex;
   flex-direction: column;
 }
 
-.filingRow span {
+.trackStage:nth-of-type(3) {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+.trackStage > span {
   color: var(--teal);
+  font: 10px var(--font-mono);
+}
+
+.trackStage:nth-of-type(3) > span { color: #7bd1c7; }
+.trackStage strong { margin-top: auto; font-size: 21px; letter-spacing: -.03em; }
+.trackStage small { margin-top: 8px; color: var(--muted); line-height: 1.4; }
+.trackStage:nth-of-type(3) small { color: rgba(255,255,255,.52); }
+
+.trackLine {
+  height: 1px;
+  background: color-mix(in srgb, #169b62 30%, var(--line));
+}
+
+.authorityRow {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.authorityRow div {
+  min-height: 78px;
+  padding: 15px 17px;
+  border-radius: 17px;
+  background: color-mix(in srgb, #169b62 5%, var(--paper));
+  border: 1px solid color-mix(in srgb, #169b62 16%, var(--line));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.authorityRow span {
+  color: var(--muted);
   text-transform: uppercase;
   letter-spacing: .09em;
   font-size: 10px;
 }
 
-.filingRow strong { margin-top: auto; font-size: 21px; }
-.filingRow small { margin-top: 7px; color: var(--muted); }
+.authorityRow strong { font-size: 17px; }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .trackStage,
+  .authorityRow div {
+    transition: transform .24s ease, border-color .24s ease;
+  }
+
+  .trackStage:hover,
+  .authorityRow div:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, #169b62 30%, var(--line));
+  }
+}
 
 @media (max-width: 760px) {
   .irelandVisual { min-height: auto; padding: 18px; border-radius: 26px; }
-  .filingRow { grid-template-columns: 1fr; }
-  .splitLine { width: 1px; height: 28px; border: 0; background: color-mix(in srgb, var(--teal) 30%, var(--line)); }
+  .yearTrack { grid-template-columns: 1fr; }
+  .trackLine { width: 1px; height: 24px; justify-self: center; }
+  .trackStage { min-height: 150px; }
+  .authorityRow { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trackStage,
+  .authorityRow div { transition: none; }
 }
