@@ -204,6 +204,29 @@ export default function PayrollPage() {
         </div>
       </section>
 
+      <section className={`section-pad ${styles.editorialSection}`} data-service-reveal>
+        <div className={styles.editorialHeader}>
+          <p className="eyebrow">One pay cycle</p>
+          <h2>Every payroll run has a point of no return.</h2>
+          <p>The safest process makes the cut-off, review and release points obvious before the payment file is created.</p>
+        </div>
+        <div className={styles.payCycle} role="img" aria-label="Payroll cycle from cut-off through calculation, approval, payment and reporting">
+          {[
+            ["Cut-off", "Changes locked"],
+            ["Calculate", "Gross-to-net run"],
+            ["Approve", "Exceptions checked"],
+            ["Pay", "Final payroll released"],
+            ["Report", "Employer records completed"],
+          ].map(([title, copy], index) => (
+            <div className={styles.cycleStep} key={title}>
+              <span>{index + 1}</span>
+              <strong>{title}</strong>
+              <small>{copy}</small>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <ServiceCountries
         eyebrow="Country-specific payroll"
         title="The payroll process is consistent. The reporting rules are local."
