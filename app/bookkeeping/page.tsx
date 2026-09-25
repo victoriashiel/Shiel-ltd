@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import styles from "./bookkeeping.module.css";
 import { safeJsonLd } from "@/lib/seo";
-import { ServiceClosing, ServiceCountries, ServiceHub, ServiceProcess, ServiceScope } from "@/components/service-page-sections";
+import { ServiceClosing, ServiceCountries, ServiceHero, ServiceHub, ServiceProcess, ServiceScope } from "@/components/service-page-sections";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -94,59 +93,51 @@ export default function BookkeepingPage() {
         dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
       />
 
-      <section className={`section-pad ${styles.hero}`}>
-        <div className={styles.heroCopy}>
-          <Link href="/#services" className="back-link">← Services</Link>
-          <p className="eyebrow">Bookkeeping</p>
-          <h1>Books you can actually use during the year.</h1>
-          <p>
-            We keep the day-to-day records current, reconciled and connected to the rest of the finance work.
-            That means fewer surprises at VAT time, fewer year-end clean-ups and a clearer view of what the
-            business is doing now.
-          </p>
-          <div className={styles.heroActions}>
-            <Link className="button button-dark" href="/packages">See packages <span aria-hidden="true">↗</span></Link>
-            <a className="text-link" href="#countries">Choose your country <span aria-hidden="true">↓</span></a>
-          </div>
-        </div>
-
-        <div className={styles.ledgerVisual} aria-label="Illustration of bookkeeping records being reconciled">
-          <div className={styles.visualHeader}>
+      <ServiceHero
+        eyebrow="Bookkeeping"
+        title="Books you can actually use during the year."
+        copy="We keep the day-to-day records current, reconciled and connected to the rest of the finance work. That means fewer surprises at filing time, fewer year-end clean-ups and a clearer view of what the business is doing now."
+        visual={
+          <>
+            <div className={styles.ledgerVisual} aria-label="Illustration of bookkeeping records being reconciled">
+            <div className={styles.visualHeader}>
             <span>Monthly books</span>
             <strong>Reconciled</strong>
-          </div>
-
-          <div className={styles.ledgerRows}>
+            </div>
+            
+            <div className={styles.ledgerRows}>
             <div>
-              <span>Bank account</span>
-              <strong>Matched</strong>
+            <span>Bank account</span>
+            <strong>Matched</strong>
             </div>
             <div>
-              <span>Card & expenses</span>
-              <strong>Reviewed</strong>
+            <span>Card & expenses</span>
+            <strong>Reviewed</strong>
             </div>
             <div>
-              <span>Sales platforms</span>
-              <strong>Mapped</strong>
+            <span>Sales platforms</span>
+            <strong>Mapped</strong>
             </div>
             <div>
-              <span>Tax control accounts</span>
-              <strong>Checked</strong>
+            <span>Tax control accounts</span>
+            <strong>Checked</strong>
             </div>
-          </div>
-
-          <div className={styles.balanceBar}>
+            </div>
+            
+            <div className={styles.balanceBar}>
             <div>
-              <span>Unreconciled items</span>
-              <strong>0</strong>
+            <span>Unreconciled items</span>
+            <strong>0</strong>
             </div>
             <div className={styles.barTrack} aria-hidden="true">
-              <span />
+            <span />
             </div>
             <small>Clean books before month end</small>
-          </div>
-        </div>
-      </section>
+            </div>
+            </div>
+          </>
+        }
+      />
 
       <ServiceProcess
         eyebrow="The bookkeeping cycle"
