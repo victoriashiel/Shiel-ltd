@@ -244,7 +244,7 @@ export function PackagesClient({
       <section className={`section-pad ${styles.plansSection}`} id="plans">
         <div className={styles.controlsHeader}>
           <div>
-            <p className="eyebrow">Step 1</p>
+            <p className="eyebrow">{country ? "Step 2" : "Step 1"}</p>
             <h2>{country ? "Now choose how you trade." : "Choose your country."}</h2>
           </div>
           {country && (
@@ -307,7 +307,7 @@ export function PackagesClient({
         {current.advisoryOffer && (
           <div className={styles.advisoryNote}>
             <span>Not sure which structure?</span>
-            <p>{current.advisoryOffer.strap}</p>
+            <p>{localise(current.advisoryOffer.strap)}</p>
             <Link
               href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: current.advisoryOffer.name } }}
               data-cta="contractor-structure-review"
@@ -675,7 +675,7 @@ export function PackagesClient({
               <span>Your likely fit</span>
               <strong>{fit.name}</strong>
               <p>{localise(fit.priceLabel)}</p>
-              <small>{fit.reason}</small>
+              <small>{localise(fit.reason)}</small>
               <div>
                 <button type="button" className="button button-quiet" onClick={() => { chooseSegment(fit.segment); setFinderOpen(false); }}>{finderStartingOut ? "View setup offer" : "View package"}</button>
                 <Link
