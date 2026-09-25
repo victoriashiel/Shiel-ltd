@@ -199,6 +199,27 @@ export default function TaxPage() {
       </section>
 
 
+      <section className={`section-pad ${styles.editorialSection}`} data-service-reveal>
+        <div className={styles.editorialHeader}>
+          <p className="eyebrow">Tax through the year</p>
+          <h2>The best time to think about tax is before the return is due.</h2>
+          <p>A useful tax process has planning points throughout the year instead of one concentrated rush at filing time.</p>
+        </div>
+        <div className={styles.taxTimeline} role="img" aria-label="Tax cycle from planning through activity, review and filing">
+          {[
+            ["Plan", "Expected profit, remuneration and major decisions"],
+            ["Record", "Transactions and supporting evidence stay current"],
+            ["Review", "Position checked before the deadline"],
+            ["File", "Return, payment and records completed together"],
+          ].map(([title, copy], index) => (
+            <div className={styles.taxMilestone} key={title}>
+              <span>0{index + 1}</span>
+              <div><strong>{title}</strong><small>{copy}</small></div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <ServiceCountries
         eyebrow="Country-specific tax"
         title="The rules and filing language change by jurisdiction."
