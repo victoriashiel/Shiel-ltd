@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...services.map((service) => ({
       url: `${siteConfig.url}/${service.slug}`,
     })),
+    { url: `${siteConfig.url}/accounts` },
     { url: `${siteConfig.url}/packages` },
     ...["ireland", "united-kingdom", "gibraltar"].flatMap((country) => [
       { url: `${siteConfig.url}/packages/${country}` },
