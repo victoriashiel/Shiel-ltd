@@ -173,7 +173,7 @@ export default function CompanyFormationPage() {
         nodes={["Tax registrations", "Ownership reporting", "Payroll setup", "Bookkeeping"]}
       />
 
-      <section className={`section-pad ${styles.readinessSection}`}>
+      <section className={`section-pad ${styles.readinessSection}`} data-service-reveal>
         <div className={styles.readinessHeader}>
           <p className="eyebrow">Before the first invoice</p>
           <h2>A formed company and a ready company are not the same thing.</h2>
