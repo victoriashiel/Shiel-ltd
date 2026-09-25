@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "About Shiel, a European-based accountancy business with more than 10 years of experience across different regions and international client work.",
+  description: "About Shiel, an accountancy business serving clients in Ireland, the UK and Gibraltar, with more than 10 years of experience across different regions.",
   alternates: { canonical: "/about" },
 };
 
@@ -13,7 +13,7 @@ export default function AboutPage() {
       <section className="page-hero section-pad compact-hero about-hero">
         <p className="eyebrow">About Shiel</p>
         <h1>Accountancy shaped by more than one market.</h1>
-        <p>Shiel is European based and works with clients internationally. Our experience has been built over more than a decade across different regions, business types and ways of working.</p>
+        <p>Shiel serves companies in Ireland, the UK and Gibraltar. Our experience has been built over more than a decade across different regions, business types and ways of working.</p>
       </section>
       <section className="section-pad about-story">
         <div className="large-statement reveal"><p>That background matters when the answer is not sitting in one tidy box.</p></div>
