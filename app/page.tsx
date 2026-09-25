@@ -8,7 +8,7 @@ import { siteConfig } from "@/lib/site";
 const faqs = [
   {
     question: "Do you work with clients outside Europe?",
-    answer: "Yes. Shiel Accountants is European based and supports clients internationally. Where local jurisdiction-specific advice is required, we can work alongside the relevant specialist while keeping the accounting information organised.",
+    answer: "Our core markets are Ireland, the UK and Gibraltar. We also support clients in other jurisdictions on a case-by-case basis where the scope is a good fit and, where needed, work alongside local specialists.",
   },
   {
     question: "Can you handle the bookkeeping and payroll as well as year-end work?",
@@ -29,11 +29,10 @@ export default function HomePage() {
     <>
       <section className="hero section-pad">
         <div className="hero-copy">
-          <p className="eyebrow"><span className="status-dot" /> European based · Working internationally</p>
+          <p className="eyebrow"><span className="status-dot" /> Serving companies in Ireland, the UK and Gibraltar</p>
           <h1>Accounting that keeps up with your business.</h1>
           <p className="hero-intro">
-            Shiel Accountants brings more than 10 years of experience across different regions to tax,
-            compliance, bookkeeping, payroll, advisory work and international accounting.
+            Shiel Accountants brings more than 10 years of experience to tax, compliance, bookkeeping, payroll, advisory work and cross-border accounting for businesses in Ireland, the UK and Gibraltar.
           </p>
           <div className="hero-actions">
             <div className="contact-cta-pair">
@@ -60,8 +59,8 @@ export default function HomePage() {
 
       <section className="proof-strip" aria-label="Shiel Accountants at a glance">
         <div><strong>10+</strong><span>years of experience</span></div>
-        <div><strong>Europe</strong><span>our operating base</span></div>
-        <div><strong>Global</strong><span>international client support</span></div>
+        <div><strong>Ireland</strong><span>core market</span></div>
+        <div><strong>UK + Gibraltar</strong><span>core markets</span></div>
         <div><strong>Practical</strong><span>problem-solving support</span></div>
       </section>
 
