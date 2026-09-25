@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "./accounts.module.css";
 import { safeJsonLd } from "@/lib/seo";
+import { ServiceClosing, ServiceCountries, ServiceHub, ServiceProcess, ServiceScope } from "@/components/service-page-sections";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -128,126 +129,45 @@ export default function AccountsPage() {
         </div>
       </section>
 
-      <section className={`section-pad ${styles.flowSection}`}>
-        <div className={styles.sectionIntro}>
-          <p className="eyebrow">From records to filed accounts</p>
-          <h2>A cleaner year-end is mostly about sequence.</h2>
-          <p>
-            The accounts should not be a separate exercise that starts from scratch. They should be the
-            final stage of records that have been collected, checked and explained.
-          </p>
-        </div>
+      <ServiceProcess
+        eyebrow="From records to filed accounts"
+        title="A cleaner year-end is mostly about sequence."
+        copy="The accounts should not be a separate exercise that starts from scratch. They should be the final stage of records that have been collected, checked and explained."
+        steps={workflow}
+        ariaLabel="Accounts workflow"
+      />
 
-        <div className={styles.workflow} aria-label="Accounts workflow">
-          {workflow.map((item, index) => (
-            <article className={styles.workflowStep} key={item.step}>
-              <div className={styles.stepTop}>
-                <span>{item.step}</span>
-                {index < workflow.length - 1 && <i aria-hidden="true">→</i>}
-              </div>
-              <h3>{item.title}</h3>
-              <p>{item.copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <ServiceScope
+        title="What sits inside the accounts work."
+        copy="The exact filing forms change between Ireland, the UK and Gibraltar, so the main service stays generic and the jurisdiction-specific requirements sit in the country layer."
+        items={scope}
+      />
 
-      <section className={`section-pad ${styles.scopeSection}`}>
-        <div className={styles.scopeHeader}>
-          <div>
-            <p className="eyebrow">Typical scope</p>
-            <h2>What sits inside the accounts work.</h2>
-          </div>
-          <p>
-            The exact filing forms change between Ireland, the UK and Gibraltar, so we keep the main service
-            description generic and show the jurisdiction-specific requirements separately.
-          </p>
-        </div>
+      <ServiceHub
+        eyebrow="One set of numbers"
+        title="The accounts sit in the middle of several obligations."
+        copy="Finalising the accounts affects more than the PDF you sign. The same figures often feed into tax, registry filings, director reporting and the opening balances for the next year."
+        linkHref="/tax"
+        linkLabel="See tax support"
+        ariaLabel="Diagram showing year-end accounts connected to related work"
+        coreEyebrow="One final set"
+        coreTitle="Year-end accounts"
+        nodes={["Business tax return", "Registry filing", "Director reporting", "Next-year opening balances"]}
+      />
 
-        <div className={styles.scopeGrid}>
-          {scope.map(([title, copy], index) => (
-            <article className={styles.scopeCard} key={title}>
-              <span>0{index + 1}</span>
-              <h3>{title}</h3>
-              <p>{copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <ServiceCountries
+        eyebrow="Country-specific requirements"
+        title="Same accounting process. Different filing language."
+        copy="Choose the country your company is registered in to see the terminology and requirements that apply there. For multi-country situations, use International."
+        countries={countries}
+        internationalCopy="For businesses whose accounting or reporting involves more than one jurisdiction."
+      />
 
-      <section className={`section-pad ${styles.connectedSection}`}>
-        <div className={styles.connectedCopy}>
-          <p className="eyebrow">One set of numbers</p>
-          <h2>The accounts sit in the middle of several obligations.</h2>
-          <p>
-            Finalising the accounts affects more than the PDF you sign. The same figures often feed into tax,
-            registry filings, director reporting and the opening balances for the next year.
-          </p>
-          <Link className="text-link" href="/tax">See tax support <span aria-hidden="true">↗</span></Link>
-        </div>
-
-        <div className={styles.connectionMap} aria-label="Diagram showing year-end accounts connected to related work">
-          <div className={`${styles.connectionNode} ${styles.nodeTop}`}>Business tax return</div>
-          <div className={`${styles.connectionNode} ${styles.nodeLeft}`}>Registry filing</div>
-          <div className={styles.connectionCore}>
-            <span>One final set</span>
-            <strong>Year-end accounts</strong>
-          </div>
-          <div className={`${styles.connectionNode} ${styles.nodeRight}`}>Director reporting</div>
-          <div className={`${styles.connectionNode} ${styles.nodeBottom}`}>Next-year opening balances</div>
-          <span className={`${styles.connector} ${styles.lineTop}`} aria-hidden="true" />
-          <span className={`${styles.connector} ${styles.lineLeft}`} aria-hidden="true" />
-          <span className={`${styles.connector} ${styles.lineRight}`} aria-hidden="true" />
-          <span className={`${styles.connector} ${styles.lineBottom}`} aria-hidden="true" />
-        </div>
-      </section>
-
-      <section className={`section-pad ${styles.countrySection}`} id="countries">
-        <div className={styles.countryHeader}>
-          <p className="eyebrow">Country-specific requirements</p>
-          <h2>Same accounting process. Different filing language.</h2>
-          <p>
-            Choose the country your company is registered in to see the terminology and requirements that
-            apply there. For multi-country situations, use International.
-          </p>
-        </div>
-
-        <div className={styles.countryGrid}>
-          {countries.map((country) => (
-            <Link className={styles.countryCard} href={country.href} key={country.name}>
-              <div>
-                <span>Country guide</span>
-                <h3>{country.name}</h3>
-                <p>{country.note}</p>
-              </div>
-              <strong aria-hidden="true">↗</strong>
-            </Link>
-          ))}
-          <Link className={`${styles.countryCard} ${styles.internationalCard}`} href="/international-accounting">
-            <div>
-              <span>Cross-border</span>
-              <h3>International</h3>
-              <p>For businesses whose accounting or reporting involves more than one jurisdiction.</p>
-            </div>
-            <strong aria-hidden="true">↗</strong>
-          </Link>
-        </div>
-      </section>
-
-      <section className={`section-pad ${styles.closing}`}>
-        <div>
-          <p className="eyebrow">Already have an accountant?</p>
-          <h2>Switch without rebuilding everything yourself.</h2>
-          <p>
-            We can take over the records, review what is already filed and handle the accountant-to-accountant
-            handover so the next set of accounts starts from a clear position.
-          </p>
-        </div>
-        <div className={styles.closingActions}>
-          <Link className="button button-dark" href="/contact">Talk to us <span aria-hidden="true">↗</span></Link>
-          <Link className="button button-quiet" href="/packages">View pricing</Link>
-        </div>
-      </section>
+      <ServiceClosing
+        eyebrow="Already have an accountant?"
+        title="Switch without rebuilding everything yourself."
+        copy="We can take over the records, review what is already filed and handle the accountant-to-accountant handover so the next set of accounts starts from a clear position."
+      />
     </>
   );
 }
