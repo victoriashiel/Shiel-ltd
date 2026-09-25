@@ -4,65 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./packages.module.css";
-import { addOnGroups, commonCompany, recommendation, segments, type Segment } from "./packages-data";
-
-export type PackageCountry = "ireland" | "united-kingdom" | "gibraltar";
-
-const countries: { id: PackageCountry; label: string; symbol: "€" | "£" }[] = [
-  { id: "ireland", label: "Ireland", symbol: "€" },
-  { id: "united-kingdom", label: "UK", symbol: "£" },
-  { id: "gibraltar", label: "Gibraltar", symbol: "£" },
-];
-
-const segmentSlugs: Record<Segment, string> = {
-  company: "limited-company",
-  "sole-trader": "sole-trader",
-  contractor: "contractor",
-  ecommerce: "ecommerce",
-};
-
-function countryCopy(country: PackageCountry | null, text: string) {
-  if (!country) return text;
-  const symbol = country === "ireland" ? "€" : "£";
-  let value = text.replaceAll("€", symbol);
-
-  if (country === "ireland") {
-    return value
-      .replaceAll("Corporation tax return", "Corporation Tax return (CT1)")
-      .replaceAll("corporation tax return", "Corporation Tax return (CT1)")
-      .replaceAll("Annual registry return", "CRO Annual Return (B1)")
-      .replaceAll("annual registry return", "CRO Annual Return (B1)")
-      .replaceAll("government fees", "CRO fees")
-      .replaceAll("Beneficial ownership maintenance", "RBO maintenance")
-      .replaceAll("Beneficial ownership registration", "RBO registration")
-      .replaceAll("Tax authority online account setup", "ROS setup")
-      .replaceAll("tax authority", "Revenue")
-      .replaceAll("contractor withholding", "RCT");
-  }
-
-  if (country === "united-kingdom") {
-    return value
-      .replaceAll("Corporation tax return", "Company Tax Return (CT600)")
-      .replaceAll("corporation tax return", "Company Tax Return (CT600)")
-      .replaceAll("Annual registry return", "Companies House confirmation statement")
-      .replaceAll("annual registry return", "Companies House confirmation statement")
-      .replaceAll("government fees", "Companies House fees")
-      .replaceAll("Beneficial ownership maintenance", "PSC register maintenance")
-      .replaceAll("Beneficial ownership registration", "PSC register support")
-      .replaceAll("Tax authority online account setup", "HMRC online account setup")
-      .replaceAll("tax authority", "HMRC")
-      .replaceAll("contractor withholding", "contractor tax");
-  }
-
-  return value
-    .replaceAll("Corporation tax return", "Corporate tax return")
-    .replaceAll("corporation tax return", "corporate tax return")
-    .replaceAll("Annual registry return", "Companies House annual return")
-    .replaceAll("annual registry return", "Companies House annual return")
-    .replaceAll("government fees", "Companies House Gibraltar fees")
-    .replaceAll("Tax authority online account setup", "tax office online setup")
-    .replaceAll("tax authority", "tax office");
-}
+import { addOnGroups, recommendation, segments, type Segment } from "./packages-data";
+import { companyPlanKeys, countryPackageConfig, localisePackageCopy, segmentSlugs, type PackageCountry } from "./package-country-config";
 
 export function PackagesClient({
   initialCountry = null,
@@ -91,9 +34,27 @@ export function PackagesClient({
   const [complex, setComplex] = useState(false);
 
   const current = useMemo(() => segments.find((item) => item.id === segment) ?? null, [segment]);
-  const selectedCountry = countries.find((item) => item.id === country) ?? null;
+  const selectedCountry = country ? countryPackageConfig[country] : null;
+  const countryOptions = Object.entries(countryPackageConfig) as [PackageCountry, (typeof countryPackageConfig)[PackageCountry]][];
   const money = (value: number) => `${selectedCountry?.symbol ?? "€"}${value}`;
-  const localise = (text: string) => countryCopy(country, text);
+  const localise = (text: string) => country ? localisePackageCopy(country, text) : text;
+  const displayPlans = useMemo(() => {
+    if (!current || !country) return [];
+    const config = countryPackageConfig[country];
+    return current.plans.map((plan) => {
+      if (current.id !== "company") return plan;
+      const key = companyPlanKeys[plan.name];
+      if (!key) return plan;
+      const turnover = config.companyTurnover[key];
+      const transactionPart = plan.limits.split("·")[0]?.trim();
+      const directorPart = plan.limits.split("·").slice(2).join("·").trim();
+      return {
+        ...plan,
+        price: config.companyPrices[key],
+        limits: [transactionPart, `sales up to ${turnover}`, directorPart].filter(Boolean).join(" · "),
+      };
+    });
+  }, [country, current]);
   const fit = recommendation({
     segment: finderSegment,
     startingOut: finderStartingOut,
@@ -118,7 +79,7 @@ export function PackagesClient({
     }
 
     const saved = window.localStorage.getItem("shiel-package-country") as PackageCountry | null;
-    if (saved && countries.some((item) => item.id === saved)) {
+    if (saved && Object.prototype.hasOwnProperty.call(countryPackageConfig, saved)) {
       router.replace(`/packages/${saved}`, { scroll: false });
       return;
     }
@@ -257,16 +218,16 @@ export function PackagesClient({
         <div className={styles.selectionStep}>
           <span>Country</span>
           <div className={styles.segmentTabs} role="tablist" aria-label="Country">
-            {countries.map((item) => (
+            {countryOptions.map(([id, item]) => (
               <button
-                key={item.id}
+                key={id}
                 type="button"
                 role="tab"
-                aria-selected={country === item.id}
-                className={`${country === item.id ? styles.activeTab : ""} ${!country && countryHint === item.id ? styles.hintedTab : ""}`}
-                onClick={() => chooseCountry(item.id)}
+                aria-selected={country === id}
+                className={`${country === id ? styles.activeTab : ""} ${!country && countryHint === id ? styles.hintedTab : ""}`}
+                onClick={() => chooseCountry(id)}
               >
-                {item.label} <small>{item.symbol}</small>
+                {item.label === "United Kingdom" ? "UK" : item.label} <small>{item.symbol}</small>
               </button>
             ))}
           </div>
@@ -300,7 +261,7 @@ export function PackagesClient({
         {country && segment && current ? (
         <>
         <div className={styles.segmentIntro}>
-          <p>{localise(current.intro)}</p>
+          <p>{current.id === "company" && selectedCountry ? selectedCountry.companyIntro : localise(current.intro)}</p>
           {segment === "company" && <span>Every company plan also includes the core compliance work shown below.</span>}
         </div>
 
@@ -317,8 +278,8 @@ export function PackagesClient({
           </div>
         )}
 
-        <div className={styles.planGrid} data-count={current.plans.length} role="tabpanel" id="package-panel" aria-labelledby={`package-tab-${segment}`} aria-live="polite">
-          {current.plans.map((plan) => {
+        <div className={styles.planGrid} data-count={displayPlans.length} role="tabpanel" id="package-panel" aria-labelledby={`package-tab-${segment}`} aria-live="polite">
+          {displayPlans.map((plan) => {
             const isExpanded = expanded === plan.name;
             const tipId = `transaction-tip-${plan.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
             return (
@@ -400,7 +361,7 @@ export function PackagesClient({
                 <h3>The core compliance work is already covered.</h3>
               </div>
               <div className={styles.includedGrid}>
-                {commonCompany.map((item) => <span key={item}>✓ {localise(item)}</span>)}
+                {selectedCountry?.companyCommon.map((item) => <span key={item}>✓ {item}</span>)}
               </div>
             </div>
 
@@ -416,9 +377,9 @@ export function PackagesClient({
                       <tr><th>Plan</th><th>Dormant & Pre-trade</th><th>Starter</th><th>Growth</th><th>Scale</th></tr>
                     </thead>
                     <tbody>
-                      <tr><th>Monthly fee</th><td>{money(79)}</td><td>{money(179)}</td><td>{money(279)}</td><td>{money(449)}</td></tr>
+                      <tr><th>Monthly fee</th><td>{money(selectedCountry?.companyPrices.dormant ?? 79)}</td><td>{money(selectedCountry?.companyPrices.starter ?? 179)}</td><td>{money(selectedCountry?.companyPrices.growth ?? 279)}</td><td>{money(selectedCountry?.companyPrices.scale ?? 449)}</td></tr>
                       <tr><th>Transactions</th><td>10</td><td>30</td><td>60</td><td>120</td></tr>
-                      <tr><th>Sales / turnover</th><td>{money(10)}k</td><td>{money(150)}k</td><td>{money(400)}k</td><td>{money(1)}m</td></tr>
+                      <tr><th>Sales / turnover</th><td>{selectedCountry?.companyTurnover.dormant}</td><td>{selectedCountry?.companyTurnover.starter}</td><td>{selectedCountry?.companyTurnover.growth}</td><td>{selectedCountry?.companyTurnover.scale}</td></tr>
                       <tr><th>Payroll</th><td>—</td><td>2 staff</td><td>6 staff</td><td>15 staff</td></tr>
                       <tr><th>Management reports</th><td>—</td><td>—</td><td>Quarterly</td><td>Monthly</td></tr>
                       <tr><th>Director personal tax return</th><td>1</td><td>1</td><td>2</td><td>3</td></tr>
@@ -434,10 +395,11 @@ export function PackagesClient({
         <div className={styles.bespoke}>
           <div>
             <span className={styles.panelKicker}>More complex?</span>
-            <h3>Bespoke plans from {money(499)} / month.</h3>
+            <h3>Bespoke plans from {money(selectedCountry?.companyPrices.bespoke ?? 499)} / month.</h3>
           </div>
           <p>
             For higher volumes or more complex structures, we scope the work first and give you a fixed quote before anything starts.
+            {segment === "company" && selectedCountry?.companyTurnover.bespokeNote ? ` ${selectedCountry.companyTurnover.bespokeNote}` : ""}
           </p>
           <Link
             className="button button-light"
