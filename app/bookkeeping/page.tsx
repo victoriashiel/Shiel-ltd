@@ -165,7 +165,7 @@ export default function BookkeepingPage() {
         nodes={["VAT / indirect tax", "Payroll checks", "Management reporting", "Year-end accounts"]}
       />
 
-      <section className={`section-pad ${styles.healthSection}`}>
+      <section className={`section-pad ${styles.healthSection}`} data-service-reveal>
         <div className={styles.healthHeader}>
           <p className="eyebrow">Bookkeeping health check</p>
           <h2>What clean books should look like.</h2>
