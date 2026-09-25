@@ -427,3 +427,110 @@
     transform: none;
   }
 }
+
+
+.countryCard {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.countryCard::before {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  right: -72px;
+  bottom: -92px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--teal) 14%, transparent);
+  z-index: -1;
+  transition: transform .35s ease, border-color .35s ease;
+}
+
+.countryCard::after {
+  content: "";
+  position: absolute;
+  width: 86px;
+  height: 86px;
+  right: 22px;
+  top: 22px;
+  border-radius: 28px;
+  opacity: .52;
+  z-index: -1;
+}
+
+.countryCard[data-country="ireland"]::after {
+  background: linear-gradient(135deg, color-mix(in srgb, #169b62 13%, transparent), transparent 70%);
+}
+
+.countryCard[data-country="uk"]::after {
+  background: linear-gradient(135deg, color-mix(in srgb, #264b8f 13%, transparent), transparent 70%);
+}
+
+.countryCard[data-country="gibraltar"]::after {
+  background: linear-gradient(135deg, color-mix(in srgb, #c84f4f 12%, transparent), transparent 70%);
+}
+
+.countryCard:hover::before,
+.countryCard:focus-visible::before {
+  transform: scale(1.12);
+  border-color: color-mix(in srgb, var(--teal) 28%, transparent);
+}
+
+.scopeCard:nth-child(1),
+.scopeCard:nth-child(6) {
+  background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
+}
+
+@media (min-width: 1101px) and (prefers-reduced-motion: no-preference) {
+  :global([data-service-reveal]) {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1);
+  }
+
+  :global([data-service-reveal][data-service-visible="true"]) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  :global([data-service-reveal]) .workflowStep,
+  :global([data-service-reveal]) .scopeCard,
+  :global([data-service-reveal]) .countryCard {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .5s ease, transform .5s ease, border-color .24s ease, box-shadow .24s ease;
+  }
+
+  :global([data-service-reveal][data-service-visible="true"]) .workflowStep,
+  :global([data-service-reveal][data-service-visible="true"]) .scopeCard,
+  :global([data-service-reveal][data-service-visible="true"]) .countryCard {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  :global([data-service-reveal][data-service-visible="true"]) .workflowStep:nth-child(2),
+  :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(2),
+  :global([data-service-reveal][data-service-visible="true"]) .countryCard:nth-child(2) { transition-delay: .06s; }
+
+  :global([data-service-reveal][data-service-visible="true"]) .workflowStep:nth-child(3),
+  :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(3),
+  :global([data-service-reveal][data-service-visible="true"]) .countryCard:nth-child(3) { transition-delay: .12s; }
+
+  :global([data-service-reveal][data-service-visible="true"]) .workflowStep:nth-child(4),
+  :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(4),
+  :global([data-service-reveal][data-service-visible="true"]) .countryCard:nth-child(4) { transition-delay: .18s; }
+
+  :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(5) { transition-delay: .24s; }
+  :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(6) { transition-delay: .30s; }
+
+  :global([data-service-visible="true"]) .connector {
+    animation: service-line-in .7s .15s both;
+  }
+}
+
+@keyframes service-line-in {
+  from { opacity: 0; transform: scale(.35); }
+  to { opacity: 1; transform: scale(1); }
+}
