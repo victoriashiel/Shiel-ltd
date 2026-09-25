@@ -129,7 +129,7 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       starter: "£130k",
       growth: "£350k",
       scale: "£850k",
-      bespokeNote: "Audit required above £1.75m turnover.",
+      bespokeNote: "Audit threshold: £1.75m turnover.",
     },
     terminology: {
       "Corporation tax return": "Corporate Tax Return (CT1)",
@@ -168,7 +168,7 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
   },
 };
 
-export const companyPlanKeys: Record<string, keyof CountryPackageConfig["companyPrices"]> = {
+export const companyPlanKeys: Record<string, Exclude<keyof CountryPackageConfig["companyPrices"], "bespoke">> = {
   "Dormant & Pre-trade": "dormant",
   "LTD Starter": "starter",
   "LTD Growth": "growth",
