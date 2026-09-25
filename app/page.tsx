@@ -32,7 +32,7 @@ export default function HomePage() {
           <p className="eyebrow"><span className="status-dot" /> Serving companies in Ireland, the UK and Gibraltar</p>
           <h1>Accounting that keeps up with your business.</h1>
           <p className="hero-intro">
-            Shiel Accountants brings more than 10 years of experience to tax, compliance, bookkeeping, payroll, advisory work and cross-border accounting for businesses in Ireland, the UK and Gibraltar.
+            Shiel Accountants brings more than 7 years of experience to tax, compliance, bookkeeping, payroll, advisory work and cross-border accounting for businesses in Ireland, the UK and Gibraltar.
           </p>
           <div className="hero-actions">
             <div className="contact-cta-pair">
@@ -57,11 +57,41 @@ export default function HomePage() {
         <FinanceCanvas />
       </section>
 
-      <section className="proof-strip" aria-label="Shiel Accountants at a glance">
-        <div><strong>10+</strong><span>years of experience</span></div>
-        <div><strong>Ireland</strong><span>core market</span></div>
-        <div><strong>UK + Gibraltar</strong><span>core markets</span></div>
-        <div><strong>Practical</strong><span>problem-solving support</span></div>
+      <section className="proof-marquee" aria-label="Shiel Accountants at a glance">
+        <div className="proof-marquee-viewport">
+          <div className="proof-marquee-track">
+            {[
+              ["7+", "years’ experience"],
+              ["€49k+", "recovered for clients in the last two years"],
+              ["Free", "accountant switching"],
+              ["Direct", "WhatsApp access to your accountant"],
+              ["1", "named accountant per client"],
+              ["Fixed", "monthly fees, no hourly billing"],
+              ["From €79/mo", "or £49/mo in the UK"],
+            ].map(([value, label]) => (
+              <div className="proof-marquee-item" key={`${value}-a`}>
+                <strong>{value}</strong>
+                <span>{label}</span>
+              </div>
+            ))}
+            <div className="proof-marquee-copy" aria-hidden="true">
+              {[
+                ["7+", "years’ experience"],
+                ["€49k+", "recovered for clients in the last two years"],
+                ["Free", "accountant switching"],
+                ["Direct", "WhatsApp access to your accountant"],
+                ["1", "named accountant per client"],
+                ["Fixed", "monthly fees, no hourly billing"],
+                ["From €79/mo", "or £49/mo in the UK"],
+              ].map(([value, label]) => (
+                <div className="proof-marquee-item" key={`${value}-b`}>
+                  <strong>{value}</strong>
+                  <span>{label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="section-pad service-section" id="services">
