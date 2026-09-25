@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "./tax.module.css";
 import { safeJsonLd } from "@/lib/seo";
+import { ServiceClosing, ServiceCountries, ServiceHub, ServiceProcess, ServiceScope } from "@/components/service-page-sections";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -146,79 +147,31 @@ export default function TaxPage() {
         </div>
       </section>
 
-      <section className={`section-pad ${styles.flowSection}`}>
-        <div className={styles.sectionIntro}>
-          <p className="eyebrow">How the work should flow</p>
-          <h2>A tax return is the end of the process, not the beginning.</h2>
-          <p>
-            Better tax work comes from having the facts, records and accounting treatment clear before the
-            return is prepared. That keeps the filing connected to what actually happened in the business.
-          </p>
-        </div>
+      <ServiceProcess
+        eyebrow="How the work should flow"
+        title="A tax return is the end of the process, not the beginning."
+        copy="Better tax work comes from having the facts, records and accounting treatment clear before the return is prepared. That keeps the filing connected to what actually happened in the business."
+        steps={taxFlow}
+        ariaLabel="Tax workflow"
+      />
 
-        <div className={styles.workflow} aria-label="Tax workflow">
-          {taxFlow.map((item, index) => (
-            <article className={styles.workflowStep} key={item.step}>
-              <div className={styles.stepTop}>
-                <span>{item.step}</span>
-                {index < taxFlow.length - 1 && <i aria-hidden="true">→</i>}
-              </div>
-              <h3>{item.title}</h3>
-              <p>{item.copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <ServiceScope
+        title="Tax work rarely lives in one box."
+        copy="The right combination depends on how you trade, where the business is registered, whether you employ people and whether the owner has a separate personal filing obligation."
+        items={scope}
+      />
 
-      <section className={`section-pad ${styles.scopeSection}`}>
-        <div className={styles.scopeHeader}>
-          <div>
-            <p className="eyebrow">Typical scope</p>
-            <h2>Tax work rarely lives in one box.</h2>
-          </div>
-          <p>
-            The right combination depends on how you trade, where the business is registered, whether you employ
-            people and whether the owner has a separate personal filing obligation.
-          </p>
-        </div>
-
-        <div className={styles.scopeGrid}>
-          {scope.map(([title, copy], index) => (
-            <article className={styles.scopeCard} key={title}>
-              <span>0{index + 1}</span>
-              <h3>{title}</h3>
-              <p>{copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={`section-pad ${styles.taxMapSection}`}>
-        <div className={styles.taxMapCopy}>
-          <p className="eyebrow">One business, several tax touchpoints</p>
-          <h2>The useful view is the whole tax picture.</h2>
-          <p>
-            A business tax return can connect to payroll, VAT or indirect tax, director remuneration, personal
-            tax and the year-end accounts. Looking at each in isolation creates avoidable gaps.
-          </p>
-          <Link className="text-link" href="/accounts">See accounts support <span aria-hidden="true">↗</span></Link>
-        </div>
-
-        <div className={styles.taxMap} aria-label="Diagram showing connected tax obligations">
-          <div className={styles.taxCore}>
-            <span>Core position</span>
-            <strong>Business tax</strong>
-          </div>
-          <div className={`${styles.taxNode} ${styles.nodeA}`}>Year-end accounts</div>
-          <div className={`${styles.taxNode} ${styles.nodeB}`}>Payroll taxes</div>
-          <div className={`${styles.taxNode} ${styles.nodeC}`}>VAT / indirect tax</div>
-          <div className={`${styles.taxNode} ${styles.nodeD}`}>Owner / director tax</div>
-          <span className={`${styles.taxLine} ${styles.lineA}`} aria-hidden="true" />
-          <span className={`${styles.taxLine} ${styles.lineB}`} aria-hidden="true" />
-          <span className={`${styles.taxLine} ${styles.lineC}`} aria-hidden="true" />
-          <span className={`${styles.taxLine} ${styles.lineD}`} aria-hidden="true" />
-        </div>
-      </section>
+      <ServiceHub
+        eyebrow="One business, several tax touchpoints"
+        title="The useful view is the whole tax picture."
+        copy="A business tax return can connect to payroll, VAT or indirect tax, director remuneration, personal tax and the year-end accounts. Looking at each in isolation creates avoidable gaps."
+        linkHref="/accounts"
+        linkLabel="See accounts support"
+        ariaLabel="Diagram showing connected tax obligations"
+        coreEyebrow="Core position"
+        coreTitle="Business tax"
+        nodes={["Year-end accounts", "Payroll taxes", "VAT / indirect tax", "Owner / director tax"]}
+      />
 
       <section className={`section-pad ${styles.planningSection}`}>
         <div className={styles.planningHeader}>
@@ -254,52 +207,20 @@ export default function TaxPage() {
         </div>
       </section>
 
-      <section className={`section-pad ${styles.countrySection}`} id="countries">
-        <div className={styles.countryHeader}>
-          <p className="eyebrow">Country-specific tax</p>
-          <h2>The rules and filing language change by jurisdiction.</h2>
-          <p>
-            Choose the country relevant to the business to see the local terminology and tax framework. If more
-            than one country is involved, start with International.
-          </p>
-        </div>
 
-        <div className={styles.countryGrid}>
-          {countries.map((country) => (
-            <Link className={styles.countryCard} href={country.href} key={country.name}>
-              <div>
-                <span>Country guide</span>
-                <h3>{country.name}</h3>
-                <p>{country.note}</p>
-              </div>
-              <strong aria-hidden="true">↗</strong>
-            </Link>
-          ))}
-          <Link className={`${styles.countryCard} ${styles.internationalCard}`} href="/international-accounting">
-            <div>
-              <span>Cross-border</span>
-              <h3>International</h3>
-              <p>For businesses, owners or income streams that cross more than one tax jurisdiction.</p>
-            </div>
-            <strong aria-hidden="true">↗</strong>
-          </Link>
-        </div>
-      </section>
+      <ServiceCountries
+        eyebrow="Country-specific tax"
+        title="The rules and filing language change by jurisdiction."
+        copy="Choose the country relevant to the business to see the local terminology and tax framework. If more than one country is involved, start with International."
+        countries={countries}
+        internationalCopy="For businesses, owners or income streams that cross more than one tax jurisdiction."
+      />
 
-      <section className={`section-pad ${styles.closing}`}>
-        <div>
-          <p className="eyebrow">Need us to take over?</p>
-          <h2>We can pick up the current tax position without starting from zero.</h2>
-          <p>
-            Send us the latest accounts, filed returns and any correspondence you already have. We can review the
-            current position, identify what is still open and set out the next actions before work starts.
-          </p>
-        </div>
-        <div className={styles.closingActions}>
-          <Link className="button button-dark" href="/contact">Talk to us <span aria-hidden="true">↗</span></Link>
-          <Link className="button button-quiet" href="/packages">View pricing</Link>
-        </div>
-      </section>
+      <ServiceClosing
+        eyebrow="Need us to take over?"
+        title="We can pick up the current tax position without starting from zero."
+        copy="Send us the latest accounts, filed returns and any correspondence you already have. We can review the current position, identify what is still open and set out the next actions before work starts."
+      />
     </>
   );
 }
