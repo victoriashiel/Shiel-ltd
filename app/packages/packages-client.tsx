@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { type KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./packages.module.css";
 import { addOnGroups, recommendation, segments, type Segment } from "./packages-data";
-import { companyPlanKeys, countryPackageConfig, localisePackageCopy, segmentSlugs, type PackageCountry } from "./package-country-config";
+import { companyPlanKeys, countryPackageConfig, localisePackageCopy, segmentSlugs, soleTraderPlanKeys, type PackageCountry } from "./package-country-config";
 
 export function PackagesClient({
   initialCountry = null,
@@ -42,6 +42,16 @@ export function PackagesClient({
     if (!current || !country) return [];
     const config = countryPackageConfig[country];
     return current.plans.map((plan) => {
+      if (current.id === "sole-trader") {
+        const key = soleTraderPlanKeys[plan.name];
+        if (!key) return plan;
+        return {
+          ...plan,
+          name: plan.name.replace(/^Sole Trader /, ""),
+          price: config.soleTraderPrices[key],
+        };
+      }
+
       if (current.id !== "company") return plan;
       const key = companyPlanKeys[plan.name];
       if (!key) return plan;
@@ -68,6 +78,7 @@ export function PackagesClient({
     complex,
     companyThresholds: selectedCountry?.companyTurnoverValues,
     companyPrices: selectedCountry?.companyPrices,
+    soleTraderPrices: selectedCountry?.soleTraderPrices,
     currencySymbol: selectedCountry?.symbol,
   });
   const fitDisplayName = fit.segment === "company" ? fit.name.replace(/^LTD /, "") : fit.name;
