@@ -174,7 +174,7 @@ export default function AdvisoryPage() {
         nodes={["Cash flow", "Margins", "Working capital", "Profitability"]}
       />
 
-      <section className={`section-pad ${styles.scenarioSection}`}>
+      <section className={`section-pad ${styles.scenarioSection}`} data-service-reveal>
         <div className={styles.scenarioHeader}>
           <p className="eyebrow">Questions the numbers should answer</p>
           <h2>Advisory should be specific enough to change a decision.</h2>
