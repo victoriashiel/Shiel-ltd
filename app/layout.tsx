@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   applicationName: siteConfig.name,
   title: {
-    default: "Shiel Accountants | European-based accountants working internationally",
+    default: "Shiel Accountants | Ireland, UK & Gibraltar",
     template: "%s | Shiel Accountants",
   },
   description: siteConfig.description,
@@ -26,12 +26,12 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: "Shiel Accountants | European-based accountants working internationally",
+    title: "Shiel Accountants | Ireland, UK & Gibraltar",
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shiel Accountants | European-based accountants working internationally",
+    title: "Shiel Accountants | Ireland, UK & Gibraltar",
     description: siteConfig.description,
   },
   robots: {
@@ -70,7 +70,7 @@ const organisationSchema = {
       url: siteConfig.url,
       logo: `${siteConfig.url}/icon.svg`,
       description: siteConfig.description,
-      areaServed: ["Europe", "Worldwide"],
+      areaServed: ["Ireland", "United Kingdom", "Gibraltar"],
       knowsAbout: [
         "Tax compliance",
         "Company accounts",
