@@ -32,13 +32,13 @@ export const segments: PackageSegment[] = [
     id: "company",
     label: "Limited company",
     intro:
-      "Company accounts, Corporation Tax, CRO filing, VAT, bookkeeping and director tax support in one monthly fee.",
+      "Company accounts, corporation tax, annual registry filing, VAT, bookkeeping and director tax support in one monthly fee.",
     plans: [
       {
         name: "Dormant & Pre-trade",
         strap: "For newly formed, pre-trading or dormant companies.",
         price: 79,
-        features: ["Dormant or abridged accounts", "CT1 and B1 filing", "RBO and CRO compliance", "1 director Form 11"],
+        features: ["Dormant or small-company accounts", "Corporation tax return and annual registry return", "Beneficial ownership and registry compliance", "1 director personal tax return"],
         details: ["Named accountant", "Compliance calendar and reminders", "Basic record review", "Bank feed where relevant"],
         limits: "Up to 10 accounting entries / month · sales up to €10k · no payroll",
       },
@@ -46,8 +46,8 @@ export const segments: PackageSegment[] = [
         name: "LTD Starter",
         strap: "For new and small trading companies.",
         price: 179,
-        features: ["Monthly bookkeeping", "Payroll for up to 2 employees", "CT1, B1, VAT3 and RTD", "1 director Form 11"],
-        details: ["Annual accountant review", "Named accountant", "Cloud bookkeeping software", "Bank feeds", "RBO maintenance", "ERR reporting where applicable"],
+        features: ["Monthly bookkeeping", "Payroll & PAYE for up to 2 employees", "Corporation tax return, annual registry return and VAT returns", "1 director personal tax return"],
+        details: ["Annual accountant review", "Named accountant", "Cloud bookkeeping software", "Bank feeds", "Beneficial ownership maintenance", "Payroll reporting where applicable"],
         limits: "Up to 30 transactions / month · sales up to €150k · 2 directors",
       },
       {
@@ -55,16 +55,16 @@ export const segments: PackageSegment[] = [
         strap: "For growing companies with staff and steady sales.",
         price: 279,
         popular: true,
-        features: ["Everything in Starter", "Payroll for up to 6 employees", "Quarterly management accounts", "VIES returns"],
-        details: ["Quarterly review call", "Form 11 for 2 directors", "Named accountant", "Cloud bookkeeping software", "Bank feeds", "RBO maintenance", "ERR reporting where applicable"],
+        features: ["Everything in Starter", "Payroll for up to 6 employees", "Quarterly management reports", "EU sales returns (where applicable)"],
+        details: ["Quarterly review call", "Personal tax returns for 2 directors", "Named accountant", "Cloud bookkeeping software", "Bank feeds", "Beneficial ownership maintenance", "Payroll reporting where applicable"],
         limits: "Up to 60 transactions / month · sales up to €400k · 3 directors",
       },
       {
         name: "LTD Scale",
         strap: "For established SMEs and more complex structures.",
         price: 449,
-        features: ["Everything in Growth", "Payroll for up to 15 staff", "Monthly management accounts", "Cash, RCT and group structures"],
-        details: ["Weekly payroll runs where needed", "Monthly review call", "Form 11 for 3 directors", "Priority turnaround", "Named accountant", "ERR reporting where applicable"],
+        features: ["Everything in Growth", "Payroll for up to 15 staff", "Monthly management reports", "Cash, RCT and group structures"],
+        details: ["Weekly payroll runs where needed", "Monthly review call", "Personal tax returns for 3 directors", "Priority turnaround", "Named accountant", "Payroll reporting where applicable"],
         limits: "Up to 120 transactions / month · sales up to €1m · 4 directors",
       },
     ],
@@ -98,7 +98,7 @@ export const segments: PackageSegment[] = [
         strap: "For busy sole traders with staff or card payments.",
         price: 159,
         popular: true,
-        features: ["Everything in Essentials", "Payroll for up to 2 employees", "Quarterly management summary", "Card, Stripe and SumUp feeds"],
+        features: ["Everything in Essentials", "Payroll & PAYE for up to 2 employees", "Quarterly management summary", "Card, Stripe and SumUp feeds"],
         details: ["VAT filing where registered", "Cloud bookkeeping", "Named accountant", "Deadline reminders"],
         limits: "Up to 60 accounting transactions / month · turnover up to €200k",
       },
@@ -106,7 +106,7 @@ export const segments: PackageSegment[] = [
         name: "Sole Trader Scale",
         strap: "For established self-employed businesses with higher activity.",
         price: 299,
-        features: ["Everything in Plus", "Payroll for up to 5 employees", "Monthly management accounts", "Multiple income streams"],
+        features: ["Everything in Plus", "Payroll for up to 5 employees", "Monthly management reports", "Multiple income streams"],
         details: ["VAT filing", "Payment platform feeds", "Annual tax-planning review", "Priority turnaround", "Named accountant"],
         limits: "Up to 150 accounting transactions / month · turnover up to €500k",
       },
@@ -128,8 +128,8 @@ export const segments: PackageSegment[] = [
         strap: "For new contractors setting up a personal limited company before the first invoice.",
         price: 395,
         billing: "one-off",
-        priceNote: "+ CRO fee",
-        features: ["Personal limited company formation", "Director payroll setup", "Revenue registrations", "Expenses, ERR and bookkeeping setup"],
+        priceNote: "+ government fees",
+        features: ["Company formation + government fees", "Director payroll setup", "Tax registrations", "Expenses, payroll reporting and bookkeeping setup"],
         details: ["Initial contractor expense guidance", "Compliance calendar", "Opening bookkeeping structure", "First-year filing roadmap"],
         limitsLabel: "Setup scope",
         limits: "One-off company and finance setup · ongoing monthly accounting not included",
@@ -138,8 +138,8 @@ export const segments: PackageSegment[] = [
         name: "Contractor",
         strap: "For single-director companies with one client and a monthly invoice.",
         price: 119,
-        features: ["CT1, B1 and VAT compliance", "Director payroll", "Director Form 11", "Expense and subsistence guidance"],
-        details: ["Mileage and reimbursement guidance", "ERR reporting where applicable", "Company pension contribution support", "Cross-border VAT guidance where relevant", "Free accountant handover", "Named accountant", "Cloud bookkeeping"],
+        features: ["Corporation tax, annual registry and VAT compliance", "Director payroll", "Director personal tax return", "Expense and subsistence guidance"],
+        details: ["Mileage and reimbursement guidance", "Payroll reporting where applicable", "Company pension contribution support", "Cross-border VAT guidance where relevant", "Free accountant handover", "Named accountant", "Cloud bookkeeping"],
         limits: "Up to 15 transactions / month · sales up to €150k",
       },
     ],
@@ -180,7 +180,7 @@ export const segments: PackageSegment[] = [
         name: "E-commerce Scale",
         strap: "For higher-volume stores that need finance reporting as well as bookkeeping.",
         price: 449,
-        features: ["Everything in Multi-channel", "Multi-currency reconciliation", "Monthly management accounts", "Channel and margin reporting"],
+        features: ["Everything in Multi-channel", "Multi-currency reconciliation", "Monthly management reports", "Channel and margin reporting"],
         details: ["Stock and COGS accounting", "OSS and IOSS", "Priority turnaround", "Annual accounts + CT1/Form 11 as applicable", "Additional country VAT registrations quoted separately", "Third-party app subscriptions excluded", "Named accountant"],
         limits: "Up to 200 accounting transactions / month · sales up to €1m",
       },
@@ -190,12 +190,12 @@ export const segments: PackageSegment[] = [
 
 export const commonCompany = [
   "Dedicated accountant",
-  "Annual financial statements",
-  "Corporation Tax return (CT1)",
-  "CRO Annual Return (B1)",
-  "RBO maintenance",
-  "Director Form 11",
-  "VAT3 and RTD where registered",
+  "Year-end accounts",
+  "Corporation tax return",
+  "Annual registry return",
+  "Beneficial ownership maintenance",
+  "Director personal tax return",
+  "VAT returns (where registered)",
   "Cloud bookkeeping / bank feeds where relevant",
 ];
 
@@ -206,11 +206,11 @@ export const addOnGroups = [
   },
   {
     title: "Payroll & people",
-    items: [["Extra employee on payroll", "€20 / month"], ["Additional director Form 11", "€175 / year"]],
+    items: [["Extra employee on payroll", "€20 / month"], ["Additional director personal tax return", "€175 / year"]],
   },
   {
     title: "Registrations & Revenue",
-    items: [["VAT / PAYE registration", "€125 each"], ["RBO registration", "€99"], ["Tax clearance certificate", "€65"]],
+    items: [["VAT / payroll tax registration", "€125 each"], ["Beneficial ownership registration", "€99"], ["Tax compliance certificate", "€65"]],
   },
   {
     title: "Catch-up & historical work",
@@ -218,7 +218,7 @@ export const addOnGroups = [
   },
   {
     title: "Company changes",
-    items: [["Company formation + initial registrations", "€495 + CRO fee"], ["Business name registration", "€75 + CRO fee"], ["Strike-off (voluntary)", "€325"], ["Non-resident director support", "Quote"], ["Registered office / company secretary", "Quote"]],
+    items: [["Company formation + government fees", "€495 + government fees"], ["Business name registration", "€75 + government fees"], ["Strike-off (voluntary)", "€325"], ["Non-resident director support", "Quote"], ["Registered office address / company secretary", "Quote"]],
   },
 ];
 
@@ -264,7 +264,7 @@ export function recommendation({
       return {
         segment,
         name: "Contractor Launch",
-        priceLabel: "€395 + CRO fee · one-off",
+        priceLabel: "€395 + government fees · one-off",
         reason: "This covers the company, director payroll and bookkeeping setup needed before the first invoice.",
       };
     }
