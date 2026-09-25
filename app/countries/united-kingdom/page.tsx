@@ -28,22 +28,22 @@ const facts = [
   {
     value: "19%–25%",
     label: "Corporation Tax",
-    note: "For 2026, the small-profits rate is 19% and the main rate is 25%, with Marginal Relief potentially applying between the relevant profit thresholds.",
+    note: "Small-profits and main rates, with Marginal Relief potentially applying between the relevant thresholds.",
   },
   {
     value: "CT600",
     label: "Company Tax Return",
-    note: "UK companies use the Company Tax Return for Corporation Tax reporting to HMRC.",
+    note: "The company tax return used for Corporation Tax reporting to HMRC.",
   },
   {
     value: "Annual",
     label: "Companies House accounts",
-    note: "Companies, including dormant companies, must prepare and file annual accounts with Companies House.",
+    note: "Companies, including dormant companies, file annual accounts with Companies House.",
   },
   {
     value: "12 months",
     label: "Confirmation statement cycle",
-    note: "A company must review its information and file at least one confirmation statement in every 12-month review period.",
+    note: "At least one confirmation statement is filed in each 12-month review period.",
   },
 ] as const;
 
@@ -152,39 +152,43 @@ export default function UnitedKingdomPage() {
       <CountryHero
         eyebrow="United Kingdom"
         title="UK accounting that keeps HMRC and Companies House in sync."
-        copy="We connect the bookkeeping, payroll, statutory accounts, Corporation Tax and annual company filings, so the same records carry through the year instead of being rebuilt for each deadline."
+        copy="We connect bookkeeping, payroll, statutory accounts, Corporation Tax and Companies House filings so one set of records carries through the year."
         visual={
-          <div className={styles.ukVisual} role="img" aria-label="Illustration showing UK bookkeeping feeding HMRC and Companies House filings">
+          <div className={styles.ukVisual} role="img" aria-label="Illustration showing the UK Corporation Tax range and the two-track HMRC and Companies House filing system">
             <div className={styles.visualTop}>
               <span>UK company finance</span>
-              <strong>Connected</strong>
+              <strong>HMRC + Companies House</strong>
             </div>
-            <div className={styles.ledgerCard}>
-              <span>During the year</span>
-              <strong>Books + payroll</strong>
-              <small>current records and reconciliations</small>
+            <div className={styles.taxBand}>
+              <div className={styles.taxBandLabels}>
+                <span>Small profits</span>
+                <strong>19% → 25%</strong>
+                <span>Main rate</span>
+              </div>
+              <div className={styles.taxBandBar}><i /></div>
+              <small>Marginal Relief can apply between the relevant profit thresholds</small>
             </div>
-            <div className={styles.splitLine} aria-hidden="true" />
-            <div className={styles.filingRow}>
-              <div><span>HMRC</span><strong>CT600 + tax</strong><small>company and tax filings</small></div>
-              <div><span>Companies House</span><strong>Accounts + statement</strong><small>annual company filings</small></div>
+            <div className={styles.ukFilingGrid}>
+              <div><span>HMRC</span><strong>CT600 + tax</strong><small>Corporation Tax reporting</small></div>
+              <div><span>Companies House</span><strong>Accounts + confirmation</strong><small>statutory company filings</small></div>
             </div>
           </div>
         }
       />
 
-      <CountryFacts title="The UK company filing picture, at a glance." items={facts} />
+      <CountryFacts title="The UK filing picture, at a glance." items={facts} variant="uk" />
 
       <CountryServices
         title="The recurring UK work, kept under one accounting relationship."
-        copy="The service pages explain each area in detail; the UK layer keeps the terminology and filing context specific to HMRC and Companies House."
+        copy="The underlying work stays connected, while the UK layer keeps HMRC and Companies House terminology specific."
         items={services}
       />
 
       <CountryPricing
-        title="UK pricing, without leaving the country page."
-        copy="Choose the type of business you run to see the full package breakdown. These are the same prices used on the Packages page, shown here so the decision can stay within the UK journey."
+        title="UK prices, in one place."
+        copy="Choose the type of business you run, then open the detailed package only if you need the full inclusions and limits."
         plans={prices}
+        variant="uk"
         note="Prices exclude VAT where applicable. Package limits and inclusions are shown on the detailed pricing pages."
       />
 
