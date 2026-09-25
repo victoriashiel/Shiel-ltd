@@ -241,6 +241,7 @@ export function recommendation({
   complex,
   companyThresholds = { dormant: 10_000, starter: 150_000, growth: 400_000, scale: 1_000_000 },
   companyPrices = { dormant: 79, starter: 179, growth: 279, scale: 449, bespoke: 499 },
+  soleTraderPrices = { startup: 149, essentials: 99, plus: 159, scale: 299 },
   currencySymbol = "€",
 }: {
   segment: Segment;
@@ -254,6 +255,7 @@ export function recommendation({
   complex: boolean;
   companyThresholds?: { dormant: number; starter: number; growth: number; scale: number };
   companyPrices?: { dormant: number; starter: number; growth: number; scale: number; bespoke: number };
+  soleTraderPrices?: { startup: number; essentials: number; plus: number; scale: number };
   currencySymbol?: "€" | "£";
 }): FinderResult {
   if (startingOut) {
@@ -261,7 +263,7 @@ export function recommendation({
       return {
         segment,
         name: "Sole Trader Start-Up",
-        priceLabel: "€149 · one-off",
+        priceLabel: `${currencySymbol}${soleTraderPrices.startup} · one-off`,
         reason: "This gets the tax registrations and bookkeeping setup in place before regular trading begins.",
       };
     }
@@ -337,8 +339,8 @@ export function recommendation({
       return {
         segment: "sole-trader",
         name: "Bespoke",
-        priceLabel: "From €499 / month",
-        reason: "At least one part of your activity is above the published Sole Trader Scale limits.",
+        priceLabel: `From ${currencySymbol}${soleTraderPrices.scale} / month`,
+        reason: "At least one part of your activity is above the published Sole Trader Scale limits, so we will confirm the scope before onboarding.",
       };
     }
 
@@ -346,7 +348,7 @@ export function recommendation({
       return {
         segment: "sole-trader",
         name: "Sole Trader Scale",
-        priceLabel: "€299 / month",
+        priceLabel: `${currencySymbol}${soleTraderPrices.scale} / month`,
         reason: "Your activity is above Plus and fits the higher-volume Scale tier.",
       };
     }
@@ -355,7 +357,7 @@ export function recommendation({
       return {
         segment: "sole-trader",
         name: "Sole Trader Plus",
-        priceLabel: "€159 / month",
+        priceLabel: `${currencySymbol}${soleTraderPrices.plus} / month`,
         reason: "Your transaction level, turnover or payroll needs move you beyond Essentials.",
       };
     }
@@ -363,7 +365,7 @@ export function recommendation({
     return {
       segment: "sole-trader",
       name: "Sole Trader Essentials",
-      priceLabel: "€99 / month",
+      priceLabel: `${currencySymbol}${soleTraderPrices.essentials} / month`,
       reason: "This fits up to 20 monthly accounting transactions and turnover up to €80k with no payroll.",
     };
   }
