@@ -45,6 +45,7 @@ const headerGroups = [
       { label: "Our story", href: "/about" },
       { label: "Meet the team", href: "/about/team" },
       { label: "How we work", href: "/about/how-we-work" },
+      { label: "Case studies", href: "/case-studies" },
     ],
   },
 ] as const;
@@ -133,14 +134,6 @@ export function SiteHeader() {
             );
           })}
 
-          <Link
-            href="/case-studies"
-            aria-current={isCurrent("/case-studies") ? "page" : undefined}
-            onClick={() => setDesktopOpen(null)}
-          >
-            Case studies
-          </Link>
-
           <div className="nav-dropdown">
             <button
               type="button"
@@ -161,6 +154,14 @@ export function SiteHeader() {
               </div>
             )}
           </div>
+
+          <Link
+            href="/packages"
+            aria-current={isCurrent("/packages") ? "page" : undefined}
+            onClick={() => setDesktopOpen(null)}
+          >
+            Packages
+          </Link>
         </nav>
 
         <div className="header-contact-actions">
@@ -220,8 +221,6 @@ export function SiteHeader() {
             );
           })}
 
-          <Link href="/case-studies" onClick={() => { setOpen(false); setMobileOpen(null); }}>Case studies</Link>
-
           <div className="mobile-nav-group">
             <button
               type="button"
@@ -241,6 +240,8 @@ export function SiteHeader() {
               </div>
             )}
           </div>
+
+          <Link href="/packages" onClick={() => { setOpen(false); setMobileOpen(null); }}>Packages</Link>
 
           <div className="mobile-contact-actions">
             <Link className="button button-dark" href="/contact" onClick={() => setOpen(false)}>Contact us</Link>
