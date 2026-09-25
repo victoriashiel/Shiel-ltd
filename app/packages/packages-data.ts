@@ -242,6 +242,7 @@ export function recommendation({
   companyThresholds = { dormant: 10_000, starter: 150_000, growth: 400_000, scale: 1_000_000 },
   companyPrices = { dormant: 79, starter: 179, growth: 279, scale: 449, bespoke: 499 },
   soleTraderPrices = { startup: 149, essentials: 99, plus: 159, scale: 299 },
+  ecommercePrices = { setup: 249, launch: 179, multiChannel: 279, scale: 449 },
   currencySymbol = "€",
 }: {
   segment: Segment;
@@ -256,6 +257,7 @@ export function recommendation({
   companyThresholds?: { dormant: number; starter: number; growth: number; scale: number };
   companyPrices?: { dormant: number; starter: number; growth: number; scale: number; bespoke: number };
   soleTraderPrices?: { startup: number; essentials: number; plus: number; scale: number };
+  ecommercePrices?: { setup: number; launch: number; multiChannel: number; scale: number };
   currencySymbol?: "€" | "£";
 }): FinderResult {
   if (startingOut) {
@@ -281,7 +283,7 @@ export function recommendation({
       return {
         segment,
         name: "E-commerce Finance Setup",
-        priceLabel: "€199 · one-off",
+        priceLabel: `${currencySymbol}${ecommercePrices.setup} · one-off`,
         reason: "This sets up platform feeds, the bookkeeping structure and VAT/OSS readiness before ongoing bookkeeping.",
       };
     }
@@ -299,7 +301,7 @@ export function recommendation({
       return {
         segment: "ecommerce",
         name: "Bespoke",
-        priceLabel: "From €499 / month",
+        priceLabel: `From ${currencySymbol}${ecommercePrices.scale} / month`,
         reason: "Your sales volume is above the published E-commerce Scale limit, so the work needs to be scoped.",
       };
     }
@@ -308,7 +310,7 @@ export function recommendation({
       return {
         segment: "ecommerce",
         name: "E-commerce Scale",
-        priceLabel: "€449 / month",
+        priceLabel: `${currencySymbol}${ecommercePrices.scale} / month`,
         reason: "Your accounting volume or sales level is above Multi-channel and fits the higher-volume Scale tier.",
       };
     }
@@ -317,7 +319,7 @@ export function recommendation({
       return {
         segment: "ecommerce",
         name: "E-commerce Multi-channel",
-        priceLabel: "€279 / month",
+        priceLabel: `${currencySymbol}${ecommercePrices.multiChannel} / month`,
         reason: platforms === "multi"
           ? "You sell across more than one platform."
           : transactions > 50
@@ -329,8 +331,8 @@ export function recommendation({
     return {
       segment: "ecommerce",
       name: "E-commerce Launch",
-      priceLabel: "€179 / month",
-      reason: "This fits one-platform selling with up to 50 accounting transactions a month and annual sales up to €150k.",
+      priceLabel: `${currencySymbol}${ecommercePrices.launch} / month`,
+      reason: `This fits one-platform selling with up to 50 accounting transactions a month and annual sales up to ${currencySymbol}150k.`,
     };
   }
 
