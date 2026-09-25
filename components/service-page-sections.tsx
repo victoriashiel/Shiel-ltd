@@ -145,7 +145,7 @@ export function ServiceHub({
         <Link className="text-link" href={linkHref}>{linkLabel} <span aria-hidden="true">↗</span></Link>
       </div>
 
-      <div className={styles.hubMap} aria-label={ariaLabel}>
+      <div className={styles.hubMap} role="img" aria-label={ariaLabel}>
         <div className={styles.hubCore}>
           <span>{coreEyebrow}</span>
           <strong>{coreTitle}</strong>
