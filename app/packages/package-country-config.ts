@@ -13,6 +13,12 @@ export type CountryPackageConfig = {
     scale: number;
     bespoke: number;
   };
+  soleTraderPrices: {
+    startup: number;
+    essentials: number;
+    plus: number;
+    scale: number;
+  };
   companyTurnover: {
     dormant: string;
     starter: string;
@@ -39,6 +45,7 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
     companyIntro:
       "Company accounts, Corporation Tax (CT1), CRO Annual Return (B1), VAT, bookkeeping and director tax support in one monthly fee.",
     companyPrices: { dormant: 79, starter: 179, growth: 279, scale: 449, bespoke: 499 },
+    soleTraderPrices: { startup: 149, essentials: 99, plus: 159, scale: 299 },
     companyTurnover: {
       dormant: "€10k",
       starter: "€150k",
@@ -87,6 +94,7 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
     companyIntro:
       "Statutory accounts, Company Tax Return (CT600), Companies House confirmation statement, VAT, bookkeeping and director Self Assessment support in one monthly fee.",
     companyPrices: { dormant: 49, starter: 149, growth: 239, scale: 389, bespoke: 429 },
+    soleTraderPrices: { startup: 99, essentials: 59, plus: 99, scale: 199 },
     companyTurnover: {
       dormant: "£10k",
       starter: "£130k",
@@ -141,6 +149,7 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
     companyIntro:
       "Annual accounts, Corporate Tax Return (CT1), Companies House Gibraltar Annual Return, bookkeeping, PAYE and company compliance support in one monthly fee.",
     companyPrices: { dormant: 69, starter: 169, growth: 269, scale: 429, bespoke: 479 },
+    soleTraderPrices: { startup: 129, essentials: 79, plus: 129, scale: 249 },
     companyTurnover: {
       dormant: "£10k",
       starter: "£130k",
@@ -191,6 +200,13 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       "Cloud bookkeeping / bank feeds where relevant",
     ],
   },
+};
+
+export const soleTraderPlanKeys: Record<string, keyof CountryPackageConfig["soleTraderPrices"]> = {
+  "Sole Trader Start-Up": "startup",
+  "Sole Trader Essentials": "essentials",
+  "Sole Trader Plus": "plus",
+  "Sole Trader Scale": "scale",
 };
 
 export const companyPlanKeys: Record<string, Exclude<keyof CountryPackageConfig["companyPrices"], "bespoke">> = {
