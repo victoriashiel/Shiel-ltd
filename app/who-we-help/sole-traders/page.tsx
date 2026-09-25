@@ -4,8 +4,8 @@ import styles from "./sole-traders.module.css";
 import {
   AnswerCards,
   AudienceClosing,
-  AudienceCountries,
   AudienceHero,
+  AudienceProof,
   QuickFit,
 } from "@/components/who-we-help-sections";
 import { safeJsonLd } from "@/lib/seo";
@@ -78,7 +78,8 @@ export default function SoleTradersPage() {
       <AudienceHero
         eyebrow="Sole traders"
         title="Keep the business simple without losing track of the numbers."
-        copy="We help sole traders keep the books current, understand what is likely to be due and get the annual tax work filed without turning the business into an admin project."
+        copy="We keep the books, tax position and deadlines clear without adding company-level complexity you do not need."
+        primaryLabel="See sole-trader pricing"
         visual={
           <div className={styles.soleVisual} role="img" aria-label="Illustration showing money in, business costs, tax set-aside and filing">
             <div className={styles.visualTop}>
@@ -95,6 +96,15 @@ export default function SoleTradersPage() {
             </div>
           </div>
         }
+      />
+
+      <AudienceProof
+        items={[
+          ["7+", "years’ experience"],
+          ["1", "named accountant"],
+          ["Direct", "WhatsApp access"],
+          ["Fixed", "monthly fees"],
+        ]}
       />
 
       <QuickFit
@@ -122,12 +132,6 @@ export default function SoleTradersPage() {
         </div>
       </section>
 
-      <AnswerCards
-        eyebrow="The questions we get most"
-        title="The short answers."
-        items={answers}
-      />
-
       <section className={`section-pad ${styles.priceRoute}`}>
         <div>
           <p className="eyebrow">Pricing</p>
@@ -144,7 +148,11 @@ export default function SoleTradersPage() {
         </div>
       </section>
 
-      <AudienceCountries copy="Choose the country where you are registered or filing for the local tax and reporting context." />
+      <AnswerCards
+        eyebrow="The questions we get most"
+        title="The short answers."
+        items={answers}
+      />
 
       <AudienceClosing
         eyebrow="Already self-employed?"
