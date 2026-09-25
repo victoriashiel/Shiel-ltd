@@ -142,11 +142,17 @@ export default function EcommerceSellersPage() {
             <div><span>−</span><p>Platform fees</p></div>
             <div><span>−</span><p>Processor fees</p></div>
           </div>
-          <div className={styles.equalsMark} aria-hidden="true">=</div>
+          <div className={styles.settlementArrow} aria-hidden="true">→</div>
+          <div className={styles.processorCard}>
+            <span>Processor</span>
+            <strong>Settlement matched</strong>
+            <small>fees and refunds explained</small>
+          </div>
+          <div className={styles.settlementArrow} aria-hidden="true">→</div>
           <div className={styles.netCard}>
             <span>Bank</span>
-            <strong>Net payout</strong>
-            <small>fully explained</small>
+            <strong>Payout reconciled</strong>
+            <small>back to the sales data</small>
           </div>
         </div>
       </section>
