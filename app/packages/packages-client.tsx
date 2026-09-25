@@ -50,6 +50,7 @@ export function PackagesClient({
       const directorPart = plan.limits.split("·").slice(2).join("·").trim();
       return {
         ...plan,
+        name: plan.name.replace(/^LTD /, ""),
         price: config.companyPrices[key],
         limits: [transactionPart, `sales up to ${turnover}`, directorPart].filter(Boolean).join(" · "),
       };
@@ -65,6 +66,9 @@ export function PackagesClient({
     directors,
     platforms,
     complex,
+    companyThresholds: selectedCountry?.companyTurnoverValues,
+    companyPrices: selectedCountry?.companyPrices,
+    currencySymbol: selectedCountry?.symbol,
   });
 
   useEffect(() => {
@@ -459,7 +463,7 @@ export function PackagesClient({
         <h2>You do not need to work out the right package yourself.</h2>
         <p>Tell us how the business operates and we will point you to the closest fit before you commit.</p>
         <button className="button button-dark" type="button" onClick={openFinder}>Find my package <span aria-hidden="true">↗</span></button>
-        <small>Prices shown exclude VAT where applicable. Package suitability and scope are confirmed before onboarding.</small>
+        <small>{selectedCountry?.priceNote} Package suitability and scope are confirmed before onboarding.</small>
       </section>
       </>
       )}
@@ -574,9 +578,46 @@ export function PackagesClient({
                     <button type="button" className={turnover === 1_000_000 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_000)}>{selectedCountry?.symbol ?? "€"}500k–{selectedCountry?.symbol ?? "€"}1m</button>
                     <button type="button" className={turnover === 1_000_001 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_001)}>{selectedCountry?.symbol ?? "€"}1m+</button>
                   </>
+                ) : finderSegment === "company" && selectedCountry ? (
+                  <>
+                    <button
+                      type="button"
+                      className={turnover === selectedCountry.companyTurnoverValues.dormant ? styles.selectedOption : ""}
+                      onClick={() => setTurnover(selectedCountry.companyTurnoverValues.dormant)}
+                    >
+                      Up to {selectedCountry.companyTurnover.dormant}
+                    </button>
+                    <button
+                      type="button"
+                      className={turnover === selectedCountry.companyTurnoverValues.starter ? styles.selectedOption : ""}
+                      onClick={() => setTurnover(selectedCountry.companyTurnoverValues.starter)}
+                    >
+                      {selectedCountry.companyTurnover.dormant}–{selectedCountry.companyTurnover.starter}
+                    </button>
+                    <button
+                      type="button"
+                      className={turnover === selectedCountry.companyTurnoverValues.growth ? styles.selectedOption : ""}
+                      onClick={() => setTurnover(selectedCountry.companyTurnoverValues.growth)}
+                    >
+                      {selectedCountry.companyTurnover.starter}–{selectedCountry.companyTurnover.growth}
+                    </button>
+                    <button
+                      type="button"
+                      className={turnover === selectedCountry.companyTurnoverValues.scale ? styles.selectedOption : ""}
+                      onClick={() => setTurnover(selectedCountry.companyTurnoverValues.scale)}
+                    >
+                      {selectedCountry.companyTurnover.growth}–{selectedCountry.companyTurnover.scale}
+                    </button>
+                    <button
+                      type="button"
+                      className={turnover === selectedCountry.companyTurnoverValues.scale + 1 ? styles.selectedOption : ""}
+                      onClick={() => setTurnover(selectedCountry.companyTurnoverValues.scale + 1)}
+                    >
+                      {selectedCountry.companyTurnover.scale}+
+                    </button>
+                  </>
                 ) : (
                   <>
-                    {finderSegment === "company" && <button type="button" className={turnover === 10_000 ? styles.selectedOption : ""} onClick={() => setTurnover(10_000)}>Up to {selectedCountry?.symbol ?? "€"}10k</button>}
                     <button type="button" className={turnover === 150_000 ? styles.selectedOption : ""} onClick={() => setTurnover(150_000)}>Up to {selectedCountry?.symbol ?? "€"}150k</button>
                     <button type="button" className={turnover === 400_000 ? styles.selectedOption : ""} onClick={() => setTurnover(400_000)}>{selectedCountry?.symbol ?? "€"}150k–{selectedCountry?.symbol ?? "€"}400k</button>
                     <button type="button" className={turnover === 1_000_000 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_000)}>{selectedCountry?.symbol ?? "€"}400k–{selectedCountry?.symbol ?? "€"}1m</button>
