@@ -25,32 +25,32 @@ export const metadata: Metadata = {
 };
 
 const fit = [
-  "You invoice one or more clients and want the tax, bookkeeping and year-end work kept under control.",
-  "Your income changes month to month and you want a clearer view of what is actually yours to spend.",
-  "You use a company and need director pay, expenses and personal tax kept connected.",
-  "You want someone to sense-check the accounting impact when contracts, clients or countries change.",
+  "You invoice one or more clients and want the accounting handled without chasing deadlines.",
+  "Your income varies and you want a clearer view of what is available after tax and business costs.",
+  "You trade through a company and need pay, expenses and year-end work kept connected.",
+  "Your contracts, clients or working location change and you want the accounting implications checked.",
 ] as const;
 
 const answers = [
   {
     question: "Can you handle more than one client or contract?",
     answer:
-      "Yes. The package level can scale with the number of contracts, transaction volume and how much review or bookkeeping support you need.",
+      "Yes. Support can scale with the number of contracts, transaction volume and the amount of bookkeeping or review you need.",
   },
   {
     question: "Do you deal with director salary and expenses?",
     answer:
-      "Yes, where you operate through a company. Payroll, expenses, mileage and director-related tax can be kept within the same accounting workflow.",
+      "Yes, where you operate through a company. Payroll, expenses, mileage and director-related tax can sit within the same accounting workflow.",
   },
   {
     question: "What if I work in more than one country?",
     answer:
-      "We can keep the accounting picture coordinated and flag where local tax or specialist advice is needed rather than treating each jurisdiction as a separate set of records.",
+      "We can coordinate the accounting and flag where local tax or specialist advice is needed, rather than duplicating records across jurisdictions.",
   },
   {
     question: "Can you take over mid-contract?",
     answer:
-      "Yes. We can review the current bookkeeping, payroll and filing position and agree a clean cut-over point without waiting for the contract to end.",
+      "Yes. We can review the current books, payroll and filings, then agree a clean cut-over point without waiting for the contract to end.",
   },
 ] as const;
 
@@ -78,7 +78,7 @@ export default function ContractorsFreelancersPage() {
       <AudienceHero
         eyebrow="Contractors & freelancers"
         title="Keep the contracts moving. Keep the numbers clean."
-        copy="We look after the accounting around variable income, multiple clients, expenses, director pay and year-end filings so you can focus on the work you are being paid to do."
+        copy="We keep variable income, client invoices, expenses, director pay and year-end work in one accounting process, so each new contract does not create more admin."
         primaryLabel="See contractor pricing"
         primaryHref="#pricing"
         visual={
@@ -121,8 +121,8 @@ export default function ContractorsFreelancersPage() {
           <p className="eyebrow">The moving parts</p>
           <h2>Contracting is simple until the money starts moving in different directions.</h2>
           <p>
-            The useful setup keeps client income, expenses, payroll and personal withdrawals visible in one place,
-            so each new contract does not create another accounting system.
+            Client income, expenses, payroll and personal withdrawals stay visible in one place, so a new contract
+            does not create another accounting system.
           </p>
           <Link className="text-link" href="#pricing">See contractor packages <span aria-hidden="true">↗</span></Link>
         </div>
@@ -140,8 +140,8 @@ export default function ContractorsFreelancersPage() {
           <p className="eyebrow">Pricing</p>
           <h2>Choose your country, then the level of contractor support you need.</h2>
           <p>
-            Setup is available as a one-off service. Ongoing packages increase with contract complexity, bookkeeping
-            volume and how much director or cross-border support is needed.
+            Setup is available separately. Ongoing packages scale with contract complexity, bookkeeping volume and
+            the amount of director or cross-border support required.
           </p>
         </div>
         <div className={styles.priceLinks}>
@@ -160,7 +160,7 @@ export default function ContractorsFreelancersPage() {
       <AudienceClosing
         eyebrow="New contract starting?"
         title="Get the accounting sorted before the admin piles up."
-        copy="Tell us how you trade, how many clients you have and whether you use a company. We can point you to the right setup and ongoing package."
+        copy="Tell us how you trade, how many clients you have and whether you use a company. We can point you to the right setup and package."
       />
     </>
   );
