@@ -113,24 +113,24 @@ export default function AdvisoryPage() {
 
             <div className={styles.metricGrid}>
               <div>
-                <span>Revenue</span>
-                <strong>↑ 8.4%</strong>
-                <small>vs prior period</small>
+                <span>Revenue trend</span>
+                <strong>Up</strong>
+                <small>against the comparison period</small>
               </div>
               <div>
                 <span>Gross margin</span>
-                <strong>31.6%</strong>
-                <small>current mix</small>
+                <strong>Tracked</strong>
+                <small>by product or service mix</small>
               </div>
               <div>
                 <span>Cash runway</span>
-                <strong>6.8 mo</strong>
-                <small>at current plan</small>
+                <strong>Forecast</strong>
+                <small>against the current plan</small>
               </div>
               <div>
                 <span>Debtors</span>
-                <strong>24 days</strong>
-                <small>average collection</small>
+                <strong>Monitored</strong>
+                <small>collection speed and ageing</small>
               </div>
             </div>
 
