@@ -4,8 +4,8 @@ import styles from "./limited-companies.module.css";
 import {
   AnswerCards,
   AudienceClosing,
-  AudienceCountries,
   AudienceHero,
+  AudienceProof,
   QuickFit,
 } from "@/components/who-we-help-sections";
 import { safeJsonLd } from "@/lib/seo";
@@ -78,7 +78,8 @@ export default function LimitedCompaniesPage() {
       <AudienceHero
         eyebrow="Limited companies"
         title="One company. One accountant. Fewer loose ends."
-        copy="We look after the recurring accounting around a limited company — accounts, tax, bookkeeping, payroll and company compliance — without making you coordinate the pieces yourself."
+        copy="Accounts, tax, bookkeeping, payroll and company compliance kept together, with one person who knows the business."
+        primaryLabel="See limited-company pricing"
         visual={
           <div className={styles.companyVisual} role="img" aria-label="Illustration showing the core accounting responsibilities around a limited company">
             <div className={styles.visualTop}>
@@ -100,6 +101,15 @@ export default function LimitedCompaniesPage() {
             </div>
           </div>
         }
+      />
+
+      <AudienceProof
+        items={[
+          ["7+", "years’ experience"],
+          ["1", "named accountant"],
+          ["Direct", "WhatsApp access"],
+          ["Free", "accountant switching"],
+        ]}
       />
 
       <QuickFit
@@ -125,12 +135,6 @@ export default function LimitedCompaniesPage() {
         </div>
       </section>
 
-      <AnswerCards
-        eyebrow="The questions we get most"
-        title="The short answers."
-        items={answers}
-      />
-
       <section className={`section-pad ${styles.priceRoute}`}>
         <div>
           <p className="eyebrow">Pricing</p>
@@ -143,11 +147,15 @@ export default function LimitedCompaniesPage() {
         <div className={styles.priceLinks}>
           <Link href="/packages/ireland/limited-company"><span>Ireland</span><strong>From €79 / month</strong><i>↗</i></Link>
           <Link href="/packages/united-kingdom/limited-company"><span>United Kingdom</span><strong>From £49 / month</strong><i>↗</i></Link>
-          <Link href="/packages/gibraltar/limited-company"><span>Gibraltar</span><strong>See packages</strong><i>↗</i></Link>
+          <Link href="/packages/gibraltar/limited-company"><span>Gibraltar</span><strong>From £69 / month</strong><i>↗</i></Link>
         </div>
       </section>
 
-      <AudienceCountries copy="Choose the country where the company is registered for the local accounting, tax and filing context." />
+      <AnswerCards
+        eyebrow="The questions we get most"
+        title="The short answers."
+        items={answers}
+      />
 
       <AudienceClosing
         eyebrow="Already trading?"
