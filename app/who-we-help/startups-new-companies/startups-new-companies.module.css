@@ -1,0 +1,221 @@
+.startupVisual {
+  min-height: 500px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 84% 8%, color-mix(in srgb, var(--teal) 11%, transparent), transparent 30%),
+    linear-gradient(145deg, color-mix(in srgb, var(--paper) 94%, transparent), color-mix(in srgb, var(--cloud) 84%, transparent));
+  box-shadow: var(--shadow-soft);
+}
+
+.visualTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 11px;
+}
+
+.visualTop strong { color: var(--teal); }
+
+.launchTrack {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.launchTrack > div {
+  min-height: 150px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--paper) 84%, transparent);
+  display: flex;
+  flex-direction: column;
+}
+
+.launchTrack span { color: var(--teal); font: 10px var(--font-mono); }
+.launchTrack strong { margin-top: auto; font-size: 21px; }
+.launchTrack small { margin-top: 7px; color: var(--muted); line-height: 1.4; }
+.launchTrack > i { color: var(--teal); font-style: normal; }
+
+.tradeCard {
+  min-height: 128px;
+  margin-top: 20px;
+  padding: 22px;
+  border-radius: 20px;
+  background: var(--ink);
+  color: white;
+  display: grid;
+  align-content: center;
+  gap: 5px;
+}
+
+.tradeCard span {
+  color: #7bd1c7;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 10px;
+}
+
+.tradeCard strong { font-size: 29px; letter-spacing: -.04em; }
+.tradeCard small { color: rgba(255,255,255,.52); }
+
+.launchSection {
+  display: grid;
+  grid-template-columns: minmax(0,.8fr) minmax(520px,1.2fr);
+  gap: clamp(60px,8vw,120px);
+  align-items: start;
+}
+
+.launchLead { position: sticky; top: 120px; }
+.launchLead > p:not(.eyebrow) { max-width: 600px; margin: 24px 0 28px; color: var(--muted); line-height: 1.62; }
+
+.launchBoard {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 12px;
+}
+
+.launchBoard article {
+  min-height: 220px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--paper) 78%, transparent);
+  display: flex;
+  flex-direction: column;
+}
+
+.launchBoard article:nth-child(1),
+.launchBoard article:nth-child(4) {
+  background: color-mix(in srgb, var(--teal) 6%, var(--paper));
+}
+
+.launchBoard span {
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 10px;
+}
+
+.launchBoard strong { margin-top: auto; font-size: 25px; letter-spacing: -.03em; }
+.launchBoard small { margin-top: 10px; color: var(--muted); line-height: 1.5; }
+
+.firstYearSection {
+  width: min(1540px, calc(100vw - 20px));
+  padding-inline: max(28px, calc((100% - var(--page)) / 2));
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--teal) 6%, var(--paper));
+}
+
+.firstYearHeader { max-width: 850px; }
+.firstYearHeader > p:last-child { max-width: 680px; margin: 22px 0 0; color: var(--muted); line-height: 1.62; }
+
+.firstYearTrack {
+  display: grid;
+  grid-template-columns: 1fr 70px 1fr 70px 1fr 70px 1fr;
+  align-items: center;
+  margin-top: 52px;
+}
+
+.firstYearTrack > div {
+  min-height: 170px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--paper) 84%, transparent);
+  display: flex;
+  flex-direction: column;
+}
+
+.firstYearTrack span {
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 10px;
+}
+
+.firstYearTrack strong { margin-top: auto; font-size: 22px; }
+.firstYearTrack > i { height: 1px; background: color-mix(in srgb, var(--teal) 35%, var(--line)); }
+
+.priceRoute {
+  display: grid;
+  grid-template-columns: minmax(0,.9fr) minmax(460px,1.1fr);
+  gap: 70px;
+  align-items: start;
+}
+
+.priceRoute > div:first-child > p:last-child { max-width: 630px; margin: 22px 0 0; color: var(--muted); line-height: 1.6; }
+.priceLinks { display: grid; border-top: 1px solid var(--line); }
+
+.priceLinks a {
+  min-height: 86px;
+  display: grid;
+  grid-template-columns: 1fr auto 22px;
+  gap: 20px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.priceLinks span { font-weight: 650; }
+.priceLinks strong { color: var(--muted); font-size: 14px; font-weight: 550; }
+.priceLinks i { font-style: normal; transition: transform .2s ease; }
+.priceLinks a:hover i,
+.priceLinks a:focus-visible i { transform: translate(3px,-3px); }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .launchTrack > div,
+  .launchBoard article,
+  .firstYearTrack > div {
+    transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease;
+  }
+
+  .launchTrack > div:hover,
+  .launchBoard article:hover,
+  .firstYearTrack > div:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--teal) 30%, var(--line));
+  }
+
+  .startupVisual:hover .launchTrack > i {
+    animation: launch-arrow .7s ease both;
+  }
+}
+
+@keyframes launch-arrow {
+  from { opacity: .3; transform: translateX(-5px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (max-width: 1000px) {
+  .launchSection,
+  .priceRoute { grid-template-columns: 1fr; }
+  .launchLead { position: static; }
+  .firstYearTrack { grid-template-columns: 1fr; gap: 12px; }
+  .firstYearTrack > i { width: 1px; height: 26px; justify-self: center; }
+}
+
+@media (max-width: 760px) {
+  .startupVisual { min-height: auto; padding: 18px; border-radius: 26px; }
+  .launchTrack { grid-template-columns: 1fr; }
+  .launchTrack > i { transform: rotate(90deg); text-align: center; }
+  .launchBoard { grid-template-columns: 1fr; }
+  .firstYearSection { width: calc(100vw - 12px); padding-left: 22px; padding-right: 22px; }
+  .priceLinks a { grid-template-columns: 1fr 20px; }
+  .priceLinks strong { grid-row: 2; }
+  .priceLinks i { grid-row: 1 / 3; grid-column: 2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .launchTrack > div,
+  .launchBoard article,
+  .firstYearTrack > div { transition: none; }
+}
