@@ -64,6 +64,8 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       "director personal tax return": "director Form 11",
       "Personal tax returns for 2 directors": "Form 11 returns for 2 directors",
       "Personal tax returns for 3 directors": "Form 11 returns for 3 directors",
+      "VAT, payroll tax or contractor tax setup where needed": "VAT, PAYE or RCT setup where needed",
+      "Annual personal tax return + preliminary or advance tax": "Form 11 + preliminary tax",
       "contractor withholding": "RCT",
     },
     companyCommon: [
@@ -112,6 +114,10 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       "Personal tax returns for 2 directors": "Self Assessment returns for 2 directors",
       "Personal tax returns for 3 directors": "Self Assessment returns for 3 directors",
       "Income Tax registration": "Self Assessment registration",
+      "VAT returns including OSS": "UK and cross-border VAT support",
+      "VAT / OSS readiness review": "UK and cross-border VAT readiness review",
+      "OSS and IOSS": "Cross-border VAT / OSS support",
+      "EU VAT": "cross-border VAT",
       "VAT, payroll tax or contractor tax setup where needed": "VAT, PAYE or CIS setup where needed",
       "contractor withholding": "CIS",
       "Corporation tax, annual registry and VAT compliance": "CT600, confirmation statement and VAT compliance",
@@ -140,7 +146,7 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       starter: "£130k",
       growth: "£350k",
       scale: "£850k",
-      bespokeNote: "Audit threshold: £1.75m turnover.",
+      bespokeNote: "Audit requirements are reviewed separately above £1.75m turnover.",
     },
     companyTurnoverValues: { dormant: 10_000, starter: 130_000, growth: 350_000, scale: 850_000 },
     priceNote: "Government filing fees and other third-party charges are excluded unless stated.",
@@ -164,6 +170,12 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       "EU sales returns (where applicable)": "Quarterly tax and compliance review",
       "Director personal tax return": "Director personal tax return",
       "director personal tax return": "director personal tax return",
+      "VAT returns including OSS": "Cross-border indirect tax support where relevant",
+      "VAT / OSS readiness review": "Cross-border tax readiness review",
+      "OSS and IOSS": "Cross-border indirect tax support",
+      "EU VAT": "cross-border indirect tax",
+      "Additional country VAT registrations quoted separately": "Additional overseas tax registrations quoted separately",
+      "ongoing bookkeeping and VAT filing not included": "ongoing bookkeeping and tax filing not included",
       "VAT, payroll tax or contractor tax setup where needed": "PAYE and tax registrations where needed",
       "Corporation tax, annual registry and VAT compliance": "Corporate Tax Return (CT1), Annual Return and company compliance",
       "Cross-border VAT guidance where relevant": "Cross-border tax guidance where relevant",
@@ -199,7 +211,10 @@ export function localisePackageCopy(country: PackageCountry, text: string) {
   const config = countryPackageConfig[country];
   let output = text.replaceAll("€", config.symbol);
 
-  for (const [from, to] of Object.entries(config.terminology)) {
+  const replacements = Object.entries(config.terminology)
+    .sort(([a], [b]) => b.length - a.length);
+
+  for (const [from, to] of replacements) {
     output = output.replaceAll(from, to);
   }
 
