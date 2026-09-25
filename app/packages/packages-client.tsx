@@ -119,7 +119,7 @@ export function PackagesClient({
 
     const saved = window.localStorage.getItem("shiel-package-country") as PackageCountry | null;
     if (saved && countries.some((item) => item.id === saved)) {
-      router.replace(`/packages/${saved}`);
+      router.replace(`/packages/${saved}`, { scroll: false });
       return;
     }
 
@@ -133,13 +133,13 @@ export function PackagesClient({
     const nextPath = segment
       ? `/packages/${next}/${segmentSlugs[segment]}`
       : `/packages/${next}`;
-    router.push(nextPath);
+    router.push(nextPath, { scroll: false });
   };
 
   const chooseSegment = (next: Segment) => {
     if (!country) return;
     setExpanded(null);
-    router.push(`/packages/${country}/${segmentSlugs[next]}`);
+    router.push(`/packages/${country}/${segmentSlugs[next]}`, { scroll: false });
   };
 
   const chooseFinderSegment = (next: Segment) => {
