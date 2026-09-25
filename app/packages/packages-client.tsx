@@ -1,12 +1,80 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { type KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./packages.module.css";
 import { addOnGroups, commonCompany, recommendation, segments, type Segment } from "./packages-data";
 
-export function PackagesClient() {
-  const [segment, setSegment] = useState<Segment>("company");
+export type PackageCountry = "ireland" | "united-kingdom" | "gibraltar";
+
+const countries: { id: PackageCountry; label: string; symbol: "€" | "£" }[] = [
+  { id: "ireland", label: "Ireland", symbol: "€" },
+  { id: "united-kingdom", label: "UK", symbol: "£" },
+  { id: "gibraltar", label: "Gibraltar", symbol: "£" },
+];
+
+const segmentSlugs: Record<Segment, string> = {
+  company: "limited-company",
+  "sole-trader": "sole-trader",
+  contractor: "contractor",
+  ecommerce: "ecommerce",
+};
+
+function countryCopy(country: PackageCountry | null, text: string) {
+  if (!country) return text;
+  const symbol = country === "ireland" ? "€" : "£";
+  let value = text.replaceAll("€", symbol);
+
+  if (country === "ireland") {
+    return value
+      .replaceAll("Corporation tax return", "Corporation Tax return (CT1)")
+      .replaceAll("corporation tax return", "Corporation Tax return (CT1)")
+      .replaceAll("Annual registry return", "CRO Annual Return (B1)")
+      .replaceAll("annual registry return", "CRO Annual Return (B1)")
+      .replaceAll("government fees", "CRO fees")
+      .replaceAll("Beneficial ownership maintenance", "RBO maintenance")
+      .replaceAll("Beneficial ownership registration", "RBO registration")
+      .replaceAll("Tax authority online account setup", "ROS setup")
+      .replaceAll("tax authority", "Revenue")
+      .replaceAll("contractor withholding", "RCT");
+  }
+
+  if (country === "united-kingdom") {
+    return value
+      .replaceAll("Corporation tax return", "Company Tax Return (CT600)")
+      .replaceAll("corporation tax return", "Company Tax Return (CT600)")
+      .replaceAll("Annual registry return", "Companies House confirmation statement")
+      .replaceAll("annual registry return", "Companies House confirmation statement")
+      .replaceAll("government fees", "Companies House fees")
+      .replaceAll("Beneficial ownership maintenance", "PSC register maintenance")
+      .replaceAll("Beneficial ownership registration", "PSC register support")
+      .replaceAll("Tax authority online account setup", "HMRC online account setup")
+      .replaceAll("tax authority", "HMRC")
+      .replaceAll("contractor withholding", "contractor tax");
+  }
+
+  return value
+    .replaceAll("Corporation tax return", "Corporate tax return")
+    .replaceAll("corporation tax return", "corporate tax return")
+    .replaceAll("Annual registry return", "Companies House annual return")
+    .replaceAll("annual registry return", "Companies House annual return")
+    .replaceAll("government fees", "Companies House Gibraltar fees")
+    .replaceAll("Tax authority online account setup", "tax office online setup")
+    .replaceAll("tax authority", "tax office");
+}
+
+export function PackagesClient({
+  initialCountry = null,
+  initialSegment = null,
+}: {
+  initialCountry?: PackageCountry | null;
+  initialSegment?: Segment | null;
+}) {
+  const router = useRouter();
+  const [country, setCountry] = useState<PackageCountry | null>(initialCountry);
+  const [segment, setSegment] = useState<Segment | null>(initialSegment);
+  const [countryHint, setCountryHint] = useState<PackageCountry | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [compareOpen, setCompareOpen] = useState(false);
   const [finderOpen, setFinderOpen] = useState(false);
@@ -22,7 +90,10 @@ export function PackagesClient() {
   const [platforms, setPlatforms] = useState<"one" | "multi">("one");
   const [complex, setComplex] = useState(false);
 
-  const current = useMemo(() => segments.find((item) => item.id === segment) ?? segments[0], [segment]);
+  const current = useMemo(() => segments.find((item) => item.id === segment) ?? null, [segment]);
+  const selectedCountry = countries.find((item) => item.id === country) ?? null;
+  const money = (value: number) => `${selectedCountry?.symbol ?? "€"}${value}`;
+  const localise = (text: string) => countryCopy(country, text);
   const fit = recommendation({
     segment: finderSegment,
     startingOut: finderStartingOut,
@@ -34,6 +105,42 @@ export function PackagesClient() {
     platforms,
     complex,
   });
+
+  useEffect(() => {
+    setCountry(initialCountry);
+    setSegment(initialSegment);
+  }, [initialCountry, initialSegment]);
+
+  useEffect(() => {
+    if (initialCountry) {
+      window.localStorage.setItem("shiel-package-country", initialCountry);
+      return;
+    }
+
+    const saved = window.localStorage.getItem("shiel-package-country") as PackageCountry | null;
+    if (saved && countries.some((item) => item.id === saved)) {
+      router.replace(`/packages/${saved}`);
+      return;
+    }
+
+    const language = navigator.language.toLowerCase();
+    if (language === "en-ie") setCountryHint("ireland");
+    else if (language === "en-gb") setCountryHint("united-kingdom");
+  }, [initialCountry, router]);
+
+  const chooseCountry = (next: PackageCountry) => {
+    window.localStorage.setItem("shiel-package-country", next);
+    const nextPath = segment
+      ? `/packages/${next}/${segmentSlugs[segment]}`
+      : `/packages/${next}`;
+    router.push(nextPath);
+  };
+
+  const chooseSegment = (next: Segment) => {
+    if (!country) return;
+    setExpanded(null);
+    router.push(`/packages/${country}/${segmentSlugs[next]}`);
+  };
 
   const chooseFinderSegment = (next: Segment) => {
     setFinderSegment(next);
@@ -94,8 +201,7 @@ export function PackagesClient() {
 
     event.preventDefault();
     const nextSegment = segments[nextIndex];
-    setSegment(nextSegment.id);
-    setExpanded(null);
+    chooseSegment(nextSegment.id);
     document.getElementById(`package-tab-${nextSegment.id}`)?.focus();
   };
 
@@ -132,15 +238,37 @@ export function PackagesClient() {
       <section className={`section-pad ${styles.plansSection}`} id="plans">
         <div className={styles.controlsHeader}>
           <div>
-            <p className="eyebrow">Choose your setup</p>
-            <h2>Start with how you trade.</h2>
+            <p className="eyebrow">Step 1</p>
+            <h2>{country ? "Now choose how you trade." : "Choose your country."}</h2>
           </div>
           <button className={styles.finderButton} type="button" onClick={openFinder}>
             Not sure? Find my package <span aria-hidden="true">→</span>
           </button>
         </div>
 
-        <div className={styles.segmentTabs} role="tablist" aria-label="Business type">
+        <div className={styles.selectionStep}>
+          <span>Country</span>
+          <div className={styles.segmentTabs} role="tablist" aria-label="Country">
+            {countries.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                role="tab"
+                aria-selected={country === item.id}
+                className={`${country === item.id ? styles.activeTab : ""} ${!country && countryHint === item.id ? styles.hintedTab : ""}`}
+                onClick={() => chooseCountry(item.id)}
+              >
+                {item.label} <small>{item.symbol}</small>
+              </button>
+            ))}
+          </div>
+          {!country && <p className={styles.selectionPrompt}>Choose your country to see the right currency, terminology and package options.</p>}
+        </div>
+
+        {country && (
+          <div className={styles.selectionStep}>
+            <span>Trade type</span>
+            <div className={styles.segmentTabs} role="tablist" aria-label="Business type">
           {segments.map((item, index) => (
             <button
               key={item.id}
@@ -151,16 +279,20 @@ export function PackagesClient() {
               aria-selected={segment === item.id}
               tabIndex={segment === item.id ? 0 : -1}
               className={segment === item.id ? styles.activeTab : ""}
-              onClick={() => { setSegment(item.id); setExpanded(null); }}
+              onClick={() => chooseSegment(item.id)}
               onKeyDown={(event) => handleSegmentKeyDown(event, index)}
             >
               {item.label}
             </button>
           ))}
-        </div>
+            </div>
+          </div>
+        )}
 
+        {country && segment && current ? (
+        <>
         <div className={styles.segmentIntro}>
-          <p>{current.intro}</p>
+          <p>{localise(current.intro)}</p>
           {segment === "company" && <span>Every company plan also includes the core compliance work shown below.</span>}
         </div>
 
@@ -172,7 +304,7 @@ export function PackagesClient() {
               href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: current.advisoryOffer.name } }}
               data-cta="contractor-structure-review"
             >
-              {current.advisoryOffer.name} · {current.advisoryOffer.priceLabel} <span aria-hidden="true">↗</span>
+              {current.advisoryOffer.name} · {localise(current.advisoryOffer.priceLabel)} <span aria-hidden="true">↗</span>
             </Link>
           </div>
         )}
@@ -187,12 +319,12 @@ export function PackagesClient() {
                   <div>
                     {plan.popular && <span className={styles.popularBadge}>Most popular</span>}
                     <h3>{plan.name}</h3>
-                    <p>{plan.strap}</p>
+                    <p>{localise(plan.strap)}</p>
                   </div>
                   <div className={styles.price}>
-                    <strong>€{plan.price}</strong>
+                    <strong>{money(plan.price)}</strong>
                     <span>
-                      {plan.priceNote ? `${plan.priceNote} · ` : ""}
+                      {plan.priceNote ? `${localise(plan.priceNote)} · ` : ""}
                       {plan.billing === "one-off" ? "one-off" : "/ month"}
                     </span>
                   </div>
@@ -200,7 +332,7 @@ export function PackagesClient() {
 
                 <ul className={styles.featureList}>
                   {plan.features.map((feature) => (
-                    <li key={feature}><span aria-hidden="true">✓</span>{feature}</li>
+                    <li key={feature}><span aria-hidden="true">✓</span>{localise(feature)}</li>
                   ))}
                 </ul>
 
@@ -215,7 +347,7 @@ export function PackagesClient() {
 
                 {isExpanded && (
                   <div className={styles.expandedDetails}>
-                    {plan.details.map((detail) => <span key={detail}>✓ {detail}</span>)}
+                    {plan.details.map((detail) => <span key={detail}>✓ {localise(detail)}</span>)}
                   </div>
                 )}
 
@@ -236,7 +368,7 @@ export function PackagesClient() {
                       </button>
                     )}
                   </div>
-                  <p>{plan.limits}</p>
+                  <p>{localise(plan.limits)}</p>
                 </div>
 
                 <Link
@@ -260,7 +392,7 @@ export function PackagesClient() {
                 <h3>The core compliance work is already covered.</h3>
               </div>
               <div className={styles.includedGrid}>
-                {commonCompany.map((item) => <span key={item}>✓ {item}</span>)}
+                {commonCompany.map((item) => <span key={item}>✓ {localise(item)}</span>)}
               </div>
             </div>
 
@@ -276,9 +408,9 @@ export function PackagesClient() {
                       <tr><th>Plan</th><th>Dormant & Pre-trade</th><th>Starter</th><th>Growth</th><th>Scale</th></tr>
                     </thead>
                     <tbody>
-                      <tr><th>Monthly fee</th><td>€79</td><td>€179</td><td>€279</td><td>€449</td></tr>
+                      <tr><th>Monthly fee</th><td>{money(79)}</td><td>{money(179)}</td><td>{money(279)}</td><td>{money(449)}</td></tr>
                       <tr><th>Transactions</th><td>10</td><td>30</td><td>60</td><td>120</td></tr>
-                      <tr><th>Sales / turnover</th><td>€10k</td><td>€150k</td><td>€400k</td><td>€1m</td></tr>
+                      <tr><th>Sales / turnover</th><td>{money(10)}k</td><td>{money(150)}k</td><td>{money(400)}k</td><td>{money(1)}m</td></tr>
                       <tr><th>Payroll</th><td>—</td><td>2 staff</td><td>6 staff</td><td>15 staff</td></tr>
                       <tr><th>Management reports</th><td>—</td><td>—</td><td>Quarterly</td><td>Monthly</td></tr>
                       <tr><th>Director personal tax return</th><td>1</td><td>1</td><td>2</td><td>3</td></tr>
@@ -294,7 +426,7 @@ export function PackagesClient() {
         <div className={styles.bespoke}>
           <div>
             <span className={styles.panelKicker}>More complex?</span>
-            <h3>Bespoke plans from €499 / month.</h3>
+            <h3>Bespoke plans from {money(499)} / month.</h3>
           </div>
           <p>
             For higher volumes or more complex structures, we scope the work first and give you a fixed quote before anything starts.
@@ -307,8 +439,18 @@ export function PackagesClient() {
             Get a tailored quote <span aria-hidden="true">↗</span>
           </Link>
         </div>
+        </>
+        ) : country ? (
+          <div className={styles.selectionEmpty}>
+            <p className="eyebrow">Step 2</p>
+            <h3>Choose your trade type to see packages.</h3>
+            <p>Your country is set to {selectedCountry?.label}. The next choice determines which package set appears.</p>
+          </div>
+        ) : null}
       </section>
 
+      {country && segment && current && (
+      <>
       <section className={`section-pad ${styles.promiseSection}`}>
         <div className={styles.promiseCopy}>
           <p className="eyebrow">How it works</p>
@@ -349,6 +491,8 @@ export function PackagesClient() {
         <button className="button button-dark" type="button" onClick={openFinder}>Find my package <span aria-hidden="true">↗</span></button>
         <small>Prices shown exclude VAT where applicable. Package suitability and scope are confirmed before onboarding.</small>
       </section>
+      </>
+      )}
 
       <dialog
         ref={dialogRef}
@@ -448,25 +592,25 @@ export function PackagesClient() {
               <div className={styles.finderOptions}>
                 {finderSegment === "sole-trader" ? (
                   <>
-                    <button type="button" className={turnover === 80_000 ? styles.selectedOption : ""} onClick={() => setTurnover(80_000)}>Up to €80k</button>
-                    <button type="button" className={turnover === 200_000 ? styles.selectedOption : ""} onClick={() => setTurnover(200_000)}>€80k–€200k</button>
-                    <button type="button" className={turnover === 500_000 ? styles.selectedOption : ""} onClick={() => setTurnover(500_000)}>€200k–€500k</button>
-                    <button type="button" className={turnover === 500_001 ? styles.selectedOption : ""} onClick={() => setTurnover(500_001)}>€500k+</button>
+                    <button type="button" className={turnover === 80_000 ? styles.selectedOption : ""} onClick={() => setTurnover(80_000)}>Up to {selectedCountry?.symbol ?? "€"}80k</button>
+                    <button type="button" className={turnover === 200_000 ? styles.selectedOption : ""} onClick={() => setTurnover(200_000)}>{selectedCountry?.symbol ?? "€"}80k–{selectedCountry?.symbol ?? "€"}200k</button>
+                    <button type="button" className={turnover === 500_000 ? styles.selectedOption : ""} onClick={() => setTurnover(500_000)}>{selectedCountry?.symbol ?? "€"}200k–{selectedCountry?.symbol ?? "€"}500k</button>
+                    <button type="button" className={turnover === 500_001 ? styles.selectedOption : ""} onClick={() => setTurnover(500_001)}>{selectedCountry?.symbol ?? "€"}500k+</button>
                   </>
                 ) : finderSegment === "ecommerce" ? (
                   <>
-                    <button type="button" className={turnover === 150_000 ? styles.selectedOption : ""} onClick={() => setTurnover(150_000)}>Up to €150k</button>
-                    <button type="button" className={turnover === 500_000 ? styles.selectedOption : ""} onClick={() => setTurnover(500_000)}>€150k–€500k</button>
-                    <button type="button" className={turnover === 1_000_000 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_000)}>€500k–€1m</button>
-                    <button type="button" className={turnover === 1_000_001 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_001)}>€1m+</button>
+                    <button type="button" className={turnover === 150_000 ? styles.selectedOption : ""} onClick={() => setTurnover(150_000)}>Up to {selectedCountry?.symbol ?? "€"}150k</button>
+                    <button type="button" className={turnover === 500_000 ? styles.selectedOption : ""} onClick={() => setTurnover(500_000)}>{selectedCountry?.symbol ?? "€"}150k–{selectedCountry?.symbol ?? "€"}500k</button>
+                    <button type="button" className={turnover === 1_000_000 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_000)}>{selectedCountry?.symbol ?? "€"}500k–{selectedCountry?.symbol ?? "€"}1m</button>
+                    <button type="button" className={turnover === 1_000_001 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_001)}>{selectedCountry?.symbol ?? "€"}1m+</button>
                   </>
                 ) : (
                   <>
-                    {finderSegment === "company" && <button type="button" className={turnover === 10_000 ? styles.selectedOption : ""} onClick={() => setTurnover(10_000)}>Up to €10k</button>}
-                    <button type="button" className={turnover === 150_000 ? styles.selectedOption : ""} onClick={() => setTurnover(150_000)}>Up to €150k</button>
-                    <button type="button" className={turnover === 400_000 ? styles.selectedOption : ""} onClick={() => setTurnover(400_000)}>€150k–€400k</button>
-                    <button type="button" className={turnover === 1_000_000 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_000)}>€400k–€1m</button>
-                    <button type="button" className={turnover === 1_000_001 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_001)}>€1m+</button>
+                    {finderSegment === "company" && <button type="button" className={turnover === 10_000 ? styles.selectedOption : ""} onClick={() => setTurnover(10_000)}>Up to {selectedCountry?.symbol ?? "€"}10k</button>}
+                    <button type="button" className={turnover === 150_000 ? styles.selectedOption : ""} onClick={() => setTurnover(150_000)}>Up to {selectedCountry?.symbol ?? "€"}150k</button>
+                    <button type="button" className={turnover === 400_000 ? styles.selectedOption : ""} onClick={() => setTurnover(400_000)}>{selectedCountry?.symbol ?? "€"}150k–{selectedCountry?.symbol ?? "€"}400k</button>
+                    <button type="button" className={turnover === 1_000_000 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_000)}>{selectedCountry?.symbol ?? "€"}400k–{selectedCountry?.symbol ?? "€"}1m</button>
+                    <button type="button" className={turnover === 1_000_001 ? styles.selectedOption : ""} onClick={() => setTurnover(1_000_001)}>{selectedCountry?.symbol ?? "€"}1m+</button>
                   </>
                 )}
               </div>
@@ -522,7 +666,7 @@ export function PackagesClient() {
             <div className={styles.finderResult}>
               <span>Your likely fit</span>
               <strong>{fit.name}</strong>
-              <p>{fit.priceLabel}</p>
+              <p>{localise(fit.priceLabel)}</p>
               <small>{fit.reason}</small>
               <div>
                 <button type="button" className="button button-quiet" onClick={() => { setSegment(fit.segment); setFinderOpen(false); document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" }); }}>{finderStartingOut ? "View setup offer" : "View package"}</button>
