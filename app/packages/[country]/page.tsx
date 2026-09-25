@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PackagesClient, type PackageCountry } from "../packages-client";
+import { PackagesClient } from "../packages-client";
+import type { PackageCountry } from "../package-country-config";
 
 const countryNames: Record<PackageCountry, string> = {
   ireland: "Ireland",
