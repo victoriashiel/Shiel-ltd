@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "./bookkeeping.module.css";
 import { safeJsonLd } from "@/lib/seo";
+import { ServiceClosing, ServiceCountries, ServiceHub, ServiceProcess, ServiceScope } from "@/components/service-page-sections";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -147,79 +148,31 @@ export default function BookkeepingPage() {
         </div>
       </section>
 
-      <section className={`section-pad ${styles.flowSection}`}>
-        <div className={styles.sectionIntro}>
-          <p className="eyebrow">The bookkeeping cycle</p>
-          <h2>Good books are a process, not a year-end repair job.</h2>
-          <p>
-            The cleanest finance function is repetitive in the right way: collect the data, code it properly,
-            reconcile the balances and use the result for the next decision or filing.
-          </p>
-        </div>
+      <ServiceProcess
+        eyebrow="The bookkeeping cycle"
+        title="Good books are a process, not a year-end repair job."
+        copy="The cleanest finance function is repetitive in the right way: collect the data, code it properly, reconcile the balances and use the result for the next decision or filing."
+        steps={workflow}
+        ariaLabel="Bookkeeping workflow"
+      />
 
-        <div className={styles.workflow} aria-label="Bookkeeping workflow">
-          {workflow.map((item, index) => (
-            <article className={styles.workflowStep} key={item.step}>
-              <div className={styles.stepTop}>
-                <span>{item.step}</span>
-                {index < workflow.length - 1 && <i aria-hidden="true">→</i>}
-              </div>
-              <h3>{item.title}</h3>
-              <p>{item.copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <ServiceScope
+        title="What we keep under control each month."
+        copy="The exact bookkeeping setup depends on how you get paid, how many accounts and platforms you use, and whether VAT, payroll or e-commerce feeds are part of the picture."
+        items={scope}
+      />
 
-      <section className={`section-pad ${styles.scopeSection}`}>
-        <div className={styles.scopeHeader}>
-          <div>
-            <p className="eyebrow">Typical scope</p>
-            <h2>What we keep under control each month.</h2>
-          </div>
-          <p>
-            The exact bookkeeping setup depends on how you get paid, how many accounts and platforms you use,
-            and whether VAT, payroll or e-commerce feeds are part of the picture.
-          </p>
-        </div>
-
-        <div className={styles.scopeGrid}>
-          {scope.map(([title, copy], index) => (
-            <article className={styles.scopeCard} key={title}>
-              <span>0{index + 1}</span>
-              <h3>{title}</h3>
-              <p>{copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={`section-pad ${styles.systemSection}`}>
-        <div className={styles.systemCopy}>
-          <p className="eyebrow">One bookkeeping system</p>
-          <h2>The books should feed the rest of the finance work.</h2>
-          <p>
-            When the ledger is current, the same records can support VAT, payroll checks, management reporting,
-            tax work and year-end accounts. That avoids paying twice for the same clean-up.
-          </p>
-          <Link className="text-link" href="/accounts">See accounts support <span aria-hidden="true">↗</span></Link>
-        </div>
-
-        <div className={styles.systemMap} aria-label="Diagram showing bookkeeping connected to other finance work">
-          <div className={styles.systemCore}>
-            <span>Core records</span>
-            <strong>Bookkeeping</strong>
-          </div>
-          <div className={`${styles.systemNode} ${styles.nodeA}`}>VAT / indirect tax</div>
-          <div className={`${styles.systemNode} ${styles.nodeB}`}>Payroll checks</div>
-          <div className={`${styles.systemNode} ${styles.nodeC}`}>Management reporting</div>
-          <div className={`${styles.systemNode} ${styles.nodeD}`}>Year-end accounts</div>
-          <span className={`${styles.systemLine} ${styles.lineA}`} aria-hidden="true" />
-          <span className={`${styles.systemLine} ${styles.lineB}`} aria-hidden="true" />
-          <span className={`${styles.systemLine} ${styles.lineC}`} aria-hidden="true" />
-          <span className={`${styles.systemLine} ${styles.lineD}`} aria-hidden="true" />
-        </div>
-      </section>
+      <ServiceHub
+        eyebrow="One bookkeeping system"
+        title="The books should feed the rest of the finance work."
+        copy="When the ledger is current, the same records can support VAT, payroll checks, management reporting, tax work and year-end accounts. That avoids paying twice for the same clean-up."
+        linkHref="/accounts"
+        linkLabel="See accounts support"
+        ariaLabel="Diagram showing bookkeeping connected to other finance work"
+        coreEyebrow="Core records"
+        coreTitle="Bookkeeping"
+        nodes={["VAT / indirect tax", "Payroll checks", "Management reporting", "Year-end accounts"]}
+      />
 
       <section className={`section-pad ${styles.healthSection}`}>
         <div className={styles.healthHeader}>
@@ -246,52 +199,20 @@ export default function BookkeepingPage() {
         </div>
       </section>
 
-      <section className={`section-pad ${styles.countrySection}`} id="countries">
-        <div className={styles.countryHeader}>
-          <p className="eyebrow">Country-specific bookkeeping</p>
-          <h2>The ledger is universal. The reporting around it is not.</h2>
-          <p>
-            Choose the country relevant to your business to see the local tax and filing context. If you operate
-            across several jurisdictions, start with International.
-          </p>
-        </div>
 
-        <div className={styles.countryGrid}>
-          {countries.map((country) => (
-            <Link className={styles.countryCard} href={country.href} key={country.name}>
-              <div>
-                <span>Country guide</span>
-                <h3>{country.name}</h3>
-                <p>{country.note}</p>
-              </div>
-              <strong aria-hidden="true">↗</strong>
-            </Link>
-          ))}
-          <Link className={`${styles.countryCard} ${styles.internationalCard}`} href="/international-accounting">
-            <div>
-              <span>Cross-border</span>
-              <h3>International</h3>
-              <p>For businesses using several currencies, entities, banks or local advisers.</p>
-            </div>
-            <strong aria-hidden="true">↗</strong>
-          </Link>
-        </div>
-      </section>
+      <ServiceCountries
+        eyebrow="Country-specific bookkeeping"
+        title="The ledger is universal. The reporting around it is not."
+        copy="Choose the country relevant to your business to see the local tax and filing context. If you operate across several jurisdictions, start with International."
+        countries={countries}
+        internationalCopy="For businesses using several currencies, entities, banks or local advisers."
+      />
 
-      <section className={`section-pad ${styles.closing}`}>
-        <div>
-          <p className="eyebrow">Books behind?</p>
-          <h2>We can clean up the past and then keep the process current.</h2>
-          <p>
-            If the bookkeeping has fallen behind, we can review the existing ledger, identify the clean-up work
-            and agree where the ongoing monthly process should begin.
-          </p>
-        </div>
-        <div className={styles.closingActions}>
-          <Link className="button button-dark" href="/contact">Talk to us <span aria-hidden="true">↗</span></Link>
-          <Link className="button button-quiet" href="/packages">View pricing</Link>
-        </div>
-      </section>
+      <ServiceClosing
+        eyebrow="Books behind?"
+        title="We can clean up the past and then keep the process current."
+        copy="If the bookkeeping has fallen behind, we can review the existing ledger, identify the clean-up work and agree where the ongoing monthly process should begin."
+      />
     </>
   );
 }
