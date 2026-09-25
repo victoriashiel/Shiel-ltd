@@ -15,6 +15,34 @@ export type ServiceCountry = {
   note: string;
 };
 
+export function ServiceHero({
+  eyebrow,
+  title,
+  copy,
+  visual,
+}: {
+  eyebrow: string;
+  title: string;
+  copy: string;
+  visual: React.ReactNode;
+}) {
+  return (
+    <section className={`section-pad ${styles.hero}`}>
+      <div className={styles.heroCopy}>
+        <Link href="/#services" className="back-link">← Services</Link>
+        <p className="eyebrow">{eyebrow}</p>
+        <h1>{title}</h1>
+        <p>{copy}</p>
+        <div className={styles.heroActions}>
+          <Link className="button button-dark" href="/packages">See packages <span aria-hidden="true">↗</span></Link>
+          <a className="text-link" href="#countries">Choose your country <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      {visual}
+    </section>
+  );
+}
+
 export function ServiceProcess({
   eyebrow,
   title,
