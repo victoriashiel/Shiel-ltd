@@ -284,15 +284,108 @@ export function recommendation({
     }
 
     if (segment === "contractor") {
-    if (startingOut) {
       return {
-        segment: "contractor",
+        segment,
         name: "Contractor Setup",
         priceLabel: `${currencySymbol}${contractorPrices.setup} · one-off`,
         reason: "This gets the contractor setup, registrations, payroll and bookkeeping structure in place before the first invoice.",
       };
     }
 
+    if (segment === "ecommerce") {
+      return {
+        segment,
+        name: "E-commerce Finance Setup",
+        priceLabel: `${currencySymbol}${ecommercePrices.setup} · one-off`,
+        reason: "This sets up platform feeds, the bookkeeping structure and tax readiness before ongoing bookkeeping.",
+      };
+    }
+
+    return {
+      segment,
+      name: "Dormant & Pre-trade",
+      priceLabel: `${currencySymbol}${companyPrices.dormant} / month`,
+      reason: "This is the entry company plan for newly formed, pre-trading or dormant companies.",
+    };
+  }
+
+  if (segment === "ecommerce") {
+    if (transactions > 200 || turnover > 1_000_000) {
+      return {
+        segment: "ecommerce",
+        name: "Bespoke",
+        priceLabel: `From ${currencySymbol}${ecommercePrices.scale} / month`,
+        reason: "Your sales volume is above the published E-commerce Scale limit, so the work needs to be scoped.",
+      };
+    }
+
+    if (transactions > 100 || turnover > 500_000) {
+      return {
+        segment: "ecommerce",
+        name: "E-commerce Scale",
+        priceLabel: `${currencySymbol}${ecommercePrices.scale} / month`,
+        reason: "Your accounting volume or sales level is above Multi-channel and fits the higher-volume Scale tier.",
+      };
+    }
+
+    if (platforms === "multi" || transactions > 50 || turnover > 150_000) {
+      return {
+        segment: "ecommerce",
+        name: "E-commerce Multi-channel",
+        priceLabel: `${currencySymbol}${ecommercePrices.multiChannel} / month`,
+        reason: platforms === "multi"
+          ? "You sell across more than one platform."
+          : transactions > 50
+            ? "Your accounting transaction volume is above the Launch plan limit."
+            : `Your sales are above the Launch plan limit of ${currencySymbol}150k.`,
+      };
+    }
+
+    return {
+      segment: "ecommerce",
+      name: "E-commerce Launch",
+      priceLabel: `${currencySymbol}${ecommercePrices.launch} / month`,
+      reason: `This fits one-platform selling with up to 50 accounting transactions a month and annual sales up to ${currencySymbol}150k.`,
+    };
+  }
+
+  if (segment === "sole-trader") {
+    if (transactions > 150 || turnover > 500_000 || staff > 5) {
+      return {
+        segment: "sole-trader",
+        name: "Bespoke",
+        priceLabel: `From ${currencySymbol}${soleTraderPrices.scale} / month`,
+        reason: "At least one part of your activity is above the published Sole Trader Scale limits, so we will confirm the scope before onboarding.",
+      };
+    }
+
+    if (transactions > 60 || turnover > 200_000 || staff > 2) {
+      return {
+        segment: "sole-trader",
+        name: "Sole Trader Scale",
+        priceLabel: `${currencySymbol}${soleTraderPrices.scale} / month`,
+        reason: "Your activity is above Plus and fits the higher-volume Scale tier.",
+      };
+    }
+
+    if (transactions > 20 || turnover > 80_000 || staff > 0) {
+      return {
+        segment: "sole-trader",
+        name: "Sole Trader Plus",
+        priceLabel: `${currencySymbol}${soleTraderPrices.plus} / month`,
+        reason: "Your transaction level, turnover or payroll needs move you beyond Essentials.",
+      };
+    }
+
+    return {
+      segment: "sole-trader",
+      name: "Sole Trader Essentials",
+      priceLabel: `${currencySymbol}${soleTraderPrices.essentials} / month`,
+      reason: `This fits up to 20 monthly accounting transactions and turnover up to ${currencySymbol}80k with no payroll.`,
+    };
+  }
+
+  if (segment === "contractor") {
     if (complex || directors > 1 || staff > 0 || transactions > 60) {
       return {
         segment: "contractor",
@@ -318,6 +411,53 @@ export function recommendation({
       reason: "This fits a single-client, single-director contractor with up to 15 monthly transactions.",
     };
   }
+
+  const companyResult = (): FinderResult => {
+    if (transactions > 120 || turnover > companyThresholds.scale || staff > 15 || directors > 4) {
+      return {
+        segment: "company",
+        name: "Bespoke",
+        priceLabel: `From ${currencySymbol}${companyPrices.bespoke} / month`,
+        reason: "At least one part of your company is above the published Scale limits.",
+      };
+    }
+
+    if (dormant && transactions <= 10 && turnover <= companyThresholds.dormant && staff === 0 && directors <= 1 && !complex) {
+      return {
+        segment: "company",
+        name: "Dormant & Pre-trade",
+        priceLabel: `${currencySymbol}${companyPrices.dormant} / month`,
+        reason: "This matches the dormant/pre-trade limits: minimal activity, no payroll and one director.",
+      };
+    }
+
+    if (complex || transactions > 60 || turnover > companyThresholds.growth || staff > 6 || directors > 3) {
+      return {
+        segment: "company",
+        name: "LTD Scale",
+        priceLabel: `${currencySymbol}${companyPrices.scale} / month`,
+        reason: complex
+          ? "Cash businesses, contractor withholding or group structures are included from Scale."
+          : "Your activity requires the published Scale limits.",
+      };
+    }
+
+    if (transactions > 30 || turnover > companyThresholds.starter || staff > 2 || directors > 2) {
+      return {
+        segment: "company",
+        name: "LTD Growth",
+        priceLabel: `${currencySymbol}${companyPrices.growth} / month`,
+        reason: "Your activity is above Starter but remains within the Growth limits.",
+      };
+    }
+
+    return {
+      segment: "company",
+      name: "LTD Starter",
+      priceLabel: `${currencySymbol}${companyPrices.starter} / month`,
+      reason: `This fits up to 30 monthly transactions, ${currencySymbol}${Math.round(companyThresholds.starter / 1000)}k sales, 2 employees and 2 directors.`,
+    };
+  };
 
   return companyResult();
 }
