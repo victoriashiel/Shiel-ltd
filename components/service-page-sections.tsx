@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import styles from "./service-page-sections.module.css";
 
@@ -24,7 +25,7 @@ export function ServiceHero({
   eyebrow: string;
   title: string;
   copy: string;
-  visual: React.ReactNode;
+  visual: ReactNode;
 }) {
   return (
     <section className={`section-pad ${styles.hero}`}>
