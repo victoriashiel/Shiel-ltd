@@ -144,3 +144,59 @@
 
   .taxSplit { grid-template-columns: 1fr; }
 }
+
+.editorialSection {
+  width: min(1540px, calc(100vw - 20px));
+  padding-inline: max(28px, calc((100% - var(--page)) / 2));
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--teal) 6%, var(--paper));
+}
+
+.editorialHeader { max-width: 850px; }
+.editorialHeader > p:last-child { max-width: 680px; margin: 24px 0 0; color: var(--muted); font-size: 17px; line-height: 1.62; }
+
+.taxTimeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 0;
+  margin-top: 58px;
+}
+
+.taxTimeline::before {
+  content: "";
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  top: 22px;
+  height: 1px;
+  background: color-mix(in srgb, var(--teal) 35%, var(--line));
+}
+
+.taxMilestone { position: relative; padding: 0 22px; }
+.taxMilestone > span {
+  position: relative;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ink);
+  color: white;
+  font: 11px var(--font-mono);
+}
+.taxMilestone div { margin-top: 28px; }
+.taxMilestone strong { display: block; font-size: 26px; }
+.taxMilestone small { display: block; margin-top: 10px; color: var(--muted); line-height: 1.5; max-width: 260px; }
+
+@media (max-width: 820px) {
+  .taxTimeline { grid-template-columns: 1fr; gap: 24px; }
+  .taxTimeline::before { left: 21px; top: 20px; bottom: 20px; right: auto; width: 1px; height: auto; }
+  .taxMilestone { display: grid; grid-template-columns: 44px 1fr; gap: 18px; padding: 0; }
+  .taxMilestone div { margin-top: 0; }
+}
+
+@media (max-width: 720px) {
+  .editorialSection { width: calc(100vw - 12px); padding-left: 22px; padding-right: 22px; }
+}
