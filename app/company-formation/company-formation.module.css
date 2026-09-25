@@ -1,0 +1,178 @@
+.formationVisual {
+  min-height: 520px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 84% 8%, color-mix(in srgb, var(--teal) 10%, transparent), transparent 30%),
+    linear-gradient(145deg, color-mix(in srgb, var(--paper) 94%, transparent), color-mix(in srgb, var(--cloud) 84%, transparent));
+  box-shadow: var(--shadow-soft);
+}
+
+.visualHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+.visualHeader strong { color: var(--teal); }
+
+.formationPath {
+  display: grid;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.pathCard {
+  min-height: 84px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--paper) 84%, transparent);
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.pathCard > span {
+  color: var(--teal);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.pathCard div {
+  display: grid;
+  gap: 4px;
+}
+
+.pathCard strong {
+  font-size: 15px;
+  letter-spacing: -.01em;
+}
+
+.pathCard small { color: var(--muted); }
+
+.pathCard i {
+  font-style: normal;
+  color: var(--teal);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.readyCard {
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--ink);
+  color: white;
+  display: grid;
+  gap: 5px;
+}
+
+.readyCard span {
+  color: #7bd1c7;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 10px;
+}
+
+.readyCard strong {
+  font-size: 30px;
+  letter-spacing: -.04em;
+}
+
+.readyCard small {
+  color: rgba(255,255,255,.5);
+  line-height: 1.45;
+}
+
+.readinessSection { padding-top: 80px; }
+
+.readinessHeader {
+  max-width: 860px;
+}
+
+.readinessHeader > p:last-child {
+  max-width: 700px;
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.62;
+}
+
+.readinessGrid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 12px;
+  margin-top: 48px;
+}
+
+.readinessGrid article {
+  min-height: 255px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--paper) 74%, transparent);
+  transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+}
+
+.readinessGrid article:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-soft);
+  border-color: color-mix(in srgb, var(--teal) 24%, transparent);
+}
+
+.readinessGrid span {
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 10px;
+  font-weight: 720;
+}
+
+.readinessGrid h3 {
+  margin-top: 42px;
+  font-size: 28px;
+}
+
+.readinessGrid p {
+  margin: 14px 0 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+@media (max-width: 1100px) {
+  .formationVisual { min-height: auto; }
+}
+
+@media (max-width: 760px) {
+  .formationVisual {
+    padding: 18px;
+    border-radius: 26px;
+  }
+
+  .pathCard {
+    grid-template-columns: 28px 1fr;
+  }
+
+  .pathCard i {
+    grid-column: 2;
+  }
+
+  .readinessGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .readinessGrid article { transition: none; }
+  .readinessGrid article:hover { transform: none; }
+}
