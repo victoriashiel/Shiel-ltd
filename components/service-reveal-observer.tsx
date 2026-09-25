@@ -12,6 +12,8 @@ export function ServiceRevealObserver() {
       return;
     }
 
+    document.documentElement.setAttribute("data-service-motion", "true");
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -24,7 +26,10 @@ export function ServiceRevealObserver() {
     );
 
     items.forEach((item) => observer.observe(item));
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      document.documentElement.removeAttribute("data-service-motion");
+    };
   }, []);
 
   return null;
