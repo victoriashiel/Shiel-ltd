@@ -217,9 +217,15 @@ export function PackagesClient({
           </p>
           <div className={styles.heroActions}>
             <a className="button button-dark" href="#plans">See packages <span aria-hidden="true">↓</span></a>
-            <button className="button button-quiet" type="button" onClick={openFinder}>
-              Find my package <span aria-hidden="true">↗</span>
-            </button>
+            {country ? (
+              <button className="button button-quiet" type="button" onClick={openFinder}>
+                Find my package <span aria-hidden="true">↗</span>
+              </button>
+            ) : (
+              <a className="button button-quiet" href="#plans">
+                Choose your country <span aria-hidden="true">↓</span>
+              </a>
+            )}
           </div>
         </div>
 
@@ -241,9 +247,11 @@ export function PackagesClient({
             <p className="eyebrow">Step 1</p>
             <h2>{country ? "Now choose how you trade." : "Choose your country."}</h2>
           </div>
-          <button className={styles.finderButton} type="button" onClick={openFinder}>
-            Not sure? Find my package <span aria-hidden="true">→</span>
-          </button>
+          {country && (
+            <button className={styles.finderButton} type="button" onClick={openFinder}>
+              Not sure? Find my package <span aria-hidden="true">→</span>
+            </button>
+          )}
         </div>
 
         <div className={styles.selectionStep}>
@@ -476,7 +484,7 @@ export function PackagesClient({
               <summary><span>{group.title}</span><span aria-hidden="true">+</span></summary>
               <div>
                 {group.items.map(([service, price]) => (
-                  <p key={service}><span>{service}</span><strong>{price}</strong></p>
+                  <p key={service}><span>{localise(service)}</span><strong>{localise(price)}</strong></p>
                 ))}
               </div>
             </details>
@@ -669,7 +677,7 @@ export function PackagesClient({
               <p>{localise(fit.priceLabel)}</p>
               <small>{fit.reason}</small>
               <div>
-                <button type="button" className="button button-quiet" onClick={() => { setSegment(fit.segment); setFinderOpen(false); document.getElementById("plans")?.scrollIntoView({ behavior: "smooth" }); }}>{finderStartingOut ? "View setup offer" : "View package"}</button>
+                <button type="button" className="button button-quiet" onClick={() => { chooseSegment(fit.segment); setFinderOpen(false); }}>{finderStartingOut ? "View setup offer" : "View package"}</button>
                 <Link
                   className="button button-dark"
                   href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: fit.name } }}
