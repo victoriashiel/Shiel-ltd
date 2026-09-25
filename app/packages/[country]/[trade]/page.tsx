@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PackagesClient, type PackageCountry } from "../../packages-client";
+import { PackagesClient } from "../../packages-client";
+import type { PackageCountry } from "../../package-country-config";
 import type { Segment } from "../../packages-data";
 
 const countryNames: Record<PackageCountry, string> = {
