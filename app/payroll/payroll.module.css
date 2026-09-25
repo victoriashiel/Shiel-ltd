@@ -1,0 +1,182 @@
+.payrollVisual {
+  min-height: 520px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 84% 8%, color-mix(in srgb, var(--teal) 10%, transparent), transparent 30%),
+    linear-gradient(145deg, color-mix(in srgb, var(--paper) 94%, transparent), color-mix(in srgb, var(--cloud) 84%, transparent));
+  box-shadow: var(--shadow-soft);
+}
+
+.visualHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+.visualHeader strong { color: var(--teal); }
+
+.payrollTimeline {
+  display: grid;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.timelineItem {
+  min-height: 82px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--paper) 84%, transparent);
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.timelineItem > span {
+  color: var(--teal);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.timelineItem div {
+  display: grid;
+  gap: 4px;
+}
+
+.timelineItem strong {
+  font-size: 15px;
+  letter-spacing: -.01em;
+}
+
+.timelineItem small { color: var(--muted); }
+
+.timelineItem i {
+  font-style: normal;
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.payrollOutput {
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--ink);
+  color: white;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.payrollOutput div {
+  display: grid;
+  gap: 5px;
+}
+
+.payrollOutput span {
+  color: #7bd1c7;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 10px;
+}
+
+.payrollOutput strong {
+  font-size: 30px;
+  letter-spacing: -.04em;
+}
+
+.payrollOutput small {
+  max-width: 210px;
+  color: rgba(255,255,255,.5);
+  line-height: 1.45;
+  text-align: right;
+}
+
+.controlSection { padding-top: 80px; }
+
+.controlHeader {
+  max-width: 840px;
+}
+
+.controlHeader > p:last-child {
+  max-width: 690px;
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.62;
+}
+
+.controlGrid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+  margin-top: 48px;
+}
+
+.controlGrid article {
+  min-height: 260px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--paper) 74%, transparent);
+}
+
+.controlGrid span {
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 10px;
+  font-weight: 720;
+}
+
+.controlGrid h3 {
+  margin-top: 42px;
+  font-size: 27px;
+}
+
+.controlGrid p {
+  margin: 14px 0 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+@media (max-width: 1100px) {
+  .payrollVisual { min-height: auto; }
+  .controlGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .payrollVisual {
+    padding: 18px;
+    border-radius: 26px;
+  }
+
+  .timelineItem {
+    grid-template-columns: 28px 1fr;
+  }
+
+  .timelineItem i {
+    grid-column: 2;
+  }
+
+  .payrollOutput {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .payrollOutput small {
+    max-width: none;
+    text-align: left;
+  }
+}
