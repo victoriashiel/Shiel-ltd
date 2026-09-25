@@ -63,7 +63,7 @@ export const segments: PackageSegment[] = [
         name: "LTD Scale",
         strap: "For established SMEs and more complex structures.",
         price: 449,
-        features: ["Everything in Growth", "Payroll for up to 15 staff", "Monthly management reports", "Cash, RCT and group structures"],
+        features: ["Everything in Growth", "Payroll for up to 15 staff", "Monthly management reports", "Cash businesses, contractor withholding and group structures"],
         details: ["Weekly payroll runs where needed", "Monthly review call", "Personal tax returns for 3 directors", "Priority turnaround", "Named accountant", "Payroll reporting where applicable"],
         limits: "Up to 120 transactions / month · sales up to €1m · 4 directors",
       },
@@ -73,14 +73,14 @@ export const segments: PackageSegment[] = [
     id: "sole-trader",
     label: "Sole trader",
     intro:
-      "Straightforward bookkeeping and Form 11 support, with VAT and payroll included where the plan calls for it.",
+      "Straightforward bookkeeping and personal tax return support, with VAT and payroll included where the plan calls for it.",
     plans: [
       {
         name: "Sole Trader Start-Up",
         strap: "For people registering as self-employed and getting the finance side set up properly.",
         price: 149,
         billing: "one-off",
-        features: ["Income Tax registration", "ROS setup", "Bookkeeping setup", "VAT, PAYE or RCT setup where needed"],
+        features: ["Income Tax registration", "Tax authority online account setup", "Bookkeeping setup", "VAT, payroll tax or contractor tax setup where needed"],
         details: ["Initial expense guidance", "Record-keeping setup", "Key filing dates explained", "Business name registration guidance where relevant"],
         limitsLabel: "Setup scope",
         limits: "One-off registration and finance setup · ongoing bookkeeping not included",
@@ -89,8 +89,8 @@ export const segments: PackageSegment[] = [
         name: "Sole Trader Essentials",
         strap: "For freelancers and newer self-employed clients.",
         price: 99,
-        features: ["Monthly bookkeeping", "Annual accounts / profit & loss", "Form 11 + preliminary tax", "Named accountant"],
-        details: ["Receipt capture and bank feed", "VAT returns if registered", "Deadline reminders", "Routine Revenue queries"],
+        features: ["Monthly bookkeeping", "Annual accounts / profit & loss", "Annual personal tax return + preliminary or advance tax", "Named accountant"],
+        details: ["Receipt capture and bank feed", "VAT returns if registered", "Deadline reminders", "Routine tax authority queries"],
         limits: "Up to 20 accounting transactions / month · turnover up to €80k",
       },
       {
@@ -165,7 +165,7 @@ export const segments: PackageSegment[] = [
         strap: "For one-platform sellers getting the finance side organised.",
         price: 179,
         features: ["1 sales platform", "Stripe or PayPal feeds", "VAT returns including OSS", "Annual accounts"],
-        details: ["Named accountant", "Cloud bookkeeping", "Bank feeds", "Deadline reminders", "Annual accounts + CT1/Form 11 as applicable", "Third-party app subscriptions excluded"],
+        details: ["Named accountant", "Cloud bookkeeping", "Bank feeds", "Deadline reminders", "Year-end accounts + relevant business or personal tax return", "Third-party app subscriptions excluded"],
         limits: "Up to 50 accounting transactions / month · sales up to €150k",
       },
       {
@@ -173,7 +173,7 @@ export const segments: PackageSegment[] = [
         strap: "For sellers operating across several platforms or marketplaces.",
         price: 279,
         features: ["Multi-platform reconciliation", "OSS and IOSS", "Stock and COGS accounting", "Monthly margin report"],
-        details: ["Named accountant", "Cloud bookkeeping", "Bank feeds", "Deadline reminders", "Annual accounts + CT1/Form 11 as applicable", "Additional country VAT registrations quoted separately", "Third-party app subscriptions excluded"],
+        details: ["Named accountant", "Cloud bookkeeping", "Bank feeds", "Deadline reminders", "Year-end accounts + relevant business or personal tax return", "Additional country VAT registrations quoted separately", "Third-party app subscriptions excluded"],
         limits: "Up to 100 accounting transactions / month · sales up to €500k",
       },
       {
@@ -181,7 +181,7 @@ export const segments: PackageSegment[] = [
         strap: "For higher-volume stores that need finance reporting as well as bookkeeping.",
         price: 449,
         features: ["Everything in Multi-channel", "Multi-currency reconciliation", "Monthly management reports", "Channel and margin reporting"],
-        details: ["Stock and COGS accounting", "OSS and IOSS", "Priority turnaround", "Annual accounts + CT1/Form 11 as applicable", "Additional country VAT registrations quoted separately", "Third-party app subscriptions excluded", "Named accountant"],
+        details: ["Stock and COGS accounting", "OSS and IOSS", "Priority turnaround", "Year-end accounts + relevant business or personal tax return", "Additional country VAT registrations quoted separately", "Third-party app subscriptions excluded", "Named accountant"],
         limits: "Up to 200 accounting transactions / month · sales up to €1m",
       },
     ],
@@ -209,7 +209,7 @@ export const addOnGroups = [
     items: [["Extra employee on payroll", "€20 / month"], ["Additional director personal tax return", "€175 / year"]],
   },
   {
-    title: "Registrations & Revenue",
+    title: "Registrations & tax",
     items: [["VAT / payroll tax registration", "€125 each"], ["Beneficial ownership registration", "€99"], ["Tax compliance certificate", "€65"]],
   },
   {
@@ -256,7 +256,7 @@ export function recommendation({
         segment,
         name: "Sole Trader Start-Up",
         priceLabel: "€149 · one-off",
-        reason: "This gets the Revenue and bookkeeping setup in place before regular trading begins.",
+        reason: "This gets the tax registrations and bookkeeping setup in place before regular trading begins.",
       };
     }
 
@@ -387,7 +387,7 @@ export function recommendation({
         name: "LTD Scale",
         priceLabel: "€449 / month",
         reason: complex
-          ? "Cash, RCT or group structures are included from Scale."
+          ? "Cash businesses, contractor withholding or group structures are included from Scale."
           : "Your activity requires the published Scale limits.",
       };
     }
