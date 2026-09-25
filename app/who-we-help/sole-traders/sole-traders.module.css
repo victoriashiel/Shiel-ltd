@@ -1,0 +1,183 @@
+.soleVisual {
+  min-height: 500px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 82% 10%, color-mix(in srgb, var(--teal) 10%, transparent), transparent 32%),
+    linear-gradient(145deg, color-mix(in srgb, var(--paper) 94%, transparent), color-mix(in srgb, var(--cloud) 84%, transparent));
+  box-shadow: var(--shadow-soft);
+}
+
+.visualTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 11px;
+}
+
+.visualTop strong { color: var(--teal); }
+
+.moneyFlow {
+  display: grid;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.moneyFlow > div {
+  min-height: 96px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--paper) 84%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.moneyFlow span {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  font-size: 10px;
+}
+
+.moneyFlow strong {
+  font-size: 22px;
+  letter-spacing: -.03em;
+}
+
+.moneyFlow > i {
+  color: var(--teal);
+  text-align: center;
+  font-style: normal;
+}
+
+.moneyFlow .moneyResult {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+.moneyFlow .moneyResult span { color: #7bd1c7; }
+
+.simpleSection {
+  width: min(1540px, calc(100vw - 20px));
+  padding-inline: max(28px, calc((100% - var(--page)) / 2));
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--teal) 6%, var(--paper));
+}
+
+.simpleLead { max-width: 820px; }
+
+.simpleLead > p:not(.eyebrow) {
+  max-width: 650px;
+  margin: 22px 0 26px;
+  color: var(--muted);
+  line-height: 1.62;
+}
+
+.simpleFlow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 18px;
+  align-items: center;
+  margin-top: 52px;
+}
+
+.simpleFlow > div {
+  min-height: 210px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--paper) 84%, transparent);
+  display: flex;
+  flex-direction: column;
+}
+
+.simpleFlow span {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ink);
+  color: white;
+  font: 11px var(--font-mono);
+}
+
+.simpleFlow strong {
+  margin-top: auto;
+  font-size: 24px;
+}
+
+.simpleFlow small {
+  margin-top: 8px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.simpleFlow > i {
+  font-style: normal;
+  color: var(--teal);
+  font-size: 22px;
+}
+
+.priceRoute {
+  display: grid;
+  grid-template-columns: minmax(0,.9fr) minmax(460px,1.1fr);
+  gap: 70px;
+  align-items: start;
+}
+
+.priceRoute > div:first-child > p:last-child {
+  max-width: 620px;
+  margin: 22px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.priceLinks {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.priceLinks a {
+  min-height: 86px;
+  display: grid;
+  grid-template-columns: 1fr auto 22px;
+  gap: 20px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.priceLinks span { font-weight: 650; }
+.priceLinks strong { color: var(--muted); font-size: 14px; font-weight: 550; }
+.priceLinks i { font-style: normal; transition: transform .2s ease; }
+.priceLinks a:hover i,
+.priceLinks a:focus-visible i { transform: translate(3px,-3px); }
+
+@media (max-width: 1000px) {
+  .priceRoute { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 820px) {
+  .simpleFlow { grid-template-columns: 1fr; }
+  .simpleFlow > i { transform: rotate(90deg); text-align: center; }
+  .simpleFlow > div { min-height: 170px; }
+}
+
+@media (max-width: 720px) {
+  .soleVisual { min-height: auto; padding: 18px; border-radius: 26px; }
+  .simpleSection { width: calc(100vw - 12px); padding-left: 22px; padding-right: 22px; }
+  .priceLinks a { grid-template-columns: 1fr 20px; }
+  .priceLinks strong { grid-row: 2; }
+  .priceLinks i { grid-row: 1 / 3; grid-column: 2; }
+}
