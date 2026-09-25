@@ -306,7 +306,7 @@ export function recommendation({
       return {
         segment: "ecommerce",
         name: "E-commerce Scale",
-        priceLabel: `${currencySymbol}${companyPrices.scale} / month`,
+        priceLabel: "€449 / month",
         reason: "Your accounting volume or sales level is above Multi-channel and fits the higher-volume Scale tier.",
       };
     }
@@ -315,7 +315,7 @@ export function recommendation({
       return {
         segment: "ecommerce",
         name: "E-commerce Multi-channel",
-        priceLabel: `${currencySymbol}${companyPrices.growth} / month`,
+        priceLabel: "€279 / month",
         reason: platforms === "multi"
           ? "You sell across more than one platform."
           : transactions > 50
@@ -391,7 +391,7 @@ export function recommendation({
       return {
         segment: "company",
         name: "LTD Scale",
-        priceLabel: "€449 / month",
+        priceLabel: `${currencySymbol}${companyPrices.scale} / month`,
         reason: complex
           ? "Cash businesses, contractor withholding or group structures are included from Scale."
           : "Your activity requires the published Scale limits.",
@@ -402,7 +402,7 @@ export function recommendation({
       return {
         segment: "company",
         name: "LTD Growth",
-        priceLabel: "€279 / month",
+        priceLabel: `${currencySymbol}${companyPrices.growth} / month`,
         reason: "Your activity is above Starter but remains within the Growth limits.",
       };
     }
