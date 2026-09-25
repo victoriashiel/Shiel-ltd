@@ -33,12 +33,14 @@ export function CountryHero({
 export function CountryFacts({
   title,
   items,
+  variant,
 }: {
   title: string;
   items: readonly { value: string; label: string; note: string }[];
+  variant?: "ireland" | "uk" | "gibraltar";
 }) {
   return (
-    <section className={`section-pad ${styles.factSection}`}>
+    <section className={`section-pad ${styles.factSection}`} data-country={variant}>
       <div className={styles.factLead}>
         <p className="eyebrow">The quick version</p>
         <h2>{title}</h2>
@@ -93,14 +95,16 @@ export function CountryPricing({
   copy,
   plans,
   note,
+  variant,
 }: {
   title: string;
   copy: string;
   plans: readonly { label: string; price: string; note: string; href: string }[];
   note: string;
+  variant?: "ireland" | "uk" | "gibraltar";
 }) {
   return (
-    <section className={`section-pad ${styles.pricingSection}`} id="pricing">
+    <section className={`section-pad ${styles.pricingSection}`} id="pricing" data-country={variant}>
       <div className={styles.pricingHeader}>
         <p className="eyebrow">Pricing</p>
         <h2>{title}</h2>
