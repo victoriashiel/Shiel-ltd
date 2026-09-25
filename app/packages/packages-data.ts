@@ -239,6 +239,9 @@ export function recommendation({
   directors,
   platforms,
   complex,
+  companyThresholds = { dormant: 10_000, starter: 150_000, growth: 400_000, scale: 1_000_000 },
+  companyPrices = { dormant: 79, starter: 179, growth: 279, scale: 449, bespoke: 499 },
+  currencySymbol = "€",
 }: {
   segment: Segment;
   startingOut: boolean;
@@ -249,6 +252,9 @@ export function recommendation({
   directors: number;
   platforms: "one" | "multi";
   complex: boolean;
+  companyThresholds?: { dormant: number; starter: number; growth: number; scale: number };
+  companyPrices?: { dormant: number; starter: number; growth: number; scale: number; bespoke: number };
+  currencySymbol?: "€" | "£";
 }): FinderResult {
   if (startingOut) {
     if (segment === "sole-trader") {
@@ -281,7 +287,7 @@ export function recommendation({
     return {
       segment,
       name: "Dormant & Pre-trade",
-      priceLabel: "€79 / month",
+      priceLabel: `${currencySymbol}${companyPrices.dormant} / month`,
       reason: "This is the entry company plan for newly formed, pre-trading or dormant companies.",
     };
   }
@@ -300,7 +306,7 @@ export function recommendation({
       return {
         segment: "ecommerce",
         name: "E-commerce Scale",
-        priceLabel: "€449 / month",
+        priceLabel: `${currencySymbol}${companyPrices.scale} / month`,
         reason: "Your accounting volume or sales level is above Multi-channel and fits the higher-volume Scale tier.",
       };
     }
@@ -309,7 +315,7 @@ export function recommendation({
       return {
         segment: "ecommerce",
         name: "E-commerce Multi-channel",
-        priceLabel: "€279 / month",
+        priceLabel: `${currencySymbol}${companyPrices.growth} / month`,
         reason: platforms === "multi"
           ? "You sell across more than one platform."
           : transactions > 50
@@ -363,25 +369,25 @@ export function recommendation({
   }
 
   const companyResult = (): FinderResult => {
-    if (transactions > 120 || turnover > 1_000_000 || staff > 15 || directors > 4) {
+    if (transactions > 120 || turnover > companyThresholds.scale || staff > 15 || directors > 4) {
       return {
         segment: "company",
         name: "Bespoke",
-        priceLabel: "From €499 / month",
+        priceLabel: `From ${currencySymbol}${companyPrices.bespoke} / month`,
         reason: "At least one part of your company is above the published Scale limits.",
       };
     }
 
-    if (dormant && transactions <= 10 && turnover <= 10_000 && staff === 0 && directors <= 1 && !complex) {
+    if (dormant && transactions <= 10 && turnover <= companyThresholds.dormant && staff === 0 && directors <= 1 && !complex) {
       return {
         segment: "company",
         name: "Dormant & Pre-trade",
-        priceLabel: "€79 / month",
+        priceLabel: `${currencySymbol}${companyPrices.dormant} / month`,
         reason: "This matches the dormant/pre-trade limits: minimal activity, no payroll and one director.",
       };
     }
 
-    if (complex || transactions > 60 || turnover > 400_000 || staff > 6 || directors > 3) {
+    if (complex || transactions > 60 || turnover > companyThresholds.growth || staff > 6 || directors > 3) {
       return {
         segment: "company",
         name: "LTD Scale",
@@ -392,7 +398,7 @@ export function recommendation({
       };
     }
 
-    if (transactions > 30 || turnover > 150_000 || staff > 2 || directors > 2) {
+    if (transactions > 30 || turnover > companyThresholds.starter || staff > 2 || directors > 2) {
       return {
         segment: "company",
         name: "LTD Growth",
@@ -404,8 +410,8 @@ export function recommendation({
     return {
       segment: "company",
       name: "LTD Starter",
-      priceLabel: "€179 / month",
-      reason: "This fits up to 30 monthly transactions, €150k sales, 2 employees and 2 directors.",
+      priceLabel: `${currencySymbol}${companyPrices.starter} / month`,
+      reason: `This fits up to 30 monthly transactions, ${currencySymbol}${Math.round(companyThresholds.starter / 1000)}k sales, 2 employees and 2 directors.`,
     };
   };
 
@@ -422,7 +428,7 @@ export function recommendation({
     const fallback = companyResult();
     return {
       ...fallback,
-      reason: `The €119 Contractor plan no longer fits these limits. The closest company package is ${fallback.name}.`,
+      reason: `The contractor plan no longer fits these limits. The closest company package is ${fallback.name}.`,
     };
   }
 
