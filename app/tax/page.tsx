@@ -164,7 +164,7 @@ export default function TaxPage() {
         nodes={["Year-end accounts", "Payroll taxes", "VAT / indirect tax", "Owner / director tax"]}
       />
 
-      <section className={`section-pad ${styles.planningSection}`}>
+      <section className={`section-pad ${styles.planningSection}`} data-service-reveal>
         <div className={styles.planningHeader}>
           <p className="eyebrow">Compliance + planning</p>
           <h2>Filing the return is only half the job.</h2>
