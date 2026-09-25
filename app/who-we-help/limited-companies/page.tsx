@@ -80,6 +80,7 @@ export default function LimitedCompaniesPage() {
         title="One company. One accountant. Fewer loose ends."
         copy="Accounts, tax, bookkeeping, payroll and company compliance kept together, with one person who knows the business."
         primaryLabel="See limited-company pricing"
+        primaryHref="#pricing"
         visual={
           <div className={styles.companyVisual} role="img" aria-label="Illustration showing the core accounting responsibilities around a limited company">
             <div className={styles.visualTop}>
@@ -105,7 +106,7 @@ export default function LimitedCompaniesPage() {
 
       <AudienceProof
         items={[
-          ["7+", "years’ experience"],
+          ["From €79/mo", "UK from £49/mo"],
           ["1", "named accountant"],
           ["Direct", "WhatsApp access"],
           ["Free", "accountant switching"],
@@ -125,7 +126,7 @@ export default function LimitedCompaniesPage() {
             You should not need to remember which filing belongs to which adviser. We keep the annual and monthly
             work connected and tell you what we need from you.
           </p>
-          <Link className="text-link" href="/packages">See limited-company packages <span aria-hidden="true">↗</span></Link>
+          <Link className="text-link" href="#pricing">See limited-company packages <span aria-hidden="true">↗</span></Link>
         </div>
 
         <div className={styles.snapshotStack}>
@@ -135,7 +136,7 @@ export default function LimitedCompaniesPage() {
         </div>
       </section>
 
-      <section className={`section-pad ${styles.priceRoute}`}>
+      <section className={`section-pad ${styles.priceRoute}`} id="pricing">
         <div>
           <p className="eyebrow">Pricing</p>
           <h2>Start with your country, then choose the company size that fits.</h2>
