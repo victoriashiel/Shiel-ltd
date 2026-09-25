@@ -9,7 +9,7 @@ export function SiteFooter() {
       <div className="footer-shell">
         <div className="footer-lead">
           <Logo />
-          <p>European-based accountants supporting businesses and individuals internationally.</p>
+          <p>Serving companies in Ireland, the UK and Gibraltar.</p>
           <div className="footer-contact-row">
             <a
               href={siteConfig.whatsappHref}
@@ -47,7 +47,7 @@ export function SiteFooter() {
 
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.</p>
-        <p>European based · Working internationally</p>
+        <p>Serving companies in Ireland, the UK and Gibraltar</p>
       </div>
     </footer>
   );
