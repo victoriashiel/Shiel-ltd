@@ -324,7 +324,7 @@ export function recommendation({
           ? "You sell across more than one platform."
           : transactions > 50
             ? "Your accounting transaction volume is above the Launch plan limit."
-            : "Your sales are above the Launch plan limit of €150k.",
+            : `Your sales are above the Launch plan limit of ${currencySymbol}150k.`,
       };
     }
 
@@ -368,7 +368,7 @@ export function recommendation({
       segment: "sole-trader",
       name: "Sole Trader Essentials",
       priceLabel: `${currencySymbol}${soleTraderPrices.essentials} / month`,
-      reason: "This fits up to 20 monthly accounting transactions and turnover up to €80k with no payroll.",
+      reason: `This fits up to 20 monthly accounting transactions and turnover up to ${currencySymbol}80k with no payroll.`,
     };
   }
 
