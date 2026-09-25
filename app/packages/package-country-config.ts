@@ -25,6 +25,12 @@ export type CountryPackageConfig = {
     multiChannel: number;
     scale: number;
   };
+  contractorPrices: {
+    setup: number;
+    essentials: number;
+    plus: number;
+    premium: number;
+  };
   companyTurnover: {
     dormant: string;
     starter: string;
@@ -53,6 +59,7 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
     companyPrices: { dormant: 79, starter: 179, growth: 279, scale: 449, bespoke: 499 },
     soleTraderPrices: { startup: 149, essentials: 99, plus: 159, scale: 299 },
     ecommercePrices: { setup: 249, launch: 179, multiChannel: 279, scale: 449 },
+    contractorPrices: { setup: 199, essentials: 129, plus: 169, premium: 249 },
     companyTurnover: {
       dormant: "€10k",
       starter: "€150k",
@@ -103,6 +110,7 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
     companyPrices: { dormant: 49, starter: 149, growth: 239, scale: 389, bespoke: 429 },
     soleTraderPrices: { startup: 99, essentials: 59, plus: 99, scale: 199 },
     ecommercePrices: { setup: 199, launch: 149, multiChannel: 239, scale: 389 },
+    contractorPrices: { setup: 149, essentials: 99, plus: 129, premium: 189 },
     companyTurnover: {
       dormant: "£10k",
       starter: "£130k",
@@ -159,6 +167,7 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
     companyPrices: { dormant: 69, starter: 169, growth: 269, scale: 429, bespoke: 479 },
     soleTraderPrices: { startup: 129, essentials: 79, plus: 129, scale: 249 },
     ecommercePrices: { setup: 229, launch: 169, multiChannel: 269, scale: 429 },
+    contractorPrices: { setup: 179, essentials: 119, plus: 149, premium: 219 },
     companyTurnover: {
       dormant: "£10k",
       starter: "£130k",
@@ -209,6 +218,13 @@ export const countryPackageConfig: Record<PackageCountry, CountryPackageConfig> 
       "Cloud bookkeeping / bank feeds where relevant",
     ],
   },
+};
+
+export const contractorPlanKeys: Record<string, keyof CountryPackageConfig["contractorPrices"]> = {
+  "Contractor Setup": "setup",
+  "Contractor Essentials": "essentials",
+  "Contractor Plus": "plus",
+  "Contractor Premium": "premium",
 };
 
 export const ecommercePlanKeys: Record<string, keyof CountryPackageConfig["ecommercePrices"]> = {
