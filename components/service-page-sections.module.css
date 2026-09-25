@@ -496,36 +496,36 @@
   }
 
   :global(html[data-service-motion]) :global([data-service-reveal]) .workflowStep,
-  :global([data-service-reveal]) .scopeCard,
-  :global([data-service-reveal]) .countryCard {
+  :global(html[data-service-motion]) :global([data-service-reveal]) .scopeCard,
+  :global(html[data-service-motion]) :global([data-service-reveal]) .countryCard {
     opacity: 0;
     transform: translateY(16px);
     transition: opacity .5s ease, transform .5s ease, border-color .24s ease, box-shadow .24s ease;
   }
 
   :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .workflowStep,
-  :global([data-service-reveal][data-service-visible="true"]) .scopeCard,
-  :global([data-service-reveal][data-service-visible="true"]) .countryCard {
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .scopeCard,
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .countryCard {
     opacity: 1;
     transform: translateY(0);
   }
 
-  :global([data-service-reveal][data-service-visible="true"]) .workflowStep:nth-child(2),
-  :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(2),
-  :global([data-service-reveal][data-service-visible="true"]) .countryCard:nth-child(2) { transition-delay: .06s; }
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .workflowStep:nth-child(2),
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(2),
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .countryCard:nth-child(2) { transition-delay: .06s; }
 
-  :global([data-service-reveal][data-service-visible="true"]) .workflowStep:nth-child(3),
-  :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(3),
-  :global([data-service-reveal][data-service-visible="true"]) .countryCard:nth-child(3) { transition-delay: .12s; }
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .workflowStep:nth-child(3),
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(3),
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .countryCard:nth-child(3) { transition-delay: .12s; }
 
-  :global([data-service-reveal][data-service-visible="true"]) .workflowStep:nth-child(4),
-  :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(4),
-  :global([data-service-reveal][data-service-visible="true"]) .countryCard:nth-child(4) { transition-delay: .18s; }
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .workflowStep:nth-child(4),
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(4),
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .countryCard:nth-child(4) { transition-delay: .18s; }
 
-  :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(5) { transition-delay: .24s; }
-  :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(6) { transition-delay: .30s; }
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(5) { transition-delay: .24s; }
+  :global(html[data-service-motion]) :global([data-service-reveal][data-service-visible="true"]) .scopeCard:nth-child(6) { transition-delay: .30s; }
 
-  :global([data-service-visible="true"]) .connector {
+  :global(html[data-service-motion]) :global([data-service-visible="true"]) .connector {
     animation: service-line-in .7s .15s both;
   }
 }
