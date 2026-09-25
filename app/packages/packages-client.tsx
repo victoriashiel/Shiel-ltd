@@ -70,6 +70,7 @@ export function PackagesClient({
     companyPrices: selectedCountry?.companyPrices,
     currencySymbol: selectedCountry?.symbol,
   });
+  const fitDisplayName = fit.segment === "company" ? fit.name.replace(/^LTD /, "") : fit.name;
 
   useEffect(() => {
     setCountry(initialCountry);
@@ -676,16 +677,16 @@ export function PackagesClient({
 
             <div className={styles.finderResult}>
               <span>Your likely fit</span>
-              <strong>{fit.name}</strong>
+              <strong>{fitDisplayName}</strong>
               <p>{localise(fit.priceLabel)}</p>
               <small>{localise(fit.reason)}</small>
               <div>
                 <button type="button" className="button button-quiet" onClick={() => { chooseSegment(fit.segment); setFinderOpen(false); }}>{finderStartingOut ? "View setup offer" : "View package"}</button>
                 <Link
                   className="button button-dark"
-                  href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: fit.name } }}
+                  href={{ pathname: "/contact", query: { enquiry: "Packages & pricing", package: fitDisplayName } }}
                   data-cta="package-finder-contact"
-                  data-package={fit.name}
+                  data-package={fitDisplayName}
                 >
                   Speak to us <span aria-hidden="true">↗</span>
                 </Link>
