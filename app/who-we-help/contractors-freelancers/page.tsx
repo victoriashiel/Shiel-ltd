@@ -97,9 +97,16 @@ export default function ContractorsFreelancersPage() {
             <div className={styles.flowLine} aria-hidden="true" />
 
             <div className={styles.contractCore}>
-              <span>One accounting system</span>
-              <strong>Income · expenses · pay · tax</strong>
-              <small>all reconciled back to the same records</small>
+              <span>Business records</span>
+              <strong>Income + expenses</strong>
+              <small>each contract reconciled into one ledger</small>
+            </div>
+
+            <div className={styles.outputLine} aria-hidden="true" />
+
+            <div className={styles.contractOutputs}>
+              <div><span>Owner</span><strong>Pay</strong></div>
+              <div><span>Set aside</span><strong>Tax</strong></div>
             </div>
           </div>
         }
