@@ -25,32 +25,32 @@ export const metadata: Metadata = {
 };
 
 const fit = [
-  "You sell through one or more platforms and your payouts no longer match neatly to individual sales.",
-  "Fees, refunds, shipping and processor charges make the bookkeeping harder than the bank statement suggests.",
-  "You want stock, sales and tax reporting to use the same underlying records.",
-  "You are selling across borders or channels and need the accounting picture kept coherent as the business grows.",
+  "You sell through one or more platforms and payouts no longer match individual sales.",
+  "Fees, refunds and processor charges make the bank deposits difficult to interpret.",
+  "You want sales, stock and tax reporting to use the same underlying records.",
+  "You sell across channels or borders and need the accounting to stay coherent as volume grows.",
 ] as const;
 
 const answers = [
   {
     question: "Can you handle multiple sales channels?",
     answer:
-      "Yes. We can structure the bookkeeping around several platforms and processors so sales, fees, refunds and settlements are reconciled consistently.",
+      "Yes. We can reconcile several platforms and processors so sales, fees, refunds and settlements remain consistent.",
   },
   {
     question: "What about Shopify, Stripe, PayPal or marketplaces?",
     answer:
-      "Those feeds can form part of the bookkeeping workflow. The aim is to reconcile the settlement data rather than treating each bank deposit as unexplained sales income.",
+      "Yes. The bookkeeping should reconcile settlement data rather than treating each bank deposit as unexplained sales income.",
   },
   {
     question: "Can you help with cross-border tax?",
     answer:
-      "We can coordinate the accounting and relevant indirect-tax work where it falls within scope, and flag when local specialist input or an overseas registration is needed.",
+      "We can coordinate the accounting and relevant indirect-tax work, and flag when a local specialist or overseas registration may be needed.",
   },
   {
     question: "Do you work with growing stores, not just small sellers?",
     answer:
-      "Yes. The package structure scales from initial finance setup through multi-channel and higher-volume support as transaction counts and reporting needs increase.",
+      "Yes. Support scales from initial finance setup to multi-channel and higher-volume bookkeeping as transaction counts increase.",
   },
 ] as const;
 
@@ -78,7 +78,7 @@ export default function EcommerceSellersPage() {
       <AudienceHero
         eyebrow="E-commerce sellers"
         title="Your payouts are not your sales."
-        copy="We reconcile the moving parts behind an online store — sales, fees, refunds, processors and tax — so the books reflect what actually happened, not just what landed in the bank."
+        copy="We reconcile sales, fees, refunds, processors and tax so the books show what actually happened, not just what landed in the bank."
         primaryLabel="See e-commerce pricing"
         primaryHref="#pricing"
         visual={
@@ -125,8 +125,8 @@ export default function EcommerceSellersPage() {
           <p className="eyebrow">What needs reconciling</p>
           <h2>The bank deposit is only the end of the story.</h2>
           <p>
-            E-commerce bookkeeping works when the settlement is broken back into the sales, refunds, fees and other
-            movements that produced it. That is what makes the tax and management numbers usable.
+            The settlement needs to be broken back into the sales, refunds and fees that produced it. That is what
+            makes the tax and management numbers usable.
           </p>
           <Link className="text-link" href="#pricing">See e-commerce packages <span aria-hidden="true">↗</span></Link>
         </div>
@@ -156,8 +156,8 @@ export default function EcommerceSellersPage() {
           <p className="eyebrow">Pricing</p>
           <h2>Choose your country, then the stage your store is at.</h2>
           <p>
-            Packages scale from one-off finance setup through launch, multi-channel and higher-volume support.
-            The right level depends on transactions, platforms and reporting complexity.
+            Packages scale from setup through multi-channel and higher-volume support. The right level depends on
+            transaction count, platforms and reporting complexity.
           </p>
         </div>
         <div className={styles.priceLinks}>
@@ -176,7 +176,7 @@ export default function EcommerceSellersPage() {
       <AudienceClosing
         eyebrow="Store getting busier?"
         title="Fix the finance flow before transaction volume makes it harder."
-        copy="Tell us which platforms and processors you use, roughly how many transactions you have and where you sell. We can point you to the right finance setup and ongoing package."
+        copy="Tell us which platforms and processors you use, roughly how many transactions you have and where you sell. We can point you to the right setup and package."
       />
     </>
   );
