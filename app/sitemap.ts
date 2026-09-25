@@ -9,6 +9,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteConfig.url}/${service.slug}`,
     })),
     { url: `${siteConfig.url}/packages` },
+    ...["ireland", "united-kingdom", "gibraltar"].flatMap((country) => [
+      { url: `${siteConfig.url}/packages/${country}` },
+      ...["limited-company", "sole-trader", "contractor", "ecommerce"].map((trade) => ({
+        url: `${siteConfig.url}/packages/${country}/${trade}`,
+      })),
+    ]),
     { url: `${siteConfig.url}/contact` },
     { url: `${siteConfig.url}/privacy` },
     { url: `${siteConfig.url}/cookies` },
