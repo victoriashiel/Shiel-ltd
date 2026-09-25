@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import styles from "./service-page-sections.module.css";
+import { ServiceRevealObserver } from "./service-reveal-observer";
 
 export type ServiceStep = {
   step: string;
@@ -28,7 +29,9 @@ export function ServiceHero({
   visual: ReactNode;
 }) {
   return (
-    <section className={`section-pad ${styles.hero}`}>
+    <>
+      <ServiceRevealObserver />
+      <section className={`section-pad ${styles.hero}`} data-service-reveal>
       <div className={styles.heroCopy}>
         <Link href="/#services" className="back-link">← Services</Link>
         <p className="eyebrow">{eyebrow}</p>
@@ -40,7 +43,8 @@ export function ServiceHero({
         </div>
       </div>
       {visual}
-    </section>
+      </section>
+    </>
   );
 }
 
@@ -58,7 +62,7 @@ export function ServiceProcess({
   ariaLabel: string;
 }) {
   return (
-    <section className={`section-pad ${styles.flowSection}`}>
+    <section className={`section-pad ${styles.flowSection}`} data-service-reveal>
       <div className={styles.sectionIntro}>
         <p className="eyebrow">{eyebrow}</p>
         <h2>{title}</h2>
@@ -93,7 +97,7 @@ export function ServiceScope({
   items: readonly ServiceScopeItem[];
 }) {
   return (
-    <section className={`section-pad ${styles.scopeSection}`}>
+    <section className={`section-pad ${styles.scopeSection}`} data-service-reveal>
       <div className={styles.scopeHeader}>
         <div>
           <p className="eyebrow">{eyebrow}</p>
@@ -137,7 +141,7 @@ export function ServiceHub({
   nodes: readonly [string, string, string, string];
 }) {
   return (
-    <section className={`section-pad ${styles.hubSection}`}>
+    <section className={`section-pad ${styles.hubSection}`} data-service-reveal>
       <div className={styles.hubCopy}>
         <p className="eyebrow">{eyebrow}</p>
         <h2>{title}</h2>
@@ -177,7 +181,7 @@ export function ServiceCountries({
   internationalCopy: string;
 }) {
   return (
-    <section className={`section-pad ${styles.countrySection}`} id="countries">
+    <section className={`section-pad ${styles.countrySection}`} id="countries" data-service-reveal>
       <div className={styles.countryHeader}>
         <p className="eyebrow">{eyebrow}</p>
         <h2>{title}</h2>
@@ -186,7 +190,12 @@ export function ServiceCountries({
 
       <div className={styles.countryGrid}>
         {countries.map((country) => (
-          <Link className={styles.countryCard} href={country.href} key={country.name}>
+          <Link
+            className={styles.countryCard}
+            href={country.href}
+            key={country.name}
+            data-country={country.name === "United Kingdom" ? "uk" : country.name.toLowerCase()}
+          >
             <div>
               <span>Country guide</span>
               <h3>{country.name}</h3>
@@ -218,7 +227,7 @@ export function ServiceClosing({
   copy: string;
 }) {
   return (
-    <section className={`section-pad ${styles.closing}`}>
+    <section className={`section-pad ${styles.closing}`} data-service-reveal>
       <div>
         <p className="eyebrow">{eyebrow}</p>
         <h2>{title}</h2>
