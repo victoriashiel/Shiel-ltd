@@ -24,6 +24,13 @@ const team = [
     specialties: ["Strategic tax planning", "Complex structures", "High-level client advice", "Quality review"],
   },
   {
+    id: "victoria-locke",
+    name: "Victoria Locke",
+    role: "Senior Tax Consultant",
+    copy: "Victoria supports Irish businesses and individuals with corporation tax, personal tax and self-assessment. Her work covers VAT and RCT, alongside the reliefs and exemptions relevant to each client’s position.",
+    specialties: ["Irish corporation tax", "Personal tax & self-assessment", "VAT", "RCT", "Irish reliefs & exemptions"],
+  },
+  {
     id: "amelia-fraser",
     name: "Amelia Fraser",
     role: "Senior Tax Consultant",
