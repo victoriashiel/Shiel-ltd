@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${siteConfig.url}/packages/${country}/${trade}`,
       })),
     ]),
+    { url: `${siteConfig.url}/about/team` },
     { url: `${siteConfig.url}/contact` },
     { url: `${siteConfig.url}/privacy` },
     { url: `${siteConfig.url}/cookies` },
