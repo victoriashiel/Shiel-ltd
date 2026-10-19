@@ -49,6 +49,7 @@ const footerColumns = [
     label: "Company",
     items: [
       ["About", "/about"],
+      ["Meet the team", "/about/team"],
       ["Case studies", "/case-studies"],
       ["Packages", "/packages"],
       ["Switching accountant", "/switching-accountant"],
