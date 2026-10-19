@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { siteConfig } from "@/lib/site";
+import styles from "./site-footer.module.css";
 
 const footerColumns = [
   {
@@ -26,60 +27,37 @@ const footerColumns = [
     ],
   },
   {
-    label: "Who we help",
+    label: "Shiel",
     items: [
-      ["Limited companies", "/who-we-help/limited-companies"],
-      ["Sole traders", "/who-we-help/sole-traders"],
-      ["Contractors", "/who-we-help/contractors-freelancers"],
-      ["E-commerce", "/who-we-help/ecommerce-sellers"],
-      ["Non-resident directors", "/who-we-help/non-resident-directors"],
-      ["Startups", "/who-we-help/startups-new-companies"],
-    ],
-  },
-  {
-    label: "Resources",
-    items: [
-      ["Guides", "/guides"],
-      ["Tax deadlines", "/tax-deadlines"],
-      ["FAQ", "/faq"],
-      ["Compare Shiel", "/compare-shiel"],
-    ],
-  },
-  {
-    label: "Company",
-    items: [
-      ["About", "/about"],
       ["Meet the team", "/about/team"],
-      ["Case studies", "/case-studies"],
-      ["Packages", "/packages"],
-      ["Switching accountant", "/switching-accountant"],
-      ["Contact", "/contact"],
+      ["Monthly packages", "/packages"],
+      ["Contact us", "/contact"],
     ],
   },
 ] as const;
 
 export function SiteFooter() {
   return (
-    <footer className="site-footer">
+    <footer className={`site-footer ${styles.footer}`}>
       <div className="footer-shell">
         <div className="footer-lead">
           <Logo />
-          <p>Serving companies in Ireland, the UK and Gibraltar.</p>
+          <p>Accounts and tax support for businesses and individuals in Ireland, the UK and Gibraltar.</p>
           <div className="footer-contact-row">
             <a
               href={siteConfig.whatsappHref}
-              className="footer-icon-link"
+              className={styles.whatsapp}
               target="_blank"
               rel="noreferrer"
               aria-label={`WhatsApp Shiel Accountants on ${siteConfig.whatsappDisplay}`}
               title="WhatsApp"
             >
-              <WhatsAppIcon size={22} />
+              <WhatsAppIcon size={19} /><span>WhatsApp us</span>
             </a>
           </div>
         </div>
 
-        <div className="footer-columns">
+        <nav className="footer-columns" aria-label="Footer navigation">
           {footerColumns.map((column) => (
             <div key={column.label}>
               <p className="footer-label">{column.label}</p>
@@ -88,7 +66,7 @@ export function SiteFooter() {
               ))}
             </div>
           ))}
-        </div>
+        </nav>
       </div>
 
       <div className="footer-partners">
@@ -110,7 +88,7 @@ export function SiteFooter() {
           <Link href="/cookies">Cookies</Link>
           <Link href="/terms">Terms</Link>
         </div>
-        <p>Serving companies in Ireland, the UK and Gibraltar</p>
+
       </div>
     </footer>
   );
