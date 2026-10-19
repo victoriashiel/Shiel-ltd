@@ -20,9 +20,9 @@ const people = [
   ["elena-rossi", "Elena Rossi"],
 ] as const;
 const promises = [
-  ["Clear communication", "Know where things stand, what we need from you and what happens next."],
-  ["Timely work", "Year-end accounts, tax returns and statutory filings kept moving throughout the year."],
-  ["Transparent fees", "Fees agreed in advance, reflecting the needs of an owner-managed company."],
+  ["Clear communication", "We keep you informed so you understand where things stand, what we need from you and what happens next."],
+  ["Timely work", "We look after your year-end accounts, tax returns and statutory filings with the attention your deadlines require."],
+  ["Transparent fees", "We agree your fees in advance and tailor the work to the needs of your company."],
 ] as const;
 const schema = {
   "@context": "https://schema.org", "@type": "AboutPage",
@@ -39,21 +39,21 @@ export default function OurStoryPage() {
       <div className={styles.heroGrid}>
         <div className={styles.heroCopy}>
           <p className="eyebrow">Our story</p>
-          <h1 id="story-title">A family business.<br /><span>Built around yours.</span></h1>
-          <p>Shiel is our family name. Looking after your company is personal to us.</p>
+          <h1 id="story-title">A family business <span>that understands yours.</span></h1>
+          <p>As a family business ourselves, we understand how much care goes into building and running a company.</p>
           <a href="#why-shiel" className="text-link">How it started <span aria-hidden="true">↓</span></a>
         </div>
         <div className={styles.teamVisual}>
           <p className={styles.visualLabel}>One connected team</p>
-          <div className={styles.bigNumber}><strong>12</strong><span>people.<br />Across Europe.</span></div>
+          <div className={styles.bigNumber}><strong>12</strong><span>people working across Europe</span></div>
           <div className={styles.peopleDots} aria-hidden="true">{Array.from({length:12}, (_, i) => <span key={i} />)}</div>
-          <div className={styles.visualFoot}><strong>Family-run.</strong><span>Personally involved.</span></div>
+          <div className={styles.visualFoot}><span>Our family remains personally involved in running Shiel.</span></div>
         </div>
       </div>
     </section>
 
     <section id="why-shiel" className={`section-pad ${styles.origin}`} aria-labelledby="origin-title">
-      <div><p className="eyebrow">01 / A better choice</p><h2 id="origin-title">Small company.<br /><span>Proper attention.</span></h2></div>
+      <div><p className="eyebrow">01 / A better choice</p><h2 id="origin-title">Small companies deserve <span>personal attention.</span></h2></div>
       <div className={styles.prose}>
         <p className={styles.lead}>We started Shiel because small and growing companies deserve more choice.</p>
         <p>Too often, that choice comes down to large firms whose fees are out of reach, or online packages that offer little personal attention.</p>
@@ -62,22 +62,22 @@ export default function OurStoryPage() {
     </section>
 
     <section className={`section-pad ${styles.family}`} aria-labelledby="family-title">
-      <div className={styles.familyIntro}><p className="eyebrow">02 / The name behind the work</p><h2 id="family-title">Our name is on it.<br /><span>So we care how it’s done.</span></h2></div>
+      <div className={styles.familyIntro}><p className="eyebrow">02 / The name behind the work</p><h2 id="family-title">Our family name reflects <span>our commitment to your business.</span></h2></div>
       <div className={styles.familyBody}>
         <p>Shiel is our family name, and it remains a family business today. Members of the family oversee the running of the firm behind the scenes, while our five client-facing accountants work directly with you throughout the year.</p>
-        <div className={styles.reach}><span>Based across Europe</span><p>Supporting companies in the <strong>UK, Ireland and Gibraltar</strong>, as well as clients further afield.</p></div>
+        <div className={styles.reach}><span>Based across Europe</span><p>Our team supports companies in the <strong>UK, Ireland and Gibraltar</strong>, as well as clients further afield.</p></div>
       </div>
     </section>
 
     <section className={`section-pad ${styles.people}`} aria-labelledby="people-title">
-      <div className={styles.peopleHeader}><div><p className="eyebrow">03 / People you’ll get to know</p><h2 id="people-title">Five faces.<br />A whole team behind them.</h2></div><p>Personal attention means working directly with people who know your business, throughout the year.</p></div>
+      <div className={styles.peopleHeader}><div><p className="eyebrow">03 / People you’ll get to know</p><h2 id="people-title">Get to know the accountants looking after your business.</h2></div><p>Personal attention means working directly with people who know your business, throughout the year.</p></div>
       <div className={styles.portraits}>{people.map(([id,name]) => <div key={id}><div className={styles.photo}><Image src={`/team/${id}.webp`} alt={name} fill sizes="(max-width: 600px) 42vw, 18vw" /></div><p>{name}</p></div>)}</div>
       <Link className="text-link" href="/about/team">Meet your accountants <span aria-hidden="true">↗</span></Link>
     </section>
 
     <section className={`section-pad ${styles.care}`} aria-labelledby="care-title">
       <p className="eyebrow">04 / The standard we work to</p>
-      <h2 id="care-title">Your company.<br /><span>The care we give our own.</span></h2>
+      <h2 id="care-title">We care for your company <span>as we would our own.</span></h2>
       <p className={styles.careIntro}>We take care of year-end accounts, tax returns and statutory filings so that your company remains compliant and you can focus on running your business.</p>
       <div className={styles.promises}>{promises.map(([title,copy], i) => <article key={title}><span className={styles.promiseNumber}>0{i+1}</span><h3>{title}</h3><p>{copy}</p></article>)}</div>
     </section>
