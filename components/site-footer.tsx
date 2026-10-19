@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
@@ -87,6 +88,18 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="footer-partners">
+        <p className="footer-label">Our Partners</p>
+        <a
+          href="https://www.sovereigntyglobal.org"
+          target="_blank"
+          rel="noopener"
+          aria-label="Sovereignty Global"
+        >
+          <Image src="/partners/sovereignty-global.png" alt="Sovereignty Global" width={183} height={32} />
+        </a>
       </div>
 
       <div className="footer-bottom">
