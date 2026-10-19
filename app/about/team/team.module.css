@@ -13,6 +13,7 @@
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .card { display: grid; grid-template-columns: .78fr 1.22fr; border: 1px solid var(--line); border-radius: 24px; overflow: hidden; background: var(--paper); scroll-margin-top: 100px; }
 .portrait { position: relative; background: #dededb; min-height: 440px; }
+.card:last-child:nth-child(odd) { grid-column: 1 / -1; width: calc((100% - 24px) / 2); justify-self: center; }
 .portrait img { object-fit: cover; object-position: 50% 24%; }
 .profile { padding: clamp(22px, 2.2vw, 34px); display: flex; flex-direction: column; min-width: 0; }
 .role { color: var(--teal); margin: 0 0 12px; font-size: 11px; letter-spacing: .055em; text-transform: uppercase; font-weight: 720; line-height: 1.5; }
@@ -55,6 +56,7 @@
   .sectionHeading { display: block; }
   .sectionHeading p { margin-top: 12px; }
   .grid { grid-template-columns: 1fr; gap: 24px; }
+  .card:last-child:nth-child(odd) { width: 100%; }
   .portrait { aspect-ratio: 1.15; }
   .profile { padding: 24px; }
   .role { font-size: 11px; }
