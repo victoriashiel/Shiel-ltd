@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { MobileNavigation } from "@/components/mobile-navigation";
 import { Logo } from "@/components/logo";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { siteConfig } from "@/lib/site";
@@ -44,18 +45,16 @@ const headerGroups = [
     items: [
       { label: "Our story", href: "/about" },
       { label: "Meet the team", href: "/about/team" },
-      { label: "How we work", href: "/about/how-we-work" },
-      { label: "Case studies", href: "/case-studies" },
+      { label: "How we work", href: "/#about" },
+      { label: "Case studies", href: "/#case-study-title" },
     ],
   },
 ] as const;
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [desktopOpen, setDesktopOpen] = useState<string | null>(null);
-  const [mobileOpen, setMobileOpen] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -68,9 +67,7 @@ export function SiteHeader() {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setOpen(false);
         setDesktopOpen(null);
-        setMobileOpen(null);
       }
     };
 
@@ -88,11 +85,6 @@ export function SiteHeader() {
     };
   }, []);
 
-  useEffect(() => {
-    setDesktopOpen(null);
-    setMobileOpen(null);
-    setOpen(false);
-  }, [pathname]);
 
   const isCurrent = (href: string) =>
     pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
@@ -124,7 +116,7 @@ export function SiteHeader() {
                     id={`desktop-nav-${group.label.toLowerCase().replaceAll(" ", "-")}`}
                   >
                     {group.items.map((item) => (
-                      <Link key={item.href} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+                      <Link key={item.href} href={item.href} onClick={() => setDesktopOpen(null)} aria-current={isCurrent(item.href) ? "page" : undefined}>
                         {item.label}
                       </Link>
                     ))}
@@ -147,7 +139,7 @@ export function SiteHeader() {
             {desktopOpen === "About" && (
               <div className="nav-dropdown-panel nav-dropdown-panel-right" id="desktop-nav-about">
                 {headerGroups[3].items.map((item) => (
-                  <Link key={item.href} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+                  <Link key={item.href} href={item.href} onClick={() => setDesktopOpen(null)} aria-current={isCurrent(item.href) ? "page" : undefined}>
                     {item.label}
                   </Link>
                 ))}
@@ -178,87 +170,9 @@ export function SiteHeader() {
           </a>
         </div>
 
-        <button
-          className="menu-toggle"
-          type="button"
-          aria-expanded={open}
-          aria-controls="mobile-navigation"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span /><span />
-        </button>
+        <MobileNavigation groups={headerGroups} />
       </div>
 
-      <div
-        id="mobile-navigation"
-        className={`mobile-nav${open ? " is-open" : ""}`}
-        aria-hidden={!open}
-      >
-        <nav aria-label="Mobile navigation">
-          {headerGroups.slice(0, 3).map((group) => {
-            const isOpen = mobileOpen === group.label;
-            return (
-              <div className="mobile-nav-group" key={group.label}>
-                <button
-                  type="button"
-                  className="mobile-nav-group-trigger"
-                  aria-expanded={isOpen}
-                  onClick={() => setMobileOpen(isOpen ? null : group.label)}
-                >
-                  {group.label}<span aria-hidden="true">+</span>
-                </button>
-                {isOpen && (
-                  <div>
-                    {group.items.map((item) => (
-                      <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-
-          <div className="mobile-nav-group">
-            <button
-              type="button"
-              className="mobile-nav-group-trigger"
-              aria-expanded={mobileOpen === "About"}
-              onClick={() => setMobileOpen(mobileOpen === "About" ? null : "About")}
-            >
-              About<span aria-hidden="true">+</span>
-            </button>
-            {mobileOpen === "About" && (
-              <div>
-                {headerGroups[3].items.map((item) => (
-                  <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <Link href="/packages" onClick={() => { setOpen(false); setMobileOpen(null); }}>Packages</Link>
-
-          <div className="mobile-contact-actions">
-            <Link className="button button-dark" href="/contact" onClick={() => setOpen(false)}>Contact us</Link>
-            <a
-              className="whatsapp-cta-icon"
-              href={siteConfig.whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`Contact Shiel Accountants on WhatsApp at ${siteConfig.whatsappDisplay}`}
-              title="WhatsApp"
-              onClick={() => setOpen(false)}
-            >
-              <WhatsAppIcon size={22} />
-            </a>
-          </div>
-        </nav>
-      </div>
     </header>
   );
 }
