@@ -724,3 +724,23 @@
     max-width: 100%;
   }
 }
+
+/* Mobile application shell: reserve space for the persistent navigation. */
+@media (max-width: 780px) {
+  :root { --page: calc(100% - 40px); }
+  html { scroll-padding-top: 84px; scroll-padding-bottom: 90px; }
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+  .site-header, .site-header.is-scrolled { height: 64px; background: var(--cloud); border-bottom-color: var(--line); }
+  .header-shell { gap: 16px; }
+  .hero { padding-top: 36px; padding-bottom: 48px; gap: 32px; }
+  .hero h1 { font-size: clamp(2.7rem, 11vw, 4.5rem); line-height: 1.04; }
+  .hero-intro { font-size: 16px; line-height: 1.6; }
+  .hero-actions { gap: 12px; }
+  .section-pad { padding-block: 60px; }
+  .hero.section-pad { padding-top: 36px; padding-bottom: 48px; }
+  .service-card { min-height: 210px; }
+  .contact-form input, .contact-form select, .contact-form textarea { font-size: 16px; min-height: 48px; }
+  .button { min-height: 48px; }
+  .case-study-section { --cs-gutter: 20px; }
+  #main-content [id] { scroll-margin-top: 84px; }
+}
