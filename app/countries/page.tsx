@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, Globe2, Sprout } from 'lucide-react';
 import { ClientPanel, PageHero } from '@/components/ui/hero';
+import { InternationalTeaser } from '@/components/ui/international-teaser';
 import { FaqList, JsonLd, Section, SectionHead } from '@/components/ui/primitives';
 import { countries } from '@/lib/content';
 import { countryMeta, fromPrice } from '@/lib/packages';
@@ -138,6 +139,9 @@ export default function Page() {
             </Link>
           </li>
         </ul>
+        <div className="mt-4">
+          <InternationalTeaser />
+        </div>
         <Link href="/tools/corporation-tax-calculator" className="card card-hover group mt-4 flex items-center gap-4 p-5">
           <span className="flex-1">
             <span className="block font-display text-lg font-semibold">Compare the tax on your profit</span>

@@ -32,6 +32,7 @@ export function allRoutes(): Route[] {
   for (const s of services) r.push({ path: `/${s.slug}`, title: s.title, headline: s.promise, description: s.description, section: 'Services', priority: 0.85 });
   for (const a of audiences) r.push({ path: `/who-we-help/${a.slug}`, title: a.title, headline: a.promise, description: a.description, section: 'Who we help', priority: 0.8 });
   for (const c of countries) r.push({ path: `/countries/${c.key}`, title: c.title, headline: c.promise, description: c.description, section: 'Countries', priority: 0.85 });
+  r.push({ path: '/countries/international', title: 'International Options: Bulgaria & Georgia', headline: 'Could your business work *better elsewhere*?', description: 'International structures with Sovereignty Global: Bulgarian companies, residency, tax planning and banking.', section: 'Countries', priority: 0.6 });
   for (const c of countryKeys) {
     r.push({ path: `/packages/${c}`, title: `${countryMeta[c].label} Accounting Packages & Prices`, headline: `${countryMeta[c].label} prices, *in one place*`, description: `Fixed monthly accounting packages in ${countryMeta[c].label}.`, section: 'Pricing', priority: 0.85 });
     for (const s of segmentKeys)

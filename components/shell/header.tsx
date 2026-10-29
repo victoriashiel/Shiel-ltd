@@ -14,7 +14,7 @@ type Menu = { key: string; label: string; links: NavLink[]; all: NavLink; featur
 const menus: Menu[] = [
   { key: 'services', label: 'Services', links: nav.services, all: { href: '/services', label: 'All services' }, feature: { title: 'Not sure what you need?', text: 'Answer three quick questions and see your price.', href: '/packages#finder', cta: 'Find my package' } },
   { key: 'who', label: 'Who we help', links: nav.audiences, all: { href: '/who-we-help', label: 'Everyone we help' }, feature: { title: 'Switching is free', text: 'We handle the handover from your current accountant and pick up the next filing cycle.', href: '/guides/how-to-switch-accountant', cta: 'How switching works' } },
-  { key: 'countries', label: 'Countries', links: nav.countries, all: { href: '/countries', label: 'All countries' }, feature: { title: 'Filing dates, worked out', text: 'Enter your year-end and see the deadlines that follow from it.', href: '/tools/filing-deadlines', cta: 'Open the deadline finder' } },
+  { key: 'countries', label: 'Countries', links: nav.countries, all: { href: '/countries', label: 'All countries' }, feature: { title: 'Could your business work better elsewhere?', text: 'Bulgarian companies, residency and banking, with our partner Sovereignty Global.', href: '/countries/international', cta: 'International options' } },
 ];
 
 export function Header() {

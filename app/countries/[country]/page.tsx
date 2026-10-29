@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight, CalendarClock } from 'lucide-react';
 import { CountryFit } from '@/components/tools/country-fit';
 import { FilingMap } from '@/components/tools/filing-map';
 import { GuideLinks } from '@/components/ui/guide-links';
+import { InternationalTeaser } from '@/components/ui/international-teaser';
 import { PageHero } from '@/components/ui/hero';
 import { Updated } from '@/components/ui/parts';
 import { Button, FaqList, JsonLd, Section, SectionHead, Sources } from '@/components/ui/primitives';
@@ -163,6 +164,11 @@ export default async function Page({ params }: { params: Promise<{ country: stri
       </Section>
 
       <Section label="Other countries">
+        {c.key === 'ireland' && (
+          <div className="mb-10">
+            <InternationalTeaser />
+          </div>
+        )}
         <h2 className="text-2xl">Business in more than one country?</h2>
         <p className="mt-2 max-w-2xl text-muted">The same accountant can look after all of it, with one set of books where the rules allow.</p>
         <ul className="mt-5 flex flex-wrap gap-2">
@@ -176,6 +182,11 @@ export default async function Page({ params }: { params: Promise<{ country: stri
           <li>
             <Link href="/international-accounting" className="chip transition hover:border-line-strong hover:text-ink">
               International accounting
+            </Link>
+          </li>
+          <li>
+            <Link href="/countries/international" className="chip transition hover:border-line-strong hover:text-ink">
+              International options
             </Link>
           </li>
         </ul>
