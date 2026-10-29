@@ -38,6 +38,7 @@ export const sources = {
   ieIncorporation: { label: 'CRO: Company incorporation (Leaflet 1)', url: 'https://cro.ie/information-leaflets/company-incorporation-leaflet-1/' },
   ieOfficers: { label: 'CRO: Company officers, directors and secretaries', url: 'https://cro.ie/registration/company/incidental-obligations/company-officers/' },
   ieBeneficial: { label: 'CRO: Registering beneficial ownership', url: 'https://cro.ie/registration/beneficial-ownership/' },
+  bgPwC: { label: 'PwC Worldwide Tax Summaries: Bulgaria', url: 'https://taxsummaries.pwc.com/bulgaria' },
   ieRealLink: { label: 'Revenue: Tax and Duty Manual Misc.10, company incorporation and economic activity', url: 'https://www.revenue.ie/en/tax-professionals/tdm/income-tax-capital-gains-tax-corporation-tax/misc/misc-10-20190510091429.pdf' },
 } satisfies Record<string, Source>;
 
