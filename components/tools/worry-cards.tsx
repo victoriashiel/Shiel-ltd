@@ -1,12 +1,13 @@
 'use client';
 
+import Link from 'next/link';
 import { AnimatePresence, m } from 'motion/react';
 import { Check, Plus } from 'lucide-react';
 import { useState } from 'react';
 import { WhatsAppIcon } from '@/components/ui/primitives';
 import { whatsappLink } from '@/lib/site';
 
-type Worry = { say: string; fix: string; where?: string };
+type Worry = { say: string; fix: string; where?: string; guide?: string };
 
 // The visitor taps the worries that sound like them. Each one turns over to show
 // what we do about it, and the ones they pick go into a ready-written WhatsApp message.
@@ -54,6 +55,11 @@ export function WorryCards({ worries, hello }: { worries: Worry[]; hello: string
                   )}
                 </AnimatePresence>
               </button>
+              {on && w.guide && (
+                <Link href={w.guide} className="link-arrow mt-2 ml-1 inline-flex text-sm">
+                  Read the guide <span aria-hidden="true">→</span>
+                </Link>
+              )}
             </li>
           );
         })}

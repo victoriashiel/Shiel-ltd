@@ -21,6 +21,15 @@ export const sources = {
   ukVAT: { label: 'GOV.UK: When to register for VAT', url: 'https://www.gov.uk/register-for-vat' },
   giCT: { label: 'HM Government of Gibraltar: Income Tax Office, corporate tax', url: 'https://www.gibraltar.gov.gi/new/corporate' },
   giPwC: { label: 'PwC Worldwide Tax Summaries: Gibraltar', url: 'https://taxsummaries.pwc.com/gibraltar' },
+  ukMTD: { label: 'GOV.UK: Making Tax Digital for Income Tax', url: 'https://www.gov.uk/government/collections/making-tax-digital-for-income-tax' },
+  ukMTDStart: { label: 'GOV.UK: Using Making Tax Digital for Income Tax for the first time', url: 'https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/using-making-tax-digital-for-income-tax-for-the-first-time' },
+  ukIR35: { label: 'GOV.UK: Understanding off-payroll working (IR35)', url: 'https://www.gov.uk/guidance/understanding-off-payroll-working-ir35' },
+  ukIR35Clients: { label: 'GOV.UK: Off-payroll working for clients', url: 'https://www.gov.uk/guidance/off-payroll-working-for-clients' },
+  euOSS: { label: 'European Commission: The One Stop Shop', url: 'https://vat-one-stop-shop.ec.europa.eu/one-stop-shop_en' },
+  euOSSPay: { label: 'European Commission: Declare and pay in OSS', url: 'https://vat-one-stop-shop.ec.europa.eu/one-stop-shop/declare-and-pay-oss_en' },
+  ieIOSS: { label: 'Revenue: Import One Stop Shop (IOSS)', url: 'https://www.revenue.ie/en/vat/vat-ecommerce/import-oss/index.aspx' },
+  ieDirectors: { label: 'CRO: Requirements for directors (Leaflet 36)', url: 'https://cro.ie/information-leaflets/requirements-for-directors-leaflet-36/' },
+  ieRealLink: { label: 'Revenue: Tax and Duty Manual Misc.10, company incorporation and economic activity', url: 'https://www.revenue.ie/en/tax-professionals/tdm/income-tax-capital-gains-tax-corporation-tax/misc/misc-10-20190510091429.pdf' },
 } satisfies Record<string, Source>;
 
 /* ---------------------------------------------------------------- services */
@@ -307,7 +316,7 @@ export const serviceBySlug = Object.fromEntries(services.map((s) => [s.slug, s])
 /* --------------------------------------------------------------- audiences */
 
 // A worry in the visitor's own words, and what we do about it. `where` limits it to one country.
-export type Worry = { say: string; fix: string; where?: string };
+export type Worry = { say: string; fix: string; where?: string; guide?: string };
 // One beat in a typical year with us.
 export type Beat = { when: string; title: string; text: string };
 
@@ -381,7 +390,7 @@ export const audiences: Audience[] = [
     worries: [
       { say: 'I dread the tax bill because I never know what’s coming.', fix: 'With your books kept monthly, we give you a figure to set aside during the year, so the bill is never a surprise.' },
       { say: 'My receipts live in a drawer, if I keep them at all.', fix: 'Snap them and send them on WhatsApp or through your software. We match each one to your bank and file it.' },
-      { say: 'Making Tax Digital has me worried.', fix: 'We keep your records in MTD-compatible software and tell you if and when the quarterly updates apply to you.', where: 'UK' },
+      { say: 'Making Tax Digital has me worried.', fix: 'We keep your records in MTD-compatible software and tell you if and when the quarterly updates apply to you.', where: 'UK', guide: '/guides/making-tax-digital-income-tax' },
       { say: 'Should I be a limited company by now?', fix: 'We watch your profits and tell you when a company would leave you better off, with the numbers to show it.' },
     ],
     year: {
@@ -415,7 +424,7 @@ export const audiences: Audience[] = [
     fit: ['You contract through your own company or plan to.', 'You work with one client or several at once.', 'You want salary, dividends and expenses set up sensibly.', 'You sometimes work in more than one country.'],
     worries: [
       { say: 'I’m not sure my pay is set up the right way.', fix: 'We set salary and dividends together with your personal tax in view, and look again when your rate or contract changes.' },
-      { say: 'A new contract has landed and I don’t know where I stand on IR35.', fix: 'We look at how each contract is set up and tell you when the IR35 position needs a closer review.', where: 'UK' },
+      { say: 'A new contract has landed and I don’t know where I stand on IR35.', fix: 'We look at how each contract is set up and tell you when the IR35 position needs a closer review.', where: 'UK', guide: '/guides/ir35-off-payroll-working-explained' },
       { say: 'My client deducts tax before they pay me.', fix: 'We record the withholding against each invoice and set it against the company’s tax bill, so none of it is lost.', where: 'Ireland' },
       { say: 'I work for several clients, sometimes in other countries.', fix: 'Every contract is tracked in one set of books, and we flag when working abroad could bring local tax or payroll into play.' },
     ],
@@ -450,7 +459,7 @@ export const audiences: Audience[] = [
     fit: ['You sell through Shopify, Amazon, Etsy or your own site.', 'Payouts land in the bank net of fees and refunds.', 'You sell to customers in other countries.', 'You hold stock and want to know your real margins.'],
     worries: [
       { say: 'My bank shows payouts, not sales.', fix: 'We break each payout back into sales, platform fees, refunds and chargebacks, so the accounts show what really happened.' },
-      { say: 'I sell to customers all over the EU.', fix: 'We file your OSS returns and tell you when holding stock abroad, in a marketplace warehouse for example, needs a local VAT registration too.' },
+      { say: 'I sell to customers all over the EU.', fix: 'We file your OSS returns and tell you when holding stock abroad, in a marketplace warehouse for example, needs a local VAT registration too.', guide: '/guides/eu-vat-one-stop-shop-oss' },
       { say: 'I don’t know what I make on each order.', fix: 'With stock and cost of sales accounted for, you see margin after fees, postage and returns, not just revenue.' },
       { say: 'Every new marketplace adds more admin.', fix: 'Each new channel feeds the same books, from Shopify and Amazon to Etsy, eBay, Stripe and PayPal.' },
     ],
@@ -485,7 +494,7 @@ export const audiences: Audience[] = [
     fit: ['You live in a different country from your company.', 'You want company and personal tax looked at together.', 'You travel for work and are unsure when local rules apply.', 'You already have advisers in more than one country.'],
     worries: [
       { say: 'Does living abroad change where my company pays tax?', fix: 'Where a company is run from can affect where it is tax resident. We set out the facts and tell you when local advice is needed.' },
-      { say: 'My Irish company has no director living in the EEA.', fix: 'It will generally need a non-resident director bond or proof of a real link to Ireland. We tell you which applies and handle the filing.', where: 'Ireland' },
+      { say: 'My Irish company has no director living in the EEA.', fix: 'It will generally need a non-resident director bond or proof of a real link to Ireland. We tell you which applies and handle the filing.', where: 'Ireland', guide: '/guides/irish-company-non-resident-director' },
       { say: 'I’m paid by the company in one country and live in another.', fix: 'Director pay can be taxed where the company is as well as where you live. We check the payroll treatment before it runs.' },
       { say: 'My advisers in each country don’t talk to each other.', fix: 'We prepare the figures your adviser abroad needs and reconcile both sides, so nothing falls between them.' },
     ],

@@ -1,5 +1,7 @@
+import Link from 'next/link';
+import { ReadingProgress } from '@/components/tools/reading-progress';
 import { ClientPanel, PageHero } from '@/components/ui/hero';
-import { Button, Container, FaqList, JsonLd, Sources } from '@/components/ui/primitives';
+import { Button, Container, FaqList, JsonLd, Section, Sources } from '@/components/ui/primitives';
 import { guideBySlug, guides, type Block } from '@/lib/guides';
 import { pageMeta, orgId, webPageLd } from '@/lib/seo';
 import { absolute, site } from '@/lib/site';
@@ -60,6 +62,8 @@ function Render({ b }: { b: Block }) {
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const g = guideBySlug[(await params).slug];
   const path = `/guides/${g.slug}`;
+  // Same-topic guides first, then the rest.
+  const related = [...guides.filter((x) => x.slug !== g.slug && x.topic === g.topic), ...guides.filter((x) => x.slug !== g.slug && x.topic !== g.topic)].slice(0, 3);
   const toc = g.body.filter((b): b is Extract<Block, { type: 'h2' }> => b.type === 'h2');
   return (
     <>
@@ -95,14 +99,16 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           By the {site.name} team · Updated <time dateTime={g.updated}>{longDate(g.updated)}</time> · {g.readMinutes} minute read
         </p>
       </PageHero>
-      <Container className="py-14 sm:py-20">
-        <div className="grid gap-12 lg:grid-cols-[14rem_1fr] lg:gap-16">
-          <nav aria-label="On this page" className="lg:sticky lg:top-28 lg:self-start">
-            <p className="label mb-3">On this page</p>
-            <ol className="grid gap-2 border-l border-line text-sm">
+      <ReadingProgress />
+      <Container className="py-10 sm:py-20">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[14rem_1fr] lg:gap-16 [&>*]:min-w-0">
+          <nav aria-label="On this page" className="min-w-0 lg:sticky lg:top-28 lg:self-start">
+            <p className="label mb-3 hidden lg:block">On this page</p>
+            {/* A swipeable row of chips on phones, a vertical list on desktop. */}
+            <ol className="-mx-4 flex gap-2 overflow-x-auto px-4 text-sm [scrollbar-width:none] lg:mx-0 lg:grid lg:gap-2 lg:overflow-visible lg:border-l lg:border-line lg:px-0">
               {toc.map((h) => (
-                <li key={h.id}>
-                  <a href={`#${h.id}`} className="-ml-px block border-l-2 border-transparent py-1 pl-4 text-muted transition hover:border-brand-bright hover:text-ink">
+                <li key={h.id} className="shrink-0">
+                  <a href={`#${h.id}`} className="block rounded-full border border-line bg-surface px-3.5 py-1.5 whitespace-nowrap text-muted transition hover:text-ink lg:-ml-px lg:rounded-none lg:border-0 lg:border-l-2 lg:border-transparent lg:bg-transparent lg:py-1 lg:pl-4 lg:whitespace-normal lg:hover:border-brand-bright">
                     {h.text}
                   </a>
                 </li>
@@ -127,6 +133,22 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           </article>
         </div>
       </Container>
+      <Section tone="muted" label="More guides">
+        <h2 className="text-2xl">More guides</h2>
+        <ul className="mt-5 grid gap-3 md:grid-cols-3">
+          {related.map((r) => (
+            <li key={r.slug}>
+              <Link href={`/guides/${r.slug}`} className="card card-hover group flex h-full flex-col p-5">
+                <span className="text-xs font-semibold text-brand-ink">{r.topic}</span>
+                <span className="mt-1 flex-1 font-display font-semibold">{r.title}</span>
+                <span className="link-arrow mt-3 text-sm">
+                  Read <span aria-hidden="true">→</span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Section>
       <ClientPanel />
     </>
   );
