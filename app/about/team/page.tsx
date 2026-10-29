@@ -1,3 +1,4 @@
+import { TeamGrid } from '@/components/tools/team-grid';
 import { ClientPanel, PageHero } from '@/components/ui/hero';
 import { JsonLd, Section, SectionHead, Steps } from '@/components/ui/primitives';
 import { team, type Person } from '@/lib/content';
@@ -58,32 +59,7 @@ export default function Page() {
         }
       />
       <Section>
-        <ul className="rail sm:mx-0 sm:flex sm:flex-wrap sm:justify-center sm:gap-6 sm:overflow-visible sm:px-0" role="region" aria-label="Team, swipe for more" tabIndex={0}>
-          {team.filter((t) => t.photo).map((t) => (
-            <li key={t.slug} id={t.slug} className="w-[80vw] max-w-sm shrink-0 scroll-mt-24 sm:w-[calc((100%-1.5rem)/2)] sm:max-w-none lg:w-[calc((100%-3rem)/3)]">
-              <article className="card flex h-full flex-col overflow-hidden">
-                <Avatar person={t} className="aspect-[4/3] w-full sm:aspect-[4/5]" eager />
-                <div className="flex flex-1 flex-col p-5 sm:p-6">
-                  <PersonText person={t} />
-                </div>
-              </article>
-            </li>
-          ))}
-        </ul>
-        {team.some((t) => !t.photo) && (
-        <ul className="mt-4 grid gap-3 sm:mt-6 sm:gap-6 lg:grid-cols-2">
-          {team.filter((t) => !t.photo).map((t) => (
-            <li key={t.slug} id={t.slug} className="reveal scroll-mt-24">
-              <article className="card flex h-full gap-4 p-5 sm:gap-5 sm:p-7">
-                <Avatar person={t} className="size-16 shrink-0 rounded-2xl text-xl" />
-                <div className="flex min-w-0 flex-1 flex-col">
-                  <PersonText person={t} />
-                </div>
-              </article>
-            </li>
-          ))}
-        </ul>
-        )}
+        <TeamGrid people={team} />
       </Section>
       <Section tone="muted" label="How we work together">
         <SectionHead title="How We Work" lead="Bookkeeping, reporting and tax decisions all describe the same business, so the people working on them talk to each other." />
@@ -112,16 +88,3 @@ function Avatar({ person, className = '', eager }: { person: Person; className?:
   );
 }
 
-function PersonText({ person }: { person: Person }) {
-  return (
-    <>
-      <h2 className="text-2xl">{person.name}</h2>
-      <p className="mt-1 text-sm font-semibold text-brand-ink">{person.role}</p>
-      <p className="mt-3 flex-1 text-muted">{person.bio}</p>
-      <p className="mt-5 border-t border-line pt-4 text-sm text-muted">
-        <span className="sr-only">Specialties: </span>
-        {person.specialties.join(' · ')}
-      </p>
-    </>
-  );
-}

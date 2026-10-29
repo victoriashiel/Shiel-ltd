@@ -7,9 +7,9 @@ export type Route = { path: string; title: string; headline: string; description
 export const plain = (s: string) => s.replace(/\*/g, '');
 
 export const tools = [
-  { slug: 'corporation-tax-calculator', name: 'Corporation tax calculator', title: 'Corporation Tax Calculator: Ireland, UK & Gibraltar', headline: 'Corporation tax, *worked out* in seconds', description: 'Estimate corporation tax for a company in Ireland, the UK or Gibraltar, including UK Marginal Relief and associated companies. Free, with the workings shown.' },
-  { slug: 'filing-deadlines', name: 'Filing deadline finder', title: 'Filing Deadline Calculator: Ireland, UK & Gibraltar', headline: 'Your company’s *next deadlines*, from one date', description: 'Enter your year-end to see the corporation tax return, payment and accounts deadlines for a company in Ireland, the UK or Gibraltar.' },
-  { slug: 'vat-threshold-checker', name: 'VAT threshold checker', title: 'VAT Threshold Checker: Do I Need to Register?', headline: 'Do you need to *register for VAT*?', description: 'Check your turnover against the VAT registration thresholds in Ireland and the UK, and see how Gibraltar differs. Free, instant and based on official figures.' },
+  { slug: 'corporation-tax-calculator', name: 'Corporation tax calculator', title: 'Corporation Tax Calculator: Ireland, UK & Gibraltar', headline: 'Corporation tax, *worked out* in seconds', guides: ['uk-corporation-tax-rates-marginal-relief'], description: 'Estimate corporation tax for a company in Ireland, the UK or Gibraltar, including UK Marginal Relief and associated companies. Free, with the workings shown.' },
+  { slug: 'filing-deadlines', name: 'Filing deadline finder', title: 'Filing Deadline Calculator: Ireland, UK & Gibraltar', headline: 'Your company’s *next deadlines*, from one date', guides: ['irish-company-filing-deadlines', 'making-tax-digital-income-tax'], description: 'Enter your year-end to see the corporation tax return, payment and accounts deadlines for a company in Ireland, the UK or Gibraltar.' },
+  { slug: 'vat-threshold-checker', name: 'VAT threshold checker', title: 'VAT Threshold Checker: Do I Need to Register?', headline: 'Do you need to *register for VAT*?', guides: ['vat-registration-thresholds', 'eu-vat-one-stop-shop-oss'], description: 'Check your turnover against the VAT registration thresholds in Ireland and the UK, and see how Gibraltar differs. Free, instant and based on official figures.' },
 ];
 
 export function allRoutes(): Route[] {

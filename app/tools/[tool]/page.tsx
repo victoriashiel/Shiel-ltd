@@ -1,9 +1,13 @@
+import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { ArrowRight, BookOpen } from 'lucide-react';
 import { CorporationTaxCalculator, DeadlineFinder, VatChecker } from '@/components/tools/calculators';
+import { ExplainSwitch } from '@/components/tools/explain-switch';
 import { ClientPanel, PageHero } from '@/components/ui/hero';
 import { Updated } from '@/components/ui/parts';
-import { ArrowLink, FaqList, JsonLd, Section, Sources } from '@/components/ui/primitives';
+import { FaqList, JsonLd, Section, SectionHead, Sources } from '@/components/ui/primitives';
 import { sources, type FAQ, type Source } from '@/lib/content';
+import { guideBySlug } from '@/lib/guides';
 import { tools } from '@/lib/routes';
 import { pageMeta, webPageLd } from '@/lib/seo';
 import { absolute, site } from '@/lib/site';
@@ -11,7 +15,7 @@ import { absolute, site } from '@/lib/site';
 export const dynamicParams = false;
 export const generateStaticParams = () => tools.map((t) => ({ tool: t.slug }));
 
-type ToolPage = { answer: string; tool: ReactNode; explain: { title: string; text: string }[]; faqs: FAQ[]; sources: Source[]; guide: { href: string; label: string } };
+type ToolPage = { answer: string; tool: ReactNode; explain: { title: string; text: string }[]; faqs: FAQ[]; sources: Source[] };
 
 const pages: Record<string, ToolPage> = {
   'corporation-tax-calculator': {
@@ -28,7 +32,6 @@ const pages: Record<string, ToolPage> = {
       { q: 'Why is the UK marginal rate higher than 25%?', a: 'Inside the Marginal Relief band each extra pound is effectively taxed at 26.5%, because the relief shrinks as profit rises. The average rate still stays between 19% and 25%.' },
     ],
     sources: [sources.ieCT, sources.ukCT, sources.ukMR, sources.giPwC],
-    guide: { href: '/guides/uk-corporation-tax-rates-marginal-relief', label: 'Read the guide to UK Marginal Relief' },
   },
   'filing-deadlines': {
     answer: 'An Irish company files its CT1 by the 23rd of the ninth month after its year-end. A UK company pays corporation tax 9 months and 1 day after year-end and files its CT600 within 12 months. A Gibraltar company files its CT1 nine months after the end of the month its period ends. Enter your year-end to see your own dates.',
@@ -44,7 +47,6 @@ const pages: Record<string, ToolPage> = {
       { q: 'What happens if I miss a deadline?', a: 'Each country charges late filing penalties or surcharges, and in Ireland a late B1 can cost the company its audit exemption. If you are already late, tell us and we will prioritise the filing.' },
     ],
     sources: [sources.ieCT1, sources.ieB1, sources.ukPay, sources.ukAccounts, sources.ukCT600, sources.giCT],
-    guide: { href: '/guides/irish-company-filing-deadlines', label: 'Read the guide to Irish company deadlines' },
   },
   'vat-threshold-checker': {
     answer: 'You must register for VAT in Ireland once turnover passes €42,500 for services or €85,000 for goods, and in the UK once taxable turnover passes £90,000 in a rolling 12 months. Gibraltar has no VAT. Enter your turnover below to see where you stand.',
@@ -60,7 +62,6 @@ const pages: Record<string, ToolPage> = {
       { q: 'Do e-commerce plans include OSS?', a: 'Yes. Our e-commerce plans include VAT returns with OSS, and multi-channel plans add IOSS.' },
     ],
     sources: [sources.ieVAT, sources.ukVAT, sources.giPwC],
-    guide: { href: '/guides/vat-registration-thresholds', label: 'Read the guide to VAT thresholds' },
   },
 };
 
@@ -105,27 +106,29 @@ export default async function Page({ params }: { params: Promise<{ tool: string 
         {p.tool}
       </Section>
       <Section tone="muted" label="How it works">
-        <h2 className="text-[clamp(1.85rem,5.5vw,3rem)]">
-          How It’s Calculated
-        </h2>
-        <div className="mt-8 grid gap-3 md:grid-cols-3">
-          {p.explain.map((e) => (
-            <div key={e.title} className="card p-6">
-              <h3 className="text-xl">{e.title}</h3>
-              <p className="mt-2 text-muted">{e.text}</p>
-            </div>
+        <SectionHead title="How it’s *worked out*" lead="The rules behind the figure, one country at a time." />
+        <ExplainSwitch items={p.explain} />
+        <ul className="mt-6 grid gap-3 md:grid-cols-2">
+          {t.guides.map((slug) => (
+            <li key={slug}>
+              <Link href={`/guides/${slug}`} className="card card-hover group flex h-full items-center gap-4 p-4 sm:p-5">
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-pale text-brand-ink">
+                  <BookOpen className="size-5" aria-hidden="true" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-xs font-semibold text-brand-ink">Guide</span>
+                  <span className="block font-display font-semibold">{guideBySlug[slug].title}</span>
+                </span>
+                <ArrowRight className="size-4 shrink-0 text-muted transition group-hover:translate-x-1 group-hover:text-ink" aria-hidden="true" />
+              </Link>
+            </li>
           ))}
-        </div>
-        <ArrowLink href={p.guide.href} className="mt-8">
-          {p.guide.label}
-        </ArrowLink>
+        </ul>
       </Section>
       <Section>
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <h2 className="text-[clamp(1.85rem,5.5vw,3rem)]">
-              Frequently Asked Questions
-            </h2>
+            <h2 className="text-[clamp(1.85rem,5.5vw,3rem)]">Frequently Asked Questions</h2>
             <div className="mt-6">
               <Updated />
             </div>
@@ -135,6 +138,21 @@ export default async function Page({ params }: { params: Promise<{ tool: string 
             <Sources items={p.sources} updated={site.updatedLabel} />
           </div>
         </div>
+      </Section>
+      <Section tone="muted" label="Other tools">
+        <h2 className="text-2xl">Other free tools</h2>
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {tools
+            .filter((x) => x.slug !== t.slug)
+            .map((x) => (
+              <li key={x.slug}>
+                <Link href={`/tools/${x.slug}`} className="chip transition hover:border-line-strong hover:text-ink">
+                  {x.name}
+                  <ArrowRight className="size-3.5" aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+        </ul>
       </Section>
       <ClientPanel />
     </>
