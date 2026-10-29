@@ -58,9 +58,9 @@ export default function Page() {
         }
       />
       <Section>
-        <ul className="rail sm:mx-0 sm:grid sm:grid-flow-row sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 lg:grid-cols-3" role="region" aria-label="Team, swipe for more" tabIndex={0}>
+        <ul className="rail sm:mx-0 sm:flex sm:flex-wrap sm:justify-center sm:gap-6 sm:overflow-visible sm:px-0" role="region" aria-label="Team, swipe for more" tabIndex={0}>
           {team.filter((t) => t.photo).map((t) => (
-            <li key={t.slug} id={t.slug} className="w-[80vw] max-w-sm shrink-0 scroll-mt-24 sm:w-auto sm:max-w-none">
+            <li key={t.slug} id={t.slug} className="w-[80vw] max-w-sm shrink-0 scroll-mt-24 sm:w-[calc((100%-1.5rem)/2)] sm:max-w-none lg:w-[calc((100%-3rem)/3)]">
               <article className="card flex h-full flex-col overflow-hidden">
                 <Avatar person={t} className="aspect-[4/3] w-full sm:aspect-[4/5]" eager />
                 <div className="flex flex-1 flex-col p-5 sm:p-6">
@@ -70,6 +70,7 @@ export default function Page() {
             </li>
           ))}
         </ul>
+        {team.some((t) => !t.photo) && (
         <ul className="mt-4 grid gap-3 sm:mt-6 sm:gap-6 lg:grid-cols-2">
           {team.filter((t) => !t.photo).map((t) => (
             <li key={t.slug} id={t.slug} className="reveal scroll-mt-24">
@@ -82,6 +83,7 @@ export default function Page() {
             </li>
           ))}
         </ul>
+        )}
       </Section>
       <Section tone="muted" label="How we work together">
         <SectionHead title="How We Work" lead="Bookkeeping, reporting and tax decisions all describe the same business, so the people working on them talk to each other." />
