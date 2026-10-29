@@ -2,10 +2,12 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, CalendarClock } from 'lucide-react';
 import { CountryFit } from '@/components/tools/country-fit';
 import { FilingMap } from '@/components/tools/filing-map';
+import { GuideLinks } from '@/components/ui/guide-links';
 import { PageHero } from '@/components/ui/hero';
 import { Updated } from '@/components/ui/parts';
 import { Button, FaqList, JsonLd, Section, SectionHead, Sources } from '@/components/ui/primitives';
 import { audiences, countries, countryByKey } from '@/lib/content';
+import { guides } from '@/lib/guides';
 import { countryMeta, fromPrice, segmentKeys, segmentMeta, setupPlan, type CountryKey } from '@/lib/packages';
 import { pageMeta, serviceLd, webPageLd } from '@/lib/seo';
 import { site, whatsappLink } from '@/lib/site';
@@ -155,6 +157,7 @@ export default async function Page({ params }: { params: Promise<{ country: stri
           <div>
             <FaqList faqs={c.faqs} />
             <Sources items={[...new Map([...c.facts.map((f) => f.source), ...c.filings.flatMap((f) => (f.source ? [f.source] : []))].map((s) => [s.url, s])).values()]} updated={site.updatedLabel} />
+            <GuideLinks slugs={guides.filter((g) => g.topic === c.name).map((g) => g.slug)} title={`Guides for ${the}`} />
           </div>
         </div>
       </Section>

@@ -1,10 +1,11 @@
 'use client';
 
+import Link from 'next/link';
 import { AnimatePresence, m } from 'motion/react';
 import { useState } from 'react';
 import { Segmented } from '@/components/ui/segmented';
 
-type Person = { slug: string; name: string; role: string; bio: string; specialties: string[]; countries: string[]; photo?: string };
+type Person = { slug: string; name: string; role: string; bio: string; specialties: string[]; countries: string[]; photo?: string; wrote?: { slug: string; title: string }[] };
 
 const filters = ['All', 'Ireland', 'United Kingdom', 'Gibraltar'] as const;
 type Filter = (typeof filters)[number];
@@ -56,6 +57,20 @@ export function TeamGrid({ people }: { people: Person[] }) {
                     ))}
                   </ul>
                   <p className="mt-3 text-xs text-muted">Covers {t.countries.join(', ')}</p>
+                  {t.wrote && t.wrote.length > 0 && (
+                    <div className="mt-4 border-t border-line pt-3">
+                      <p className="text-xs font-semibold text-muted">Writes about</p>
+                      <ul className="mt-1.5 grid gap-1">
+                        {t.wrote.map((g) => (
+                          <li key={g.slug}>
+                            <Link href={`/guides/${g.slug}`} className="text-sm font-medium text-brand-ink hover:underline">
+                              {g.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </article>
             </m.li>

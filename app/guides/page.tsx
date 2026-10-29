@@ -6,7 +6,7 @@ import { pageMeta, webPageLd } from '@/lib/seo';
 import { absolute } from '@/lib/site';
 
 const title = 'Accounting & Tax Guides | Shiel Accountants';
-const description = 'Plain-English guides to corporation tax, filing deadlines, VAT and OSS, Making Tax Digital, IR35 and company rules in Ireland, the UK and Gibraltar.';
+const description = 'Plain-English guides to tax, deadlines, VAT, IR35, Making Tax Digital and company set-up in Ireland, the UK and Gibraltar, written by our accountants.';
 export const metadata = pageMeta({ title, description, path: '/guides', absoluteTitle: true });
 
 export default function Page() {

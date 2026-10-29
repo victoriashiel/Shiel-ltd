@@ -29,6 +29,15 @@ export const sources = {
   euOSSPay: { label: 'European Commission: Declare and pay in OSS', url: 'https://vat-one-stop-shop.ec.europa.eu/one-stop-shop/declare-and-pay-oss_en' },
   ieIOSS: { label: 'Revenue: Import One Stop Shop (IOSS)', url: 'https://www.revenue.ie/en/vat/vat-ecommerce/import-oss/index.aspx' },
   ieDirectors: { label: 'CRO: Requirements for directors (Leaflet 36)', url: 'https://cro.ie/information-leaflets/requirements-for-directors-leaflet-36/' },
+  giGuidance: { label: 'HM Government of Gibraltar: Income Tax Office guidance notes for companies', url: 'https://www.gibraltar.gov.gi/uploads/Income%20Tax%20Office/Corporate/Guidance%20Notes%20for%20Companies,%2008-2025.pdf' },
+  ukDividends: { label: 'GOV.UK: Tax on dividends', url: 'https://www.gov.uk/tax-on-dividends' },
+  ukIncomeTax: { label: 'GOV.UK: Income Tax rates and allowances', url: 'https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past' },
+  ukEmployer: { label: 'GOV.UK: Rates and thresholds for employers 2026 to 2027', url: 'https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027' },
+  ukIDV: { label: 'GOV.UK: When you need to verify your identity for Companies House', url: 'https://www.gov.uk/guidance/when-you-need-to-verify-your-identity-for-companies-house' },
+  ukIDVRollout: { label: 'GOV.UK: Companies House identity verification rollout', url: 'https://www.gov.uk/government/news/companies-house-confirms-identity-verification-rollout-from-18-november-2025' },
+  ieIncorporation: { label: 'CRO: Company incorporation (Leaflet 1)', url: 'https://cro.ie/information-leaflets/company-incorporation-leaflet-1/' },
+  ieOfficers: { label: 'CRO: Company officers, directors and secretaries', url: 'https://cro.ie/registration/company/incidental-obligations/company-officers/' },
+  ieBeneficial: { label: 'CRO: Registering beneficial ownership', url: 'https://cro.ie/registration/beneficial-ownership/' },
   ieRealLink: { label: 'Revenue: Tax and Duty Manual Misc.10, company incorporation and economic activity', url: 'https://www.revenue.ie/en/tax-professionals/tdm/income-tax-capital-gains-tax-corporation-tax/misc/misc-10-20190510091429.pdf' },
 } satisfies Record<string, Source>;
 
@@ -51,6 +60,8 @@ export type Service = {
   needs: Step[];
   // The client's side of the work, in three short steps.
   yourPart: string[];
+  // Guides that answer the questions this service raises.
+  guides: string[];
   audiences: string[];
 };
 
@@ -88,6 +99,7 @@ export const services: Service[] = [
       { title: 'Personal spending and drawings', text: 'Anything you paid for the company personally, or took out that was not salary or dividends.' },
     ],
     yourPart: ['Send statements and paperwork', 'Answer a short list of questions', 'Approve and sign the accounts'],
+    guides: ['irish-company-filing-deadlines', 'companies-house-identity-verification', 'gibraltar-corporate-tax'],
     audiences: ['limited-companies', 'startups-new-companies', 'non-resident-directors'],
   },
   {
@@ -123,6 +135,7 @@ export const services: Service[] = [
       { title: 'Access to your tax account', text: 'Authority for us to act as your agent with Revenue or HMRC.' },
     ],
     yourPart: ['Share your income details', 'Review the return before it is filed', 'Pay the tax due'],
+    guides: ['uk-corporation-tax-rates-marginal-relief', 'gibraltar-corporate-tax', 'making-tax-digital-income-tax'],
     audiences: ['limited-companies', 'sole-traders', 'contractors-freelancers'],
   },
   {
@@ -162,6 +175,7 @@ export const services: Service[] = [
       { title: 'Opening balances', text: 'Your last accounts or trial balance if you are switching to us.' },
     ],
     yourPart: ['Connect your bank once', 'Snap your receipts', 'Answer the monthly queries'],
+    guides: ['making-tax-digital-income-tax', 'vat-registration-thresholds', 'eu-vat-one-stop-shop-oss'],
     audiences: ['sole-traders', 'ecommerce-sellers', 'limited-companies'],
   },
   {
@@ -202,6 +216,7 @@ export const services: Service[] = [
       { title: 'Pension scheme details', text: 'Your workplace pension provider, where one applies.' },
     ],
     yourPart: ['Send changes by the cut-off', 'Approve each run', 'Pay your team'],
+    guides: ['sole-trader-or-limited-company-uk', 'ir35-off-payroll-working-explained'],
     audiences: ['limited-companies', 'non-resident-directors', 'startups-new-companies'],
   },
   {
@@ -237,6 +252,7 @@ export const services: Service[] = [
       { title: 'Time to review together', text: 'A regular slot to go through the numbers with your accountant.' },
     ],
     yourPart: ['Tell us what you are deciding', 'Join the regular review', 'Make the call'],
+    guides: ['sole-trader-or-limited-company-uk', 'how-much-does-an-accountant-cost'],
     audiences: ['limited-companies', 'ecommerce-sellers', 'startups-new-companies'],
   },
   {
@@ -272,6 +288,7 @@ export const services: Service[] = [
       { title: 'Share structure', text: 'How many shares there are and who owns them.' },
     ],
     yourPart: ['Choose a name', 'Share the people and address details', 'Sign the formation documents'],
+    guides: ['set-up-a-limited-company-ireland', 'irish-company-non-resident-director', 'companies-house-identity-verification'],
     audiences: ['startups-new-companies', 'non-resident-directors', 'contractors-freelancers'],
   },
   {
@@ -306,6 +323,7 @@ export const services: Service[] = [
       { title: 'Time spent in each country', text: 'A rough travel record if residence could be a question.' },
     ],
     yourPart: ['Tell us where things are', 'Introduce your local advisers', 'Keep us posted on moves and travel'],
+    guides: ['eu-vat-one-stop-shop-oss', 'irish-company-non-resident-director', 'gibraltar-corporate-tax'],
     audiences: ['non-resident-directors', 'ecommerce-sellers', 'contractors-freelancers'],
   },
 ];
@@ -391,7 +409,7 @@ export const audiences: Audience[] = [
       { say: 'I dread the tax bill because I never know what’s coming.', fix: 'With your books kept monthly, we give you a figure to set aside during the year, so the bill is never a surprise.' },
       { say: 'My receipts live in a drawer, if I keep them at all.', fix: 'Snap them and send them on WhatsApp or through your software. We match each one to your bank and file it.' },
       { say: 'Making Tax Digital has me worried.', fix: 'We keep your records in MTD-compatible software and tell you if and when the quarterly updates apply to you.', where: 'UK', guide: '/guides/making-tax-digital-income-tax' },
-      { say: 'Should I be a limited company by now?', fix: 'We watch your profits and tell you when a company would leave you better off, with the numbers to show it.' },
+      { say: 'Should I be a limited company by now?', fix: 'We watch your profits and tell you when a company would leave you better off, with the numbers to show it.', guide: '/guides/sole-trader-or-limited-company-uk' },
     ],
     year: {
       title: 'A year with us',

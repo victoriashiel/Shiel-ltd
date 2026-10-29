@@ -2,6 +2,7 @@ import { TeamGrid } from '@/components/tools/team-grid';
 import { ClientPanel, PageHero } from '@/components/ui/hero';
 import { JsonLd, Section, SectionHead, Steps } from '@/components/ui/primitives';
 import { team, type Person } from '@/lib/content';
+import { guides } from '@/lib/guides';
 import { pageMeta, orgId, webPageLd } from '@/lib/seo';
 import { absolute } from '@/lib/site';
 
@@ -59,7 +60,7 @@ export default function Page() {
         }
       />
       <Section>
-        <TeamGrid people={team} />
+        <TeamGrid people={team.map((t) => ({ ...t, wrote: guides.filter((g) => g.author === t.slug).map((g) => ({ slug: g.slug, title: g.title })) }))} />
       </Section>
       <Section tone="muted" label="How we work together">
         <SectionHead title="How We Work" lead="Bookkeeping, reporting and tax decisions all describe the same business, so the people working on them talk to each other." />
