@@ -1,87 +1,79 @@
-import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { siteConfig } from "@/lib/site";
-import { safeJsonLd } from "@/lib/seo";
-import styles from "./story.module.css";
+import { ClientPanel, PageHero } from '@/components/ui/hero';
+import { Button, JsonLd, Rich, Section, SectionHead } from '@/components/ui/primitives';
+import { promises, team } from '@/lib/content';
+import { pageMeta, orgId, webPageLd } from '@/lib/seo';
+import { proof, site } from '@/lib/site';
 
-const description = "A family business built around yours. Discover why Shiel Accountants brings personal attention and transparent fees to small and growing companies.";
-export const metadata: Metadata = {
-  title: "Our story", description,
-  alternates: { canonical: "/about" },
-  openGraph: { title: "Our story | Shiel Accountants", description, url: "/about" },
-  twitter: { card: "summary_large_image", title: "Our story | Shiel Accountants", description },
-};
-const people = [
-  ["thomas-langford", "Thomas Langford"],
-  ["victoria-locke", "Victoria Locke"],
-  ["amelia-fraser", "Amelia Fraser"],
-  ["daniel-brooks", "Daniel Brooks"],
-  ["elena-rossi", "Elena Rossi"],
-] as const;
-const promises = [
-  ["Clear communication", "We keep you informed so you understand where things stand, what we need from you and what happens next."],
-  ["Timely work", "We look after your year-end accounts, tax returns and statutory filings with the attention your deadlines require."],
-  ["Transparent fees", "We agree your fees in advance and tailor the work to the needs of your company."],
-] as const;
-const schema = {
-  "@context": "https://schema.org", "@type": "AboutPage",
-  "@id": `${siteConfig.url}/about#page`, url: `${siteConfig.url}/about`,
-  name: "Our story | Shiel Accountants", description,
-  isPartOf: { "@id": `${siteConfig.url}/#website` },
-  about: { "@id": `${siteConfig.url}/#organization` },
-};
-export default function OurStoryPage() {
-  return <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
-    <section className={`section-pad ${styles.hero}`} aria-labelledby="story-title">
-      <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">Our story</span></nav>
-      <div className={styles.heroGrid}>
-        <div className={styles.heroCopy}>
-          <p className="eyebrow">Our story</p>
-          <h1 id="story-title">A family business <span>that understands yours.</span></h1>
-          <p>As a family business ourselves, we understand how much care goes into building and running a company.</p>
-          <a href="#why-shiel" className="text-link">How it started <span aria-hidden="true">↓</span></a>
-        </div>
-        <div className={styles.teamVisual}>
-          <p className={styles.visualLabel}>One connected team</p>
-          <div className={styles.bigNumber}><strong>12</strong><span>people working across Europe</span></div>
-          <div className={styles.peopleDots} aria-hidden="true">{Array.from({length:12}, (_, i) => <span key={i} />)}</div>
-          <div className={styles.visualFoot}><span>Our family remains personally involved in running Shiel.</span></div>
-        </div>
-      </div>
-    </section>
+const title = 'About Shiel | A Family-Run Accounting Firm';
+const description = 'Shiel is a family-run accounting firm with 12 people across Europe and five client-facing accountants, serving companies in Ireland, the UK and Gibraltar.';
+export const metadata = pageMeta({ title, description, path: '/about', absoluteTitle: true });
 
-    <section id="why-shiel" className={`section-pad ${styles.origin}`} aria-labelledby="origin-title">
-      <div><p className="eyebrow">01 / A better choice</p><h2 id="origin-title">Small companies deserve <span>personal attention.</span></h2></div>
-      <div className={styles.prose}>
-        <p className={styles.lead}>We started Shiel because small and growing companies deserve more choice.</p>
-        <p>Too often, that choice comes down to large firms whose fees are out of reach, or online packages that offer little personal attention.</p>
-        <p>We set out to provide qualified accountants who understand each client’s business, at a price that reflects the needs of an owner-managed company.</p>
-      </div>
-    </section>
+const chapters = [
+  { h: 'Why We Started', p: 'We started Shiel because owner-managed companies were too often left choosing between large firms whose fees were out of reach and online packages with little personal attention. We set out to offer qualified accountants who understand each client’s business, at a price that reflects the needs of a smaller company.' },
+  { h: 'A Family Business', p: 'Shiel is our family name, and it remains a family business today. Members of the family oversee the running of the firm behind the scenes, while our five client-facing accountants work directly with you throughout the year.' },
+  { h: 'Where We Work', p: `There are ${proof.people} of us, supporting companies in Ireland, the UK and Gibraltar as well as clients further afield. Each client has one named accountant, who brings in colleagues with the right specialism when a question needs it.` },
+  { h: 'Our Approach', p: 'That means year-end accounts, tax returns and statutory filings handled carefully and on time, clear explanations of where things stand, and fees agreed before the work begins.' },
+];
 
-    <section className={`section-pad ${styles.family}`} aria-labelledby="family-title">
-      <div className={styles.familyIntro}><p className="eyebrow">02 / The name behind the work</p><h2 id="family-title">Our family name reflects <span>our commitment to your business.</span></h2></div>
-      <div className={styles.familyBody}>
-        <p>Shiel is our family name, and it remains a family business today. Members of the family oversee the running of the firm behind the scenes, while our five client-facing accountants work directly with you throughout the year.</p>
-        <div className={styles.reach}><span>Based across Europe</span><p>Our team supports companies in the <strong>UK, Ireland and Gibraltar</strong>, as well as clients further afield.</p></div>
-      </div>
-    </section>
-
-    <section className={`section-pad ${styles.people}`} aria-labelledby="people-title">
-      <div className={styles.peopleHeader}><div><p className="eyebrow">03 / People you’ll get to know</p><h2 id="people-title">Get to know the accountants looking after your business.</h2></div><p>Personal attention means working directly with people who know your business, throughout the year.</p></div>
-      <div className={styles.portraits}>{people.map(([id,name]) => <div key={id}><div className={styles.photo}><Image src={`/team/${id}.webp`} alt={name} fill sizes="(max-width: 600px) 42vw, 18vw" /></div><p>{name}</p></div>)}</div>
-      <Link className="text-link" href="/about/team">Meet your accountants <span aria-hidden="true">↗</span></Link>
-    </section>
-
-    <section className={`section-pad ${styles.care}`} aria-labelledby="care-title">
-      <p className="eyebrow">04 / The standard we work to</p>
-      <h2 id="care-title">We care for your company <span>as we would our own.</span></h2>
-      <p className={styles.careIntro}>We take care of year-end accounts, tax returns and statutory filings so that your company remains compliant and you can focus on running your business.</p>
-      <div className={styles.promises}>{promises.map(([title,copy], i) => <article key={title}><span className={styles.promiseNumber}>0{i+1}</span><h3>{title}</h3><p>{copy}</p></article>)}</div>
-    </section>
-
-    <section className={`section-pad ${styles.closing}`} aria-labelledby="next-title"><div><p className="eyebrow">Let’s get to know your business</p><h2 id="next-title">Tell us what you’re building.</h2><p>We’ll talk through what you need and agree the fees before the work begins.</p></div><div className={styles.actions}><Link className="button button-dark" href="/contact">Talk to Shiel <span aria-hidden="true">↗</span></Link><Link className="text-link" href="/packages">Explore monthly packages <span aria-hidden="true">↗</span></Link></div></section>
-  </>;
+export default function Page() {
+  return (
+    <>
+      <JsonLd data={{ ...webPageLd({ path: '/about', name: title, description, type: 'AboutPage' }), mainEntity: { '@id': orgId } }} />
+      <PageHero
+        trail={[{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }]}
+        headline="A family business that *understands yours*"
+        answer={`${site.name} is a family-run firm of ${proof.people} people across Europe, with ${proof.accountants} client-facing accountants looking after companies, sole traders and online sellers in Ireland, the UK and Gibraltar. We have more than seven years of experience and work on fixed, published fees.`}
+        chips={[`${proof.people} people`, `${proof.accountants} accountants`, `${proof.years} years`]}
+        primary={{ href: '/about/team', label: 'Meet the team' }}
+        secondary={{ href: '/contact', label: 'Talk to us' }}
+      />
+      <Section>
+        <ol className="grid gap-14 sm:gap-20">
+          {chapters.map((c, i) => (
+            <li key={c.h} className="reveal grid gap-4 md:grid-cols-[6rem_1fr] md:gap-10">
+              <span className="font-display text-5xl font-extrabold text-brand-bright/40 tabular-nums">0{i + 1}</span>
+              <div className="max-w-3xl">
+                <h2 className="text-[clamp(1.75rem,5vw,2.6rem)]">
+                  <Rich text={c.h} />
+                </h2>
+                <p className="mt-4 text-lg text-muted">{c.p}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Section>
+      <Section tone="muted" label="How we work">
+        <SectionHead title="Our Promises" />
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {promises.map((p) => (
+            <li key={p.title} className="card p-6">
+              <h3 className="text-xl">{p.title}</h3>
+              <p className="mt-2 text-muted">{p.text}</p>
+            </li>
+          ))}
+        </ul>
+      </Section>
+      <Section label="Team preview">
+        <SectionHead title="Meet the Team" action={<Button href="/about/team" variant="secondary" icon="none">Meet the team</Button>} />
+        <ul className="flex flex-wrap gap-3">
+          {team.map((t) => (
+            <li key={t.slug} className="chip py-2 pr-4 pl-2">
+              {t.photo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={t.photo} alt="" width={32} height={32} loading="lazy" className="size-8 rounded-full object-cover object-top" />
+              ) : (
+                <span className="grid size-8 place-items-center rounded-full bg-gradient-to-br from-[#21a09a] to-[#0f5f5c] text-xs font-bold text-white" aria-hidden="true">
+                  {t.name.split(' ').map((n) => n[0]).join('')}
+                </span>
+              )}
+              <span>
+                <strong className="font-display">{t.name}</strong> <span className="text-muted">· {t.role}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </Section>
+      <ClientPanel text="We will talk through what you need and agree the fee before any work begins." />
+    </>
+  );
 }

@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // The production Worker behind www.shiel.ltd. Its domains are managed in the
+  // Cloudflare dashboard and are left untouched by deploys.
+  "name": "shiel-ltd",
+  "compatibility_date": "2026-10-26",
+  "assets": {
+    "directory": "./out",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

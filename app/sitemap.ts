@@ -1,40 +1,9 @@
-import type { MetadataRoute } from "next";
-import { services } from "@/lib/services";
-import { siteConfig } from "@/lib/site";
+import type { MetadataRoute } from 'next';
+import { allRoutes } from '@/lib/routes';
+import { absolute, site } from '@/lib/site';
+
+export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    { url: siteConfig.url },
-    ...services.map((service) => ({
-      url: `${siteConfig.url}/${service.slug}`,
-    })),
-    { url: `${siteConfig.url}/accounts` },
-    { url: `${siteConfig.url}/tax` },
-    { url: `${siteConfig.url}/bookkeeping` },
-    { url: `${siteConfig.url}/payroll` },
-    { url: `${siteConfig.url}/advisory` },
-    { url: `${siteConfig.url}/company-formation` },
-    { url: `${siteConfig.url}/who-we-help/limited-companies` },
-    { url: `${siteConfig.url}/who-we-help/sole-traders` },
-    { url: `${siteConfig.url}/who-we-help/contractors-freelancers` },
-    { url: `${siteConfig.url}/who-we-help/ecommerce-sellers` },
-    { url: `${siteConfig.url}/who-we-help/non-resident-directors` },
-    { url: `${siteConfig.url}/who-we-help/startups-new-companies` },
-    { url: `${siteConfig.url}/countries/ireland` },
-    { url: `${siteConfig.url}/countries/united-kingdom` },
-    { url: `${siteConfig.url}/countries/gibraltar` },
-    { url: `${siteConfig.url}/packages` },
-    ...["ireland", "united-kingdom", "gibraltar"].flatMap((country) => [
-      { url: `${siteConfig.url}/packages/${country}` },
-      ...["limited-company", "sole-trader", "contractor", "ecommerce"].map((trade) => ({
-        url: `${siteConfig.url}/packages/${country}/${trade}`,
-      })),
-    ]),
-    { url: `${siteConfig.url}/about` },
-    { url: `${siteConfig.url}/about/team` },
-    { url: `${siteConfig.url}/contact` },
-    { url: `${siteConfig.url}/privacy` },
-    { url: `${siteConfig.url}/cookies` },
-    { url: `${siteConfig.url}/terms` },
-  ];
+  return allRoutes().map((r) => ({ url: absolute(r.path), lastModified: site.updated, changeFrequency: r.section === 'Legal' ? 'yearly' : 'monthly', priority: r.priority }));
 }

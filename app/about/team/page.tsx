@@ -1,155 +1,125 @@
-import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { safeJsonLd } from "@/lib/seo";
-import { siteConfig } from "@/lib/site";
-import styles from "./team.module.css";
+import { ClientPanel, PageHero } from '@/components/ui/hero';
+import { JsonLd, Section, SectionHead, Steps } from '@/components/ui/primitives';
+import { team, type Person } from '@/lib/content';
+import { pageMeta, orgId, webPageLd } from '@/lib/seo';
+import { absolute } from '@/lib/site';
 
-const description = "Meet the people behind Shiel Accountants, covering strategic tax planning, personal and corporate tax, accounts and compliance.";
+const title = 'Meet the Team | Shiel Accountants';
+const description = 'Meet the accountants and tax advisers at Shiel: Irish, UK and Gibraltar tax, bookkeeping, management accounts and cross-border planning.';
+export const metadata = pageMeta({ title, description, path: '/about/team', absoluteTitle: true });
 
-export const metadata: Metadata = {
-  title: "Meet the team",
-  description,
-  alternates: { canonical: "/about/team" },
-  openGraph: { title: "Meet the team | Shiel Accountants", description, url: "/about/team" },
-  twitter: { card: "summary_large_image", title: "Meet the team | Shiel Accountants", description },
-};
-
-const team = [
-  {
-    id: "thomas-langford",
-    name: "Thomas Langford",
-    role: "Managing Partner",
-    copy: "Thomas leads strategic tax planning and advice on complex structures. He brings the wider client position into focus and oversees quality review across the work.",
-    specialties: ["Strategic tax planning", "Complex structures", "High-level client advice", "Quality review"],
-  },
-  {
-    id: "victoria-locke",
-    name: "Victoria Locke",
-    role: "Senior Tax Consultant",
-    copy: "Victoria supports Irish businesses and individuals with corporation tax, personal tax and self-assessment. Her work covers VAT and RCT, alongside the reliefs and exemptions relevant to each client’s position.",
-    specialties: ["Irish corporation tax", "Personal tax & self-assessment", "VAT", "RCT", "Irish reliefs & exemptions"],
-  },
-  {
-    id: "amelia-fraser",
-    name: "Amelia Fraser",
-    role: "Senior Tax Consultant",
-    copy: "Amelia focuses on the detail behind corporate tax decisions, from elections and reliefs to group structures and timing differences, with a particular focus on Gibraltar and cross-border tax optimisation.",
-    specialties: ["Corporate tax elections & reliefs", "Group structures", "Timing differences", "Gibraltar tax", "Cross-border tax optimisation"],
-  },
-  {
-    id: "daniel-brooks",
-    name: "Daniel Brooks",
-    role: "Tax Advisor",
-    copy: "Daniel supports individuals and businesses with personal and corporate tax compliance and planning, helping them understand the reliefs and exemptions relevant to their position.",
-    specialties: ["Personal tax compliance", "Corporate tax compliance", "Individual & business tax planning", "Reliefs & exemptions"],
-  },
-  {
-    id: "elena-rossi",
-    name: "Elena Rossi",
-    role: "Accounts & Compliance Manager",
-    copy: "Elena brings together the records, reporting and filings that keep accounts in order. Her work spans day-to-day bookkeeping, management accounts, VAT compliance and the supporting working papers.",
-    specialties: ["Bookkeeping", "Management accounts", "VAT compliance", "Annual filings", "Working papers"],
-  },
-] as const;
-
-const schema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "AboutPage",
-      "@id": `${siteConfig.url}/about/team#page`,
-      url: `${siteConfig.url}/about/team`,
-      name: "Meet the team | Shiel Accountants",
-      description,
-      isPartOf: { "@id": `${siteConfig.url}/#website` },
-      about: { "@id": `${siteConfig.url}/#organization` },
-      mainEntity: team.map((person) => ({
-        "@type": "Person",
-        "@id": `${siteConfig.url}/about/team#${person.id}`,
-        name: person.name,
-        jobTitle: person.role,
-        description: person.copy,
-        image: `${siteConfig.url}/team/${person.id}.webp`,
-        knowsAbout: person.specialties,
-        worksFor: { "@id": `${siteConfig.url}/#organization` },
-      })),
-    },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
-        { "@type": "ListItem", position: 2, name: "Meet the team", item: `${siteConfig.url}/about/team` },
-      ],
-    },
-  ],
-};
-
-export default function TeamPage() {
+export default function Page() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
-      <section className={`section-pad ${styles.hero}`} aria-labelledby="team-title">
-        <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-          <Link href="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">Meet the team</span>
-        </nav>
-        <div className={styles.heroGrid}>
-          <div>
-            <p className="eyebrow">Meet the team</p>
-            <h1 id="team-title">Good with numbers.<br /><span>Better with people.</span></h1>
+      <JsonLd data={webPageLd({ path: '/about/team', name: title, description, type: 'AboutPage' })} />
+      {team.map((t) => (
+        <JsonLd
+          key={t.slug}
+          data={{
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            '@id': `${absolute('/about/team')}#${t.slug}`,
+            name: t.name,
+            jobTitle: t.role,
+            ...(t.photo && { image: absolute(t.photo) }),
+            description: t.bio,
+            knowsAbout: t.specialties,
+            worksFor: { '@id': orgId },
+            url: `${absolute('/about/team')}#${t.slug}`,
+          }}
+        />
+      ))}
+      <PageHero
+        trail={[
+          { name: 'Home', path: '/' },
+          { name: 'About', path: '/about' },
+          { name: 'Team', path: '/about/team' },
+        ]}
+        headline="Meet the people who *do your accounts*"
+        answer="Five accountants and tax advisers covering Ireland, the UK and Gibraltar. You get one of them as your named accountant, all year, and they bring in the others when your question needs it."
+        primary={{ href: '/contact', label: 'Talk to the team' }}
+        aside={
+          <div className="relative mx-auto hidden w-full max-w-md lg:block">
+            <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-br from-[#21a09a]/25 via-transparent to-[#d4a24c]/20 blur-2xl" aria-hidden="true" />
+            <ul className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-[#0e2122]/85 p-3 shadow-2xl backdrop-blur-xl">
+              {team.map((t) => (
+                <li key={t.slug}>
+                  <a href={`#${t.slug}`} className="flex items-center gap-3 rounded-2xl p-2.5 transition hover:bg-white/5">
+                    <Avatar person={t} className="size-11 rounded-full text-sm" />
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-display font-semibold text-white">{t.name}</span>
+                      <span className="block truncate text-xs text-[#a9bbb8]">{t.role}</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className={styles.intro}>
-            <p>Know who’s looking after your business.</p>
-            <p>From everyday accounts to the tax decisions that shape what comes next, meet the people bringing the detail and the bigger picture together.</p>
-            <a className="text-link" href="#our-team">Meet your team <span aria-hidden="true">↓</span></a>
-          </div>
-        </div>
-      </section>
-
-      <section id="our-team" className={`section-pad ${styles.teamSection}`} aria-labelledby="profiles-title">
-        <div className={styles.sectionHeading}>
-          <h2 id="profiles-title">The people behind Shiel.</h2>
-          <p>Different specialties. One connected team.</p>
-        </div>
-        <div className={styles.grid}>
-          {team.map((person, index) => (
-            <article key={person.id} id={person.id} className={styles.card} aria-labelledby={`${person.id}-name`}>
-              <div className={styles.portrait}>
-                <Image src={`/team/${person.id}.webp`} alt={person.name} fill sizes="(max-width: 680px) calc(100vw - 28px), (max-width: 1100px) calc((100vw - 58px) / 2), 270px" preload={index < 2} />
-              </div>
-              <div className={styles.profile}>
-                <p className={styles.role}>{person.role}</p>
-                <h3 id={`${person.id}-name`}>{person.name}</h3>
-                <p className={styles.bio}>{person.copy}</p>
-                <div className={styles.specialties}>
-                  <p className={styles.tagLabel}>Specialties</p>
-                  <ul className={styles.tags} aria-label={`${person.name} specialties`}>
-                    {person.specialties.map((tag) => <li key={tag}>{tag}</li>)}
-                  </ul>
+        }
+      />
+      <Section>
+        <ul className="rail sm:mx-0 sm:grid sm:grid-flow-row sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 lg:grid-cols-3" role="region" aria-label="Team, swipe for more" tabIndex={0}>
+          {team.filter((t) => t.photo).map((t) => (
+            <li key={t.slug} id={t.slug} className="w-[80vw] max-w-sm shrink-0 scroll-mt-24 sm:w-auto sm:max-w-none">
+              <article className="card flex h-full flex-col overflow-hidden">
+                <Avatar person={t} className="aspect-[4/3] w-full sm:aspect-[4/5]" eager />
+                <div className="flex flex-1 flex-col p-5 sm:p-6">
+                  <PersonText person={t} />
                 </div>
-              </div>
-            </article>
+              </article>
+            </li>
           ))}
-        </div>
-      </section>
+        </ul>
+        <ul className="mt-4 grid gap-3 sm:mt-6 sm:gap-6 lg:grid-cols-2">
+          {team.filter((t) => !t.photo).map((t) => (
+            <li key={t.slug} id={t.slug} className="reveal scroll-mt-24">
+              <article className="card flex h-full gap-4 p-5 sm:gap-5 sm:p-7">
+                <Avatar person={t} className="size-16 shrink-0 rounded-2xl text-xl" />
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <PersonText person={t} />
+                </div>
+              </article>
+            </li>
+          ))}
+        </ul>
+      </Section>
+      <Section tone="muted" label="How we work together">
+        <SectionHead title="How We Work" lead="Bookkeeping, reporting and tax decisions all describe the same business, so the people working on them talk to each other." />
+        <Steps
+          steps={[
+            { title: 'Start with your situation', text: 'Tell us how you work, where you operate and what you need help with.' },
+            { title: 'Bring the right people in', text: 'Your accountant connects the accounts, compliance and tax expertise around you.' },
+            { title: 'Make the next step clear', text: 'You know what needs doing, what we need from you and when.' },
+          ]}
+        />
+      </Section>
+      <ClientPanel />
+    </>
+  );
+}
 
-      <section className={`section-pad ${styles.approach}`} aria-labelledby="approach-title">
-        <div>
-          <p className="eyebrow">How we work together</p>
-          <h2 id="approach-title">Your accounts don’t happen in isolation.</h2>
-          <p>Neither should the advice. Bookkeeping, reporting and tax decisions need to reflect the same business and the same goals.</p>
-        </div>
-        <ol className={styles.steps}>
-          <li><span aria-hidden="true">01</span><div><h3>Start with your situation.</h3><p>Tell us how you work, where you operate and what you need help with.</p></div></li>
-          <li><span aria-hidden="true">02</span><div><h3>Bring the right expertise together.</h3><p>We connect the relevant accounts, compliance and tax input around your needs.</p></div></li>
-          <li><span aria-hidden="true">03</span><div><h3>Make the next step clear.</h3><p>Understand what needs doing, what information is needed and how we can help.</p></div></li>
-        </ol>
-      </section>
+function Avatar({ person, className = '', eager }: { person: Person; className?: string; eager?: boolean }) {
+  if (person.photo) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={person.photo} alt={person.name} width={480} height={600} loading={eager ? 'eager' : 'lazy'} className={`object-cover object-top ${className}`} />;
+  }
+  return (
+    <span className={`grid place-items-center bg-gradient-to-b from-[#ecebe7] to-[#d6d5d0] font-display font-bold text-[#0b1718]/35 ${className}`} aria-hidden="true">
+      {person.name.split(' ').map((n) => n[0]).join('')}
+    </span>
+  );
+}
 
-      <section className={`section-pad ${styles.closing}`} aria-labelledby="contact-title">
-        <div><p className="eyebrow">Let’s talk</p><h2 id="contact-title">Put a face to your next conversation.</h2><p>Tell us a little about your business. We’ll help you find the right place to start.</p></div>
-        <div className={styles.actions}><Link href="/contact" className="button button-dark">Talk to the team <span aria-hidden="true">↗</span></Link><Link href="/packages" className="text-link">Explore our packages <span aria-hidden="true">↗</span></Link></div>
-      </section>
+function PersonText({ person }: { person: Person }) {
+  return (
+    <>
+      <h2 className="text-2xl">{person.name}</h2>
+      <p className="mt-1 text-sm font-semibold text-brand-ink">{person.role}</p>
+      <p className="mt-3 flex-1 text-muted">{person.bio}</p>
+      <p className="mt-5 border-t border-line pt-4 text-sm text-muted">
+        <span className="sr-only">Specialties: </span>
+        {person.specialties.join(' · ')}
+      </p>
     </>
   );
 }

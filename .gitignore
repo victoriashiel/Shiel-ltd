@@ -1,10 +1,8 @@
-/node_modules
-/.next/
-/out/
-/build
+node_modules/
+.next/
+out/
+.wrangler/
 .env*
-!.env.example
-.vercel
-.DS_Store
 *.tsbuildinfo
-npm-debug.log*
+next-env.d.ts
+.DS_Store

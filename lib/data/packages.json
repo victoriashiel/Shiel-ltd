@@ -1,0 +1,1049 @@
+{
+  "ireland": {
+    "label": "Ireland",
+    "symbol": "€",
+    "note": "Prices exclude VAT where applicable.",
+    "segments": {
+      "company": {
+        "label": "Limited company",
+        "intro": "Company accounts, corporation tax, annual registry filing, VAT, bookkeeping and director tax support in one monthly fee.",
+        "plans": [
+          {
+            "name": "Dormant & Pre-trade",
+            "strap": "For newly formed, pre-trading or dormant companies.",
+            "price": 79,
+            "features": [
+              "Dormant or small-company accounts",
+              "Corporation Tax return (CT1) and CRO Annual Return (B1)",
+              "RBO and CRO compliance",
+              "1 director Form 11"
+            ],
+            "details": [
+              "Named accountant",
+              "Compliance calendar and reminders",
+              "Basic record review",
+              "Bank feed where relevant"
+            ],
+            "limits": "Up to 10 accounting entries / month · sales up to €10k · no payroll"
+          },
+          {
+            "name": "LTD Starter",
+            "strap": "For new and small trading companies.",
+            "price": 179,
+            "features": [
+              "Monthly bookkeeping",
+              "Payroll & PAYE for up to 2 employees",
+              "Corporation Tax return (CT1), CRO Annual Return (B1) and VAT returns",
+              "1 director Form 11"
+            ],
+            "details": [
+              "Annual accountant review",
+              "Named accountant",
+              "Cloud bookkeeping software",
+              "Bank feeds",
+              "Beneficial ownership maintenance",
+              "Payroll reporting where applicable"
+            ],
+            "limits": "Up to 30 transactions / month · sales up to €150k · 2 directors"
+          },
+          {
+            "name": "LTD Growth",
+            "strap": "For growing companies with staff and steady sales.",
+            "price": 279,
+            "popular": true,
+            "features": [
+              "Everything in Starter",
+              "Payroll for up to 6 employees",
+              "Quarterly management reports",
+              "VIES / EU sales returns (where applicable)"
+            ],
+            "details": [
+              "Quarterly review call",
+              "Personal tax returns for 2 directors",
+              "Named accountant",
+              "Cloud bookkeeping software",
+              "Bank feeds",
+              "Beneficial ownership maintenance",
+              "Payroll reporting where applicable"
+            ],
+            "limits": "Up to 60 transactions / month · sales up to €400k · 3 directors"
+          },
+          {
+            "name": "LTD Scale",
+            "strap": "For established SMEs and more complex structures.",
+            "price": 449,
+            "features": [
+              "Everything in Growth",
+              "Payroll for up to 15 staff",
+              "Monthly management reports",
+              "Cash businesses, RCT and group structures"
+            ],
+            "details": [
+              "Weekly payroll runs where needed",
+              "Monthly review call",
+              "Personal tax returns for 3 directors",
+              "Priority turnaround",
+              "Named accountant",
+              "Payroll reporting where applicable"
+            ],
+            "limits": "Up to 120 transactions / month · sales up to €1m · 4 directors"
+          }
+        ]
+      },
+      "sole-trader": {
+        "label": "Sole trader",
+        "intro": "Straightforward bookkeeping and personal tax return support, with VAT and payroll included where the plan calls for it.",
+        "plans": [
+          {
+            "name": "Sole Trader Start-Up",
+            "strap": "For people registering as self-employed and getting the finance side set up properly.",
+            "price": 149,
+            "billing": "one-off",
+            "features": [
+              "Income Tax registration",
+              "ROS setup",
+              "Bookkeeping setup",
+              "VAT, PAYE or RCT setup where needed"
+            ],
+            "details": [
+              "Initial expense guidance",
+              "Record-keeping setup",
+              "Key filing dates explained",
+              "Business name registration guidance where relevant"
+            ],
+            "limitsLabel": "Setup scope",
+            "limits": "One-off registration and finance setup · ongoing bookkeeping not included"
+          },
+          {
+            "name": "Sole Trader Essentials",
+            "strap": "For freelancers and newer self-employed clients.",
+            "price": 99,
+            "features": [
+              "Monthly bookkeeping",
+              "Annual accounts / profit & loss",
+              "Form 11 + preliminary tax",
+              "Named accountant"
+            ],
+            "details": [
+              "Receipt capture and bank feed",
+              "VAT returns if registered",
+              "Deadline reminders",
+              "Routine tax authority queries"
+            ],
+            "limits": "Up to 20 accounting transactions / month · turnover up to €80k"
+          },
+          {
+            "name": "Sole Trader Plus",
+            "strap": "For busy sole traders with staff or card payments.",
+            "price": 159,
+            "popular": true,
+            "features": [
+              "Everything in Essentials",
+              "Payroll & PAYE for up to 2 employees",
+              "Quarterly management summary",
+              "Card, Stripe and SumUp feeds"
+            ],
+            "details": [
+              "VAT filing where registered",
+              "Cloud bookkeeping",
+              "Named accountant",
+              "Deadline reminders"
+            ],
+            "limits": "Up to 60 accounting transactions / month · turnover up to €200k"
+          },
+          {
+            "name": "Sole Trader Scale",
+            "strap": "For established self-employed businesses with higher activity.",
+            "price": 299,
+            "features": [
+              "Everything in Plus",
+              "Payroll for up to 5 employees",
+              "Monthly management reports",
+              "Multiple income streams"
+            ],
+            "details": [
+              "VAT filing",
+              "Payment platform feeds",
+              "Annual tax-planning review",
+              "Priority turnaround",
+              "Named accountant"
+            ],
+            "limits": "Up to 150 accounting transactions / month · turnover up to €500k"
+          }
+        ]
+      },
+      "contractor": {
+        "label": "Contractor",
+        "intro": "Accounting packages for contractors, from first setup through to multi-contract and higher-complexity work.",
+        "plans": [
+          {
+            "name": "Contractor Setup",
+            "strap": "For new contractors setting up before the first invoice goes out.",
+            "price": 199,
+            "billing": "one-off",
+            "features": [
+              "Revenue tax and VAT registration",
+              "Director payroll setup",
+              "Bank feeds and software",
+              "Review of the first contract"
+            ],
+            "details": [
+              "Initial accounting setup",
+              "Compliance calendar",
+              "Opening bookkeeping structure",
+              "First-year filing roadmap"
+            ],
+            "limitsLabel": "Setup scope",
+            "limits": "One-off contractor setup · ongoing monthly accounting not included"
+          },
+          {
+            "name": "Contractor Essentials",
+            "strap": "For single-client contractors with a simple setup.",
+            "price": 129,
+            "features": [
+              "1 client and 1 director",
+              "Up to 15 transactions a month",
+              "Director payroll",
+              "Year-end accounts, CT1 and CRO Annual Return (B1)",
+              "Director Form 11"
+            ],
+            "details": [
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds",
+              "Deadline reminders"
+            ],
+            "limits": "1 client · 1 director · up to 15 transactions / month"
+          },
+          {
+            "name": "Contractor Plus",
+            "strap": "For contractors working across several contracts.",
+            "price": 169,
+            "popular": true,
+            "features": [
+              "Everything in Essentials",
+              "Up to 3 clients",
+              "VAT returns",
+              "Expense and mileage claims",
+              "Salary and dividend planning",
+              "Review of each new contract"
+            ],
+            "details": [
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds",
+              "Deadline reminders"
+            ],
+            "limits": "Up to 3 clients · standard contractor company setup"
+          },
+          {
+            "name": "Contractor Premium",
+            "strap": "For contractors with a higher-earning or more complex setup.",
+            "price": 249,
+            "features": [
+              "Everything in Plus",
+              "Unlimited contracts",
+              "Second director or spouse on payroll",
+              "Pension contribution planning",
+              "Quarterly management accounts",
+              "Support for contracts abroad"
+            ],
+            "details": [
+              "Priority support",
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds"
+            ],
+            "limits": "Unlimited contracts · higher-complexity contractor setup"
+          }
+        ]
+      },
+      "ecommerce": {
+        "label": "E-commerce",
+        "intro": "Built for online sellers that need platform reconciliation and EU VAT handled alongside the year-end accounts.",
+        "plans": [
+          {
+            "name": "E-commerce Finance Setup",
+            "strap": "For stores that need the finance side set up properly before ongoing bookkeeping starts.",
+            "price": 249,
+            "billing": "one-off",
+            "features": [
+              "Platform + payment feeds",
+              "Chart of accounts",
+              "Opening balances",
+              "VAT / OSS readiness review"
+            ],
+            "details": [
+              "Payment processor mapping",
+              "Bookkeeping workflow setup",
+              "Stock / COGS setup where relevant",
+              "Handover into an ongoing plan if needed"
+            ],
+            "limitsLabel": "Setup scope",
+            "limits": "One-off finance setup · ongoing bookkeeping and VAT filing not included"
+          },
+          {
+            "name": "E-commerce Launch",
+            "strap": "For one-platform sellers getting the finance side organised.",
+            "price": 179,
+            "features": [
+              "1 sales platform",
+              "Stripe or PayPal feeds",
+              "VAT returns including OSS",
+              "Annual accounts"
+            ],
+            "details": [
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds",
+              "Deadline reminders",
+              "Year-end accounts + relevant business or personal tax return",
+              "Third-party app subscriptions excluded"
+            ],
+            "limits": "Up to 50 accounting transactions / month · sales up to €150k"
+          },
+          {
+            "name": "E-commerce Multi-channel",
+            "strap": "For sellers operating across several platforms or marketplaces.",
+            "price": 279,
+            "features": [
+              "Multi-platform reconciliation",
+              "OSS and IOSS",
+              "Stock and COGS accounting",
+              "Monthly margin report"
+            ],
+            "details": [
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds",
+              "Deadline reminders",
+              "Year-end accounts + relevant business or personal tax return",
+              "Additional country VAT registrations quoted separately",
+              "Third-party app subscriptions excluded"
+            ],
+            "limits": "Up to 100 accounting transactions / month · sales up to €500k"
+          },
+          {
+            "name": "E-commerce Scale",
+            "strap": "For higher-volume stores that need finance reporting as well as bookkeeping.",
+            "price": 449,
+            "features": [
+              "Everything in Multi-channel",
+              "Multi-currency reconciliation",
+              "Monthly management reports",
+              "Channel and margin reporting"
+            ],
+            "details": [
+              "Stock and COGS accounting",
+              "OSS and IOSS",
+              "Priority turnaround",
+              "Year-end accounts + relevant business or personal tax return",
+              "Additional country VAT registrations quoted separately",
+              "Third-party app subscriptions excluded",
+              "Named accountant"
+            ],
+            "limits": "Up to 200 accounting transactions / month · sales up to €1m"
+          }
+        ]
+      }
+    }
+  },
+  "united-kingdom": {
+    "label": "United Kingdom",
+    "symbol": "£",
+    "note": "Prices exclude VAT where applicable.",
+    "segments": {
+      "company": {
+        "label": "Limited company",
+        "intro": "Company accounts, corporation tax, annual registry filing, VAT, bookkeeping and director tax support in one monthly fee.",
+        "plans": [
+          {
+            "name": "Dormant & Pre-trade",
+            "strap": "For newly formed, pre-trading or dormant companies.",
+            "price": 49,
+            "features": [
+              "Dormant or small-company statutory accounts",
+              "Company Tax Return (CT600) and Companies House confirmation statement",
+              "PSC and Companies House compliance",
+              "1 director Self Assessment"
+            ],
+            "details": [
+              "Named accountant",
+              "Compliance calendar and reminders",
+              "Basic record review",
+              "Bank feed where relevant"
+            ],
+            "limits": "Up to 10 accounting entries / month · sales up to £10k · no payroll"
+          },
+          {
+            "name": "LTD Starter",
+            "strap": "For new and small trading companies.",
+            "price": 149,
+            "features": [
+              "Monthly bookkeeping",
+              "Payroll & PAYE for up to 2 employees",
+              "Company Tax Return (CT600), Companies House confirmation statement and VAT returns",
+              "1 director Self Assessment"
+            ],
+            "details": [
+              "Annual accountant review",
+              "Named accountant",
+              "Cloud bookkeeping software",
+              "Bank feeds",
+              "Beneficial ownership maintenance",
+              "Payroll reporting where applicable"
+            ],
+            "limits": "Up to 30 transactions / month · sales up to £130k · 2 directors"
+          },
+          {
+            "name": "LTD Growth",
+            "strap": "For growing companies with staff and steady sales.",
+            "price": 239,
+            "popular": true,
+            "features": [
+              "Everything in Starter",
+              "Payroll for up to 6 employees",
+              "Quarterly management reports",
+              "VAT reporting (where applicable)"
+            ],
+            "details": [
+              "Quarterly review call",
+              "Personal tax returns for 2 directors",
+              "Named accountant",
+              "Cloud bookkeeping software",
+              "Bank feeds",
+              "Beneficial ownership maintenance",
+              "Payroll reporting where applicable"
+            ],
+            "limits": "Up to 60 transactions / month · sales up to £350k · 3 directors"
+          },
+          {
+            "name": "LTD Scale",
+            "strap": "For established SMEs and more complex structures.",
+            "price": 389,
+            "features": [
+              "Everything in Growth",
+              "Payroll for up to 15 staff",
+              "Monthly management reports",
+              "Cash businesses, CIS and group structures"
+            ],
+            "details": [
+              "Weekly payroll runs where needed",
+              "Monthly review call",
+              "Personal tax returns for 3 directors",
+              "Priority turnaround",
+              "Named accountant",
+              "Payroll reporting where applicable"
+            ],
+            "limits": "Up to 120 transactions / month · sales up to £850k · 4 directors"
+          }
+        ]
+      },
+      "sole-trader": {
+        "label": "Sole trader",
+        "intro": "Straightforward bookkeeping and personal tax return support, with VAT and payroll included where the plan calls for it.",
+        "plans": [
+          {
+            "name": "Sole Trader Start-Up",
+            "strap": "For people registering as self-employed and getting the finance side set up properly.",
+            "price": 99,
+            "billing": "one-off",
+            "features": [
+              "Self Assessment registration",
+              "HMRC online account setup",
+              "Bookkeeping setup",
+              "VAT, PAYE or CIS setup where needed"
+            ],
+            "details": [
+              "Initial expense guidance",
+              "Record-keeping setup",
+              "Key filing dates explained",
+              "Business name registration guidance where relevant"
+            ],
+            "limitsLabel": "Setup scope",
+            "limits": "One-off registration and finance setup · ongoing bookkeeping not included"
+          },
+          {
+            "name": "Sole Trader Essentials",
+            "strap": "For freelancers and newer self-employed clients.",
+            "price": 59,
+            "features": [
+              "Monthly bookkeeping",
+              "Annual accounts / profit & loss",
+              "Self Assessment tax return",
+              "Named accountant"
+            ],
+            "details": [
+              "Receipt capture and bank feed",
+              "VAT returns if registered",
+              "Deadline reminders",
+              "Routine tax authority queries"
+            ],
+            "limits": "Up to 20 accounting transactions / month · turnover up to £80k"
+          },
+          {
+            "name": "Sole Trader Plus",
+            "strap": "For busy sole traders with staff or card payments.",
+            "price": 99,
+            "popular": true,
+            "features": [
+              "Everything in Essentials",
+              "Payroll & PAYE for up to 2 employees",
+              "Quarterly management summary",
+              "Card, Stripe and SumUp feeds"
+            ],
+            "details": [
+              "VAT filing where registered",
+              "Cloud bookkeeping",
+              "Named accountant",
+              "Deadline reminders"
+            ],
+            "limits": "Up to 60 accounting transactions / month · turnover up to £200k"
+          },
+          {
+            "name": "Sole Trader Scale",
+            "strap": "For established self-employed businesses with higher activity.",
+            "price": 199,
+            "features": [
+              "Everything in Plus",
+              "Payroll for up to 5 employees",
+              "Monthly management reports",
+              "Multiple income streams"
+            ],
+            "details": [
+              "VAT filing",
+              "Payment platform feeds",
+              "Annual tax-planning review",
+              "Priority turnaround",
+              "Named accountant"
+            ],
+            "limits": "Up to 150 accounting transactions / month · turnover up to £500k"
+          }
+        ]
+      },
+      "contractor": {
+        "label": "Contractor",
+        "intro": "Accounting packages for contractors, from first setup through to multi-contract and higher-complexity work.",
+        "plans": [
+          {
+            "name": "Contractor Setup",
+            "strap": "For new contractors setting up before the first invoice goes out.",
+            "price": 149,
+            "billing": "one-off",
+            "features": [
+              "HMRC tax and VAT registration",
+              "Director payroll setup",
+              "Bank feeds and software",
+              "Review of the first contract"
+            ],
+            "details": [
+              "Initial accounting setup",
+              "Compliance calendar",
+              "Opening bookkeeping structure",
+              "First-year filing roadmap"
+            ],
+            "limitsLabel": "Setup scope",
+            "limits": "One-off contractor setup · ongoing monthly accounting not included"
+          },
+          {
+            "name": "Contractor Essentials",
+            "strap": "For single-client contractors with a simple setup.",
+            "price": 99,
+            "features": [
+              "1 client and 1 director",
+              "Up to 15 transactions a month",
+              "Director payroll",
+              "Statutory accounts, CT600 and Companies House confirmation statement",
+              "Director Self Assessment"
+            ],
+            "details": [
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds",
+              "Deadline reminders"
+            ],
+            "limits": "1 client · 1 director · up to 15 transactions / month"
+          },
+          {
+            "name": "Contractor Plus",
+            "strap": "For contractors working across several contracts.",
+            "price": 129,
+            "popular": true,
+            "features": [
+              "Everything in Essentials",
+              "Up to 3 clients",
+              "VAT returns",
+              "Expense and mileage claims",
+              "Salary and dividend planning",
+              "Review of each new contract"
+            ],
+            "details": [
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds",
+              "Deadline reminders"
+            ],
+            "limits": "Up to 3 clients · standard contractor company setup"
+          },
+          {
+            "name": "Contractor Premium",
+            "strap": "For contractors with a higher-earning or more complex setup.",
+            "price": 189,
+            "features": [
+              "Everything in Plus",
+              "Unlimited contracts",
+              "Second director or spouse on payroll",
+              "Pension contribution planning",
+              "Quarterly management accounts",
+              "Support for contracts abroad"
+            ],
+            "details": [
+              "Priority support",
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds"
+            ],
+            "limits": "Unlimited contracts · higher-complexity contractor setup"
+          }
+        ]
+      },
+      "ecommerce": {
+        "label": "E-commerce",
+        "intro": "Built for online sellers that need platform reconciliation and cross-border VAT handled alongside the year-end accounts.",
+        "plans": [
+          {
+            "name": "E-commerce Finance Setup",
+            "strap": "For stores that need the finance side set up properly before ongoing bookkeeping starts.",
+            "price": 199,
+            "billing": "one-off",
+            "features": [
+              "Platform + payment feeds",
+              "Chart of accounts",
+              "Opening balances",
+              "UK and cross-border VAT readiness review"
+            ],
+            "details": [
+              "Payment processor mapping",
+              "Bookkeeping workflow setup",
+              "Stock / COGS setup where relevant",
+              "Handover into an ongoing plan if needed"
+            ],
+            "limitsLabel": "Setup scope",
+            "limits": "One-off finance setup · ongoing bookkeeping and VAT filing not included"
+          },
+          {
+            "name": "E-commerce Launch",
+            "strap": "For one-platform sellers getting the finance side organised.",
+            "price": 149,
+            "features": [
+              "1 sales platform",
+              "Stripe or PayPal feeds",
+              "UK and cross-border VAT support",
+              "Annual accounts"
+            ],
+            "details": [
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds",
+              "Deadline reminders",
+              "Year-end accounts + relevant business or personal tax return",
+              "Third-party app subscriptions excluded"
+            ],
+            "limits": "Up to 50 accounting transactions / month · sales up to £150k"
+          },
+          {
+            "name": "E-commerce Multi-channel",
+            "strap": "For sellers operating across several platforms or marketplaces.",
+            "price": 239,
+            "features": [
+              "Multi-platform reconciliation",
+              "Cross-border VAT / OSS support",
+              "Stock and COGS accounting",
+              "Monthly margin report"
+            ],
+            "details": [
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds",
+              "Deadline reminders",
+              "Year-end accounts + relevant business or personal tax return",
+              "Additional country VAT registrations quoted separately",
+              "Third-party app subscriptions excluded"
+            ],
+            "limits": "Up to 100 accounting transactions / month · sales up to £500k"
+          },
+          {
+            "name": "E-commerce Scale",
+            "strap": "For higher-volume stores that need finance reporting as well as bookkeeping.",
+            "price": 389,
+            "features": [
+              "Everything in Multi-channel",
+              "Multi-currency reconciliation",
+              "Monthly management reports",
+              "Channel and margin reporting"
+            ],
+            "details": [
+              "Stock and COGS accounting",
+              "OSS and IOSS",
+              "Priority turnaround",
+              "Year-end accounts + relevant business or personal tax return",
+              "Additional country VAT registrations quoted separately",
+              "Third-party app subscriptions excluded",
+              "Named accountant"
+            ],
+            "limits": "Up to 200 accounting transactions / month · sales up to £1m"
+          }
+        ]
+      }
+    }
+  },
+  "gibraltar": {
+    "label": "Gibraltar",
+    "symbol": "£",
+    "note": "Government filing fees and other third-party charges are excluded unless stated.",
+    "segments": {
+      "company": {
+        "label": "Limited company",
+        "intro": "Company accounts, corporation tax, annual registry filing, VAT, bookkeeping and director tax support in one monthly fee.",
+        "plans": [
+          {
+            "name": "Dormant & Pre-trade",
+            "strap": "For newly formed, pre-trading or dormant companies.",
+            "price": 69,
+            "features": [
+              "Dormant or small-company accounts",
+              "Corporate Tax Return (CT1) and Companies House Annual Return",
+              "UBO and Companies House compliance",
+              "1 director personal tax return"
+            ],
+            "details": [
+              "Named accountant",
+              "Compliance calendar and reminders",
+              "Basic record review",
+              "Bank feed where relevant"
+            ],
+            "limits": "Up to 10 accounting entries / month · sales up to £10k · no payroll"
+          },
+          {
+            "name": "LTD Starter",
+            "strap": "For new and small trading companies.",
+            "price": 169,
+            "features": [
+              "Monthly bookkeeping",
+              "Payroll & PAYE for up to 2 employees",
+              "Corporate Tax Return (CT1), Companies House Annual Return and annual accounts",
+              "1 director personal tax return"
+            ],
+            "details": [
+              "Annual accountant review",
+              "Named accountant",
+              "Cloud bookkeeping software",
+              "Bank feeds",
+              "Beneficial ownership maintenance",
+              "Payroll reporting where applicable"
+            ],
+            "limits": "Up to 30 transactions / month · sales up to £130k · 2 directors"
+          },
+          {
+            "name": "LTD Growth",
+            "strap": "For growing companies with staff and steady sales.",
+            "price": 269,
+            "popular": true,
+            "features": [
+              "Everything in Starter",
+              "Payroll for up to 6 employees",
+              "Quarterly management reports",
+              "Quarterly tax and compliance review"
+            ],
+            "details": [
+              "Quarterly review call",
+              "Personal tax returns for 2 directors",
+              "Named accountant",
+              "Cloud bookkeeping software",
+              "Bank feeds",
+              "Beneficial ownership maintenance",
+              "Payroll reporting where applicable"
+            ],
+            "limits": "Up to 60 transactions / month · sales up to £350k · 3 directors"
+          },
+          {
+            "name": "LTD Scale",
+            "strap": "For established SMEs and more complex structures.",
+            "price": 429,
+            "features": [
+              "Everything in Growth",
+              "Payroll for up to 15 staff",
+              "Monthly management reports",
+              "Cash businesses, contractor withholding and group structures"
+            ],
+            "details": [
+              "Weekly payroll runs where needed",
+              "Monthly review call",
+              "Personal tax returns for 3 directors",
+              "Priority turnaround",
+              "Named accountant",
+              "Payroll reporting where applicable"
+            ],
+            "limits": "Up to 120 transactions / month · sales up to £850k · 4 directors"
+          }
+        ]
+      },
+      "sole-trader": {
+        "label": "Sole trader",
+        "intro": "Straightforward bookkeeping and personal tax return support, with VAT and payroll included where the plan calls for it.",
+        "plans": [
+          {
+            "name": "Sole Trader Start-Up",
+            "strap": "For people registering as self-employed and getting the finance side set up properly.",
+            "price": 129,
+            "billing": "one-off",
+            "features": [
+              "Income Tax registration",
+              "Income Tax Office registration",
+              "Bookkeeping setup",
+              "PAYE and tax registrations where needed"
+            ],
+            "details": [
+              "Initial expense guidance",
+              "Record-keeping setup",
+              "Key filing dates explained",
+              "Business name registration guidance where relevant"
+            ],
+            "limitsLabel": "Setup scope",
+            "limits": "One-off registration and finance setup · ongoing bookkeeping not included"
+          },
+          {
+            "name": "Sole Trader Essentials",
+            "strap": "For freelancers and newer self-employed clients.",
+            "price": 79,
+            "features": [
+              "Monthly bookkeeping",
+              "Annual accounts / profit & loss",
+              "Annual personal tax return + preliminary or advance tax",
+              "Named accountant"
+            ],
+            "details": [
+              "Receipt capture and bank feed",
+              "VAT returns if registered",
+              "Deadline reminders",
+              "Routine tax authority queries"
+            ],
+            "limits": "Up to 20 accounting transactions / month · turnover up to £80k"
+          },
+          {
+            "name": "Sole Trader Plus",
+            "strap": "For busy sole traders with staff or card payments.",
+            "price": 129,
+            "popular": true,
+            "features": [
+              "Everything in Essentials",
+              "Payroll & PAYE for up to 2 employees",
+              "Quarterly management summary",
+              "Card, Stripe and SumUp feeds"
+            ],
+            "details": [
+              "VAT filing where registered",
+              "Cloud bookkeeping",
+              "Named accountant",
+              "Deadline reminders"
+            ],
+            "limits": "Up to 60 accounting transactions / month · turnover up to £200k"
+          },
+          {
+            "name": "Sole Trader Scale",
+            "strap": "For established self-employed businesses with higher activity.",
+            "price": 249,
+            "features": [
+              "Everything in Plus",
+              "Payroll for up to 5 employees",
+              "Monthly management reports",
+              "Multiple income streams"
+            ],
+            "details": [
+              "VAT filing",
+              "Payment platform feeds",
+              "Annual tax-planning review",
+              "Priority turnaround",
+              "Named accountant"
+            ],
+            "limits": "Up to 150 accounting transactions / month · turnover up to £500k"
+          }
+        ]
+      },
+      "contractor": {
+        "label": "Contractor",
+        "intro": "Accounting packages for contractors, from first setup through to multi-contract and higher-complexity work.",
+        "plans": [
+          {
+            "name": "Contractor Setup",
+            "strap": "For new contractors setting up before the first invoice goes out.",
+            "price": 179,
+            "billing": "one-off",
+            "features": [
+              "Income Tax Office registration",
+              "Director payroll setup",
+              "Bank feeds and software",
+              "Review of the first contract"
+            ],
+            "details": [
+              "Initial accounting setup",
+              "Compliance calendar",
+              "Opening bookkeeping structure",
+              "First-year filing roadmap"
+            ],
+            "limitsLabel": "Setup scope",
+            "limits": "One-off contractor setup · ongoing monthly accounting not included"
+          },
+          {
+            "name": "Contractor Essentials",
+            "strap": "For single-client contractors with a simple setup.",
+            "price": 119,
+            "features": [
+              "1 client and 1 director",
+              "Up to 15 transactions a month",
+              "Director payroll",
+              "Annual accounts, Corporate Tax Return (CT1) and Companies House Annual Return",
+              "Director personal tax return"
+            ],
+            "details": [
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds",
+              "Deadline reminders"
+            ],
+            "limits": "1 client · 1 director · up to 15 transactions / month"
+          },
+          {
+            "name": "Contractor Plus",
+            "strap": "For contractors working across several contracts.",
+            "price": 149,
+            "popular": true,
+            "features": [
+              "Everything in Essentials",
+              "Up to 3 clients",
+              "Tax compliance review",
+              "Expense and mileage claims",
+              "Salary and dividend planning",
+              "Review of each new contract"
+            ],
+            "details": [
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds",
+              "Deadline reminders"
+            ],
+            "limits": "Up to 3 clients · standard contractor company setup"
+          },
+          {
+            "name": "Contractor Premium",
+            "strap": "For contractors with a higher-earning or more complex setup.",
+            "price": 219,
+            "features": [
+              "Everything in Plus",
+              "Unlimited contracts",
+              "Second director or spouse on payroll",
+              "Pension contribution planning",
+              "Quarterly management accounts",
+              "Support for contracts abroad"
+            ],
+            "details": [
+              "Priority support",
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds"
+            ],
+            "limits": "Unlimited contracts · higher-complexity contractor setup"
+          }
+        ]
+      },
+      "ecommerce": {
+        "label": "E-commerce",
+        "intro": "Built for online sellers that need platform reconciliation and cross-border indirect tax handled alongside the year-end accounts.",
+        "plans": [
+          {
+            "name": "E-commerce Finance Setup",
+            "strap": "For stores that need the finance side set up properly before ongoing bookkeeping starts.",
+            "price": 229,
+            "billing": "one-off",
+            "features": [
+              "Platform + payment feeds",
+              "Chart of accounts",
+              "Opening balances",
+              "Cross-border tax readiness review"
+            ],
+            "details": [
+              "Payment processor mapping",
+              "Bookkeeping workflow setup",
+              "Stock / COGS setup where relevant",
+              "Handover into an ongoing plan if needed"
+            ],
+            "limitsLabel": "Setup scope",
+            "limits": "One-off finance setup · ongoing bookkeeping and tax filing not included"
+          },
+          {
+            "name": "E-commerce Launch",
+            "strap": "For one-platform sellers getting the finance side organised.",
+            "price": 169,
+            "features": [
+              "1 sales platform",
+              "Stripe or PayPal feeds",
+              "Cross-border indirect tax support where relevant",
+              "Annual accounts"
+            ],
+            "details": [
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds",
+              "Deadline reminders",
+              "Year-end accounts + relevant business or personal tax return",
+              "Third-party app subscriptions excluded"
+            ],
+            "limits": "Up to 50 accounting transactions / month · sales up to £150k"
+          },
+          {
+            "name": "E-commerce Multi-channel",
+            "strap": "For sellers operating across several platforms or marketplaces.",
+            "price": 269,
+            "features": [
+              "Multi-platform reconciliation",
+              "Cross-border indirect tax support",
+              "Stock and COGS accounting",
+              "Monthly margin report"
+            ],
+            "details": [
+              "Named accountant",
+              "Cloud bookkeeping",
+              "Bank feeds",
+              "Deadline reminders",
+              "Year-end accounts + relevant business or personal tax return",
+              "Additional country VAT registrations quoted separately",
+              "Third-party app subscriptions excluded"
+            ],
+            "limits": "Up to 100 accounting transactions / month · sales up to £500k"
+          },
+          {
+            "name": "E-commerce Scale",
+            "strap": "For higher-volume stores that need finance reporting as well as bookkeeping.",
+            "price": 429,
+            "features": [
+              "Everything in Multi-channel",
+              "Multi-currency reconciliation",
+              "Monthly management reports",
+              "Channel and margin reporting"
+            ],
+            "details": [
+              "Stock and COGS accounting",
+              "OSS and IOSS",
+              "Priority turnaround",
+              "Year-end accounts + relevant business or personal tax return",
+              "Additional country VAT registrations quoted separately",
+              "Third-party app subscriptions excluded",
+              "Named accountant"
+            ],
+            "limits": "Up to 200 accounting transactions / month · sales up to £1m"
+          }
+        ]
+      }
+    }
+  }
+}

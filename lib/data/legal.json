@@ -1,0 +1,122 @@
+{
+ "privacy": {
+  "title": "Privacy policy",
+  "updated": "25 September 2026",
+  "sections": [
+   {
+    "h": "Who we are",
+    "p": [
+     "Shiel Ltd, trading as Shiel Accountants, operates https://www.shiel.ltd. For website and client-enquiry data, we act as the data controller unless an engagement or applicable law says otherwise."
+    ]
+   },
+   {
+    "h": "Information we collect",
+    "p": [
+     "When you contact Shiel Ltd, we may receive the details you choose to provide, including your name, email address, country and information about the accounting services you are asking about."
+    ]
+   },
+   {
+    "h": "How we use it",
+    "p": [
+     "We use enquiry information to respond to you, understand the services you may need, manage our relationship with you and meet legal or professional obligations that apply to our work."
+    ]
+   },
+   {
+    "h": "Sharing information",
+    "p": [
+     "We do not sell personal information. Contact-form information is transmitted through service providers used to operate the website and deliver enquiries. Information may also be shared with professional advisers where this is necessary to deliver agreed services or comply with law."
+    ]
+   },
+   {
+    "h": "International work",
+    "p": [
+     "Our core markets are Ireland, the UK and Gibraltar. We may also support clients in other jurisdictions on a case-by-case basis. Where personal information is handled across borders, we use the safeguards required by the law that applies to the transfer."
+    ]
+   },
+   {
+    "h": "Retention and security",
+    "p": [
+     "We keep personal information only for as long as it is reasonably needed for the purpose it was collected, contractual requirements, record keeping or applicable law."
+    ]
+   },
+   {
+    "h": "Your rights and complaints",
+    "p": [
+     "Depending on the law that applies to you, you may have rights to access, correct, delete, restrict or object to the use of your personal information. You can exercise those rights or raise a data-protection complaint through the contact form. If you remain dissatisfied, you may complain to the relevant supervisory authority: the Data Protection Commission in Ireland, the Information Commissioner's Office in the UK, or the Gibraltar Regulatory Authority acting as Information Commissioner in Gibraltar."
+    ]
+   }
+  ]
+ },
+ "cookies": {
+  "title": "Cookie policy",
+  "updated": "22 September 2026",
+  "sections": [
+   {
+    "h": "Current website setup",
+    "p": [
+     "The website is designed to operate without non-essential advertising or analytics cookies by default. Essential technical storage may still be used by the hosting platform where required for security, performance or delivery."
+    ]
+   },
+   {
+    "h": "If analytics are added",
+    "p": [
+     "If non-essential analytics, advertising or similar technologies are introduced, this policy and the consent experience should be updated before those technologies are enabled for visitors where consent is legally required."
+    ]
+   },
+   {
+    "h": "Browser controls",
+    "p": [
+     "You can use your browser settings to inspect, block or delete cookies and other site data. Blocking essential storage can affect how some websites function."
+    ]
+   }
+  ]
+ },
+ "terms": {
+  "title": "Website terms",
+  "updated": "25 September 2026",
+  "sections": [
+   {
+    "h": "Company details",
+    "p": [
+     "Shiel Ltd, trading as Shiel Accountants, operates this website at https://www.shiel.ltd. Our core client markets are Ireland, the UK and Gibraltar. Services in other jurisdictions are accepted selectively and may require local professional input."
+    ]
+   },
+   {
+    "h": "General information",
+    "p": [
+     "The content on this website is general information about Shiel Ltd and its services. It is not accounting, tax, legal, investment or other professional advice for any particular person or situation."
+    ]
+   },
+   {
+    "h": "No adviser-client relationship",
+    "p": [
+     "Using the website or sending an enquiry does not by itself create a professional engagement. Any work will be subject to an agreed scope and, where applicable, engagement terms."
+    ]
+   },
+   {
+    "h": "Accuracy",
+    "p": [
+     "We aim to keep website information clear and current, but laws, rates and administrative practice can change. You should obtain advice based on your facts before acting on technical information."
+    ]
+   },
+   {
+    "h": "Third parties",
+    "p": [
+     "Where the website links to third-party services or information, those resources are controlled by their respective providers."
+    ]
+   },
+   {
+    "h": "Governing law",
+    "p": [
+     "These website terms are governed by the laws of Ireland. The courts of Ireland will have jurisdiction, except where mandatory consumer or other applicable law gives you the right to bring a claim elsewhere."
+    ]
+   },
+   {
+    "h": "Contact",
+    "p": [
+     "Questions about these website terms can be sent through the contact form."
+    ]
+   }
+  ]
+ }
+}

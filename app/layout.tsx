@@ -1,117 +1,59 @@
-import type { Metadata, Viewport } from "next";
-import Script from "next/script";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
-import { siteConfig } from "@/lib/site";
-import { safeJsonLd } from "@/lib/seo";
-import "./globals.css";
-import "./polish.css";
+import type { Metadata, Viewport } from 'next';
+import { Figtree, Instrument_Serif, Schibsted_Grotesk } from 'next/font/google';
+import './globals.css';
+import { Shell } from '@/components/shell/shell';
+import { Footer } from '@/components/shell/footer';
+import { JsonLd } from '@/components/ui/primitives';
+import { INDEXABLE, site } from '@/lib/site';
+import { organizationLd, websiteLd } from '@/lib/seo';
+
+const display = Schibsted_Grotesk({ subsets: ['latin'], weight: ['500', '600', '700', '800'], variable: '--font-schibsted', display: 'swap' });
+const body = Figtree({ subsets: ['latin'], variable: '--font-figtree', display: 'swap' });
+const serif = Instrument_Serif({ subsets: ['latin'], weight: '400', style: 'italic', variable: '--font-instrument', display: 'swap' });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  applicationName: siteConfig.name,
-  title: {
-    default: "Shiel Accountants | Ireland, UK & Gibraltar",
-    template: "%s | Shiel Accountants",
-  },
-  description: siteConfig.description,
-  category: "accounting",
-  alternates: { canonical: "/" },
-  formatDetection: {
-    telephone: false,
-    address: false,
-    email: false,
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_GB",
-    url: siteConfig.url,
-    siteName: siteConfig.name,
-    title: "Shiel Accountants | Ireland, UK & Gibraltar",
-    description: siteConfig.description,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Shiel Accountants | Ireland, UK & Gibraltar",
-    description: siteConfig.description,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-  verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
-    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
-      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
-      : undefined,
-  },
+  metadataBase: new URL(site.url),
+  title: { default: `${site.name} | Ireland, UK & Gibraltar`, template: `%s | ${site.shortName}` },
+  description: site.description,
+  applicationName: site.name,
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  publisher: site.name,
+  formatDetection: { telephone: false, email: false, address: false },
+  appleWebApp: { capable: true, title: 'Shiel', statusBarStyle: 'black-translucent' },
+  icons: { icon: [{ url: '/icon.svg', type: 'image/svg+xml' }, { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' }], apple: '/icons/apple-touch-icon.png' },
+  robots: INDEXABLE ? { index: true, follow: true } : { index: false, follow: false },
+  other: { 'msapplication-TileColor': '#0b1718' },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f6f5f0",
-  colorScheme: "light",
-};
-
-const organisationSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "AccountingService",
-      "@id": `${siteConfig.url}/#organization`,
-      name: siteConfig.name,
-      legalName: siteConfig.legalName,
-      alternateName: siteConfig.shortName,
-      url: siteConfig.url,
-      logo: `${siteConfig.url}/icon.svg`,
-      description: siteConfig.description,
-      areaServed: ["Ireland", "United Kingdom", "Gibraltar"],
-      knowsAbout: [
-        "Tax compliance",
-        "Company accounts",
-        "Bookkeeping",
-        "Payroll",
-        "Management accounts",
-        "Business advisory",
-        "Cross-border accounting",
-      ],
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${siteConfig.url}/#website`,
-      url: siteConfig.url,
-      name: siteConfig.name,
-      publisher: { "@id": `${siteConfig.url}/#organization` },
-      inLanguage: "en-GB",
-    },
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#0b1718' },
+    { media: '(prefers-color-scheme: dark)', color: '#040b0c' },
   ],
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+// Applies a saved theme before first paint so there is no flash.
+const themeScript = `try{var t=localStorage.getItem('shiel-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}`;
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-GB">
+    <html lang="en-IE" className={`${display.variable} ${body.variable} ${serif.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <JsonLd data={organizationLd()} />
+        <JsonLd data={websiteLd()} />
+      </head>
       <body>
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-JC2GPH8W3Y" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">{`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-JC2GPH8W3Y');
-        `}</Script>
-        <a className="skip-link" href="#main-content">Skip to content</a>
-        <SiteHeader />
-        <main id="main-content">{children}</main>
-        <SiteFooter />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: safeJsonLd(organisationSchema) }}
-        />
+        <Shell>
+          <main id="main" tabIndex={-1} className="outline-none">
+            {children}
+          </main>
+          <Footer />
+        </Shell>
       </body>
     </html>
   );
