@@ -162,10 +162,8 @@ export function MoreSheet({ open, onClose }: { open: boolean; onClose: () => voi
   return (
     <Sheet open={open} onClose={onClose} title="More from Shiel">
       <div className="grid gap-6">
-        {group('Who we help', nav.audiences)}
+        {group('Resources', nav.resources)}
         {group('Countries', nav.countries)}
-        {group('Free tools', nav.tools)}
-        {group('Shiel', nav.company)}
         <div>
           <h3 className="mb-2 px-1 text-sm font-semibold text-muted">Appearance</h3>
           <ThemeSwitch />

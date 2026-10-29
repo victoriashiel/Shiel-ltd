@@ -11,11 +11,10 @@ export const nav = {
     { href: '/countries/international', label: 'International options', text: 'Could your business work better elsewhere?' },
   ],
   tools: tools.map<NavLink>((t) => ({ href: `/tools/${t.slug}`, label: t.name })),
-  company: [
-    { href: '/about', label: 'Our story' },
-    { href: '/about/team', label: 'Meet the team' },
-    { href: '/guides', label: 'Guides' },
-    { href: '/faq', label: 'FAQ' },
-    { href: '/contact', label: 'Contact' },
+  resources: [
+    { href: '/about', label: 'About us', text: 'A family-run firm with five client-facing accountants.' },
+    { href: '/who-we-help', label: 'Who we help', text: 'Companies, sole traders, contractors, online sellers and more.' },
+    { href: '/tools', label: 'Free tools', text: 'Corporation tax, filing deadlines and VAT, worked out.' },
+    { href: '/about/team', label: 'Meet the team', text: 'The people who do your accounts.' },
   ] as NavLink[],
 };

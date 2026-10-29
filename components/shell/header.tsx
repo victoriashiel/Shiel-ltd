@@ -9,13 +9,16 @@ import { nav, type NavLink } from '@/lib/nav';
 import { Logo } from '@/components/ui/primitives';
 import { useShell } from './shell';
 
-type Menu = { key: string; label: string; links: NavLink[]; all: NavLink; feature: { title: string; text: string; href: string; cta: string } };
+type Menu = { key: string; label: string; links: NavLink[]; all?: NavLink; feature: { title: string; text: string; href: string; cta: string } };
 
 const menus: Menu[] = [
   { key: 'services', label: 'Services', links: nav.services, all: { href: '/services', label: 'All services' }, feature: { title: 'Not sure what you need?', text: 'Answer three quick questions and see your price.', href: '/packages#finder', cta: 'Find my package' } },
-  { key: 'who', label: 'Who we help', links: nav.audiences, all: { href: '/who-we-help', label: 'Everyone we help' }, feature: { title: 'Switching is free', text: 'We handle the handover from your current accountant and pick up the next filing cycle.', href: '/guides/how-to-switch-accountant', cta: 'How switching works' } },
   { key: 'countries', label: 'Countries', links: nav.countries, all: { href: '/countries', label: 'All countries' }, feature: { title: 'Could your business work better elsewhere?', text: 'Bulgarian companies, residency and banking, with our partner Sovereignty Global.', href: '/countries/international', cta: 'International options' } },
+  { key: 'resources', label: 'Resources', links: nav.resources, feature: { title: 'Switching is free', text: 'We handle the handover from your current accountant and pick up the next filing cycle.', href: '/guides/how-to-switch-accountant', cta: 'How switching works' } },
 ];
+
+// The top bar in order: Services and Countries menus, a Pricing link, then Resources.
+const bar: ({ menu: Menu } | { href: string; label: string })[] = [{ menu: menus[0] }, { menu: menus[1] }, { href: '/packages', label: 'Pricing' }, { menu: menus[2] }];
 
 export function Header() {
   const pathname = usePathname();
@@ -84,31 +87,32 @@ export function Header() {
 
         <nav aria-label="Main" className="ml-6 hidden lg:block">
           <ul className="flex items-center gap-1">
-            {menus.map((mn) => (
-              <li key={mn.key} onMouseEnter={() => enter(mn.key)} onMouseLeave={leave}>
-                <button
-                  type="button"
-                  aria-expanded={menu === mn.key}
-                  aria-controls={`menu-${mn.key}`}
-                  onClick={() => setMenu(menu === mn.key ? null : mn.key)}
-                  className={`flex items-center gap-1 rounded-full px-3.5 py-2 text-[0.95rem] font-medium transition hover:bg-current/8 ${menu === mn.key ? 'bg-current/8' : ''}`}
-                >
-                  {mn.label}
-                  <ChevronDown className={`size-4 transition-transform duration-300 ${menu === mn.key ? 'rotate-180' : ''}`} aria-hidden="true" />
-                </button>
-              </li>
-            ))}
-            {[
-              { href: '/packages', label: 'Pricing' },
-              { href: '/tools', label: 'Tools' },
-              { href: '/about', label: 'About' },
-            ].map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} aria-current={active(l.href) ? 'page' : undefined} className="relative rounded-full px-3.5 py-2 text-[0.95rem] font-medium transition hover:bg-current/8 aria-[current=page]:bg-current/8">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
+            {bar.map((item) => {
+              if ('href' in item) {
+                return (
+                  <li key={item.href}>
+                    <Link href={item.href} aria-current={active(item.href) ? 'page' : undefined} className="relative rounded-full px-3.5 py-2 text-[0.95rem] font-medium transition hover:bg-current/8 aria-[current=page]:bg-current/8">
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              }
+              const mn = item.menu;
+              return (
+                <li key={mn.key} onMouseEnter={() => enter(mn.key)} onMouseLeave={leave}>
+                  <button
+                    type="button"
+                    aria-expanded={menu === mn.key}
+                    aria-controls={`menu-${mn.key}`}
+                    onClick={() => setMenu(menu === mn.key ? null : mn.key)}
+                    className={`flex items-center gap-1 rounded-full px-3.5 py-2 text-[0.95rem] font-medium transition hover:bg-current/8 ${menu === mn.key ? 'bg-current/8' : ''}`}
+                  >
+                    {mn.label}
+                    <ChevronDown className={`size-4 transition-transform duration-300 ${menu === mn.key ? 'rotate-180' : ''}`} aria-hidden="true" />
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -159,11 +163,13 @@ export function Header() {
                         </Link>
                       </li>
                     ))}
-                    <li className="col-span-2 px-4 pt-2">
-                      <Link href={mn.all.href} className="link-arrow text-sm">
-                        {mn.all.label} →
-                      </Link>
-                    </li>
+                    {mn.all && (
+                      <li className="col-span-2 px-4 pt-2">
+                        <Link href={mn.all.href} className="link-arrow text-sm">
+                          {mn.all.label} →
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                   <div className="band grain relative flex flex-col justify-between overflow-hidden rounded-3xl p-6">
                     <div>
