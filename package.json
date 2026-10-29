@@ -1,28 +1,37 @@
 {
   "name": "shiel-ltd",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint .",
+    "dev": "next dev",
+    "build": "NEXT_PUBLIC_INDEX=true next build && node scripts/check.mjs",
+    "preview": "npx serve out -l 4173",
+    "check": "node scripts/check.mjs",
+    "icons": "node scripts/icons.mjs",
     "typecheck": "tsc --noEmit",
-    "test:packages": "node --test --experimental-strip-types app/packages/packages-data.test.ts"
+    "lint": "eslint .",
+    "deploy": "npm run build && wrangler deploy",
+    "build:preview": "next build && node scripts/check.mjs"
   },
   "dependencies": {
+    "lucide-react": "1.61.0",
+    "motion": "14.6.0",
     "next": "16.3.3",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.0",
+    "@fontsource/schibsted-grotesk": "5.3.0",
+    "@tailwindcss/postcss": "4.3.3",
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "16.3.3",
-    "tailwindcss": "^4.3.0",
-    "typescript": "^5.9.0"
+    "sharp": "0.35.5",
+    "tailwindcss": "4.3.3",
+    "typescript": "^5.9.0",
+    "wrangler": "4.152.0"
   }
 }

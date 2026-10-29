@@ -1,18 +1,38 @@
-export const siteConfig = {
-  name: "Shiel Accountants",
-  shortName: "Shiel",
-  legalName: "Shiel Ltd",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://shiel.ltd",
-  whatsappDisplay: process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY || "+1 (332) 355-6072",
-  whatsappHref: process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/13323556072",
+// Business identity, contact routes and build flags shared by every page.
+
+export const INDEXABLE = process.env.NEXT_PUBLIC_INDEX === 'true';
+
+export const site = {
+  name: 'Shiel Accountants',
+  shortName: 'Shiel',
+  legalName: 'Shiel Ltd',
+  url: 'https://www.shiel.ltd',
+  previewUrl: 'https://quillow.uk',
+  tagline: 'Accountants for companies in Ireland, the UK and Gibraltar',
   description:
-    "Accountants serving companies in Ireland, the UK and Gibraltar, with selective international support for other jurisdictions on a case-by-case basis.",
+    'Fixed-fee accounting, tax, bookkeeping, payroll and advisory for companies, sole traders, contractors and online sellers in Ireland, the UK and Gibraltar, with a named accountant you can message directly.',
+  whatsapp: 'https://wa.me/13323556072',
+  email: 'victoria@shiel.ltd',
+  updated: '2026-10-29',
+  updatedLabel: '29 October 2026',
+  areaServed: ['Ireland', 'United Kingdom', 'Gibraltar'],
+  partner: { name: 'Sovereignty Global', url: 'https://www.sovereigntyglobal.org', logo: '/partners/sovereignty-global.webp' },
+} as const;
+
+export const proof = {
+  years: '7+',
+  recovered: '€49k+',
+  people: 12,
+  accountants: 5,
+  fromIE: '€79',
+  fromUK: '£49',
+  fromGI: '£69',
 };
 
-export const navigation = [
-  { href: "/tax-compliance", label: "Tax & compliance" },
-  { href: "/bookkeeping-payroll", label: "Bookkeeping & payroll" },
-  { href: "/advisory-growth", label: "Advisory & growth" },
-  { href: "/international-accounting", label: "International" },
-  { href: "/packages", label: "Packages" },
-];
+export function whatsappLink(text?: string) {
+  return text ? `${site.whatsapp}?text=${encodeURIComponent(text)}` : site.whatsapp;
+}
+
+export function absolute(path: string) {
+  return `${site.url}${path === '/' ? '' : path}`;
+}

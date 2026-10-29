@@ -1,42 +1,19 @@
-import type { Metadata } from "next";
-import { PackagesClient } from "./packages-client";
-import { safeJsonLd } from "@/lib/seo";
-import { siteConfig } from "@/lib/site";
+import { PackagesPage } from '@/components/ui/packages-page';
+import { pageMeta } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: "Accounting Packages & Pricing",
-  description:
-    "Monthly accounting packages and one-off setup offers for companies, contractors, sole traders and e-commerce businesses in Ireland, the UK and Gibraltar, with bookkeeping, payroll, tax and compliance support.",
-  alternates: { canonical: "/packages" },
-  openGraph: {
-    title: "Accounting Packages & Pricing | Shiel Accountants",
-    description:
-      "Clear monthly accounting packages and one-off startup offers with published limits, a named accountant and no long-term lock-in.",
-    url: "/packages",
-  },
-};
+const title = 'Accounting Packages & Prices | Shiel Accountants';
+const description = 'Fixed monthly accounting packages from €79 in Ireland, £49 in the UK and £69 in Gibraltar, for companies, sole traders, contractors and online sellers.';
+export const metadata = pageMeta({ title, description, path: '/packages', absoluteTitle: true });
 
-const packagesSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": `${siteConfig.url}/packages#webpage`,
-  url: `${siteConfig.url}/packages`,
-  name: "Accounting Packages & Pricing | Shiel Accountants",
-  description:
-    "Choose Ireland, the United Kingdom or Gibraltar, then select your trade type to see the relevant accounting packages.",
-  isPartOf: { "@id": `${siteConfig.url}/#website` },
-  about: { "@id": `${siteConfig.url}/#organization` },
-  inLanguage: "en-GB",
-};
-
-export default function PackagesPage() {
+export default function Page() {
   return (
-    <>
-      <PackagesClient />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: safeJsonLd(packagesSchema) }}
-      />
-    </>
+    <PackagesPage
+      path="/packages"
+      title={title}
+      description={description}
+      trail={[{ name: 'Home', path: '/' }, { name: 'Packages', path: '/packages' }]}
+      headline="Accounting packages, *from €79 a month*"
+      answer="Plans start at €79 a month in Ireland, £49 in the UK and £69 in Gibraltar. Build your price below and see exactly what you would pay before you speak to anyone."
+    />
   );
 }

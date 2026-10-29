@@ -1,65 +1,33 @@
-# Shiel Ltd website
+# Shiel Accountants website
 
-Modern accountancy website for Shiel Accountants, built with Next.js 16.3, React 19.3 and Tailwind CSS 4.3.
+The public site for www.shiel.ltd: a static Next.js 16 export (React 19, Tailwind CSS 4, Motion) served from Cloudflare Workers static assets.
 
-## Environment
+## Release state
 
-Copy .env.example to .env.local and update values where needed.
+- Production (`main`) runs the redesigned site from 29 October 2026.
+- Backup of the previous site: `backup/pre-redesign-2026-10-29`, commit `a4d3de869004d84a87867f357b474006d0840030`.
+- The redesign was built and reviewed in `victoriashiel/SGTESTONLY`, which keeps running at quillow.uk as a noindex preview. Make changes here once they are approved there.
 
-NEXT_PUBLIC_SITE_URL is the canonical production URL.
-NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION and NEXT_PUBLIC_BING_SITE_VERIFICATION are optional webmaster verification tokens.
+## Build and verify
 
-Contact-form delivery is intentionally server-only. Configure CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL, CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_EMAIL_API_TOKEN in the deployment environment. Never expose these values through NEXT_PUBLIC_ variables.
+```sh
+npm ci
+npm run lint
+npm run typecheck
+npm run build        # production build: indexable, then scripts/check.mjs
+npm run build:preview # same build with noindex, for previews
+npm run preview      # serve out/ on http://localhost:4173
+npx wrangler deploy --dry-run
+```
 
-## SEO
+`scripts/check.mjs` fails the build on a broken internal link, a missing or duplicate title or description, a page without exactly one `<h1>`, or any address from the previous site that no longer resolves. Addresses that moved are kept alive with 301s in `public/_redirects`.
 
-The application includes route-specific metadata, canonical URLs, sitemap.xml, robots.txt, Open Graph metadata and image generation, AccountingService/Service/BreadcrumbList JSON-LD, semantic HTML, internal links, a web manifest and app icon.
+## Deploy and rollback
 
-## Performance and accessibility
+The existing `shiel-ltd` Worker builds this repository. A push to `main` runs `npm run build` and deploys `out/` to the same Worker, so its custom domains stay as they are. There is no server code: enquiries go by WhatsApp or email, and security and cache headers live in `public/_headers`.
 
-Pages are server-rendered by default. There is no runtime animation library. Motion uses CSS with reduced-motion support. Navigation and forms include keyboard focus states, and the layout includes skip navigation and mobile behaviour.
+To roll back, promote the previous deployment of `shiel-ltd` in the Cloudflare dashboard, or restore `main` from the backup branch.
 
-## Content guardrail
+## Content
 
-The current copy only uses facts supplied for Shiel: European based, global service coverage and 10+ years of experience across different regions. Do not add regulated-profession memberships, office addresses, client counts or performance claims unless verified.
-
-## Contact form
-
-The browser submits enquiries to /api/contact. The route validates and limits form fields, uses a honeypot for basic bot filtering, and sends the enquiry server-side through Cloudflare Email Service.
-
-The recipient address is never rendered into HTML, structured data or client-side JavaScript. It is supplied at runtime through CONTACT_TO_EMAIL.
-
-Cloudflare Email Service requirements:
-- onboard shiel.ltd under Email Service > Email Sending
-- create an API token with Email Sending: Edit permission
-- set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_EMAIL_API_TOKEN as server-side deployment secrets
-- set CONTACT_TO_EMAIL to the private recipient mailbox
-- set CONTACT_FROM_EMAIL to a sender on the onboarded shiel.ltd domain
-
-The API sets Reply-To to the visitor's supplied email address so replies can be sent directly from the received enquiry.
-
-
-## Design system
-
-The visual system uses a warm near-white base, deep ink, mineral teal, jade/sage and a restrained clay accent. The palette is informed by 2026 colour direction while keeping the interface appropriate for professional financial services. Colour is concentrated in hierarchy, data visuals and interaction states rather than applied decoratively everywhere.
-
-The interface uses native CSS view transitions and scroll-driven animation where supported, with reduced-motion, reduced-transparency and increased-contrast fallbacks. No client-side animation library is required.
-
-## Build quality
-
-GitHub Actions runs linting, TypeScript checks and a production Next.js build on every push and pull request. Actions are pinned to immutable release SHAs. The project targets the current Next.js 16.3 Active LTS line on Node.js 24.
-
-
-## Core site structure
-
-The customer journey is intentionally focused around five commercial pages:
-
-- Home
-- Tax & Compliance
-- Bookkeeping & Payroll
-- Advisory & Growth
-- International Accounting
-
-Privacy, Cookies and Terms remain available as utility pages in the footer. Legacy marketing and service URLs redirect into the focused structure so existing links do not dead-end.
-
-The contact form is the primary enquiry route. WhatsApp remains available as a secondary contact method and can be changed through NEXT_PUBLIC_WHATSAPP_DISPLAY and NEXT_PUBLIC_WHATSAPP_URL.
+All copy lives in `lib/content.ts`, with prices in `lib/data/packages.json` and legal text in `lib/data/legal.json`. Headline words wrapped in `*asterisks*` render in the italic accent face.

@@ -1,43 +1,36 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { PackagesClient } from "../packages-client";
-import type { PackageCountry } from "../package-country-config";
+import { PackagesPage } from '@/components/ui/packages-page';
+import { countryKeys, countryMeta, fromPrice, type CountryKey } from '@/lib/packages';
+import { pageMeta } from '@/lib/seo';
 
-const countryNames: Record<PackageCountry, string> = {
-  ireland: "Ireland",
-  "united-kingdom": "United Kingdom",
-  gibraltar: "Gibraltar",
+export const dynamicParams = false;
+export const generateStaticParams = () => countryKeys.map((country) => ({ country }));
+
+const copy = (c: CountryKey) => {
+  const m = countryMeta[c];
+  return {
+    title: `Accounting Packages in ${c === 'united-kingdom' ? 'the UK' : m.label} from ${m.symbol}${fromPrice(c)} a Month`,
+    description: `Fixed monthly accounting packages in ${m.label} for companies, sole traders, contractors and online sellers, from ${m.symbol}${fromPrice(c)} a month with a named accountant.`,
+  };
 };
 
-function isCountry(value: string): value is PackageCountry {
-  return value === "ireland" || value === "united-kingdom" || value === "gibraltar";
+export async function generateMetadata({ params }: { params: Promise<{ country: string }> }) {
+  const c = (await params).country as CountryKey;
+  return pageMeta({ ...copy(c), path: `/packages/${c}` });
 }
 
-export async function generateStaticParams() {
-  return Object.keys(countryNames).map((country) => ({ country }));
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ country: string }>;
-}): Promise<Metadata> {
-  const { country } = await params;
-  if (!isCountry(country)) return {};
-  const name = countryNames[country];
-  return {
-    title: `Accounting Packages ${name}`,
-    description: `Accounting packages and pricing for businesses in ${name}. Choose your trade type to see the relevant package options.`,
-    alternates: { canonical: `/packages/${country}` },
-  };
-}
-
-export default async function CountryPackagesPage({
-  params,
-}: {
-  params: Promise<{ country: string }>;
-}) {
-  const { country } = await params;
-  if (!isCountry(country)) notFound();
-  return <PackagesClient initialCountry={country} />;
+export default async function Page({ params }: { params: Promise<{ country: string }> }) {
+  const c = (await params).country as CountryKey;
+  const m = countryMeta[c];
+  const { title, description } = copy(c);
+  return (
+    <PackagesPage
+      country={c}
+      path={`/packages/${c}`}
+      title={title}
+      description={description}
+      trail={[{ name: 'Home', path: '/' }, { name: 'Packages', path: '/packages' }, { name: m.label, path: `/packages/${c}` }]}
+      headline={`Accounting packages in ${c === 'united-kingdom' ? 'the UK' : m.label}, *from ${m.symbol}${fromPrice(c)} a month*`}
+      answer={`From ${m.symbol}${fromPrice(c)} for a dormant or pre-trade company, ${m.symbol}${fromPrice(c, 'sole-trader')} for sole traders, ${m.symbol}${fromPrice(c, 'contractor')} for contractors and ${m.symbol}${fromPrice(c, 'ecommerce')} for online sellers. Build your price below.`}
+    />
+  );
 }
