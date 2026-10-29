@@ -728,6 +728,13 @@ export const promises = [
   { title: 'One business day', text: 'Our target for replying to every client message.' },
 ];
 
+export const pricingFaqs: FAQ[] = [
+  { q: 'Are there any setup or switching fees?', a: 'No. Moving from your current accountant is free. One-off setup plans exist only for people registering a new business, and they are optional.' },
+  { q: 'What happens if I go over my plan limits?', a: 'Small, occasional overages do not force a plan change. If you are consistently above the limits, we review the plan with you each quarter, and extra transactions are a published add-on.' },
+  { q: 'Is there a minimum contract?', a: 'Plans run monthly with 30 days’ notice, so you are never locked in.' },
+  { q: 'Do prices include VAT?', a: 'Prices for Ireland and the UK exclude VAT where it applies. Gibraltar prices exclude government filing fees and third-party charges unless stated.' },
+];
+
 export const homeFaqs: FAQ[] = [
   { q: 'How much does an accountant cost with Shiel?', a: 'Plans start at €79 a month in Ireland, £49 in the UK and £69 in Gibraltar for dormant or pre-trade companies. Trading company plans start at €179, £149 and £169. Every price and limit is published on our packages pages.' },
   { q: 'Do you work with clients outside Europe?', a: 'Yes. Our core markets are Ireland, the UK and Gibraltar, and we consider other jurisdictions case by case, confirming the scope before we accept work.' },

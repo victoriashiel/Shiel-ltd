@@ -6,7 +6,7 @@ import { FaqList, JsonLd, Section, SectionHead } from './primitives';
 import { addOns, countryKeys, extras, countryMeta, explorerData, fromPrice, monthlyPlans, segmentKeys, segmentMeta, setupPlan, type CountryKey, type SegmentKey } from '@/lib/packages';
 import { absolute, whatsappLink } from '@/lib/site';
 import { orgId, webPageLd } from '@/lib/seo';
-import type { FAQ } from '@/lib/content';
+import { pricingFaqs } from '@/lib/content';
 
 const included = [
   { icon: UserRound, title: 'Named accountant', text: 'One person who knows your business.' },
@@ -17,12 +17,6 @@ const included = [
   { icon: ShieldCheck, title: 'No lock-in', text: 'Monthly, with 30 days’ notice.' },
 ];
 
-const pricingFaqs: FAQ[] = [
-  { q: 'Are there any setup or switching fees?', a: 'No. Moving from your current accountant is free. One-off setup plans exist only for people registering a new business, and they are optional.' },
-  { q: 'What happens if I go over my plan limits?', a: 'Small, occasional overages do not force a plan change. If you are consistently above the limits, we review the plan with you each quarter, and extra transactions are a published add-on.' },
-  { q: 'Is there a minimum contract?', a: 'Plans run monthly with 30 days’ notice, so you are never locked in.' },
-  { q: 'Do prices include VAT?', a: 'Prices for Ireland and the UK exclude VAT where it applies. Gibraltar prices exclude government filing fees and third-party charges unless stated.' },
-];
 
 export function PackagesPage({ country, segment, path, trail, headline, answer, title, description }: { country?: CountryKey; segment?: SegmentKey; path: string; trail: { name: string; path: string }[]; headline: string; answer: string; title: string; description: string }) {
   const c = country ?? 'ireland';
