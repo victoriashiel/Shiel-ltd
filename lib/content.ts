@@ -688,10 +688,10 @@ export const team: Person[] = [
 ];
 
 export const results = [
-  { figure: '€17,200', label: 'recovered', text: 'We corrected historic payroll issues and recovered €17,200 for the client.', service: 'payroll' },
-  { figure: '4 days', label: 'before the deadline', text: 'We took over incomplete accounts four days before the deadline and had the company ready to file without an extension.', service: 'accounts' },
-  { figure: '€11,750', label: 'overpaid tax found', text: 'One review uncovered €11,750 of overpaid tax the client had not realised they could reclaim.', service: 'tax' },
-  { figure: '€8,000 → €0', label: 'tax bill', text: 'A business expecting an €8,000 tax bill had a final liability of nil once the treatment and reliefs were reviewed.', service: 'tax' },
+  { figure: '€17,200', label: 'recovered', text: 'We corrected historic payroll issues and recovered €17,200 for the client.', service: 'payroll', image: '/results/payroll-recovered.webp' },
+  { figure: '4 days', label: 'before the deadline', text: 'We took over incomplete accounts four days before the deadline and had the company ready to file without an extension.', service: 'accounts', image: '/results/four-days.webp' },
+  { figure: '€11,750', label: 'overpaid tax found', text: 'One review uncovered €11,750 of overpaid tax the client had not realised they could reclaim.', service: 'tax', image: '/results/overpaid-tax.webp' },
+  { figure: '€8,000 → €0', label: 'tax bill', text: 'A business expecting an €8,000 tax bill had a final liability of nil once the treatment and reliefs were reviewed.', service: 'tax', image: '/results/tax-bill-nil.webp' },
 ];
 
 export const promises = [

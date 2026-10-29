@@ -131,9 +131,10 @@ export default function Home() {
       {/* Results */}
       <Section tone="band" label="Client results">
         <SectionHead title="Client Results" lead="A few examples of what a careful review, a correction or a well-timed intervention has meant for clients." />
-        <div className="rail lg:mx-0 lg:grid lg:grid-flow-row lg:grid-cols-4 lg:overflow-visible lg:px-0" role="region" aria-label="Client results, swipe for more" tabIndex={0}>
+        {/* Phones get swipeable text cards; desktop shows the client result graphics. */}
+        <div className="rail lg:hidden" role="region" aria-label="Client results, swipe for more" tabIndex={0}>
           {results.map((r) => (
-            <article key={r.text} className="reveal relative flex flex-col overflow-hidden rounded-[var(--radius)] border border-white/10 bg-white/[0.04] p-6 backdrop-blur">
+            <article key={r.text} className="relative flex flex-col overflow-hidden rounded-[var(--radius)] border border-white/10 bg-white/[0.04] p-6 backdrop-blur">
               <span className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-mint/60 to-transparent" aria-hidden="true" />
               <div>
                 <p className="font-display text-[clamp(1.9rem,2.6vw,2.25rem)] font-extrabold tracking-tight whitespace-nowrap text-mint">{r.figure}</p>
@@ -143,6 +144,14 @@ export default function Home() {
             </article>
           ))}
         </div>
+        <ul className="hidden max-w-5xl grid-cols-4 gap-5 lg:grid">
+          {results.map((r) => (
+            <li key={r.text} className="reveal">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={r.image} alt={r.text} width={480} height={600} loading="lazy" decoding="async" className="w-full rounded-2xl border border-white/10 shadow-lift transition duration-300 hover:-translate-y-1" />
+            </li>
+          ))}
+        </ul>
         <p className="mt-6 text-sm text-on-band-muted">Outcomes depend on each client’s circumstances and the rules that apply to them. These are not a promise or a typical result.</p>
       </Section>
 
