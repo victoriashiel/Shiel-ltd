@@ -339,7 +339,8 @@
   overscroll-behavior-x: contain;
 }
 .rail::-webkit-scrollbar { display: none; }
-.rail > * { scroll-snap-align: start; }
+/* Keeps hidden screen-reader labels inside their card, so off-screen cards can't widen the page. */
+.rail > * { scroll-snap-align: start; position: relative; }
 
 .marquee { mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
 .marquee-track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
