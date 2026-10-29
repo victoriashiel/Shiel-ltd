@@ -1,46 +1,41 @@
+import { FaqHub, type HubFaq } from '@/components/tools/faq-hub';
 import { ClientPanel, PageHero } from '@/components/ui/hero';
-import { Container, FaqList, JsonLd } from '@/components/ui/primitives';
-import { audiences, countries, homeFaqs, services } from '@/lib/content';
+import { JsonLd, Section } from '@/components/ui/primitives';
+import { audiences, countries, homeFaqs, pricingFaqs, services } from '@/lib/content';
+import { guides } from '@/lib/guides';
 import { faqLd, pageMeta, webPageLd } from '@/lib/seo';
 
 const title = 'Frequently Asked Questions | Shiel Accountants';
-const description = 'Answers about pricing, switching accountant, what is included, deadlines and working across Ireland, the UK and Gibraltar with Shiel Accountants.';
+const description = 'Search every answer about pricing, switching accountant, services, deadlines, VAT and working across Ireland, the UK and Gibraltar with Shiel Accountants.';
 export const metadata = pageMeta({ title, description, path: '/faq', absoluteTitle: true });
 
-const groups = [
-  { title: 'Getting Started', faqs: homeFaqs },
-  { title: 'Services', faqs: services.flatMap((s) => s.faqs.slice(0, 1)) },
-  { title: 'Who We Work With', faqs: audiences.flatMap((a) => a.faqs.slice(0, 1)) },
-  { title: 'Countries', faqs: countries.flatMap((c) => c.faqs.slice(0, 2)) },
+// Every FAQ on the site, grouped by topic and linked back to the page it comes from.
+const topics = ['Popular', 'Pricing', 'Services', 'Who we help', 'Countries', 'Tax rules'];
+const all: HubFaq[] = [
+  ...homeFaqs.map((f) => ({ ...f, topic: 'Popular' })),
+  ...pricingFaqs.map((f) => ({ ...f, topic: 'Pricing', href: '/packages', from: 'pricing' })),
+  ...services.flatMap((s) => s.faqs.map((f) => ({ ...f, topic: 'Services', href: `/${s.slug}`, from: s.name.toLowerCase() }))),
+  ...audiences.flatMap((a) => a.faqs.map((f) => ({ ...f, topic: 'Who we help', href: `/who-we-help/${a.slug}`, from: a.name.toLowerCase() }))),
+  ...countries.flatMap((c) => c.faqs.map((f) => ({ ...f, topic: 'Countries', href: `/countries/${c.key}`, from: c.name }))),
+  ...guides.flatMap((g) => g.faqs.map((f) => ({ ...f, topic: 'Tax rules', href: `/guides/${g.slug}`, from: 'the guide' }))),
 ];
+// The same question can appear on more than one page; keep the first.
+const faqs = all.filter((f, i) => all.findIndex((x) => x.q === f.q) === i);
 
 export default function Page() {
-  const all = groups.flatMap((g) => g.faqs);
-  const unique = [...new Map(all.map((f) => [f.q, f])).values()];
   return (
     <>
       <JsonLd data={webPageLd({ path: '/faq', name: title, description })} />
-      <JsonLd data={faqLd(unique)} />
+      <JsonLd data={faqLd(faqs)} />
       <PageHero
         trail={[{ name: 'Home', path: '/' }, { name: 'FAQ', path: '/faq' }]}
-        headline="Questions, *answered first*"
-        answer="The questions business owners ask us most often, about prices, switching, what is included and working across more than one country. Every answer starts with the short version."
+        headline="Ask us *anything*"
+        answer={`${faqs.length} answers about prices, switching, deadlines, VAT and working across Ireland, the UK and Gibraltar. Search them, or ask your accountant directly.`}
         primary={{ href: '/contact', label: 'Ask your own question' }}
       />
-      <Container className="grid gap-14 py-14 sm:py-20">
-        {groups.map((g) => {
-          const seen = new Set<string>();
-          const faqs = g.faqs.filter((f) => !seen.has(f.q) && seen.add(f.q));
-          return (
-            <section key={g.title} aria-labelledby={`faq-${g.title.toLowerCase().replace(/\s+/g, "-")}`}>
-              <h2 id={`faq-${g.title.toLowerCase().replace(/\s+/g, "-")}`} className="mb-6 text-[clamp(1.6rem,4.5vw,2.4rem)]">
-                {g.title}
-              </h2>
-              <FaqList faqs={faqs} schema={false} />
-            </section>
-          );
-        })}
-      </Container>
+      <Section className="!pt-6 sm:!pt-10">
+        <FaqHub faqs={faqs} topics={topics} />
+      </Section>
       <ClientPanel />
     </>
   );
