@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ReadingProgress } from '@/components/tools/reading-progress';
 import { ClientPanel, PageHero } from '@/components/ui/hero';
 import { Button, Container, FaqList, JsonLd, Section, Sources } from '@/components/ui/primitives';
+import { team } from '@/lib/content';
 import { guideBySlug, guides, type Block } from '@/lib/guides';
 import { pageMeta, orgId, webPageLd } from '@/lib/seo';
 import { absolute, site } from '@/lib/site';
@@ -62,6 +63,9 @@ function Render({ b }: { b: Block }) {
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const g = guideBySlug[(await params).slug];
   const path = `/guides/${g.slug}`;
+  const author = team.find((t) => t.slug === g.author)!;
+  const reviewer = team.find((t) => t.slug === g.reviewer)!;
+  const person = (t: typeof author) => ({ '@type': 'Person', '@id': `${absolute('/about/team')}#${t.slug}`, name: t.name, jobTitle: t.role, url: `${absolute('/about/team')}#${t.slug}`, worksFor: { '@id': orgId }, ...(t.photo ? { image: absolute(t.photo) } : {}) });
   // Same-topic guides first, then the rest.
   const related = [...guides.filter((x) => x.slug !== g.slug && x.topic === g.topic), ...guides.filter((x) => x.slug !== g.slug && x.topic !== g.topic)].slice(0, 3);
   const toc = g.body.filter((b): b is Extract<Block, { type: 'h2' }> => b.type === 'h2');
@@ -76,7 +80,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           image: absolute(`/og/guides--${g.slug}.png`),
           datePublished: g.published,
           dateModified: g.updated,
-          author: { '@type': 'Organization', '@id': orgId, name: site.name, url: site.url },
+          author: person(author),
           publisher: { '@id': orgId },
           mainEntityOfPage: absolute(path),
           articleSection: g.topic,
@@ -84,7 +88,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           ...(g.sources.length ? { citation: g.sources.map((s) => s.url) } : {}),
         }}
       />
-      <JsonLd data={webPageLd({ path, name: g.title, description: g.description })} />
+      <JsonLd data={{ ...webPageLd({ path, name: g.title, description: g.description }), reviewedBy: person(reviewer), lastReviewed: g.updated }} />
       <PageHero
         trail={[
           { name: 'Home', path: '/' },
@@ -95,9 +99,26 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         answer={g.answer}
         primary={g.tool ? { href: g.tool.href, label: g.tool.label } : { href: '/contact', label: 'Talk to us' }}
       >
-        <p className="lift lift-4 mt-6 text-sm text-on-band-muted">
-          By the {site.name} team · Updated <time dateTime={g.updated}>{longDate(g.updated)}</time> · {g.readMinutes} minute read
-        </p>
+        <div className="lift lift-4 mt-6 flex items-center gap-3 text-sm text-on-band-muted">
+          <span className="flex -space-x-2" aria-hidden="true">
+            {[author, reviewer].map((t) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={t.slug} src={t.photo} alt="" width={36} height={36} className="size-9 rounded-full border-2 border-[#0e2122] object-cover object-top" />
+            ))}
+          </span>
+          <p>
+            Written by{' '}
+            <Link href={`/about/team#${author.slug}`} className="font-semibold text-white hover:underline">
+              {author.name}
+            </Link>
+            , reviewed by{' '}
+            <Link href={`/about/team#${reviewer.slug}`} className="font-semibold text-white hover:underline">
+              {reviewer.name}
+            </Link>
+            <br />
+            Updated <time dateTime={g.updated}>{longDate(g.updated)}</time> · {g.readMinutes} minute read
+          </p>
+        </div>
       </PageHero>
       <ReadingProgress />
       <Container className="py-10 sm:py-20">
@@ -129,6 +150,22 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                 <Button href={g.tool.href} variant="dark">{g.tool.label}</Button>
               </div>
             )}
+            <aside className="not-prose mt-10 flex gap-4 rounded-[var(--radius)] border border-line bg-surface p-5" aria-label="About the writer">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={author.photo} alt="" width={64} height={64} loading="lazy" className="size-16 shrink-0 rounded-2xl object-cover object-top" />
+              <div className="min-w-0">
+                <p className="font-display font-semibold">
+                  <Link href={`/about/team#${author.slug}`} className="hover:underline">
+                    {author.name}
+                  </Link>
+                </p>
+                <p className="text-sm font-semibold text-brand-ink">{author.role}</p>
+                <p className="mt-2 text-sm text-muted">{author.bio}</p>
+                <p className="mt-2 text-xs text-muted">
+                  Reviewed by {reviewer.name}, {reviewer.role}.
+                </p>
+              </div>
+            </aside>
             <p className="mt-10 text-sm text-muted">This guide is general information, not advice for your situation. Rules change, so check the official sources or talk to us before acting on it.</p>
           </article>
         </div>

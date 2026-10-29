@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { KeyDates } from '@/components/tools/key-dates';
 import { ServiceParts } from '@/components/tools/service-parts';
 import { ClientPanel, PageHero } from '@/components/ui/hero';
+import { GuideLinks } from '@/components/ui/guide-links';
 import { FromPrices, GlanceCard, Updated } from '@/components/ui/parts';
 import { ArrowLink, FaqList, JsonLd, Section, SectionHead, serviceIcons } from '@/components/ui/primitives';
 import { audienceBySlug, countries, serviceBySlug, services, type Service } from '@/lib/content';
@@ -97,7 +98,10 @@ function ServicePage({ s }: { s: Service }) {
               <Updated />
             </div>
           </div>
-          <FaqList faqs={s.faqs} />
+          <div>
+            <FaqList faqs={s.faqs} />
+            <GuideLinks slugs={s.guides} />
+          </div>
         </div>
       </Section>
 

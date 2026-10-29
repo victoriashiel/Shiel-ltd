@@ -1,4 +1,9 @@
 import { sources, type FAQ, type Source } from './content';
+import { countryMeta, fromPrice, setupPlan, type CountryKey } from './packages';
+
+// Live package prices, so the cost guide never drifts from the pricing pages.
+const price = (c: CountryKey, s?: Parameters<typeof fromPrice>[1]) => `${countryMeta[c].symbol}${fromPrice(c, s)}`;
+const setup = (c: CountryKey, s: Parameters<typeof setupPlan>[1]) => `${countryMeta[c].symbol}${setupPlan(c, s)?.price}`;
 
 export type Block =
   | { type: 'p'; text: string }
@@ -18,6 +23,9 @@ export type Guide = {
   updated: string;
   readMinutes: number;
   topic: string;
+  // Team slugs: who wrote the guide and who reviewed it.
+  author: string;
+  reviewer: string;
   tool?: { href: string; label: string };
   body: Block[];
   faqs: FAQ[];
@@ -35,6 +43,8 @@ export const guides: Guide[] = [
     updated: '2026-10-26',
     readMinutes: 5,
     topic: 'United Kingdom',
+    author: 'daniel-brooks',
+    reviewer: 'thomas-langford',
     tool: { href: '/tools/corporation-tax-calculator', label: 'Try the corporation tax calculator' },
     body: [
       { type: 'h2', id: 'rates', text: 'The rates for 2026/27' },
@@ -68,6 +78,8 @@ export const guides: Guide[] = [
     updated: '2026-10-26',
     readMinutes: 6,
     topic: 'Ireland',
+    author: 'victoria-locke',
+    reviewer: 'elena-rossi',
     tool: { href: '/tools/filing-deadlines', label: 'Work out your filing dates' },
     body: [
       { type: 'h2', id: 'ct1', text: 'The CT1 corporation tax return' },
@@ -99,6 +111,8 @@ export const guides: Guide[] = [
     updated: '2026-10-26',
     readMinutes: 5,
     topic: 'VAT',
+    author: 'elena-rossi',
+    reviewer: 'victoria-locke',
     tool: { href: '/tools/vat-threshold-checker', label: 'Check your VAT position' },
     body: [
       { type: 'h2', id: 'summary', text: 'The thresholds side by side' },
@@ -130,6 +144,8 @@ export const guides: Guide[] = [
     updated: '2026-10-26',
     readMinutes: 4,
     topic: 'Switching',
+    author: 'elena-rossi',
+    reviewer: 'thomas-langford',
     body: [
       { type: 'h2', id: 'when', text: 'When to switch' },
       { type: 'p', text: 'The easiest moment is just after a year-end filing, because the new accountant starts from a clean, agreed set of figures. That said, there is no bad time if the relationship is not working. What matters is that nobody loses sight of the next deadline during the handover.' },
@@ -157,6 +173,8 @@ export const guides: Guide[] = [
     updated: '2026-10-29',
     readMinutes: 5,
     topic: 'United Kingdom',
+    author: 'daniel-brooks',
+    reviewer: 'thomas-langford',
     body: [
       { type: 'h2', id: 'who', text: 'Who it applies to, and when' },
       { type: 'p', text: 'Making Tax Digital for Income Tax covers individuals with income from self-employment, property, or both. It is phased in by the size of that income, measured from an earlier tax return.' },
@@ -189,6 +207,8 @@ export const guides: Guide[] = [
     updated: '2026-10-29',
     readMinutes: 5,
     topic: 'United Kingdom',
+    author: 'daniel-brooks',
+    reviewer: 'thomas-langford',
     body: [
       { type: 'h2', id: 'what', text: 'What IR35 is for' },
       { type: 'p', text: 'The rules look past the contract between two companies to the working relationship underneath it. If you would be an employee were it not for your company in the middle, the engagement is inside IR35 and the income is taxed much like a salary. If you are genuinely in business on your own account, it is outside.' },
@@ -213,13 +233,15 @@ export const guides: Guide[] = [
   {
     slug: 'eu-vat-one-stop-shop-oss',
     title: 'EU VAT One Stop Shop (OSS) for Online Sellers',
-    description: 'Selling online to EU consumers? Above €10,000 a year you charge the customer’s VAT. How OSS works, its quarterly deadlines, IOSS, and when stock needs a local VAT number.',
+    description: 'Above €10,000 a year of EU cross-border sales you charge the customer’s VAT. How OSS works, its quarterly deadlines, IOSS, and stock held abroad.',
     headline: 'The EU One Stop Shop, *for online sellers*',
     answer: 'Once your sales of goods to consumers in other EU countries, plus any cross-border digital services, pass €10,000 a year, you charge VAT at each customer’s local rate. The One Stop Shop lets you declare and pay all of it in one quarterly return to your home tax authority instead of registering in every country.',
     published: '2026-10-29',
     updated: '2026-10-29',
     readMinutes: 5,
     topic: 'VAT',
+    author: 'elena-rossi',
+    reviewer: 'victoria-locke',
     tool: { href: '/tools/vat-threshold-checker', label: 'Check the VAT registration thresholds' },
     body: [
       { type: 'h2', id: 'threshold', text: 'The €10,000 threshold' },
@@ -252,6 +274,8 @@ export const guides: Guide[] = [
     updated: '2026-10-29',
     readMinutes: 4,
     topic: 'Ireland',
+    author: 'victoria-locke',
+    reviewer: 'thomas-langford',
     body: [
       { type: 'h2', id: 'rule', text: 'The rule' },
       { type: 'p', text: 'Section 137 of the Companies Act 2014 requires every company to have at least one director who is tax resident in an EEA member state. An alternate director does not count. The rule matters most when a company is formed by people living outside Europe, or when the last EEA-resident director steps down or moves away.' },
@@ -269,6 +293,171 @@ export const guides: Guide[] = [
       { q: 'Does a UK-resident director count as EEA-resident?', a: 'No. The UK is not in the EEA, so a company whose only director lives in the UK needs a bond or a section 140 certificate.' },
     ],
     sources: [sources.ieDirectors, sources.ieRealLink],
+  },
+  {
+    slug: 'how-much-does-an-accountant-cost',
+    title: 'How Much Does an Accountant Cost? Ireland, UK & Gibraltar',
+    description: `What a small business accountant costs a month in Ireland, the UK and Gibraltar, what drives the price, and what should be included before you sign.`,
+    headline: 'How much does an accountant cost *for a small business*?',
+    answer: `A fixed monthly fee for a small business typically covers bookkeeping, year-end accounts, tax returns and filings. At Shiel, plans start at ${price('ireland')} a month in Ireland, ${price('united-kingdom')} in the UK and ${price('gibraltar')} in Gibraltar for a company that is not yet trading, with trading plans priced by business type, transaction volume and payroll size.`,
+    published: '2026-10-29',
+    updated: '2026-10-29',
+    readMinutes: 4,
+    topic: 'Pricing',
+    author: 'thomas-langford',
+    reviewer: 'elena-rossi',
+    tool: { href: '/packages', label: 'Build your price' },
+    body: [
+      { type: 'h2', id: 'prices', text: 'Starting prices by business type' },
+      { type: 'table', head: ['Business type', 'Ireland', 'United Kingdom', 'Gibraltar'], rows: [
+        ['Limited company (dormant or pre-trade)', price('ireland', 'limited-company'), price('united-kingdom', 'limited-company'), price('gibraltar', 'limited-company')],
+        ['Sole trader', price('ireland', 'sole-trader'), price('united-kingdom', 'sole-trader'), price('gibraltar', 'sole-trader')],
+        ['Contractor company', price('ireland', 'contractor'), price('united-kingdom', 'contractor'), price('gibraltar', 'contractor')],
+        ['Online seller', price('ireland', 'ecommerce'), price('united-kingdom', 'ecommerce'), price('gibraltar', 'ecommerce')],
+      ] },
+      { type: 'p', text: 'These are monthly starting points. Ireland and the UK exclude VAT where it applies, and Gibraltar excludes government filing fees.' },
+      { type: 'h2', id: 'drivers', text: 'What changes the price' },
+      { type: 'ul', items: ['How many bank transactions, invoices and payouts there are each month.', 'How many people are on the payroll, directors included.', 'Whether you are registered for VAT, and whether you sell across borders.', 'How many sales channels or payment processors need reconciling.', 'Whether the records are up to date when we start.'] },
+      { type: 'h2', id: 'included', text: 'What a fixed fee should include' },
+      { type: 'p', text: 'Compare like with like. A low headline price that leaves out the company tax return, the registry filing or the director’s own return will cost more by the end of the year. Ask for the scope in writing, with any limits, before you sign.' },
+      { type: 'ul', items: ['Bookkeeping from your bank feeds', 'Year-end accounts and the company tax return', 'The annual registry filing', 'The director’s personal return', 'VAT returns where you are registered', 'A named person to ask, with a response time'] },
+      { type: 'h2', id: 'oneoff', text: 'One-off costs' },
+      { type: 'p', text: `Switching to us is free. New businesses can add a one-off setup, for example ${setup('ireland', 'sole-trader')} for a new Irish sole trader or ${setup('united-kingdom', 'contractor')} for a new UK contractor company, and records that have fallen behind are quoted before any catch-up work starts.` },
+    ],
+    faqs: [
+      { q: 'How much does an accountant cost a month for a small company?', a: `Limited company plans start at ${price('ireland', 'limited-company')} a month in Ireland, ${price('united-kingdom', 'limited-company')} in the UK and ${price('gibraltar', 'limited-company')} in Gibraltar for a company that is not yet trading. Trading plans then rise with transactions and payroll.` },
+      { q: 'Is a fixed fee better than paying by the hour?', a: 'For routine work, usually. You know the cost in advance and can ask questions without worrying about the meter running. One-off projects are quoted separately.' },
+      { q: 'Is there a charge to switch accountant?', a: 'Not with us. We handle the handover from your previous accountant at no charge.' },
+    ],
+    sources: [],
+  },
+  {
+    slug: 'gibraltar-corporate-tax',
+    title: 'Gibraltar Corporate Tax: Rates, Payments & Returns',
+    description: 'Gibraltar corporate tax is 15% on income accrued in or derived from Gibraltar. Payments on account, the CT1 return deadline and who pays 20%.',
+    headline: 'Gibraltar corporate tax, *rates and deadlines*',
+    answer: 'Gibraltar companies pay corporate tax at 15% on income accrued in or derived from Gibraltar, for accounting periods from 1 July 2024. Utility, energy and fuel suppliers and companies abusing a dominant position pay 20%. Tax is paid in two payments on account, by 28 February and 30 September, with the return and any balance due nine months after the end of the month the period ends.',
+    published: '2026-10-29',
+    updated: '2026-10-29',
+    readMinutes: 5,
+    topic: 'Gibraltar',
+    author: 'amelia-fraser',
+    reviewer: 'thomas-langford',
+    tool: { href: '/tools/corporation-tax-calculator', label: 'Estimate your corporate tax' },
+    body: [
+      { type: 'h2', id: 'rates', text: 'The rates' },
+      { type: 'table', head: ['Company', 'Rate'], rows: [['Most companies', '15%'], ['Utility, energy and fuel suppliers', '20%'], ['Companies abusing a dominant market position', '20%']] },
+      { type: 'p', text: 'The standard rate rose from 12.5% to 15% from 1 July 2024. Where an accounting period straddles that date, the higher rate applies to the months on or after it.' },
+      { type: 'h2', id: 'territorial', text: 'What is taxed' },
+      { type: 'p', text: 'Gibraltar taxes companies on a territorial basis. Profits are taxable where they are accrued in or derived from Gibraltar, which turns on where the activities that generate the profit take place. Working out the source of income is often the most important question for a Gibraltar company with customers or operations elsewhere.' },
+      { type: 'h2', id: 'payments', text: 'Payments on account' },
+      { type: 'p', text: 'Companies pay tax during the year in two payments on account, each normally half of the company’s tax for the previous period. Any balance is settled when the return is filed.' },
+      { type: 'table', head: ['Payment', 'Due'], rows: [['First payment on account', '28 February'], ['Second payment on account', '30 September'], ['Return and any balance', 'Nine months after the end of the month the period ends']] },
+      { type: 'h2', id: 'return', text: 'The Corporate Tax Return' },
+      { type: 'p', text: 'The CT1 return is filed with the Income Tax Office together with the company’s accounts. A 31 December year-end, for example, gives a deadline of 30 September.' },
+      { type: 'note', text: 'Gibraltar has no VAT, so the corporate tax return, payroll and the Companies House annual return are the main recurring filings.' },
+    ],
+    faqs: [
+      { q: 'What is the corporate tax rate in Gibraltar?', a: '15% for most companies from 1 July 2024, or 20% for utility, energy and fuel suppliers and companies abusing a dominant market position.' },
+      { q: 'When are Gibraltar payments on account due?', a: 'By 28 February and 30 September, each normally half of the previous period’s tax.' },
+      { q: 'When is the Gibraltar CT1 due?', a: 'Nine months after the end of the month in which the accounting period ends, so 30 September for a 31 December year-end.' },
+      { q: 'Is foreign income taxed in Gibraltar?', a: 'Gibraltar taxes income accrued in or derived from Gibraltar. Whether income from abroad falls in depends on where the activities generating it take place, so it needs looking at case by case.' },
+    ],
+    sources: [sources.giGuidance, sources.giCT, sources.giPwC],
+  },
+  {
+    slug: 'sole-trader-or-limited-company-uk',
+    title: 'Sole Trader or Limited Company in the UK? 2026/27 Guide',
+    description: 'How sole traders and limited company owners are taxed in the UK in 2026/27, with the new dividend rates, and the points that decide which suits you.',
+    headline: 'Sole trader or limited company, *in the UK*?',
+    answer: 'A sole trader pays income tax and Class 4 National Insurance on all profits. A limited company pays Corporation Tax at 19% to 25%, and you then take money out as salary or dividends, taxed from April 2026 at 10.75%, 35.75% or 39.35%. A company can cost less tax at higher profits, but brings more filings, so the answer depends on your profit and what you take out.',
+    published: '2026-10-29',
+    updated: '2026-10-29',
+    readMinutes: 6,
+    topic: 'United Kingdom',
+    author: 'daniel-brooks',
+    reviewer: 'thomas-langford',
+    tool: { href: '/tools/corporation-tax-calculator', label: 'Estimate Corporation Tax' },
+    body: [
+      { type: 'h2', id: 'sole', text: 'How a sole trader is taxed' },
+      { type: 'p', text: 'All of the profit is yours and is taxed through Self Assessment, whether you draw it or not. In 2026/27 the personal allowance is £12,570, income tax is 20% up to £50,270, 40% above that and 45% over £125,140, and Class 4 National Insurance is 6% on profits between £12,570 and £50,270 and 2% above.' },
+      { type: 'h2', id: 'company', text: 'How a company owner is taxed' },
+      { type: 'p', text: 'The company pays Corporation Tax on its profit: 19% up to £50,000, 25% above £250,000, with Marginal Relief between. Money then reaches you as salary, taxed through payroll, or as dividends from profits after tax.' },
+      { type: 'table', head: ['Dividend tax band', '2026/27 rate'], rows: [['Within the £500 dividend allowance', '0%'], ['Basic rate', '10.75%'], ['Higher rate', '35.75%'], ['Additional rate', '39.35%']] },
+      { type: 'p', text: 'Employer National Insurance is 15% on salary above £5,000. The Employment Allowance, worth up to £10,500, is not available where the only person on the payroll is a sole director, so the salary level needs setting with that in mind.' },
+      { type: 'h2', id: 'compare', text: 'What tips the decision' },
+      { type: 'ul', items: ['Profit level: the gap in tax usually only opens up at higher profits, and the 2026 dividend rate rise has narrowed it.', 'What you take out: profit left in the company is taxed only at Corporation Tax rates until you draw it.', 'Limited liability: a company separates business debts from your personal assets, with exceptions such as personal guarantees.', 'Admin: a company files statutory accounts, a CT600 and a confirmation statement, runs payroll and keeps its directors’ identities verified.', 'How clients see you: some contracts and larger clients will only work with a company.'] },
+      { type: 'note', text: 'We run the numbers both ways with your own figures before you decide, and handle the switch if a company makes sense.' },
+    ],
+    faqs: [
+      { q: 'What are the UK dividend tax rates for 2026/27?', a: '10.75% at basic rate, 35.75% at higher rate and 39.35% at additional rate, after a £500 dividend allowance.' },
+      { q: 'At what profit is a limited company worth it?', a: 'There is no single figure. It depends on how much you draw, other income and the extra running costs, so it is worth modelling with your own numbers.' },
+      { q: 'Can a sole director claim the Employment Allowance?', a: 'No. A company whose only employee paid above the secondary threshold is its sole director cannot claim it.' },
+      { q: 'Can I switch from sole trader to a company later?', a: 'Yes. Many businesses start as sole traders and incorporate as profits grow. The timing and how assets move across are worth planning.' },
+    ],
+    sources: [sources.ukIncomeTax, sources.ukDividends, sources.ukEmployer, sources.ukCT],
+  },
+  {
+    slug: 'set-up-a-limited-company-ireland',
+    title: 'How to Set Up a Limited Company in Ireland: Step by Step',
+    description: 'Setting up an Irish LTD: directors and secretary, CRO registration, Revenue registration and the beneficial ownership filing due within five months.',
+    headline: 'Setting up a limited company *in Ireland*',
+    answer: 'An Irish private company limited by shares (LTD) is registered with the Companies Registration Office. It needs at least one director over 18 and a company secretary who is not the sole director, at least one EEA-resident director or a bond instead, and its beneficial owners must be registered within five months of incorporation. It then registers with Revenue for corporation tax and, where needed, VAT and payroll.',
+    published: '2026-10-29',
+    updated: '2026-10-29',
+    readMinutes: 5,
+    topic: 'Ireland',
+    author: 'victoria-locke',
+    reviewer: 'elena-rossi',
+    body: [
+      { type: 'h2', id: 'people', text: 'The people you need' },
+      { type: 'ul', items: ['At least one director, aged 18 or over.', 'A company secretary. If there is only one director, the secretary must be someone else.', 'At least one director resident in the EEA, or a section 137 bond or section 140 certificate instead.', 'At least one shareholder.'] },
+      { type: 'h2', id: 'steps', text: 'The steps, in order' },
+      { type: 'table', head: ['Step', 'With', 'When'], rows: [['Choose a name and agree the constitution', 'CRO', 'Before incorporation'], ['Register the company', 'CRO', 'Day one'], ['Register for corporation tax, and VAT and payroll where needed', 'Revenue', 'Once incorporated, before trading'], ['Register the beneficial owners', 'CRO beneficial ownership register', 'Within five months of incorporation'], ['Set up bookkeeping and a business bank account', 'Your accountant and bank', 'Before the first transaction']] },
+      { type: 'h2', id: 'beneficial', text: 'Beneficial ownership' },
+      { type: 'p', text: 'Anyone who owns or controls 25% or more of the company, directly or indirectly, is generally a beneficial owner. The filing is made online, there is no fee, and later changes must be notified within 14 days. Failing to file is an offence.' },
+      { type: 'h2', id: 'first-year', text: 'Your first-year dates' },
+      { type: 'p', text: 'The first CT1 follows the end of the first accounting period. The company’s first Annual Return Date is six months after incorporation, and that first B1 is filed within 56 days of it, without financial statements. A company that has just started trading may not need to pay preliminary tax in its first period if its liability is small.' },
+      { type: 'note', text: 'We can form the company, handle the Revenue and beneficial ownership registrations in the right order, and put every first-year date in one calendar.' },
+    ],
+    faqs: [
+      { q: 'Can an Irish limited company have one director?', a: 'Yes, a private company limited by shares can have a single director, but it must then have a separate person as company secretary.' },
+      { q: 'When must beneficial owners be registered?', a: 'Within five months of incorporation, and changes within 14 days.' },
+      { q: 'Do I need an EEA-resident director?', a: 'At least one director must be resident in the EEA, unless the company holds a section 137 bond or a section 140 certificate.' },
+      { q: 'When is the first annual return due?', a: 'The first Annual Return Date is six months after incorporation, and the B1 is due within 56 days of it. Financial statements are not needed with the first return.' },
+    ],
+    sources: [sources.ieIncorporation, sources.ieOfficers, sources.ieBeneficial, sources.ieDirectors],
+  },
+  {
+    slug: 'companies-house-identity-verification',
+    title: 'Companies House Identity Verification for Directors',
+    description: 'UK company directors and PSCs must verify their identity with Companies House. Existing directors do it with their next confirmation statement, by November 2026.',
+    headline: 'Companies House identity verification, *what directors need to do*',
+    answer: 'Since 18 November 2025, new UK company directors and people with significant control must verify their identity with Companies House. Existing directors have a 12-month transition period and confirm they are verified when the company files its next confirmation statement, so every director should be verified by mid-November 2026 at the latest.',
+    published: '2026-10-29',
+    updated: '2026-10-29',
+    readMinutes: 4,
+    topic: 'United Kingdom',
+    author: 'elena-rossi',
+    reviewer: 'daniel-brooks',
+    body: [
+      { type: 'h2', id: 'who', text: 'Who has to verify' },
+      { type: 'ul', items: ['Every company director, including sole directors of small companies.', 'People with significant control (PSCs).'] },
+      { type: 'h2', id: 'when', text: 'When' },
+      { type: 'table', head: ['You are', 'Verify'], rows: [['A new director appointed since 18 November 2025', 'Before you are appointed'], ['An existing director', 'By the time the company files its next confirmation statement, within the 12-month transition'], ['A person with significant control', 'By the due date shown against your name on the register']] },
+      { type: 'h2', id: 'how', text: 'How' },
+      { type: 'p', text: 'Verification is free online through GOV.UK, or through an Authorised Corporate Service Provider. Once it is done you receive a personal code, which is used to confirm your identity on the company’s filings. The public register then shows a verified label, or the due date if verification is still outstanding.' },
+      { type: 'h2', id: 'late', text: 'If it is not done' },
+      { type: 'p', text: 'Directors confirm their verification as part of the confirmation statement, so an unverified director holds up that filing, and failing to file it on time is an offence. The Insolvency Service has already brought prosecutions, so leaving it until the last week is a risk.' },
+      { type: 'note', text: 'We check which of your directors and PSCs still need to verify, and file the confirmation statement once everyone has.' },
+    ],
+    faqs: [
+      { q: 'When do existing directors need to verify their identity?', a: 'When the company files its next confirmation statement during the 12-month transition that started on 18 November 2025.' },
+      { q: 'Does Companies House identity verification cost anything?', a: 'Not if you do it yourself online through GOV.UK. Authorised Corporate Service Providers may charge.' },
+      { q: 'Do people with significant control need to verify?', a: 'Yes. PSCs have their own due dates, shown on the Companies House register.' },
+      { q: 'What happens if a director does not verify?', a: 'It holds up the company’s confirmation statement, and failing to file that on time is an offence. Directors can also be prosecuted.' },
+    ],
+    sources: [sources.ukIDV, sources.ukIDVRollout, sources.ukCS],
   },
 ];
 
